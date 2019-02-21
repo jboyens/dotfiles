@@ -15,7 +15,7 @@ ARCH=$DOTS/base/arch-desktop
 [[ -f $ARCH/Xmodmap    ]] && xmodmap $ARCH/Xmodmap
 
 # set wallpaper
-[[ -e ~/wallpaper ]] && feh --no-fehbg --image-bg black --bg-center ~/wallpaper
+[[ -e ~/wallpaper ]] && feh --no-fehbg --image-bg black --bg-max ~/wallpaper
 
 # Let me know
 $DOTS/bin/ding startup
