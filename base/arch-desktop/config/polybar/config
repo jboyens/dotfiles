@@ -70,7 +70,7 @@ font-2 = "siji:pixelsize=10;2"
 
 modules-left = volume pad cpu memory pad pkg mail
 modules-center = bspwm
-modules-right = battery wlan app-rslsync app-redshift pad date
+modules-right = battery wlan app-redshift pad date
 
 ;tray-position = center
 ;tray-padding = 2
