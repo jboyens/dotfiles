@@ -6,8 +6,13 @@ source $DOTS/env
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 [[ -e ~/.Xauthority ]] && mv -f ~/.Xauthority "$XAUTHORITY"
 
-# TODO Check for external keyboard first
-setxkbmap dvorak
+# Check for a USB Device with the vendor 0xfeed (Ergodox EZ)
+if [[ -z "$(lsusb -d 0xfeed:)" ]]
+then
+      setxkbmap dvorak
+else
+      setxkbmap us
+fi
 
 #
 ARCH=$DOTS/base/arch-desktop
