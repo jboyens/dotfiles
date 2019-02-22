@@ -21,7 +21,7 @@ fi
 #
 # Aesthetics
 #
-
+bspc config focus_follows_pointer true
 
 bspc config split_ratio          0.50
 bspc config gapless_monocle      true
