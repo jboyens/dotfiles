@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 offlineimap -o
-mu index --maildir ~/.mail
+mu index --maildir ~/Mail
