@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+for MONITOR in $(bspc query --monitors --names)
+do
+	bspc monitor $MONITOR -r
+end
+

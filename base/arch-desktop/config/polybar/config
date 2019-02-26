@@ -64,9 +64,9 @@ padding-right = 2
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = "Misc Tamsyn:pixelsize=12;2"
-font-1 = "Wuncon Siji:pixelsize=12;2"
-font-2 = "siji:pixelsize=10;2"
+font-0 = "Misc Tamsyn:pixelsize=17;2"
+font-1 = "Wuncon Siji:pixelsize=17;2"
+font-2 = "siji:pixelsize=15;2"
 
 modules-left = cpu memory pad pkg mail pad volume
 modules-center = bspwm
@@ -201,7 +201,7 @@ bar-used-empty-foreground = ${colors.fg-alt}
 
 [module/wlan]
 type = internal/network
-interface = ${env:WLP:wlp3s0}
+interface = ${env:WLP:wifi0}
 interval = 3.0
 
 format-connected = <ramp-signal>

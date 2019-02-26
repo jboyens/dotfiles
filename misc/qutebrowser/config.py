@@ -170,7 +170,6 @@ c.hints.border = '6px solid #18191b'
 # c.hints.scatter = True
 # c.hints.uppercase = False
 
-
 ## Options
 # c.history_gap_interval = 30
 # c.ignore_case = 'smart'

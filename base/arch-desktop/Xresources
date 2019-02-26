@@ -106,6 +106,6 @@ urxvt-stream.font:             xft:Fira Mono:pixelsize=17
 
 URxvt*.lineSpace:              0
 URxvt*.letterSpace:            -1
-URxvt*.font:                   xft:Fira Mono:pixelsize=11
-urxvt-scratch.font:            xft:Fira Mono:pixelsize=16
-urxvt-fuzzy.font:              xft:Fira Mono:pixelsize=20
+URxvt*.font:                   xft:Fira Mono:pixelsize=16:antialias=true
+urxvt-scratch.font:            xft:Fira Mono:pixelsize=21:antialias=true
+urxvt-fuzzy.font:              xft:Fira Mono:pixelsize=25:antialias=true

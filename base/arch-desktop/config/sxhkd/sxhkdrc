@@ -17,9 +17,8 @@ mod4 + space
     urxvt-app-launcher
 mod4 + backslash
     urxvt-pass-manager
-mod4 + mod1 + backslash
-    firefox-current
-#    urxvt-pass-manager -r
+mod4 + ctrl + slash
+    firefox
 
 # reload sxhkd
 mod4 + ctrl + shift + Escape
@@ -72,7 +71,7 @@ mod4 + alt + Escape
 
 # close and kill
 mod4 + {_,shift + }q
-    bspc node -{c,k}
+    bspc node --{close,kill}
 
 #
 # state/flags
@@ -108,7 +107,7 @@ mod4 + bracket{left,right}
     bspc desktop -f focused#{prev,next}.local
 
 mod4 + ctrl + {_,shift +}{1-9,0}
-    bspc {desktop -f,node -d} {1-9,10}
+    bspc {desktop -f,node -d} '^{1-9,10}'
 
 
 #
