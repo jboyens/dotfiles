@@ -3,6 +3,8 @@ root = true
 
 [*]
 end_of_line = lf
+indent_size = 4
+indent_style = space
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
@@ -10,7 +12,7 @@ insert_final_newline = true
 [{Vagrant,Cap,Rake,Gem}file]
 indent_size = 2
 
-[*.{el,rb,cr,lua,y{a,}ml,json,toml,nim,coffee,css,s{a,c}ss,styl,slim,jade,pug,html,{,z}sh}]
+[*.{el,rb,cr,lua,y{a,}ml,json,toml,coffee,css,s{a,c}ss,styl,slim,jade,pug,html,{,z}sh}]
 indent_size = 2
 
 [*.go]

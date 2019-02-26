@@ -8,12 +8,12 @@
 (session-info "toplevel"
     (factory-entry "gimp-empty-image-window")
     (position 2491 22)
-    (size 1247 1520)
-    (open-on-exit))
+    (size 1247 1520))
 (session-info "toplevel"
     (factory-entry "gimp-single-image-window")
-    (position 1222 22)
-    (size 2516 1520)
+    (position 8 8)
+    (size 828 1034)
+    (monitor 0)
     (open-on-exit)
     (aux-info
         (left-docks-width "58")
@@ -52,7 +52,7 @@
                 (aux-info
                     (show-button-bar "true"))))
         (book
-            (position 967)
+            (position 774)
             (current-page 0)
             (dockable "gimp-tool-options"
                 (tab-style automatic)
@@ -72,14 +72,23 @@
                     (show-button-bar "true"))))))
 (session-info "toplevel"
     (factory-entry "gimp-preferences-dialog")
-    (position 2098 484))
+    (position 383 447)
+    (size 957 606))
 (session-info "toplevel"
     (factory-entry "gimp-file-open-dialog")
-    (position 1975 468)
+    (position 1550 468)
     (size 1010 664))
+(session-info "toplevel"
+    (factory-entry "gimp-image-new-dialog")
+    (position 1089 586))
+(session-info "toplevel"
+    (factory-entry "gimp-operation-tool-dialog")
+    (position 1089 637))
 
 (hide-docks no)
 (single-window-mode yes)
+(show-tabs yes)
+(tabs-position 0)
 (last-tip-shown 0)
 
 # end of sessionrc

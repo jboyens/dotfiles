@@ -1,8 +1,13 @@
 import os
+import glob
 
+## Per-domain settings
+c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.dotfiles/misc/qutebrowser/css/*.css'))
+
+
+## General config
 # c.confirm_quit = ['never']
-
-c.editor.command = [os.environ['EDITOR'], '-f', '{}']
+c.editor.command = ['emacsclient', '-c', '-a', ' ', '+{line}:{column}', '{}']
 
 # c.colors.completion.category.fg = 'white'
 c.colors.completion.category.bg = '#343537'
@@ -99,55 +104,27 @@ c.completion.web_history.max_items = 2500
 # c.completion.show = 'always'
 # c.completion.shrink = False
 # c.completion.timestamp_format = '%Y-%m-%d'
-# c.completion.web_history_max_items = -1
+# c.completion.web_history.max_items = -1
 
+c.content.mute = True   # mute tabs by default
 c.content.default_encoding = 'utf-8'
 # c.content.developer_extras = True
 c.content.javascript.enabled = True
 c.content.local_storage = True
-# c.content.notifications = 'false'
-# c.content.pdfjs = False
 c.content.plugins = True
-# c.content.cache.appcache = True
-# c.content.cache.maximum_pages = 0
-# c.content.cache.size = None
-# c.content.cookies.accept = 'no-3rdparty'
-# c.content.cookies.store = True
-# c.content.dns_prefetch = True
-# c.content.frame_flattening = False
-# c.content.geolocation = 'ask'
-# c.content.headers.accept_language = 'en-US,en'
-# c.content.headers.custom = {}
-# c.content.headers.do_not_track = True
-# c.content.headers.referer = 'same-domain'
-# c.content.headers.user_agent = None
-# c.content.host_blocking.enabled = True
-# c.content.host_blocking.lists = ['https://www.malwaredomainlist.com/hostslist/hosts.txt', 'http://someonewhocares.org/hosts/hosts', 'http://winhelp2002.mvps.org/hosts.zip', 'http://malwaredomains.lehigh.edu/files/justdomains.zip', 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext']
-# c.content.host_blocking.whitelist = ['piwik.org']
-# c.content.hyperlink_auditing = False
-# c.content.images = True
-# c.content.javascript.alert = True
-# c.content.javascript.can_access_clipboard = False
-# c.content.javascript.can_close_tabs = False
-# c.content.javascript.can_open_tabs_automatically = False
-# c.content.javascript.log = {'unknown': 'debug', 'info': 'debug', 'warning': 'debug', 'error': 'debug'}
-# c.content.javascript.modal_dialog = False
-# c.content.javascript.prompt = True
-# c.content.local_content_can_access_file_urls = True
-# c.content.local_content_can_access_remote_urls = False
-# c.content.media_capture = 'ask'
-# c.content.netrc_file = None
-# c.content.print_element_backgrounds = True
-# c.content.private_browsing = False
-# c.content.proxy = 'system'
-# c.content.proxy_dns_requests = True
-# c.content.ssl_strict = 'ask'
-# c.content.user_stylesheets = []
-# c.content.webgl = True
-# c.content.xss_auditing = False
+c.content.host_blocking.lists = [
+    'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'
+    # 'https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/social/hosts'
+    # 'https://www.malwaredomainlist.com/hostslist/hosts.txt',
+    # 'http://someonewhocares.org/hosts/hosts',
+    # 'http://winhelp2002.mvps.org/hosts.zip',
+    # 'http://malwaredomains.lehigh.edu/files/justdomains.zip',
+    # 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext'
+]
+c.content.host_blocking.whitelist = []
 
-c.downloads.position = 'top'
-# c.downloads.location.directory = None
+c.downloads.position = 'bottom'
+c.downloads.location.directory = os.path.expanduser("~/downloads")
 # c.downloads.location.prompt = True
 # c.downloads.location.remember = True
 # c.downloads.location.suggestion = 'path'
@@ -155,26 +132,26 @@ c.downloads.position = 'top'
 
 c.editor.encoding = 'utf-8'
 
-# c.fonts.completion.category = 'bold 8pt monospace'
-# c.fonts.completion.entry = '8pt monospace'
-# c.fonts.debug_console = '8pt monospace'
-# c.fonts.downloads = '8pt monospace'
-# c.fonts.hints = 'bold 10pt monospace'
-# c.fonts.keyhint = '8pt monospace'
-# c.fonts.messages.error = '8pt monospace'
-# c.fonts.messages.info = '8pt monospace'
-# c.fonts.messages.warning = '8pt monospace'
-# c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
-# c.fonts.prompts = '8pt sans-serif'
-# c.fonts.statusbar = '8pt monospace'
-# c.fonts.tabs = '8pt monospace'
+c.fonts.completion.category = 'bold 7pt monospace'
+c.fonts.completion.entry = '6pt monospace'
+c.fonts.debug_console = '8pt monospace'
+c.fonts.downloads = '8pt monospace'
+c.fonts.hints = 'bold 10pt monospace'
+c.fonts.keyhint = '8pt monospace'
+c.fonts.messages.error = '8pt monospace'
+c.fonts.messages.info = '8pt monospace'
+c.fonts.messages.warning = '8pt monospace'
+c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+c.fonts.prompts = '8pt sans-serif'
+c.fonts.statusbar = '8pt monospace'
+c.fonts.tabs = '8pt monospace'
 # c.fonts.web.family.cursive = ''
 # c.fonts.web.family.fantasy = ''
 # c.fonts.web.family.fixed = ''
 # c.fonts.web.family.sans_serif = ''
 # c.fonts.web.family.serif = ''
 # c.fonts.web.family.standard = ''
-# c.fonts.web.size.default = 16
+c.fonts.web.size.default = 14
 # c.fonts.web.size.default_fixed = 13
 # c.fonts.web.size.minimum = 0
 # c.fonts.web.size.minimum_logical = 6
@@ -216,7 +193,7 @@ c.hints.border = '6px solid #18191b'
 # c.qt.args = []
 # c.qt.force_platform = None
 # c.qt.force_software_rendering = False
-# c.scrolling.bar = False
+c.scrolling.bar = 'when-searching'
 c.scrolling.smooth = False
 # c.session_default_name = None
 # c.spellcheck.languages = []
@@ -234,14 +211,14 @@ c.tabs.mousewheel_switching = False
 # c.tabs.last_close = 'ignore'
 # c.tabs.new_position.related = 'next'
 # c.tabs.new_position.unrelated = 'last'
-# c.tabs.position = 'top'
+c.tabs.position = 'bottom'
 # c.tabs.select_on_remove = 'next'
 c.tabs.show = 'multiple'
 # c.tabs.show_switching_delay = 800
 # c.tabs.tabs_are_windows = False
 # c.tabs.title.alignment = 'left'
-# c.tabs.title.format = '{index}: {title}'
-# c.tabs.title.format_pinned = '{index}'
+c.tabs.title.format = '{title} - {host}'
+c.tabs.title.format_pinned = ''
 # c.tabs.width.bar = '20%'
 # c.tabs.width.indicator = 3
 # c.tabs.wrap = True
@@ -254,7 +231,7 @@ c.tabs.show = 'multiple'
 # c.url.yank_ignored_parameters = ['ref', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
 
 # c.window.hide_wayland_decoration = False
-# c.window.title_format = '{perc}{title}{title_sep}qutebrowser'
+c.window.title_format = '{title} - {host} - qutebrowser'
 
 # c.zoom.default = '100%'
 # c.zoom.levels = ['25%', '33%', '50%', '67%', '75%', '90%', '100%', '110%', '125%', '150%', '175%', '200%', '250%', '300%', '400%', '500%']

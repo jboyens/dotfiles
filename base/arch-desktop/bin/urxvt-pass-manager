@@ -9,8 +9,8 @@
 win=$(xdotool getactivewindow)
 if [[ -n $win ]]; then
     winname=$(xdotool getwindowname $win)
-    if [[ $winname =~ " - Mozilla Firefox$" ]]; then
-        url=${winname% - Mozilla*}
+    if [[ $winname =~ " - qutebrowser$" ]]; then
+        url=${winname% - qutebrowser}
         url=${url##* - }
         while (( ${#url//[^.]/} > 1 )); do
             url=${url#*.}

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import imaplib
+import io
 import os
 import sys
 import socket
@@ -11,7 +12,7 @@ CACHE_FILE = "/tmp/polybar-mail"
 ICON = ""
 
 try:
-    import gnupg
+    import gpgme
     from pathlib import Path
 except ImportError:
     print("%{{F{}}}*".format("#555856", ICON))
@@ -41,8 +42,32 @@ def unread_count(address, password):
     return len(resp[0].split())
 
 
+# def unread(address, password):
+#     imap = imaplib.IMAP4_SSL('imap.gmail.com', 993)
+#     imap.login(address, password)
+#     imap.select('INBOX')
+
+#     mails = []
+#     status, resp = imap.uid('search', None, 'UNSEEN')
+#     if status == 'OK':
+#         uids = ','.join(resp[1].split(' '))
+#         status, resp = imap.uid('fetch', uids, '(RFC822)')
+#         if status == 'OK':
+#             for email in resp:
+#                 mails.append(email[1])
+
+#     imap.close()
+#     imap.logout()
+
+#     return mails
+
+
+def notify(title, message):
+    Popen(["notify-send", "-u", "critical", title, message])
+
+
 def ding():
-    Popen(["{}/bin/ding".format(os.getenv("DOTFILES", os.expanduser("~/.dotfiles")))])
+    Popen(["{}/bin/ding".format(os.getenv("DOTFILES", os.path.expanduser("~/.dotfiles")))])
 
 #
 def main():
@@ -54,28 +79,27 @@ def main():
         if not secrets.exists():
             raise IOError("Can't find secrets")
 
-        gpg = gnupg.GPG()
-        gpgdata = gpg.decrypt(secrets.read_bytes())
-        if not gpgdata.ok:
-            raise IOError("Couldn't decrypt secrets: {}".format(gpgdata.status))
-        accounts = [line.split(':') for line in gpgdata.data.decode('utf-8').strip().split('\n')]
+        c = gpgme.Context()
+        data = io.BytesIO(secrets.read_bytes())
+        gpgdata = io.BytesIO()
+        c.decrypt(data, gpgdata)
+        accounts = [line.split(':') for line in gpgdata.getvalue().decode('utf-8').strip().split('\n')]
 
-        last_total = 0
+        last_total = None
         cache = Path(CACHE_FILE)
         if cache.exists():
-            cache_text = cache.read_text()
-            last_total = int(cache.read_text())
+            last_total = cache.read_text()
 
-        total = 0
+        total = []
         for addr, pwd in accounts:
-            total += unread_count(addr, pwd)
+            total.append(str(unread_count(addr, pwd)))
 
-        if total != last_total:
-            ding()
-        if total != 0:
-            print("%{{F{}}}{}{}".format("#f0c674", ICON, total))
+        if total != [0] * len(accounts):
+            print("%{{F{}}}{}{}".format("#f0c674", ICON, ",".join(total)))
         else:
             print("%{{F{}}}{}".format("#555856", ICON))
+        if str(total) != last_total:
+            ding()
 
         cache.write_text(str(total))
     except IOError as e:

@@ -34,7 +34,7 @@ alert = ${colors.red}
 
 [global/wm]
 margin-top = 0
-margin-bottom = 35
+margin-bottom = 28
 
 [bar/main]
 monitor = ${env:MONITOR}
@@ -49,7 +49,7 @@ foreground = ${colors.fg}
 width = 100%
 height = 24
 offset-x = 0
-offset-y = 16
+offset-y = 12
 bottom = 1
 
 overline-size = 0
@@ -59,8 +59,8 @@ underline-color = #00f
 
 border-bottom-size = 0
 
-padding-left = 4
-padding-right = 4
+padding-left = 2
+padding-right = 2
 module-margin-left = 0
 module-margin-right = 0
 
@@ -68,7 +68,7 @@ font-0 = "Misc Tamsyn:pixelsize=12;2"
 font-1 = "Wuncon Siji:pixelsize=12;2"
 font-2 = "siji:pixelsize=10;2"
 
-modules-left = volume pad cpu memory pad pkg mail
+modules-left = cpu memory pad pkg mail pad volume
 modules-center = bspwm
 modules-right = battery wlan app-redshift pad date
 
@@ -320,7 +320,8 @@ format-padding = 1
 type = custom/ipc
 hook-0 = ~/.config/polybar/modules/mail
 initial = 1
-click-left = polybar-msg -p %pid% hook mail 1
+click-left = xdg-open https://mail.google.com/
+click-right = polybar-msg -p %pid% hook mail 1
 format-padding-right = 1
 
 [module/app-redshift]
