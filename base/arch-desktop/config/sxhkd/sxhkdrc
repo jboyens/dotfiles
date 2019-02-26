@@ -19,6 +19,7 @@ mod4 + backslash
     urxvt-pass-manager
 mod4 + ctrl + slash
     firefox
+    #urxvt-pass-manager -r
 
 # reload sxhkd
 mod4 + ctrl + shift + Escape
@@ -32,9 +33,9 @@ mod4 + ctrl + shift + Escape
 Print
     ssclip
 mod4 + Print
-    maim ~/screenshots/$(date +%F-%T).png && notify-send "Fullscreen screenshot saved"
-mod4 + shift + Print
     rec -s ~/screenshots/$(date +%F-%T).mp4
+mod4 + shift + ctrl + Print
+    maim ~/screenshots/$(date +%F-%T).png && notify-send "Fullscreen screenshot saved"
 
 Pause
     mpc -q toggle   # play/pause music

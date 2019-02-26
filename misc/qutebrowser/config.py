@@ -9,6 +9,7 @@ c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.dotfiles/misc/qute
 # c.confirm_quit = ['never']
 c.editor.command = ['emacsclient', '-c', '-a', ' ', '+{line}:{column}', '{}']
 
+## Colors
 # c.colors.completion.category.fg = 'white'
 c.colors.completion.category.bg = '#343537'
 # c.colors.completion.category.border.bottom = 'black'
@@ -21,8 +22,8 @@ c.colors.completion.item.selected.bg = '#545557'
 # c.colors.completion.item.selected.border.bottom = '#bbbb00'
 c.colors.completion.item.selected.border.top = '#545557'
 c.colors.completion.match.fg = '#b5bd68'
-c.colors.completion.scrollbar.fg = '#343537'
-# c.colors.completion.scrollbar.bg = '#333333'
+c.colors.completion.scrollbar.fg = '#c678dd'
+c.colors.completion.scrollbar.bg = c.colors.completion.category.bg
 # c.colors.downloads.bar.bg = 'black'
 # c.colors.downloads.error.bg = 'red'
 # c.colors.downloads.error.fg = 'white'
@@ -58,7 +59,6 @@ c.colors.hints.match.fg = '#b5bd68'
 # c.colors.prompts.selected.bg = 'grey'
 # c.colors.prompts.border = '1px solid gray'
 
-c.statusbar.padding = {'top': 4, 'bottom': 4, 'left': 4, 'right': 4}
 # c.colors.statusbar.caret.bg = 'purple'
 # c.colors.statusbar.caret.fg = 'white'
 # c.colors.statusbar.caret.selection.bg = '#a12dff'
@@ -89,37 +89,37 @@ c.colors.tabs.selected.even.bg = '#38393b'
 c.colors.tabs.selected.even.fg = c.colors.statusbar.command.fg
 c.colors.tabs.selected.odd.bg = c.colors.tabs.selected.even.bg
 c.colors.tabs.selected.odd.fg = c.colors.tabs.selected.even.fg
-# c.colors.tabs.indicator.error = '#ff0000'
-# c.colors.tabs.indicator.start = '#0000aa'
-# c.colors.tabs.indicator.stop = '#00aa00'
+c.colors.tabs.indicator.error = '#da8548'
+c.colors.tabs.indicator.start = '#c678dd'
+c.colors.tabs.indicator.stop = '#51afef'
 # c.colors.tabs.indicator.system = 'rgb'
 # c.colors.webpage.bg = 'white'
 
-c.completion.height = '40%'
-c.completion.web_history.max_items = 2500
+c.completion.height = '30%'
+c.completion.web_history.max_items = 1500
 # c.completion.cmd_history_max_items = 100
 # c.completion.quick = True
-# c.completion.scrollbar.padding = 2
-# c.completion.scrollbar.width = 12
+c.completion.scrollbar.padding = 0
+c.completion.scrollbar.width = 6
 # c.completion.show = 'always'
 # c.completion.shrink = False
 # c.completion.timestamp_format = '%Y-%m-%d'
 # c.completion.web_history.max_items = -1
 
-c.content.mute = True   # mute tabs by default
+c.content.mute = True        # mute tabs by default
+c.content.autoplay = False   # don't autoplay videos
 c.content.default_encoding = 'utf-8'
 # c.content.developer_extras = True
 c.content.javascript.enabled = True
 c.content.local_storage = True
 c.content.plugins = True
 c.content.host_blocking.lists = [
-    'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'
-    # 'https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/social/hosts'
+    'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts',
+    'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext'
     # 'https://www.malwaredomainlist.com/hostslist/hosts.txt',
     # 'http://someonewhocares.org/hosts/hosts',
     # 'http://winhelp2002.mvps.org/hosts.zip',
     # 'http://malwaredomains.lehigh.edu/files/justdomains.zip',
-    # 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext'
 ]
 c.content.host_blocking.whitelist = []
 
@@ -132,8 +132,8 @@ c.downloads.location.directory = os.path.expanduser("~/downloads")
 
 c.editor.encoding = 'utf-8'
 
-c.fonts.completion.category = 'bold 7pt monospace'
-c.fonts.completion.entry = '6pt monospace'
+c.fonts.completion.category = 'bold 8pt monospace'
+c.fonts.completion.entry = '8pt monospace'
 c.fonts.debug_console = '8pt monospace'
 c.fonts.downloads = '8pt monospace'
 c.fonts.hints = 'bold 10pt monospace'
@@ -151,7 +151,7 @@ c.fonts.tabs = '8pt monospace'
 # c.fonts.web.family.sans_serif = ''
 # c.fonts.web.family.serif = ''
 # c.fonts.web.family.standard = ''
-c.fonts.web.size.default = 14
+# c.fonts.web.size.default = 14
 # c.fonts.web.size.default_fixed = 13
 # c.fonts.web.size.minimum = 0
 # c.fonts.web.size.minimum_logical = 6
@@ -197,12 +197,13 @@ c.scrolling.smooth = False
 # c.session_default_name = None
 # c.spellcheck.languages = []
 
+c.statusbar.padding = {'top': 4, 'bottom': 4, 'left': 4, 'right': 4}
 # c.statusbar.hide = False
 # c.statusbar.position = 'bottom'
 
 c.tabs.background = True
-c.tabs.padding = {'top': 4, 'bottom': 4, 'left': 4, 'right': 4}
-c.tabs.indicator.padding = {'top': 5, 'bottom': 5, 'left': 0, 'right': 4}
+c.tabs.padding = {'top': 4, 'bottom': 4, 'left': 0, 'right': 3}
+c.tabs.indicator.padding = {'top': 0, 'bottom': 0, 'left': 0, 'right': 5}
 c.tabs.mousewheel_switching = False
 # c.tabs.close_mouse_button = 'middle'
 # c.tabs.favicons.scale = 1.0
@@ -210,16 +211,12 @@ c.tabs.mousewheel_switching = False
 # c.tabs.last_close = 'ignore'
 # c.tabs.new_position.related = 'next'
 # c.tabs.new_position.unrelated = 'last'
-c.tabs.position = 'bottom'
+# c.tabs.position = 'top'
 # c.tabs.select_on_remove = 'next'
 c.tabs.show = 'multiple'
-# c.tabs.show_switching_delay = 800
-# c.tabs.tabs_are_windows = False
-# c.tabs.title.alignment = 'left'
 c.tabs.title.format = '{title} - {host}'
 c.tabs.title.format_pinned = ''
-# c.tabs.width.bar = '20%'
-# c.tabs.width.indicator = 3
+c.tabs.indicator.width = 1
 # c.tabs.wrap = True
 
 # c.url.auto_search = 'naive'
@@ -239,8 +236,10 @@ c.window.title_format = '{title} - {host} - qutebrowser'
 
 
 ## Keybindings
+config.bind('zz', 'close')
 config.bind(',v', 'spawn mpv {url}')
 config.bind(';M', 'hint links spawn mpv {hint-url}')
+config.bind('<Ctrl+g>', 'clear-keychain ;; search ;; fullscreen --leave')
 
 ## Bindings for normal mode
 # config.bind("'", 'enter-mode jump_mark')
@@ -296,6 +295,7 @@ config.bind(';M', 'hint links spawn mpv {hint-url}')
 # config.bind('<Ctrl-p>', 'tab-pin')
 # config.bind('<Ctrl-s>', 'stop')
 # config.bind('<Escape>', 'clear-keychain ;; search ;; fullscreen --leave')
+config.bind('<Ctrl-g>', 'clear-keychain ;; search ;; fullscreen --leave')
 # config.bind('<F11>', 'fullscreen')
 # config.bind('<F5>', 'reload')
 # config.bind('<Return>', 'follow-selected')
@@ -403,6 +403,7 @@ config.bind(';M', 'hint links spawn mpv {hint-url}')
 # config.bind('0', 'move-to-start-of-line', mode='caret')
 # config.bind('<Ctrl-Space>', 'drop-selection', mode='caret')
 # config.bind('<Escape>', 'leave-mode', mode='caret')
+config.bind('<Ctrl-g>', 'leave-mode', mode='caret')
 # config.bind('<Return>', 'yank selection', mode='caret')
 # config.bind('<Space>', 'toggle-selection', mode='caret')
 # config.bind('G', 'move-to-end-of-document', mode='caret')
@@ -449,6 +450,7 @@ config.bind(';M', 'hint links spawn mpv {hint-url}')
 # config.bind('<Ctrl-Y>', 'rl-yank', mode='command')
 # config.bind('<Down>', 'command-history-next', mode='command')
 # config.bind('<Escape>', 'leave-mode', mode='command')
+config.bind('<Ctrl-g>', 'leave-mode', mode='command')
 # config.bind('<Return>', 'command-accept', mode='command')
 # config.bind('<Shift-Delete>', 'completion-item-del', mode='command')
 # config.bind('<Shift-Tab>', 'completion-item-focus prev', mode='command')
@@ -460,11 +462,13 @@ config.bind(';M', 'hint links spawn mpv {hint-url}')
 # config.bind('<Ctrl-F>', 'hint links', mode='hint')
 # config.bind('<Ctrl-R>', 'hint --rapid links tab-bg', mode='hint')
 # config.bind('<Escape>', 'leave-mode', mode='hint')
+config.bind('<Ctrl-g>', 'leave-mode', mode='hint')
 # config.bind('<Return>', 'follow-hint', mode='hint')
 
 ## Bindings for insert mode
 # config.bind('<Ctrl-E>', 'open-editor', mode='insert')
 # config.bind('<Escape>', 'leave-mode', mode='insert')
+config.bind('<Ctrl-g>', 'leave-mode', mode='insert')
 # config.bind('<Shift-Ins>', 'insert-text {primary}', mode='insert')
 
 ## Bindings for passthrough mode
@@ -488,6 +492,7 @@ config.bind(';M', 'hint links spawn mpv {hint-url}')
 # config.bind('<Ctrl-Y>', 'rl-yank', mode='prompt')
 # config.bind('<Down>', 'prompt-item-focus next', mode='prompt')
 # config.bind('<Escape>', 'leave-mode', mode='prompt')
+config.bind('<Ctrl-g>', 'leave-mode', mode='prompt')
 # config.bind('<Return>', 'prompt-accept', mode='prompt')
 # config.bind('<Shift-Tab>', 'prompt-item-focus prev', mode='prompt')
 # config.bind('<Tab>', 'prompt-item-focus next', mode='prompt')
@@ -497,3 +502,4 @@ config.bind(';M', 'hint links spawn mpv {hint-url}')
 
 ## Bindings for register mode
 # config.bind('<Escape>', 'leave-mode', mode='register')
+config.bind('<Ctrl-g>', 'leave-mode', mode='register')

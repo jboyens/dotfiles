@@ -5,7 +5,7 @@
 # recreating this window if necessary.
 #
 
-# Get firefox's current url; requires "Hostname in title" plugin for firefox
+# Get qutebrowser's current url
 win=$(xdotool getactivewindow)
 if [[ -n $win ]]; then
     winname=$(xdotool getwindowname $win)

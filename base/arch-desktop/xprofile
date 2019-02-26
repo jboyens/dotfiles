@@ -18,8 +18,8 @@ ARCH=$DOTS/base/arch-desktop
 [[ -f $ARCH/Xresources ]] && xrdb    $ARCH/Xresources
 [[ -f $ARCH/Xmodmap    ]] && xmodmap $ARCH/Xmodmap
 
-#dpi=144
-dpi=96
+dpi=144
+#dpi=96
 
 > ~/.xsettingsd cat <<EOF
 Xft/DPI $(( $dpi*1024 ))

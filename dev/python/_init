@@ -3,16 +3,14 @@ source ${0:A:h}/../../deploy
 source env.zsh
 
 install() {
-  _ensure_repo pyenv/pyenv $PYENV_ROOT
+  case $(_os) in
+    macos) brew install pipenv ;;
+    arch) yay --needed --noconfirm -S python-pipenv ;;
+  esac
 }
 
 update() {
-  if [[ -n $PYENV_ROOT ]]; then
-    cd $PYENV_ROOT && git pull
-    for ver in $PYENV_ROOT/plugins/*(/N); do
-      cd $ver && git pull
-    done
-  fi
+  # TODO
 }
 
 link() {
