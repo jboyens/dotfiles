@@ -5,20 +5,20 @@ install() {
   # set up desktop environment
   yay --needed --noconfirm -S \
     xorg-server xorg-xrandr xorg-xinit xdotool \
-    rvxt-unicode rvxt-unicode-terminfo \
+    rxvt-unicode rxvt-unicode-terminfo \
     ttf-fira-{mono,sans} ttf-font-awesome tamsyn-font siji-git \
     lightdm lightdm-mini-greeter \
     bspwm sxhkd compton dunst xcb-proto polybar libnotify \
     arc-gtk-theme qt5-styleplugins
   sudo systemctl enable lightdm
   sudo sed -i \
-    -e "s@^#?\(greeter-session=\).+@\1lightdm-mini-greeter@" \
-    -e "s@^#?\(user-session=\).+@\1bspwm@" \
+    -e "s@^#\?\(greeter-session=\).\+@\1lightdm-mini-greeter@" \
+    -e "s@^#\?\(user-session=\).\+@\1bspwm@" \
     /etc/lightdm/lightdm.conf
   sudo sed -i \
-    -e "s@^\(user = \).+@\1${USER}@" \
-    -e "s@^\(show-password-label = \).+@\1false@" \
-    -e "s@^\(background-color = \).+@\1\"#000000\"@;" \
+    -e "s@^\(user = \).\+@\1${USER}@" \
+    -e "s@^\(show-password-label = \).\+@\1false@" \
+    -e "s@^\(background-color = \).\+@\1\"#000000\"@;" \
     /etc/lightdm/lightdm-mini-greeter.conf
 
   # install misc programs
