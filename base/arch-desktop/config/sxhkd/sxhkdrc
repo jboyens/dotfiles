@@ -56,6 +56,9 @@ XF86Audio{LowerVolume,RaiseVolume}
 XF86AudioMute
     vol toggle
 
+XF86MonBrightness{Down,Up}
+    xbacklight {-dec,-inc} 10
+
 mod4 + {Down,Up}
     vol {-,+}
 mod4 + {Left,Right}
