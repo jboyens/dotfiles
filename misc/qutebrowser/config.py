@@ -106,6 +106,7 @@ c.completion.scrollbar.width = 6
 # c.completion.timestamp_format = '%Y-%m-%d'
 # c.completion.web_history.max_items = -1
 
+# c.content.notifications = False  # unavailable on QtWebEngine
 c.content.mute = True        # mute tabs by default
 c.content.autoplay = False   # don't autoplay videos
 c.content.default_encoding = 'utf-8'
@@ -125,7 +126,7 @@ c.content.host_blocking.whitelist = []
 
 c.downloads.position = 'bottom'
 c.downloads.location.directory = os.path.expanduser("~/downloads")
-# c.downloads.location.prompt = True
+c.downloads.location.prompt = False
 # c.downloads.location.remember = True
 # c.downloads.location.suggestion = 'path'
 # c.downloads.open_dispatcher = None
@@ -175,7 +176,7 @@ c.hints.border = '6px solid #18191b'
 # c.ignore_case = 'smart'
 # c.input.forward_unbound_keys = 'auto'
 # c.input.insert_mode.auto_leave = True
-# c.input.insert_mode.auto_load = False
+c.input.insert_mode.auto_load = False
 # c.input.insert_mode.plugins = False
 # c.input.links_included_in_focus_chain = True
 # c.input.partial_timeout = 5000
@@ -185,17 +186,18 @@ c.hints.border = '6px solid #18191b'
 # c.keyhint.delay = 500
 # c.messages.timeout = 2000
 # c.messages.unfocused = False
-# c.new_instance_open_target = 'tab'
+c.new_instance_open_target = 'tab-silent'
 # c.new_instance_open_target_window = 'last-focused'
-# c.prompt.filebrowser = True
-# c.prompt.radius = 8
+c.prompt.filebrowser = False
+c.prompt.radius = 0
 # c.qt.args = []
 # c.qt.force_platform = None
 # c.qt.force_software_rendering = False
 c.scrolling.bar = 'when-searching'
 c.scrolling.smooth = False
 # c.session_default_name = None
-# c.spellcheck.languages = []
+c.spellcheck.languages = ['en-US']
+c.session.lazy_restore = False
 
 c.statusbar.padding = {'top': 4, 'bottom': 4, 'left': 4, 'right': 4}
 # c.statusbar.hide = False
@@ -235,11 +237,20 @@ c.window.title_format = '{title} - {host} - qutebrowser'
 # c.zoom.text_only = False
 
 
+## Aliases
+# c.aliases["m"] = ":tab-mute"
+
+
 ## Keybindings
 config.bind('zz', 'close')
-config.bind(',v', 'spawn mpv {url}')
-config.bind(';M', 'hint links spawn mpv {hint-url}')
-config.bind('<Ctrl+g>', 'clear-keychain ;; search ;; fullscreen --leave')
+config.bind(';m', 'tab-mute')
+config.bind(';v', 'spawn mpv {url}')
+config.bind(';V', 'hint links spawn mpv {hint-url}')
+
+# Universal Emacsien C-g alias for Escape
+config.bind('<Ctrl-g>', 'clear-keychain ;; search ;; fullscreen --leave')
+for mode in ['caret', 'command', 'hint', 'insert', 'passthrough', 'prompt', 'register']:
+    config.bind('<Ctrl-g>', 'leave-mode', mode=mode)
 
 ## Bindings for normal mode
 # config.bind("'", 'enter-mode jump_mark')
@@ -295,7 +306,6 @@ config.bind('<Ctrl+g>', 'clear-keychain ;; search ;; fullscreen --leave')
 # config.bind('<Ctrl-p>', 'tab-pin')
 # config.bind('<Ctrl-s>', 'stop')
 # config.bind('<Escape>', 'clear-keychain ;; search ;; fullscreen --leave')
-config.bind('<Ctrl-g>', 'clear-keychain ;; search ;; fullscreen --leave')
 # config.bind('<F11>', 'fullscreen')
 # config.bind('<F5>', 'reload')
 # config.bind('<Return>', 'follow-selected')
@@ -403,7 +413,6 @@ config.bind('<Ctrl-g>', 'clear-keychain ;; search ;; fullscreen --leave')
 # config.bind('0', 'move-to-start-of-line', mode='caret')
 # config.bind('<Ctrl-Space>', 'drop-selection', mode='caret')
 # config.bind('<Escape>', 'leave-mode', mode='caret')
-config.bind('<Ctrl-g>', 'leave-mode', mode='caret')
 # config.bind('<Return>', 'yank selection', mode='caret')
 # config.bind('<Space>', 'toggle-selection', mode='caret')
 # config.bind('G', 'move-to-end-of-document', mode='caret')
@@ -439,6 +448,8 @@ config.bind('<Ctrl-g>', 'leave-mode', mode='caret')
 # config.bind('<Ctrl-D>', 'completion-item-del', mode='command')
 # config.bind('<Ctrl-E>', 'rl-end-of-line', mode='command')
 # config.bind('<Ctrl-F>', 'rl-forward-char', mode='command')
+config.bind('<Ctrl-B>', 'rl-backward-word', mode='command')
+config.bind('<Ctrl-F>', 'rl-forward-word', mode='command')
 # config.bind('<Ctrl-H>', 'rl-backward-delete-char', mode='command')
 # config.bind('<Ctrl-K>', 'rl-kill-line', mode='command')
 # config.bind('<Ctrl-N>', 'command-history-next', mode='command')
@@ -450,7 +461,6 @@ config.bind('<Ctrl-g>', 'leave-mode', mode='caret')
 # config.bind('<Ctrl-Y>', 'rl-yank', mode='command')
 # config.bind('<Down>', 'command-history-next', mode='command')
 # config.bind('<Escape>', 'leave-mode', mode='command')
-config.bind('<Ctrl-g>', 'leave-mode', mode='command')
 # config.bind('<Return>', 'command-accept', mode='command')
 # config.bind('<Shift-Delete>', 'completion-item-del', mode='command')
 # config.bind('<Shift-Tab>', 'completion-item-focus prev', mode='command')
@@ -462,13 +472,11 @@ config.bind('<Ctrl-g>', 'leave-mode', mode='command')
 # config.bind('<Ctrl-F>', 'hint links', mode='hint')
 # config.bind('<Ctrl-R>', 'hint --rapid links tab-bg', mode='hint')
 # config.bind('<Escape>', 'leave-mode', mode='hint')
-config.bind('<Ctrl-g>', 'leave-mode', mode='hint')
 # config.bind('<Return>', 'follow-hint', mode='hint')
 
 ## Bindings for insert mode
 # config.bind('<Ctrl-E>', 'open-editor', mode='insert')
 # config.bind('<Escape>', 'leave-mode', mode='insert')
-config.bind('<Ctrl-g>', 'leave-mode', mode='insert')
 # config.bind('<Shift-Ins>', 'insert-text {primary}', mode='insert')
 
 ## Bindings for passthrough mode
@@ -484,6 +492,8 @@ config.bind('<Ctrl-g>', 'leave-mode', mode='insert')
 # config.bind('<Ctrl-B>', 'rl-backward-char', mode='prompt')
 # config.bind('<Ctrl-E>', 'rl-end-of-line', mode='prompt')
 # config.bind('<Ctrl-F>', 'rl-forward-char', mode='prompt')
+config.bind('<Ctrl-B>', 'rl-backward-word', mode='prompt')
+config.bind('<Ctrl-F>', 'rl-forward-word', mode='prompt')
 # config.bind('<Ctrl-H>', 'rl-backward-delete-char', mode='prompt')
 # config.bind('<Ctrl-K>', 'rl-kill-line', mode='prompt')
 # config.bind('<Ctrl-U>', 'rl-unix-line-discard', mode='prompt')
@@ -492,7 +502,6 @@ config.bind('<Ctrl-g>', 'leave-mode', mode='insert')
 # config.bind('<Ctrl-Y>', 'rl-yank', mode='prompt')
 # config.bind('<Down>', 'prompt-item-focus next', mode='prompt')
 # config.bind('<Escape>', 'leave-mode', mode='prompt')
-config.bind('<Ctrl-g>', 'leave-mode', mode='prompt')
 # config.bind('<Return>', 'prompt-accept', mode='prompt')
 # config.bind('<Shift-Tab>', 'prompt-item-focus prev', mode='prompt')
 # config.bind('<Tab>', 'prompt-item-focus next', mode='prompt')
@@ -502,4 +511,3 @@ config.bind('<Ctrl-g>', 'leave-mode', mode='prompt')
 
 ## Bindings for register mode
 # config.bind('<Escape>', 'leave-mode', mode='register')
-config.bind('<Ctrl-g>', 'leave-mode', mode='register')
