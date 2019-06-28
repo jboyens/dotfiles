@@ -4,7 +4,6 @@ import glob
 ## Per-domain settings
 c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.dotfiles/misc/qutebrowser/css/*.css'))
 
-
 ## General config
 # c.confirm_quit = ['never']
 c.editor.command = ['emacsclient', '-c', '-a', ' ', '+{line}:{column}', '{}']
@@ -137,7 +136,7 @@ c.fonts.completion.category = 'bold 8pt monospace'
 c.fonts.completion.entry = '8pt monospace'
 c.fonts.debug_console = '8pt monospace'
 c.fonts.downloads = '8pt monospace'
-c.fonts.hints = 'bold 10pt monospace'
+c.fonts.hints = 'bold 8pt monospace'
 c.fonts.keyhint = '8pt monospace'
 c.fonts.messages.error = '8pt monospace'
 c.fonts.messages.info = '8pt monospace'
@@ -165,11 +164,13 @@ c.hints.border = '6px solid #18191b'
 # c.hints.find_implementation = 'python'
 # c.hints.hide_unmatched_rapid_hints = True
 # c.hints.min_chars = 1
-# c.hints.mode = 'letter'
+c.hints.mode = 'number'
 # c.hints.next_regexes = ['\\bnext\\b', '\\bmore\\b', '\\bnewer\\b', '\\b[>→≫]\\b', '\\b(>>|»)\\b', '\\bcontinue\\b']
 # c.hints.prev_regexes = ['\\bprev(ious)?\\b', '\\bback\\b', '\\bolder\\b', '\\b[<←≪]\\b', '\\b(<<|«)\\b']
 # c.hints.scatter = True
 # c.hints.uppercase = False
+#config.set('hints.selectors', {'expando': ['.expando-button', '.expand'], 'comments': ['a.comments']}, "*://*.reddit.com/*")
+#config.set('hints.selectors', {'titles': ['.title']})
 
 ## Options
 # c.history_gap_interval = 30
@@ -216,7 +217,7 @@ c.tabs.mousewheel_switching = False
 # c.tabs.position = 'top'
 # c.tabs.select_on_remove = 'next'
 c.tabs.show = 'multiple'
-c.tabs.title.format = '{title} - {host}'
+c.tabs.title.format = '{current_title} - {host}'
 c.tabs.title.format_pinned = ''
 c.tabs.indicator.width = 1
 # c.tabs.wrap = True
@@ -229,7 +230,7 @@ c.tabs.indicator.width = 1
 # c.url.yank_ignored_parameters = ['ref', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
 
 # c.window.hide_wayland_decoration = False
-c.window.title_format = '{title} - {host} - qutebrowser'
+c.window.title_format = '{current_title} - {host} - qutebrowser'
 
 # c.zoom.default = '100%'
 # c.zoom.levels = ['25%', '33%', '50%', '67%', '75%', '90%', '100%', '110%', '125%', '150%', '175%', '200%', '250%', '300%', '400%', '500%']
@@ -511,3 +512,12 @@ config.bind('<Ctrl-F>', 'rl-forward-word', mode='prompt')
 
 ## Bindings for register mode
 # config.bind('<Escape>', 'leave-mode', mode='register')
+
+config.bind('zp', 'open -t https://getpocket.com/edit?url={url}')
+config.bind('zr', 'spawn --userscript readability')
+config.bind('zf', 'spawn --userscript open-in-firefox')
+config.bind(';e', 'hint expando')
+config.bind(';t', 'hint titles')
+config.bind(';T', 'hint --rapid titles tab-bg')
+config.bind(';c', 'hint comments')
+config.bind(';C', 'hint --rapid comments tab-bg')

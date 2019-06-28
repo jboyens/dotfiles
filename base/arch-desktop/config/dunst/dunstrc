@@ -4,7 +4,7 @@
     bounce_freq = 0
     browser = /usr/bin/firefox -new-tab
     dmenu = /usr/bin/rofi -dmenu -p dunst:
-    follow = none
+    follow = mouse
     font = UW Ttyp0 10
     # font = Misc Tamsyn 12
     format = "%s\n%b"

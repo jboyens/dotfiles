@@ -18,10 +18,12 @@ ARCH=$DOTS/base/arch-desktop
 [[ -f $ARCH/Xresources ]] && xrdb    $ARCH/Xresources
 [[ -f $ARCH/Xmodmap    ]] && xmodmap $ARCH/Xmodmap
 
-~/adjust_dpi.sh
+autorandr --change --force
 
 # set wallpaper
-[[ -e ~/wallpaper ]] && feh --no-fehbg --image-bg black --bg-max ~/wallpaper
+[[ -e ~/wallpaper ]] && feh --no-fehbg --image-bg black --bg-fill ~/wallpaper
+
+xsetroot -cursor_name left_ptr
 
 # Let me know
 $DOTS/bin/ding startup
@@ -43,8 +45,10 @@ $DOTS/bin/ding startup
     sleep 2
     run mpd &       # music server
     run redshift &  # screen temperature based on time-of-day
-    run rslsync &   # resilio sync
+    #run rslsync &   # resilio sync
     run compton &   # perdy effects + transparency
+    run synology-drive &
+    run /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
     # If sxhkd isn't running by now, something is wrong
     _is_running sxhkd || urxvt &

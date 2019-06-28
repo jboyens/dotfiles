@@ -1,6 +1,6 @@
 [user]
 	name = JR Boyens
-	email = jboyens@fooninja.org
+	email = jr@myshyft.com
 
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
@@ -11,10 +11,11 @@
 	user = jboyens
 [rebase]
 	autosquash = true
+	autoStash = true
 [push]
 	default = current
 [merge]
-    ff = onlt
+	ff = only
 	log = true
 
 [alias]
@@ -35,3 +36,10 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[diff]
+	algorithm = patience
+	renameLimit = 3000
+[bulkworkspaces]
+	workspace = /home/jboyens/Workspace
+[pull]
+	rebase = true

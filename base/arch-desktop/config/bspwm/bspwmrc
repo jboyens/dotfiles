@@ -5,7 +5,8 @@
 #
 
 export MONITOR=$(xrandr -q | grep primary | grep ' connected' | cut -d' ' -f1)
-export MONITORS=( $(xrandr --listactivemonitors | tail -1 | awk '{print $4}') )
+export MONITORS=( $(xrandr -q | grep ' connected' | cut -d' ' -f1) )
+#export MONITORS=( $(xrandr --listactivemonitors | tail -1 | awk '{print $4}') )
 MONITOR=${MONITOR:-${MONITORS[1]}}
 # Multiple workspaces for main monitor, but only one for others
 bspc monitor $MONITOR -d {1,2,3,4,5}
@@ -33,7 +34,7 @@ bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
 bspc config pointer_action3 resize_corner
 
-bspc config remove_disabled_monitors false
+bspc config remove_disabled_monitors true
 bspc config remove_unplugged_monitors true
 
 # bspc config normal_border_color  "$COLOR_0"
@@ -78,5 +79,5 @@ bspc rule -a Gimp desktop=^6
 bspc rule -a feh state=fullscreen
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
-bspc rule -a Chromium monitor=L
-bspc rule -a Firefox monitor=L
+bspc rule -a Chromium monitor=west
+bspc rule -a Firefox monitor=west

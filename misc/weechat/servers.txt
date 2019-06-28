@@ -3,8 +3,8 @@
 #
 # Pass this file to `./bin/wee` while weechat is running.
 
-/set irc.server_default.nicks v0
-/set irc.server_default.sasl_username "${sec.data.username}"
+# /set irc.server_default.nicks v0
+# /set irc.server_default.sasl_username "${sec.data.username}"
 
 # freenode
 /server add freenode chat.freenode.net/6697 -autoconnect
@@ -12,22 +12,22 @@
 /set irc.server.freenode.autojoin "#vim,#emacs,#bbg,#1gam"
 
 # afternet
-/server add afternet irc.afternet.org/6697 -autoconnect
-/set irc.server.afternet.sasl_password "${sec.data.afternet}"
-/set irc.server.afternet.autojoin "#ludumdare"
+# /server add afternet irc.afternet.org/6697 -autoconnect
+# /set irc.server.afternet.sasl_password "${sec.data.afternet}"
+# /set irc.server.afternet.autojoin "#ludumdare"
 
 # oftc
-/server add oftc irc.oftc.net/6697 -autoconnect
-/set irc.server.oftc.command "/msg nickserv identify ${sec.data.oftc}"
-/set irc.server.oftc.autojoin "#love"
+# /server add oftc irc.oftc.net/6697 -autoconnect
+# /set irc.server.oftc.command "/msg nickserv identify ${sec.data.oftc}"
+# /set irc.server.oftc.autojoin "#love"
 
 # snoonet
-/server add snoonet irc.snoonet.org/6697 -autoconnect
-/set irc.server.snoonet.sasl_password "${sec.data.snoonet}"
-/set irc.server.snoonet.autojoin "#ynought"
+# /server add snoonet irc.snoonet.org/6697 -autoconnect
+# /set irc.server.snoonet.sasl_password "${sec.data.snoonet}"
+# /set irc.server.snoonet.autojoin "#ynought"
 
 # other
-/server add sfml irc.sfml-dev.org/6697
+# /server add sfml irc.sfml-dev.org/6697
 
 
 ##

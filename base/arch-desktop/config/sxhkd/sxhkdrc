@@ -5,20 +5,34 @@
 # terminal emulator
 mod4 + ctrl + Return
     urxvt
+
+# start stream terminal
 mod4 + ctrl + shift + Return
     urxvt -name urxvt-stream
+
+# start scratch window
 mod4 + grave
     urxvt-scratch-window
+
+# start emacs anywhere
 mod4 + ctrl + grave
     emacsclient -e nil && bspc rule -a 'Emacs' -o state=floating && emacs-anywhere
+
+# start org-capture
 mod4 + ctrl + shift + grave
     bspc rule -a 'Emacs' -o state=floating && org-capture
+
+# app launcher
 mod4 + space
     urxvt-app-launcher
-mod4 + backslash
+
+# passwords
+mod4 + {slash, backslash}
     urxvt-pass-manager
+
+# qutebrowser
 mod4 + ctrl + slash
-    firefox
+    qutebrowser
     #urxvt-pass-manager -r
 
 # reload sxhkd

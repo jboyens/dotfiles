@@ -70,7 +70,7 @@ font-2 = "Wuncon Siji:pixelsize=17;2"
 
 modules-left = cpu memory pad pkg mail pad volume
 modules-center = bspwm
-modules-right = battery wlan app-redshift pad date
+modules-right = battery wlan eth app-redshift pad date
 
 ;tray-position = center
 ;tray-padding = 2
@@ -223,22 +223,22 @@ ramp-signal-3-foreground = ${colors.icons}
 ramp-signal-4 = 
 ramp-signal-4-foreground = ${colors.icons}
 
-; [module/eth]
-; type = internal/network
-; interface = ${env:ETH:enp2s0}
-; interval = 4.0
-;
-; ; format-connected-underline = #55aa55
-; ; format-connected-prefix = " "
-; format-connected-foreground-foreground = ${colors.fg-alt}
-; label-connected = %local_ip%
-;
-; format-disconnected-underline = ${self.format-connected-underline}
-; label-disconnected = %ifname% disconnected
-; label-disconnected-foreground = ${colors.fg-alt}
+[module/eth]
+type = internal/network
+interface = ${env:ETH:net1}
+interval = 4.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-foreground-foreground = ${colors.fg-alt}
+label-connected = %local_ip%
+
+format-disconnected-underline = ${self.format-connected-underline}
+label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.fg-alt}
 
 [module/volume]
-type = internal/volume
+type = internal/alsa
 
 ; format-volume = <label-volume> <bar-volume>
 format-volume = <ramp-volume> <bar-volume>
@@ -326,7 +326,7 @@ format-padding-right = 1
 
 [module/app-redshift]
 type = custom/script
-exec = echo 1
+exec = ~/.config/polybar/modules/app-redshift
 exec-if = pgrep -x redshift
 format = ""
 format-foreground = ${colors.icons}

@@ -3,12 +3,12 @@
 # Pipes input to the weechat fifo (strips commented lines
 # and prepends * to commands).
 
-fifos=$(echo ~/.weechat/weechat_fifo_*)
+fifos=$(echo ~/.config/weechat/weechat_fifo_*)
 
 if ! pgrep -x weechat >/dev/null; then
   >&2 echo "Weechat isn't running"
   exit 1
-elif [[ ! -e ~/.weechat/weechat_fifo ]]; then
+elif [[ ! -e ~/.config/weechat/weechat_fifo ]]; then
   >&2 echo "No weechat fifo files available"
   exit 2
 fi
@@ -19,4 +19,4 @@ if [[ -t 0 ]]; then
   done
 else
   cat $@
-fi | sed '/^ *\(#\|$\)/ d;s/^[ \t]*/*/g' >~/.weechat/weechat_fifo*
+fi | sed '/^ *\(#\|$\)/ d;s/^[ \t]*/*/g' >~/.config/weechat/weechat_fifo*
