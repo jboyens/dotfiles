@@ -141,7 +141,7 @@ c.fonts.keyhint = '8pt monospace'
 c.fonts.messages.error = '8pt monospace'
 c.fonts.messages.info = '8pt monospace'
 c.fonts.messages.warning = '8pt monospace'
-c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+c.fonts.monospace = '"xos4 Terminus", "Terminus (TTF)", Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
 c.fonts.prompts = '8pt sans-serif'
 c.fonts.statusbar = '8pt monospace'
 c.fonts.tabs = '8pt monospace'
@@ -513,7 +513,8 @@ config.bind('<Ctrl-F>', 'rl-forward-word', mode='prompt')
 ## Bindings for register mode
 # config.bind('<Escape>', 'leave-mode', mode='register')
 
-config.bind('zp', 'open -t https://getpocket.com/edit?url={url}')
+#config.bind('zp', 'open -t https://getpocket.com/edit?url={url}')
+config.bind('zp', 'spawn --userscript qutepocket')
 config.bind('zr', 'spawn --userscript readability')
 config.bind('zf', 'spawn --userscript open-in-firefox')
 config.bind(';e', 'hint expando')
@@ -521,3 +522,4 @@ config.bind(';t', 'hint titles')
 config.bind(';T', 'hint --rapid titles tab-bg')
 config.bind(';c', 'hint comments')
 config.bind(';C', 'hint --rapid comments tab-bg')
+config.bind(',b', 'spawn --userscript save-to-org')
