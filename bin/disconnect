@@ -6,6 +6,14 @@ do
 	bspc monitor $MONITOR -r
 done
 
+# set internal keymap
+setxkbmap dvorak
+
+# murder sxhkd because it doesn't listen to keymap changes
+pkill sxhkd
+sxhkd &
+
+# restart bspwm
 bspc wm --restart
 bspc wm --adopt-orphans
 .config/bspwm/bspwmrc
