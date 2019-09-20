@@ -7,6 +7,9 @@
 ;
 ;=====================================================
 
+[settings]
+pseudo-transparency = true
+
 [colors]
 bg = ${xrdb:background}
 fg = ${xrdb:foreground}

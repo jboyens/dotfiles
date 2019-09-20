@@ -43,3 +43,7 @@
 	workspace = /home/jboyens/Workspace
 [pull]
 	rebase = true
+[rerere]
+	enabled = true
+[protocol]
+	version = 2

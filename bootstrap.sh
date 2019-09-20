@@ -25,8 +25,8 @@ fi
 
 if [[ ! -d ~/.dotfiles ]]; then
   _msg "Deploying dotfiles repository..."
-  if [[ $USER == hlissner ]]; then
-    dfrepo=git@github.com:hlissner/dotfiles.git
+  if [[ $USER == jboyens ]]; then
+    dfrepo=git@github.com:jboyens/dotfiles.git
   else
     dfrepo=https://github.com/hlissner/dotfiles
   fi

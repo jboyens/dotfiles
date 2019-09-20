@@ -47,8 +47,9 @@ $DOTS/bin/ding startup
     run redshift &  # screen temperature based on time-of-day
     #run rslsync &   # resilio sync
     run compton &   # perdy effects + transparency
-    run synology-drive &
+    #run synology-drive &
     run /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+    # run gconnectd &
 
     # If sxhkd isn't running by now, something is wrong
     _is_running sxhkd || urxvt &

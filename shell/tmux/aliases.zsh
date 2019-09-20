@@ -3,6 +3,8 @@ alias tmux='tmux -f "$TMUX_HOME/tmux.conf"'
 alias ta='tmux attach'
 alias tl='tmux ls'
 
+alias mux='tmuxinator'
+
 if [[ -n $TMUX ]]; then # From inside tmux
     alias tf='tmux find-window'
     # Detach all other clients to this session

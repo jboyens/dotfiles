@@ -1,6 +1,8 @@
 import os
 import glob
 
+# c.qt.highdpi = True
+
 ## Per-domain settings
 c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.dotfiles/misc/qutebrowser/css/*.css'))
 
@@ -132,19 +134,19 @@ c.downloads.location.prompt = False
 
 c.editor.encoding = 'utf-8'
 
-c.fonts.completion.category = 'bold 8pt monospace'
-c.fonts.completion.entry = '8pt monospace'
-c.fonts.debug_console = '8pt monospace'
-c.fonts.downloads = '8pt monospace'
-c.fonts.hints = 'bold 8pt monospace'
-c.fonts.keyhint = '8pt monospace'
-c.fonts.messages.error = '8pt monospace'
-c.fonts.messages.info = '8pt monospace'
-c.fonts.messages.warning = '8pt monospace'
+c.fonts.completion.category = 'bold 10pt monospace'
+c.fonts.completion.entry = '10pt monospace'
+c.fonts.debug_console = '10pt monospace'
+c.fonts.downloads = '10pt monospace'
+c.fonts.hints = 'bold 10pt monospace'
+c.fonts.keyhint = '10pt monospace'
+c.fonts.messages.error = '10pt monospace'
+c.fonts.messages.info = '10pt monospace'
+c.fonts.messages.warning = '10pt monospace'
 c.fonts.monospace = '"xos4 Terminus", "Terminus (TTF)", Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
-c.fonts.prompts = '8pt sans-serif'
-c.fonts.statusbar = '8pt monospace'
-c.fonts.tabs = '8pt monospace'
+c.fonts.prompts = '10pt sans-serif'
+c.fonts.statusbar = '10pt monospace'
+c.fonts.tabs = '10pt monospace'
 # c.fonts.web.family.cursive = ''
 # c.fonts.web.family.fantasy = ''
 # c.fonts.web.family.fixed = ''

@@ -21,5 +21,7 @@ export LESS='-R -i -w -M -z-4'
 export LESSHISTFILE="$XDG_DATA_HOME/lesshst"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 
+export GODEBUG=netdns=go
+
 # initialize enabled topics
 _load_all env.zsh
