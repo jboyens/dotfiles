@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+install() {
+  case $(_os) in
+    arch)  yay --needed --noconfirm -S next-browser ;;
+  esac
+}
+
+# update() {}
+
+link() {
+  mklink init.lisp $XDG_CONFIG_HOME/next/
+}
+
+clean() {
+  rm -rfv $XDG_DATA_HOME/next
+  rm -rfv $XDG_CONFIG_HOME/next
+}
+
+init "$@"
