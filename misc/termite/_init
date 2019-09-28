@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+TERMITE_HOME=$XDG_CONFIG_HOME/termite
+
+install() {
+  case $(_os) in
+    arch)  yay --needed --noconfirm -S termite ;;
+  esac
+}
+
+# update() {}
+
+link() {
+    mklink config $TERMITE_HOME/
+}
+
+clean() {
+  rm -rfv $XDG_CONFIG_HOME/termite
+}
+
+init "$@"
