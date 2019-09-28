@@ -1,0 +1,21 @@
+#!/usr/bin/zsh
+
+#
+# Opens sk-pass in a transient popup window and temporary tmux session,
+# recreating this window if necessary.
+#
+
+# mark the window
+swaymsg '[con_id=__focused__] mark --add last_focused'
+
+# Get qutebrowser's current url
+url=$(swaymsg -t get_tree | grep "\- qutebrowser" | ruby -pe '$_.gsub!(/.* - (?<url>.*) - qutebrowser.*/, "\\k<url>")')
+while (( ${#url//[^.]/} > 1 )); do
+    url=${url#*.}
+done
+
+# Present the popup
+swaymsg -q '[app_id=kitty-pass]' kill
+kitty --class kitty-pass -o font_size=20 sk-pass $@ $url
+
+swaymsg '[con_mark=last_focused] unmark,,focus'

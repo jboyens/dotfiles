@@ -1,0 +1,10 @@
+#!/usr/bin/zsh
+SCRID=kitty-scratch
+
+swaymsg "for_window [app_id=$SCRID class=__focused__] exec tmux kill-session -t scratch"
+if swaymsg "[app_id=$SCRID] focus"; then
+else
+  kitty --class $SCRID \
+    -e bash \
+    -c 'tmux new-session -A -s scratch -n scratch'
+fi

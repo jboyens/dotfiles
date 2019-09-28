@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+
+swaymsg '[app_id=kitty-fuzzy]' kill
+kitty --class kitty-fuzzy -o font_size=20 -o window_padding_width=4.0 sk-apps
