@@ -24,7 +24,8 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export GODEBUG=netdns=go
 
 export QT_QPA_PLATFORM=wayland-egl
-export QT_WAYLAND_FORCE_DPI=physical
+# enabling this causes qutebrowser to be HUGE
+#export QT_WAYLAND_FORCE_DPI=physical
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export SDL_VIDEODRIVER=wayland
 

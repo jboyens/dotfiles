@@ -1,7 +1,7 @@
 import os
 import glob
 
-# c.qt.highdpi = True
+c.qt.highdpi = True
 
 ## Per-domain settings
 c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.dotfiles/misc/qutebrowser/css/*.css'))

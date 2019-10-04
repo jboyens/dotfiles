@@ -30,21 +30,30 @@ smart_gaps on
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg ~/wallpaper fill
-# output eDP-1 scale 2 subpixel rgb
-# output DP-1 subpixel rgb
-# output DP-2 transform 90 clockwise subpixel vrgb
 
-output "Apple Computer Inc Color LCD 0x00000000" {
-  scale 2
-  subpixel rgb
-  pos 0 1000
-}
-
-output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
-  scale 1
-  subpixel rgb
-  pos 1440 0
-}
+# output "ViewSonic Corporation VA2759 Series UL7181601169" {
+#     subpixel rgb
+#     pos 960 244
+# }
+#
+# output "Acer Technologies K272HL T67AA0018531" {
+#     transform 90 clockwise
+#     subpixel vrgb
+#     position 2880 0
+# }
+#
+# output "Apple Computer Inc Color LCD 0x00000000" {
+#   scale 1
+#   subpixel rgb
+#   # pos 0 1000
+#   pos 0 1324
+# }
+#
+# output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
+#   scale 1
+#   subpixel rgb
+#   pos 1440 0
+# }
 
 ### Idle configuration
 #
@@ -81,6 +90,10 @@ input "0:0:Apple_SPI_Keyboard" {
 }
 
 input "1149:8257:Kensington_Kensington_Slimblade_Trackball" {
+    scroll_factor 4
+}
+
+input "1739:1751:Apple_SPI_Touchpad" {
     scroll_factor 4
 }
 
@@ -270,7 +283,9 @@ for_window [app_id=kitty-scratch] border pixel 2
 
 exec autotiling
 exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
-exec dunst
+exec mako
+exec_always kanshi
+exec redshift
 
 include /etc/sway/config.d/*
 
