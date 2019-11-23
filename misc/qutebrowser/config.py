@@ -1,7 +1,8 @@
 import os
 import glob
 
-c.qt.highdpi = True
+# c.qt.highdpi = True
+c.qt.force_platform = 'wayland-egl'
 
 ## Per-domain settings
 c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.dotfiles/misc/qutebrowser/css/*.css'))
@@ -143,7 +144,8 @@ c.fonts.keyhint = '10pt monospace'
 c.fonts.messages.error = '10pt monospace'
 c.fonts.messages.info = '10pt monospace'
 c.fonts.messages.warning = '10pt monospace'
-c.fonts.monospace = '"xos4 Terminus", "Terminus (TTF)", Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+# c.fonts.monospace = '"xos4 Terminus", "Terminus (TTF)", Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+c.fonts.monospace = 'Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
 c.fonts.prompts = '10pt sans-serif'
 c.fonts.statusbar = '10pt monospace'
 c.fonts.tabs = '10pt monospace'
@@ -525,3 +527,6 @@ config.bind(';T', 'hint --rapid titles tab-bg')
 config.bind(';c', 'hint comments')
 config.bind(';C', 'hint --rapid comments tab-bg')
 config.bind(',b', 'spawn --userscript save-to-org')
+
+config.bind('tb', 'config-cycle --temp --print zoom.default 150 100 ;; zoom')
+config.bind('tB', 'set zoom.default 150')

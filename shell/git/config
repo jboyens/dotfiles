@@ -14,6 +14,7 @@
 	autoStash = true
 [push]
 	default = current
+	followTags = true
 [merge]
 	ff = only
 	log = true

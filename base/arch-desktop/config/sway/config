@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term kitty
+set $term alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 set $menu kitty-app-launcher
@@ -60,11 +60,11 @@ output * bg ~/wallpaper fill
 # Example configuration:
 #
 # exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' \
-#               resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
+         # timeout 300 'swaylock -f -c 000000' \
+         # timeout 600 'swaymsg "output * dpms off"' \
+         # resume 'swaymsg "output * dpms on"' \
+         # before-sleep 'swaylock -f -c 000000'
+
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
@@ -84,6 +84,7 @@ output * bg ~/wallpaper fill
 # Read `man 5 sway-input` for more information about this section.
 
 input "0:0:Apple_SPI_Keyboard" {
+    xkb_model apple_laptop
     xkb_layout us
     xkb_variant dvorak
     xkb_options caps:ctrl_modifier
@@ -124,7 +125,7 @@ input "1739:1751:Apple_SPI_Touchpad" {
     # bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym Mod4+Mod1+Escape exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym Mod4+Mod1+Escape --to-code exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     # reload config file
     bindsym Mod4+Ctrl+Shift+Escape reload
@@ -254,10 +255,10 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position bottom
-
-    swaybar_command waybar
+# bar {
+#     position bottom
+#
+    # swaybar_command waybar
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     # status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
@@ -267,7 +268,7 @@ bar {
     #     background #323232
     #     inactive_workspace #32323200 #32323200 #5c5c5c
     # }
-}
+# }
 
 for_window [app_id=kitty-fuzzy] floating true
 for_window [app_id=kitty-fuzzy] resize set width 1200 height 560
@@ -281,12 +282,21 @@ for_window [app_id=kitty-scratch] floating true
 for_window [app_id=kitty-scratch] resize set width 1200 height 560
 for_window [app_id=kitty-scratch] border pixel 2
 
-exec autotiling
-exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
-exec mako
-exec_always kanshi
-exec redshift
+# exec autotiling
+# exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+# exec_always pkill mako; exec mako --default-timeout 5000
+# exec_always pkill kanshi; exec kanshi
+# exec redshift
+# exec mkfifo /tmp/wobpipe && tail -f /tmp/wobpipe | wob
+
+bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > /tmp/wobpipe
+bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > /tmp/wobpipe
+bindsym XF86AudioMute exec pamixer -t && pamixer --get-volume > /tmp/wobpipe
+
+bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
+bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
 
 include /etc/sway/config.d/*
 
 exec_always xrdb -merge ~/.dotfiles/base/arch-desktop/Xresources
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"

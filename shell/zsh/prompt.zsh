@@ -29,7 +29,7 @@ prompt_hook_precmd() {
 ## Initialization ######################
 prompt_init() {
   # prevent the extra space in the rprompt
-  [[ -n $EMACS ]] || ZLE_RPROMPT_INDENT=0
+  # [[ -n $EMACS ]] || ZLE_RPROMPT_INDENT=0
   # prevent percentage showing up
   # if output doesn't end with a newline
   export PROMPT_EOL_MARK=
@@ -70,4 +70,5 @@ prompt_init() {
   PROMPT='%F{blue}${prompt_username}%f${PROMPT_SYMBOL:-$ }'
 }
 
-prompt_init "$@"
+# prompt_init "$@"
+eval "$(starship init zsh)"
