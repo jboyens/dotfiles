@@ -5,7 +5,7 @@ import glob
 c.qt.force_platform = 'wayland-egl'
 
 ## Per-domain settings
-c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.dotfiles/misc/qutebrowser/css/*.css'))
+c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.local/share/qutebrowser/userstyles.css'))
 
 ## General config
 # c.confirm_quit = ['never']
@@ -96,6 +96,7 @@ c.colors.tabs.indicator.start = '#c678dd'
 c.colors.tabs.indicator.stop = '#51afef'
 # c.colors.tabs.indicator.system = 'rgb'
 # c.colors.webpage.bg = 'white'
+c.colors.webpage.prefers_color_scheme_dark = True
 
 c.completion.height = '30%'
 c.completion.web_history.max_items = 1500
@@ -145,7 +146,7 @@ c.fonts.messages.error = '10pt monospace'
 c.fonts.messages.info = '10pt monospace'
 c.fonts.messages.warning = '10pt monospace'
 # c.fonts.monospace = '"xos4 Terminus", "Terminus (TTF)", Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
-c.fonts.monospace = 'Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+c.fonts.default_family = ["Monospace", "DejaVu Sans Mono", "Monaco", "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", "Courier", "Liberation Mono", "monospace", "Fixed", "Consolas", "Terminal"]
 c.fonts.prompts = '10pt sans-serif'
 c.fonts.statusbar = '10pt monospace'
 c.fonts.tabs = '10pt monospace'
@@ -521,6 +522,7 @@ config.bind('<Ctrl-F>', 'rl-forward-word', mode='prompt')
 config.bind('zp', 'spawn --userscript qutepocket')
 config.bind('zr', 'spawn --userscript readability')
 config.bind('zf', 'spawn --userscript open-in-firefox')
+config.bind('zc', 'spawn --userscript open-in-chrome')
 config.bind(';e', 'hint expando')
 config.bind(';t', 'hint titles')
 config.bind(';T', 'hint --rapid titles tab-bg')
@@ -530,3 +532,5 @@ config.bind(',b', 'spawn --userscript save-to-org')
 
 config.bind('tb', 'config-cycle --temp --print zoom.default 150 100 ;; zoom')
 config.bind('tB', 'set zoom.default 150')
+
+# c.tabs.tabs_are_windows = True

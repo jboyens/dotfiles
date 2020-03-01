@@ -1,6 +1,6 @@
 # GIMP gimp-color-picker-tool options
 
-(foreground (color-rgb 0.133333 0.133333 0.133333))
+(foreground (color-rgb 0.13333300000000001 0.13333300000000001 0.13333300000000001))
 (sample-merged yes)
 
 # end of gimp-color-picker-tool options

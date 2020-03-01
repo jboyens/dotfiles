@@ -20,6 +20,7 @@ set $term alacritty
 set $menu kitty-app-launcher
 
 focus_follows_mouse yes
+mouse_warping container
 
 default_border none
 default_orientation auto
@@ -95,7 +96,8 @@ input "1149:8257:Kensington_Kensington_Slimblade_Trackball" {
 }
 
 input "1739:1751:Apple_SPI_Touchpad" {
-    scroll_factor 4
+    scroll_factor 6
+    pointer_accel .8
 }
 
 ### Key bindings
@@ -112,7 +114,8 @@ input "1739:1751:Apple_SPI_Touchpad" {
     bindsym Mod4+q kill
 
     # Start your launcher
-    bindsym Mod4+Space exec ~/.dotfiles/base/arch-desktop/bin/kitty-app-launcher
+    # bindsym Mod4+Space exec ~/.dotfiles/base/arch-desktop/bin/kitty-app-launcher
+    bindsym Mod4+Space exec ~/.local/bin/rofi/appmenu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -135,6 +138,7 @@ input "1739:1751:Apple_SPI_Touchpad" {
     bindsym Mod4+Backslash exec ~/.dotfiles/base/arch-desktop/bin/kitty-pass-manager
 
     bindsym Mod4+Grave exec ~/.dotfiles/base/arch-desktop/bin/kitty-scratch-window
+    bindsym Mod4+Shift+Grave exec emacsclient -e '(doom/open-scratch-buffer)'
 #
 # Moving around:
 #

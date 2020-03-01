@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+#rofi=${0:A:h}/bin/wee
+
+install() {
+  case $(_os) in
+    arch)   sudo pacman --needed --noconfirm -S rofi ;;
+  esac
+}
+
+# update() {}
+
+link() {
+    mklink bin $XDG_BIN_HOME/rofi
+    mklink themes $XDG_DATA_HOME/rofi/themes
+}
+
+clean() {
+    rm -fv $XDG_BIN_HOME/rofi $XDG_DATA_HOME/rofi/themes
+}
+
+init "$@"

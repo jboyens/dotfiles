@@ -55,5 +55,9 @@ alias ydl-m4a='youtube-dl --extract-audio --audio-format m4a'
 alias ddg=duckduckgo
 alias bt=transmission-remote
 
+alias asdf='sudo loadkeys dvorak'
+
+alias ssh='TERM=xterm-256color ssh'
+
 take() { mkdir "$1" && cd "$1"; }; compdef take=mkdir
 hex()  { echo -n $@ | xxd -psdu; }

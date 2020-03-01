@@ -12,9 +12,9 @@ home {
 }
 
 work {
-    output "ViewSonic Corporation VA2759 Series UL7181601169" scale 1 position 960,244
-    output "Acer Technologies K272HL T67AA0018531" scale 1 transform 90 position 2880,0
-    output "Apple Computer Inc Color LCD 0x00000000" scale 1 position 0,1324
+    output "Goldstar Company Ltd LG IPS FULLHD " scale 1 position 960,529
+    output "Acer Technologies K272HL T67AA0018531" scale 1 transform 270 position 2880,0
+    output "Apple Computer Inc Color LCD 0x00000000" scale 2 position 1440,1609
 
     exec /home/jboyens/.local/share/go/bin/scaler DOWN
 }

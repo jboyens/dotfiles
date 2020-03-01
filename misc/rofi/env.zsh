@@ -1,0 +1,1 @@
+export ROFI_THEME_DIR=$XDG_DATA_HOME/rofi/themes/fluorescence

@@ -4,7 +4,7 @@ _strlen() { echo ${#${(S%%)1//$~%([BSUbfksu]|([FB]|){*})/}}; }
 
 # fastest possible way to check if repo is dirty
 prompt_git_dirty() {
-  _is_callable git || return
+  command -v git >/dev/null || return
 
   # check if we're in a git repo
   [[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
@@ -28,8 +28,6 @@ prompt_hook_precmd() {
 
 ## Initialization ######################
 prompt_init() {
-  # prevent the extra space in the rprompt
-  # [[ -n $EMACS ]] || ZLE_RPROMPT_INDENT=0
   # prevent percentage showing up
   # if output doesn't end with a newline
   export PROMPT_EOL_MARK=
@@ -43,8 +41,8 @@ prompt_init() {
   # Updates cursor shape and prompt symbol based on vim mode
   zle-keymap-select() {
     case $KEYMAP in
-      vicmd)      PROMPT_SYMBOL="%F{magenta}« " ;;
-      main|viins) PROMPT_SYMBOL="%(?.%F{green}.%F{red})λ " ;;
+      vicmd)      PROMPT_SYMBOL="%F{green}« " ;;
+      main|viins) PROMPT_SYMBOL="%(?.%F{magenta}.%F{yellow})λ " ;;
     esac
     zle reset-prompt
     zle -R
@@ -67,8 +65,7 @@ prompt_init() {
   fi
 
   RPROMPT='%F{blue}%~%F{magenta}${vcs_info_msg_0_}$(prompt_git_dirty)%f'
-  PROMPT='%F{blue}${prompt_username}%f${PROMPT_SYMBOL:-$ }'
+  PROMPT='%F{magenta}${prompt_username}%f${PROMPT_SYMBOL:-$ }'
 }
 
-# prompt_init "$@"
-eval "$(starship init zsh)"
+prompt_init "$@"

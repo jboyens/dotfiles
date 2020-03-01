@@ -1,22 +1,20 @@
-!! OCT-2017
-
 !! Colors
-#define blk  #141517
-#define bblk #969896
-#define red  #cc6666
+#define blk  #1E2029
+#define bblk #282a36
+#define red  #ffb86c
 #define bred #de935f
-#define grn  #b5bd68
-#define bgrn #757d28
+#define grn  #50fa7b
+#define bgrn #0189cc
 #define ylw  #f0c674
 #define bylw #f9a03f
-#define blu  #81a2be
-#define bblu #2a8fed
-#define mag  #b294bb
-#define bmag #bc77a8
-#define cyn  #8abeb7
-#define bcyn #a3685a
-#define wht  #c5c8c6
-#define bwht #ffffff
+#define blu  #61bfff
+#define bblu #8be9fd
+#define mag  #bd93f9
+#define bmag #ff79c6
+#define cyn  #8be9fd
+#define bcyn #0189cc
+#define wht  #f8f8f2
+#define bwht #e2e2dc
 #define bg blk
 #define fg wht
 
@@ -42,14 +40,13 @@
 *.color15: bwht
 
 ! greys
-*.color234: #1d2021
-*.color235: #282828
-*.color236: #32302f
-*.color237: #3c3836
-*.color239: #504945
-*.color240: #544c49
-*.color241: #665c54
-
+*.color234: #1E2029
+*.color235: #282a36
+*.color236: #373844
+*.color237: #44475a
+*.color239: #565761
+*.color240: #6272a4
+*.color241: #b6b6b2
 
 !! Settings
 ! font rendering
@@ -105,5 +102,6 @@ URxvt*.xftHinting:             hintslight
 ! urxvt-scratch.font:            xft:Fira Mono:pixelsize=21
 ! urxvt-fuzzy.font:              xft:Fira Mono:pixelsize=25
 URxvt*.font:                   xft:Iosevka SS05:style=Light:pixelsize=12,xft:FuraMono Nerd Font Mono:pixelsize=16,xft:DejaVuSansMono Nerd Font
+st.font:                       xft:Iosevka Term SS05:style=Light:pixelsize=18,xft:FuraMono Nerd Font Mono:pixelsize=16,xft:DejaVuSansMono Nerd Font
 urxvt-scratch.font:            xft:Iosevka SS05:pixelsize=21
 urxvt-fuzzy.font:              xft:Iosevka SS05:pixelsize=25

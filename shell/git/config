@@ -49,4 +49,4 @@
 [protocol]
 	version = 2
 [credential]
-	helper = /usr/lib/git-core/git-credential-libsecret
+	helper = cache --timeout 900

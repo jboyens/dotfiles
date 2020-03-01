@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+while true; do
+    ydotool mousedown 1
+    sleep 0.01
+    ydotool mouseup 1
+    sleep 0.01
+done
