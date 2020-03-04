@@ -19,6 +19,7 @@
 
   ### Universal defaults
   networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22 ];
   networking.hosts = {
     "192.168.86.34" = [ "mediaserver" ];
     "192.168.86.100" = [ "irongiant" "bender" ];
