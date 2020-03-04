@@ -14,6 +14,7 @@
     <modules/browser/firefox.nix>
     <modules/dev>
     <modules/dev/node.nix>
+    <modules/dev/podman.nix>
     <modules/editors/emacs.nix>
     <modules/editors/vim.nix>
     <modules/shell/direnv.nix>
