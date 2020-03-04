@@ -12,7 +12,7 @@
     ./apps/thunar.nix
 
     ## Terminal
-    # ./apps/alacritty.nix
+    ./apps/alacritty.nix
     ./apps/st.nix
     # ./apps/urxvt.nix
   ];
@@ -31,6 +31,7 @@
     xclip
     xdotool
     libqalculate  # calculator cli w/ currency conversion
+    slack
     (makeDesktopItem {
       name = "scratch-calc";
       desktopName = "Calculator";
@@ -43,6 +44,15 @@
   ## Sound
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+
+  nixpkgs.config = {
+    packageOverrides = super: let self = super.pkgs; in {
+      iosevka-term-ss05 = self.iosevka.override {
+        set = "term-ss05";
+        design = ["term" "ss05"];
+      };
+    };
+  };
 
   ## Fonts
   fonts = {
@@ -58,12 +68,15 @@
       noto-fonts-cjk
       font-awesome-ttf
       siji
+      iosevka
+      iosevka-term-ss05
     ];
     fontconfig.defaultFonts = {
       sansSerif = ["Ubuntu"];
       monospace = ["Fira Code"];
     };
   };
+
 
   services.compton = {
     backend = "glx";

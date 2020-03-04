@@ -7,7 +7,7 @@
   my = {
     packages = with pkgs; [
       ## Doom dependencies
-      emacs
+      emacsGit
       git
       (ripgrep.override {withPCRE2 = true;})
 

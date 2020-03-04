@@ -10,8 +10,8 @@ in
 
 
   ## Personal settings
-  options.my.username = mkOptionStr "hlissner";
-  options.my.email = mkOptionStr "henrik@lissner.net";
+  options.my.username = mkOptionStr "jboyens";
+  options.my.email = mkOptionStr "jboyens@fooninja.org";
 
 
   ## Convenience aliases

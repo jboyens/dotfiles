@@ -8,7 +8,7 @@ FLAGS         := -I "config=$$(pwd)/config" \
 
 # The real Labowski
 all: channels
-	@sudo nixos-rebuild $(FLAGS) $(COMMAND)
+	@sudo nixos-rebuild $(FLAGS) $(COMMAND) --show-trace
 
 install: channels update config
 	@sudo nixos-install --root "$(PREFIX)" $(FLAGS)

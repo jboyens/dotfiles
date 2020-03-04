@@ -9,12 +9,12 @@
 
     # Allow local LAN to connect with passwords
     extraConfig = ''
-      Match address 192.168.0.0/24
+      Match address 192.168.86.0/24
       PasswordAuthentication yes
     '';
   };
 
-  users.users.hlissner.openssh.authorizedKeys.keys = [
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8Tl2pj6CPBV3V72cohPhn+k0a/Na3cOrbmUtFC7rR7icWocSs1S1cSrP3sPLwUqRh3+zfIuLXTrTv3gj8Xvg8WELOspzsiYeAtbcHrnWnx/a7xzYvFyT9/8hkiGM/F6w7IuKEk+AZW34vARSgRPJ1FdH8NbPKJ8ay9zW9XB9YJGnbzIRmsVVpQ8l6Fh8ZqRjZfC1ea7hns8+HgjPrIHFb+S3qZZiwU4Gc8aWJy9ziwwkllEsSchv3aigYA3eOeW0FUQFiKsLGxbX2b2b3d6jFO4Pu+dMSen0h5IzBo0nh7UADSfJPdwbZaMuJzviKe2y6zg6jaM9XRIhLBT6bftDr henrik@lissner.net"
+  users.users.jboyens.openssh.authorizedKeys.keys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDECXnI34NJU+L32GB7vwdTv4R9Uv53DElOZ5T/1or7X1VJxEb2+vNjxFQm1WNru1p23Wq8vGKasjIJt20L3B2E+9A2JHuL8MDpXU5Ednk3TgR1ghSdXzqmUTWmEMuqeU7nzYtnFeEyMSpW/FLy8YxO69C3QKsJGlk6+zEMYy17EhcT87K37/Odw326yXqEG2PAyQFQuSUSUIKixjLqYdRyVUTS43PY9kFwny4XqBof+vprkSfpQJi9qbSYPTOlfdadVE4wtb0TBdHRPS9owBk09ouj3okbT4TyEgedG6QrZn5j06nAYZqI4ggAI3sKgvLaec5jwqF+mX0Jo8naV4in jr@irongiant.local"
   ];
 }

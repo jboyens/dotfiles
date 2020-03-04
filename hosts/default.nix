@@ -15,7 +15,7 @@
 
 
   ### My user settings
-  my.username = "hlissner";
+  my.username = "jboyens";
   my.user = {
     isNormalUser = true;
     uid = 1000;
