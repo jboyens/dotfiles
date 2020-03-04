@@ -44,6 +44,7 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "mitigations=off" ];
 
   hardware.opengl.enable = true;
 

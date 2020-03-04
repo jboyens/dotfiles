@@ -77,7 +77,6 @@
     };
   };
 
-
   services.compton = {
     backend = "glx";
     vSync = true;
