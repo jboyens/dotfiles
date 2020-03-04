@@ -32,6 +32,7 @@
     xdotool
     libqalculate  # calculator cli w/ currency conversion
     slack
+    my.ferdi
     (makeDesktopItem {
       name = "scratch-calc";
       desktopName = "Calculator";

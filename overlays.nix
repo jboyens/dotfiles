@@ -9,6 +9,7 @@
           (builtins.fetchTarball
             https://github.com/xzfc/cached-nix-shell/archive/master.tar.gz) {});
       ant-dracula = (callPackage ./packages/ant-dracula.nix {});
+      ferdi = (callPackage ./packages/ferdi.nix {});
     };
 
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
