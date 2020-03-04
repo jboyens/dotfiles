@@ -4,12 +4,16 @@
 {
   imports = [
     ../personal.nix   # common settings
+    <nixos-hardware/common/cpu/intel>
+    <nixos-hardware/common/pc/laptop>
+    <nixos-hardware/common/pc/laptop/hdd>
     ./hardware-configuration.nix
     ## Dekstop environment
     <modules/desktop/bspwm.nix>
     ## Apps
     <modules/browser/firefox.nix>
     <modules/dev>
+    <modules/dev/node.nix>
     <modules/editors/emacs.nix>
     <modules/editors/vim.nix>
     <modules/shell/direnv.nix>
@@ -32,31 +36,67 @@
     <modules/themes/aquanaut>
   ];
 
+  systemd.targets.iwd.after = ["systemd-networkd"];
+
   networking = {
-    wireless = {
-      enable = true;
-      networks = {
-        "Sledgehammer" = {
-          psk = "nagasaki";
-        };
+    useDHCP = false;
+    useNetworkd = true;
+    wireless.iwd.enable = true;
+    interfaces = {
+      enp3s0 = {
+        useDHCP = true;
+      };
+
+      wlan0 = {
+        useDHCP = true;
       };
     };
+    # wireless = {
+    #   enable = true;
+    #   networks = {
+    #     "Sledgehammer" = {
+    #       psk = "nagasaki";
+    #     };
+    #   };
+    # };
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "mitigations=off" ];
 
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.intel.updateMicrocode = true;
   hardware.opengl.enable = true;
 
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.tapping = true;
+  services.xserver.libinput = {
+    enable = true;
+    tapping = true;
+    clickMethod = "clickfinger";
+  };
+  services.blueman.enable = true;
+
+  # services.xserver.exportConfiguration = true;
+  services.xserver.xkbModel = "dell";
+  services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
+
+  services.thermald.enable = true;
 
   time.timeZone = "America/Los_Angeles";
   # time.timeZone = "Europe/Copenhagen";
 
   # Optimize power use
-  environment.systemPackages = [ pkgs.acpi ];
+  environment.systemPackages = [
+    pkgs.acpi
+    pkgs.linuxPackages.cpupower
+  ];
+
+  services.psd.enable = true;
+
+  # Battery life!
+  services.tlp.enable = true;
+  powerManagement.enable = true;
   powerManagement.powertop.enable = true;
+
   # Monitor backlight control
   programs.light.enable = true;
 }

@@ -7,6 +7,7 @@
 {
   my.packages = with pkgs; [
     firefox-bin
+    passff-host
     (pkgs.writeScriptBin "firefox-private" ''
       #!${stdenv.shell}
       ${firefox}/bin/firefox --private-window "$@"

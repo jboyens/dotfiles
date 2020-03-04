@@ -10,6 +10,7 @@
   my = {
     packages = with pkgs; [
       nodejs
+      yarn
     ];
 
     env.NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/config";

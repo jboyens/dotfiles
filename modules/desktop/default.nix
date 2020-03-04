@@ -72,17 +72,13 @@
       iosevka
       iosevka-term-ss05
     ];
-    fontconfig.defaultFonts = {
-      sansSerif = ["Ubuntu"];
-      monospace = ["Fira Code"];
-    };
   };
 
   services.compton = {
     backend = "glx";
     vSync = true;
     opacityRules = [
-      # "100:class_g = 'Firefox'"
+      "100:class_g = 'Firefox'"
       # "100:class_g = 'Vivaldi-stable'"
       "100:class_g = 'VirtualBox Machine'"
       # Art/image programs where we need fidelity
