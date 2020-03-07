@@ -10,6 +10,8 @@
             https://github.com/xzfc/cached-nix-shell/archive/master.tar.gz) {});
       ant-dracula = (callPackage ./packages/ant-dracula.nix {});
       ferdi = (callPackage ./packages/ferdi.nix {});
+      bosh-cli = (callPackage ./packages/bosh-cli.nix {});
+      bosh-bootloader = (callPackage ./packages/bosh-bootloader.nix {});
     };
 
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
