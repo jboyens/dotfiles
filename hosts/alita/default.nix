@@ -1,6 +1,6 @@
 # Shiro -- my laptop
 
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ../personal.nix   # common settings
@@ -37,29 +37,12 @@
     <modules/themes/aquanaut>
   ];
 
-  systemd.targets.iwd.after = ["systemd-networkd"];
-
-  networking = {
-    useDHCP = false;
-    useNetworkd = true;
-    wireless.iwd.enable = true;
-    interfaces = {
-      enp3s0 = {
-        useDHCP = true;
-      };
-
-      wlan0 = {
-        useDHCP = true;
-      };
+  networking.useDHCP = true;
+  networking.wireless.enable = true;
+  networking.wireless.networks = {
+    Sledgehammer = {
+      psk = "nagasaki";
     };
-    # wireless = {
-    #   enable = true;
-    #   networks = {
-    #     "Sledgehammer" = {
-    #       psk = "nagasaki";
-    #     };
-    #   };
-    # };
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -81,6 +64,7 @@
   services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
 
   services.thermald.enable = true;
+  services.resolved.enable = true;
 
   time.timeZone = "America/Los_Angeles";
   # time.timeZone = "Europe/Copenhagen";
@@ -89,6 +73,8 @@
   environment.systemPackages = [
     pkgs.acpi
     pkgs.linuxPackages.cpupower
+    pkgs.my.bosh-cli
+    pkgs.my.bosh-bootloader
   ];
 
   services.psd.enable = true;
@@ -100,4 +86,50 @@
 
   # Monitor backlight control
   programs.light.enable = true;
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "jboyens" ];
+
+  networking.wireguard.interfaces = {
+    production = {
+      ips = ["10.50.0.3"];
+      privateKeyFile = "/home/${config.my.username}/.secrets/wireguard/production-private.key";
+      listenPort = 51821;
+      peers = [
+        {
+          publicKey = "3OapT30c5x8oxbVv/hmbZPjENRiUz17JtksDKcD6Lhs=";
+          allowedIPs = [
+            "10.50.0.1/32"
+            "10.8.0.0/16"
+          ];
+          endpoint = "52.175.216.108:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+
+    interconnect = {
+      ips = [ "10.10.0.3" ];
+      privateKeyFile = "/home/${config.my.username}/.secrets/wireguard/interconnect-private.key";
+      listenPort = 51820;
+      peers = [
+        {
+          publicKey = "/RFIsNdpsxNma871IgNKgWJUwPg47EsUNR/uGm9vkE0=";
+          allowedIPs = [
+            "10.10.0.0/24"
+            "10.16.0.0/24"
+            "10.158.0.0/24"
+            "10.74.0.0/24"
+            "10.0.0.0/24"
+            "10.32.0.0/24"
+            "10.34.0.0/24"
+            "10.148.0.0/24"
+            "10.36.0.0/24"
+          ];
+          endpoint = "13.66.198.100:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
 }
