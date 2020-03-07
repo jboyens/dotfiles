@@ -5,6 +5,7 @@
     packages = with pkgs; [
       gitAndTools.hub
       gitAndTools.diff-so-fancy
+      git-crypt
     ];
     zsh.rc = lib.readFile <config/git/aliases.zsh>;
     # Do recursively, in case git stores files in this folder
