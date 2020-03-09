@@ -79,6 +79,8 @@
 
   services.psd.enable = true;
 
+  services.lorri.enable = true;
+
   # Battery life!
   services.tlp.enable = true;
   powerManagement.enable = true;
