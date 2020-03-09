@@ -12,6 +12,7 @@
       ferdi = (callPackage ./packages/ferdi.nix {});
       bosh-cli = (callPackage ./packages/bosh-cli.nix {});
       bosh-bootloader = (callPackage ./packages/bosh-bootloader.nix {});
+      credhub-cli = (callPackage ./packages/credhub-cli.nix {});
     };
 
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {

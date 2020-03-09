@@ -75,6 +75,7 @@
     pkgs.linuxPackages.cpupower
     pkgs.my.bosh-cli
     pkgs.my.bosh-bootloader
+    pkgs.my.credhub-cli
   ];
 
   services.psd.enable = true;
