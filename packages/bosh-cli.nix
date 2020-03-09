@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "bosh-cli";
-  version = "v6.2.0";
+  version = "v6.2.1";
 
   goPackagePath = "github.com/cloudfoundry/bosh-cli";
 
