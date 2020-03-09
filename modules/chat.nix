@@ -6,7 +6,7 @@
 { pkgs, ... }:
 {
   my.packages = with pkgs; [
-    # weechat        # TODO For the real neckbeards
+    weechat        # TODO For the real neckbeards
     discord        # For everyone else
   ];
 }
