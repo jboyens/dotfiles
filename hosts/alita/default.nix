@@ -35,7 +35,7 @@
     <modules/recording.nix>  # recording video & audio
     <modules/music.nix>      # playing music
     <modules/backup/restic.nix>
-    # <modules/vm.nix>         # virtualbox for testing
+    <modules/vm.nix>         # virtualbox for testing
     ## Services
     <modules/services/syncthing.nix>
     <modules/services/ssh.nix>
@@ -98,9 +98,6 @@
 
   # Monitor backlight control
   programs.light.enable = true;
-
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "jboyens" ];
 
   networking.wireguard.interfaces = {
     production = {
