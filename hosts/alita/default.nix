@@ -15,6 +15,7 @@
     <modules/browser/qutebrowser.nix>
     <modules/browser/vivaldi.nix>
     <modules/browser/google-chrome.nix>
+    <modules/cloud.nix>
     <modules/dev>
     <modules/dev/node.nix>
     <modules/dev/podman.nix>
