@@ -67,6 +67,8 @@
 
   services.thermald.enable = true;
   services.resolved.enable = true;
+  services.irqbalance.enable = true;
+  services.fstrim.enable = true;
 
   time.timeZone = "America/Los_Angeles";
   # time.timeZone = "Europe/Copenhagen";
