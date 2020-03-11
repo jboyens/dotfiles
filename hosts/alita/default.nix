@@ -16,6 +16,8 @@
     <modules/browser/vivaldi.nix>
     <modules/browser/google-chrome.nix>
     <modules/cloud.nix>
+    <modules/db/dbeaver.nix>
+    <modules/db/postgres.nix>
     <modules/dev>
     <modules/dev/node.nix>
     <modules/dev/podman.nix>
