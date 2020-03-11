@@ -13,6 +13,7 @@
       bosh-cli = (callPackage ./packages/bosh-cli.nix {});
       bosh-bootloader = (callPackage ./packages/bosh-bootloader.nix {});
       credhub-cli = (callPackage ./packages/credhub-cli.nix {});
+      logcli = (callPackage ./packages/logcli.nix {});
     };
 
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {

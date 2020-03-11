@@ -76,6 +76,7 @@
     pkgs.my.bosh-cli
     pkgs.my.bosh-bootloader
     pkgs.my.credhub-cli
+    pkgs.my.logcli
   ];
 
   services.psd.enable = true;
