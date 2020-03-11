@@ -96,6 +96,37 @@
   powerManagement.enable = true;
   powerManagement.powertop.enable = true;
 
+  systemd.services.fancontrol = {
+    enable = true;
+    description = "Fan control";
+    wantedBy = ["multi-user.target" "graphical.target" "rescue.target"];
+
+    unitConfig = {
+      Type = "simple";
+    };
+
+    serviceConfig = {
+      ExecStart = "${pkgs.lm_sensors}/bin/fancontrol";
+      Restart = "always";
+    };
+  };
+
+  environment.etc.fancontrol = {
+    text = ''
+      INTERVAL=10
+      DEVPATH=hwmon4=
+      DEVNAME=hwmon4=dell_smm
+      FCTEMPS=hwmon4/pwm1=hwmon4/temp1_input
+      FCFANS= hwmon4/pwm1=hwmon4/fan1_input
+      MINTEMP=hwmon4/pwm1=40
+      MAXTEMP=hwmon4/pwm1=65
+      MINSTART=hwmon4/pwm1=150
+      MINSTOP=hwmon4/pwm1=150
+      MINPWM=hwmon4/pwm1=150
+    '';
+    mode = "444";
+  };
+
   # Monitor backlight control
   programs.light.enable = true;
 
