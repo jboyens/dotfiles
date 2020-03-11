@@ -12,6 +12,8 @@
     <modules/desktop/bspwm.nix>
     ## Apps
     <modules/browser/firefox.nix>
+    <modules/browser/qutebrowser.nix>
+    <modules/browser/vivaldi.nix>
     <modules/dev>
     <modules/dev/node.nix>
     <modules/dev/podman.nix>

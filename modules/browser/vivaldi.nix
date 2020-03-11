@@ -17,5 +17,5 @@
       categories = "Network";
     })
   ];
-  my.env.BROWSER = "vivaldi";
+  # my.env.BROWSER = "vivaldi";
 }

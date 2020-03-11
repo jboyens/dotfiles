@@ -22,6 +22,6 @@
     })
   ];
 
-  my.env.BROWSER = "firefox";
+  # my.env.BROWSER = "firefox";
   my.env.XDG_DESKTOP_DIR = "$HOME"; # prevent firefox creating ~/Desktop
 }
