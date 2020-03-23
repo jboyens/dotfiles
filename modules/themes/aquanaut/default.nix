@@ -1,14 +1,13 @@
 # modules/themes/aquanaut/default.nix --- a sea-blue linux theme
 
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
   imports = [ ../. ]; # Load framework for themes
 
   theme.wallpaper = ./wallpaper.jpg;
 
   services.compton = {
-    activeOpacity = "0.96";
-    inactiveOpacity = "0.75";
+    activeOpacity = "1.00";
+    inactiveOpacity = "1.00";
     settings = {
       blur-background = true;
       blur-background-frame = true;
@@ -35,12 +34,18 @@
   my.zsh.rc = lib.readFile ./zsh/prompt.zsh;
   my.home.xdg.configFile = {
     "bspwm/rc.d/polybar".source = ./polybar/run.sh;
-    "bspwm/rc.d/theme".source   = ./bspwmrc;
-    "dunst/dunstrc".source      = ./dunstrc;
-    "polybar" = { source = ./polybar; recursive = true; };
-    "rofi/theme" = { source = ./rofi; recursive = true; };
-    "tmux/theme".source         = ./tmux.conf;
-    "xtheme/90-theme".source    = ./Xresources;
+    "bspwm/rc.d/theme".source = ./bspwmrc;
+    "dunst/dunstrc".source = ./dunstrc;
+    "polybar" = {
+      source = ./polybar;
+      recursive = true;
+    };
+    "rofi/theme" = {
+      source = ./rofi;
+      recursive = true;
+    };
+    "tmux/theme".source = ./tmux.conf;
+    "xtheme/90-theme".source = ./Xresources;
     # GTK
     "gtk-3.0/settings.ini".text = ''
       [Settings]

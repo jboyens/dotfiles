@@ -2,23 +2,23 @@
 # https://github.com/hlissner/doom-emacs. This module sets it up to meet my
 # particular Doomy needs.
 
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
   my = {
     packages = with pkgs; [
       ## Doom dependencies
-      emacsGit
+      # emacsGit
+      unstable.emacs
       git
-      (ripgrep.override {withPCRE2 = true;})
+      (ripgrep.override { withPCRE2 = true; })
 
       ## Optional dependencies
       editorconfig-core-c # per-project style config
-      fd                  # faster projectile indexing
-      gnutls              # for TLS connectivity
-      imagemagick         # for image-dired
+      fd # faster projectile indexing
+      gnutls # for TLS connectivity
+      imagemagick # for image-dired
       (lib.mkIf (config.programs.gnupg.agent.enable)
-        pinentry_emacs)   # in-emacs gnupg prompts
-      zstd                # for undo-tree compression
+        pinentry_emacs) # in-emacs gnupg prompts
+      zstd # for undo-tree compression
 
       ## Module dependencies
       # :checkers spell
@@ -45,7 +45,5 @@
     zsh.rc = lib.readFile <config/emacs/aliases.zsh>;
   };
 
-  fonts.fonts = [
-    pkgs.emacs-all-the-icons-fonts
-  ];
+  fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 }

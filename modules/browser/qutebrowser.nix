@@ -3,8 +3,7 @@
 # Qutebrowser is cute because it's not enough of a browser to be handsome.
 # Still, we can all tell he'll grow up to be one hell of a lady-killer.
 
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
   my.packages = with pkgs; [
     qutebrowser
     (pkgs.writeScriptBin "qutebrowser-private" ''
@@ -20,7 +19,7 @@
       categories = "Network";
     })
   ];
-  my.env.BROWSER = "qutebrowser";
+  # my.env.BROWSER = "qutebrowser";
   my.home.xdg = {
     configFile."qutebrowser" = {
       source = <config/qutebrowser>;
@@ -31,21 +30,20 @@
         source = <config/qutebrowser/greasemonkey>;
         recursive = true;
       };
-      "qutebrowser/userstyles.css".source =
-        let compiledStyles =
-              with pkgs; runCommand "compileUserStyles"
-                { buildInputs = [ sass ]; } ''
-                  mkdir "$out"
-                  for file in ${<config/qutebrowser/styles>}/*.scss; do
-                    scss --sourcemap=none \
-                         --no-cache \
-                         --style compressed \
-                         --default-encoding utf-8 \
-                         "$file" \
-                         >>"$out/userstyles.css"
-                  done
-                '';
-        in "${compiledStyles}/userstyles.css";
+      "qutebrowser/userstyles.css".source = let
+        compiledStyles = with pkgs;
+          runCommand "compileUserStyles" { buildInputs = [ sass ]; } ''
+            mkdir "$out"
+            for file in ${<config/qutebrowser/styles>}/*.scss; do
+              scss --sourcemap=none \
+                   --no-cache \
+                   --style compressed \
+                   --default-encoding utf-8 \
+                   "$file" \
+                   >>"$out/userstyles.css"
+            done
+          '';
+      in "${compiledStyles}/userstyles.css";
     };
   };
 }

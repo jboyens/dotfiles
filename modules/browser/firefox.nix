@@ -3,11 +3,9 @@
 # Oh firefox, gateway to the interwebs, devourer of ram. Give onto me your
 # infinite knowledge and shelter me from ads.
 
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
   my.packages = with pkgs; [
-    firefox-bin
-    passff-host
+    (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     (pkgs.writeScriptBin "firefox-private" ''
       #!${stdenv.shell}
       ${firefox}/bin/firefox --private-window "$@"
@@ -22,6 +20,6 @@
     })
   ];
 
-  # my.env.BROWSER = "firefox";
+  my.env.BROWSER = "firefox";
   my.env.XDG_DESKTOP_DIR = "$HOME"; # prevent firefox creating ~/Desktop
 }
