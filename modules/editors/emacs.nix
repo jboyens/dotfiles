@@ -2,12 +2,31 @@
 # https://github.com/hlissner/doom-emacs. This module sets it up to meet my
 # particular Doomy needs.
 
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+
+let
+  emacsUnstable = (pkgs.emacsGit.override { srcRepo = true; }).overrideAttrs(old: {
+    name = "emacs-git-27.0.90";
+    version = "27.0.90";
+    src = pkgs.fetchFromGitHub {
+      owner = "emacs-mirror";
+      repo = "emacs";
+      rev = "8944310d7c9e259c9611ff2f0004c3176eb0ddab";
+      sha256 = "0a8c48zq86z296hi8cdi53pmcnfr3013nnvws9vxbpz9ipxrngll";
+    };
+
+    buildInputs = old.buildInputs ++ [ pkgs.jansson ];
+
+    patches = [ ./tramp-detect-wrapped-gvfsd.patch ./clean-env.patch ];
+  });
+in
+{
   my = {
     packages = with pkgs; [
       ## Doom dependencies
       # emacsGit
-      unstable.emacs
+      # unstable.emacs
+      emacsUnstable
       git
       (ripgrep.override { withPCRE2 = true; })
 
