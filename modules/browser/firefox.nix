@@ -5,7 +5,9 @@
 
 { config, lib, pkgs, ... }: {
   my.packages = with pkgs; [
-    (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+    (firefox.override {
+      extraNativeMessagingHosts = [ passff-host tridactyl-native ];
+    })
     (pkgs.writeScriptBin "firefox-private" ''
       #!${stdenv.shell}
       ${firefox}/bin/firefox --private-window "$@"
@@ -22,4 +24,7 @@
 
   my.env.BROWSER = "firefox";
   my.env.XDG_DESKTOP_DIR = "$HOME"; # prevent firefox creating ~/Desktop
+  my.home.xdg = {
+    configFile."tridactyl/tridactylrc".source = <config/tridactyl/tridactylrc>;
+  };
 }
