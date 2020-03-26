@@ -68,6 +68,9 @@ super + alt + {h,j,k,l}
 super + alt + Return
 	~/.dotfiles/bin/bspwm/subtract-presel
 
+super + alt + m
+	~/.dotfiles/bin/bspwm/smart-presel
+
 super + alt + Delete
 	bspc node -p cancel
 
