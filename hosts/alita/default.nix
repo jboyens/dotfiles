@@ -1,4 +1,4 @@
-# Shiro -- my laptop
+# Alita -- my laptop
 
 { pkgs, config, ... }: {
   imports = [
@@ -183,8 +183,25 @@
 
   my.home.programs.autorandr = {
     enable = true;
+    hooks = {
+      postswitch = {
+        "restart-bspwm" = "exec $XDG_CONFIG_HOME/bspwm/bspwmrc";
+        "reset-background" =
+          "${pkgs.feh}/bin/feh --no-fehbg --bg-fill ~/.background-image";
+        "reset-keyboard" = ''
+          if ${pkgs.xorg.xinput}/bin/xinput | grep "ErgoDox" 1>/dev/null; then
+            ${pkgs.xorg.setxkbmap}/bin/setxkbmap us -model dell -option ""
+          else
+            ${pkgs.xorg.setxkbmap}/bin/setxkbmap dvorak -option "${config.services.xserver.xkbOptions}"
+          fi
+        '';
+      };
+    };
     profiles = {
       "mobile" = {
+        hooks = {
+          preswitch = "${pkgs.xorg.xrandr}/bin/xrandr --output eDP1 --primary";
+        };
         fingerprint = {
           eDP1 =
             "00ffffffffffff0009e590060000000001190104952213780a24109759548e271e5054000000010101010101010101010101010101019c3b8010713850403020360058c11000001a2e2c80de703814406464440558c11000001a000000fe0043314a4652804e5431354e3431000000000000412196001000000a010a202000bb";
@@ -215,7 +232,7 @@
             enable = true;
             gamma = "1.0:0.909:0.833";
             mode = "1920x1080";
-            position = "0x1080";
+            position = "0x360";
             rate = "60.01";
           };
 
