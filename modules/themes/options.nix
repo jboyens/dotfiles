@@ -13,6 +13,7 @@ with lib;
 
   config = {
     my.home.home.file.".background-image".source = config.theme.wallpaper;
+    my.home.home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
     services.xserver.displayManager.lightdm.background =
       let blurredWallpaper =
             with pkgs; runCommand "blurWallpaper"
