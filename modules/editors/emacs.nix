@@ -5,22 +5,22 @@
 { config, lib, pkgs, ... }:
 
 let
-  emacsUnstable = (pkgs.emacsGit.override { srcRepo = true; }).overrideAttrs(old: {
-    name = "emacs-git-27.0.90";
-    version = "27.0.90";
-    src = pkgs.fetchFromGitHub {
-      owner = "emacs-mirror";
-      repo = "emacs";
-      rev = "8944310d7c9e259c9611ff2f0004c3176eb0ddab";
-      sha256 = "0a8c48zq86z296hi8cdi53pmcnfr3013nnvws9vxbpz9ipxrngll";
-    };
+  emacsUnstable = (pkgs.emacsGit.override { srcRepo = true; }).overrideAttrs
+    (old: {
+      name = "emacs-git-27.0.90";
+      version = "27.0.90";
+      src = pkgs.fetchFromGitHub {
+        owner = "emacs-mirror";
+        repo = "emacs";
+        rev = "8944310d7c9e259c9611ff2f0004c3176eb0ddab";
+        sha256 = "0a8c48zq86z296hi8cdi53pmcnfr3013nnvws9vxbpz9ipxrngll";
+      };
 
-    buildInputs = old.buildInputs ++ [ pkgs.jansson ];
+      buildInputs = old.buildInputs ++ [ pkgs.jansson ];
 
-    patches = [ ./tramp-detect-wrapped-gvfsd.patch ./clean-env.patch ];
-  });
-in
-{
+      patches = [ ./tramp-detect-wrapped-gvfsd.patch ./clean-env.patch ];
+    });
+in {
   my = {
     packages = with pkgs; [
       ## Doom dependencies
@@ -58,6 +58,13 @@ in
       # :lang rust
       rustfmt
       rls
+      (makeDesktopItem {
+        name = "org-protocol";
+        desktopName = "org-protocol";
+        exec = "${emacsUnstable}/bin/emacsclient %u";
+        categories = "System";
+        mimeType = "x-scheme-handler/org-protocol";
+      })
     ];
 
     env.PATH = [ "$HOME/.emacs.d/bin" ];
