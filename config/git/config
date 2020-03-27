@@ -12,6 +12,8 @@
 	autosquash = true
 [push]
 	default = current
+[diff]
+	algorithm = histogram
 [alias]
 	amend = commit --amend
 	exec = "!exec "
@@ -30,3 +32,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	clean = git-lfs clean -- %f
+[protocol]
+	version = 2
