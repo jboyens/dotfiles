@@ -181,6 +181,7 @@
     };
   };
 
+  services.autorandr.enable = true;
   my.home.programs.autorandr = {
     enable = true;
     hooks = {
