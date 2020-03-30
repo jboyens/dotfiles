@@ -30,6 +30,9 @@ rollback:
 dry:
 	@sudo nixos-rebuild $(FLAGS) dry-build
 
+vm:
+	@sudo nixos-rebuild $(FLAGS) build-vm
+
 gc:
 	@nix-collect-garbage -d
 

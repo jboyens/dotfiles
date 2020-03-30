@@ -83,6 +83,7 @@
     pkgs.my.bosh-bootloader
     pkgs.my.credhub-cli
     pkgs.my.logcli
+    pkgs.my.gmailctl
   ];
 
   services.psd.enable = true;
