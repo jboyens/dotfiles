@@ -14,7 +14,7 @@
         bosh-bootloader = (callPackage ./packages/bosh-bootloader.nix { });
         credhub-cli = (callPackage ./packages/credhub-cli.nix { });
         logcli = (callPackage ./packages/logcli.nix { });
-        gmailctl = (callPackage ./packages/gmailctl.nix { });
+        # gmailctl = (callPackage ./packages/gmailctl.nix { });
         # dell-bios-fan-control = (callPackage ./packages/dell-bios-fan-control.nix {});
       };
 

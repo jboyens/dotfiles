@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  outputHash = "1ns00y1haxm20jak26gjv53yisaw9vsr2dbsgj10zz65rglr1h18";
+  outputHash = "0w88hrzkny4xiai54cdbl89nnffnf6rk362nlgm73bqxcrqya3q0";
 
   meta = with stdenv.lib; {
     description = "A flat and light theme with a modern look";
