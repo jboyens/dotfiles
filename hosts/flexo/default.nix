@@ -109,49 +109,32 @@
   #   };
   # };
 
+  environment.etc."libinput/local-overrides.quirks" = {
+    text = ''
+      [MacBook(Pro) SPI Touchpads]
+      MatchName=*Apple SPI Touchpad*
+      ModelAppleTouchpad=1
+      AttrTouchSizeRange=200:150
+      AttrPalmSizeThreshold=1100
+
+      [MacBook(Pro) SPI Keyboards]
+      MatchName=*Apple SPI Keyboard*
+      AttrKeyboardIntegration=internal
+
+      [MacBookPro Touchbar]
+      MatchBus=usb
+      MatchVendor=0x05AC
+      MatchProduct=0x8600
+      AttrKeyboardIntegration=internal
+    '';
+    mode = "444";
+  };
+
   # Monitor backlight control
   programs.light.enable = true;
 
   programs.iftop.enable = true;
   programs.iotop.enable = true;
-
-  networking.wireguard.interfaces = {
-    production = {
-      ips = [ "10.50.0.3" ];
-      privateKeyFile =
-        "/home/${config.my.username}/.secrets/wireguard/production-private.key";
-      listenPort = 51821;
-      peers = [{
-        publicKey = "3OapT30c5x8oxbVv/hmbZPjENRiUz17JtksDKcD6Lhs=";
-        allowedIPs = [ "10.50.0.1/32" "10.8.0.0/16" ];
-        endpoint = "52.175.216.108:51820";
-        persistentKeepalive = 25;
-      }];
-    };
-
-    interconnect = {
-      ips = [ "10.10.0.3" ];
-      privateKeyFile =
-        "/home/${config.my.username}/.secrets/wireguard/interconnect-private.key";
-      listenPort = 51820;
-      peers = [{
-        publicKey = "/RFIsNdpsxNma871IgNKgWJUwPg47EsUNR/uGm9vkE0=";
-        allowedIPs = [
-          "10.10.0.0/24"
-          "10.16.0.0/24"
-          "10.158.0.0/24"
-          "10.74.0.0/24"
-          "10.0.0.0/24"
-          "10.32.0.0/24"
-          "10.34.0.0/24"
-          "10.148.0.0/24"
-          "10.36.0.0/24"
-        ];
-        endpoint = "13.66.198.100:51820";
-        persistentKeepalive = 25;
-      }];
-    };
-  };
 
   services.autorandr.enable = true;
   my.home.programs.autorandr = {

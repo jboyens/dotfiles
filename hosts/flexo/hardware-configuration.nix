@@ -11,9 +11,10 @@
   boot.blacklistedKernelModules = [ ];
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules =
+    [ "applespi" "intel_lpss_pci" "spi_pxa2xx_platform" "apple-ib-tb" ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [ pkgs.linuxPackages_latest.macbook12-spi-driver ];
 
   services.udev.extraRules = ''
     ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789B]?", ENV{ID_MM_DEVICE_IGNORE}="1"

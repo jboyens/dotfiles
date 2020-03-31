@@ -1,6 +1,9 @@
 [
   (self: super:
     with super; {
+      linuxPackages_latest = super.linuxPackages_latest.extend(lpself: lpsuper: {
+        macbook12-spi-driver = lpself.callPackage ./packages/macbook12-spi-driver.nix {};
+      });
       my = {
         linode-cli = (callPackage ./packages/linode-cli.nix { });
         ripcord = (callPackage ./packages/ripcord.nix { });
