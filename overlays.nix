@@ -1,24 +1,27 @@
 [
   (self: super:
     with super; {
-      linuxPackages_latest = super.linuxPackages_latest.extend(lpself: lpsuper: {
-        macbook12-spi-driver = lpself.callPackage ./packages/macbook12-spi-driver.nix {};
-      });
+      linuxPackages_latest = super.linuxPackages_latest.extend
+        (lpself: lpsuper: {
+          macbook12-spi-driver =
+            lpself.callPackage ./packages/macbook12-spi-driver.nix { };
+        });
       my = {
-        linode-cli = (callPackage ./packages/linode-cli.nix { });
-        ripcord = (callPackage ./packages/ripcord.nix { });
-        zunit = (callPackage ./packages/zunit.nix { });
+        ant-dracula = (callPackage ./packages/ant-dracula.nix { });
+        bosh-bootloader = (callPackage ./packages/bosh-bootloader.nix { });
+        bosh-cli = (callPackage ./packages/bosh-cli.nix { });
         cached-nix-shell = (callPackage (builtins.fetchTarball
           "https://github.com/xzfc/cached-nix-shell/archive/master.tar.gz")
           { });
-        ant-dracula = (callPackage ./packages/ant-dracula.nix { });
-        ferdi = (callPackage ./packages/ferdi.nix { });
-        bosh-cli = (callPackage ./packages/bosh-cli.nix { });
-        bosh-bootloader = (callPackage ./packages/bosh-bootloader.nix { });
         credhub-cli = (callPackage ./packages/credhub-cli.nix { });
-        logcli = (callPackage ./packages/logcli.nix { });
-        # gmailctl = (callPackage ./packages/gmailctl.nix { });
+        emacs27 = (callPackage ./packages/emacs27.nix { });
         # dell-bios-fan-control = (callPackage ./packages/dell-bios-fan-control.nix {});
+        ferdi = (callPackage ./packages/ferdi.nix { });
+        # gmailctl = (callPackage ./packages/gmailctl.nix { });
+        linode-cli = (callPackage ./packages/linode-cli.nix { });
+        logcli = (callPackage ./packages/logcli.nix { });
+        ripcord = (callPackage ./packages/ripcord.nix { });
+        zunit = (callPackage ./packages/zunit.nix { });
       };
 
       nur = import (builtins.fetchTarball

@@ -7,40 +7,53 @@
     <nixos-hardware/common/pc/laptop>
     <nixos-hardware/common/pc/laptop/hdd>
     ./hardware-configuration.nix
-    ## Dekstop environment
-    <modules/desktop/bspwm.nix>
     ## Apps
-    <modules/browser/firefox.nix>
-    <modules/browser/qutebrowser.nix>
-    <modules/browser/vivaldi.nix>
-    <modules/browser/google-chrome.nix>
-    <modules/cloud.nix>
-    <modules/db/dbeaver.nix>
+    # <modules/cloud.nix>
     <modules/db/postgres.nix>
-    <modules/dev>
     <modules/dev/node.nix>
     <modules/dev/podman.nix>
-    <modules/editors/emacs.nix>
-    <modules/editors/vim.nix>
-    <modules/shell/direnv.nix>
-    <modules/shell/git.nix>
     <modules/shell/utils.nix>
-    <modules/shell/gnupg.nix>
-    <modules/shell/pass.nix>
-    <modules/shell/tmux.nix>
-    <modules/shell/zsh.nix>
-    ## Project-based
-    <modules/chat.nix> # discord, mainly
-    <modules/recording.nix> # recording video & audio
-    <modules/music.nix> # playing music
-    <modules/backup/restic.nix>
-    <modules/vm.nix> # virtualbox for testing
-    ## Services
-    <modules/services/syncthing.nix>
-    <modules/services/ssh.nix>
-    ## Theme
-    <modules/themes/aquanaut>
   ];
+
+  modules = {
+    desktop = {
+      bspwm.enable = true;
+
+      apps.rofi.enable = true;
+      apps.discord.enable = true;
+      apps.vm.enable = true;
+
+      term.default = "xst";
+      term.st.enable = true;
+
+      browsers.default = "firefox";
+      browsers.firefox.enable = true;
+      browsers.google-chrome.enable = true;
+    };
+
+    editors = {
+      default = "emacs";
+      emacs.enable = true;
+      vim.enable = true;
+    };
+
+    shell = {
+      direnv.enable = true;
+      git.enable = true;
+      gnupg.enable = true;
+      pass.enable = true;
+      tmux.enable = true;
+      ranger.enable = true;
+      zsh.enable = true;
+    };
+
+    services = {
+      syncthing.enable = true;
+      ssh.enable = true;
+    };
+
+    themes.aquanaut.enable = true;
+  };
 
   networking.useDHCP = true;
   networking.wireless.enable = true;

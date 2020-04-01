@@ -21,6 +21,9 @@ update:
 switch:
 	@sudo nixos-rebuild $(FLAGS) switch
 
+build:
+	@sudo nixos-rebuild $(FLAGS) build
+
 boot:
 	@sudo nixos-rebuild $(FLAGS) boot
 
@@ -30,11 +33,11 @@ rollback:
 dry:
 	@sudo nixos-rebuild $(FLAGS) dry-build
 
-vm:
-	@sudo nixos-rebuild $(FLAGS) build-vm
-
 gc:
 	@nix-collect-garbage -d
+
+vm:
+	@sudo nixos-rebuild $(FLAGS) build-vm
 
 clean:
 	@rm -f result
