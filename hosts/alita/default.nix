@@ -37,6 +37,10 @@
       vim.enable = true;
     };
 
+    media = {
+      spotify.enable = true;
+    };
+
     shell = {
       direnv.enable = true;
       git.enable = true;
@@ -52,7 +56,7 @@
       ssh.enable = true;
     };
 
-    themes.aquanaut.enable = true;
+    themes.fluorescence.enable = true;
   };
 
   networking.useDHCP = true;
@@ -200,7 +204,7 @@
     enable = true;
     hooks = {
       postswitch = {
-        "restart-bspwm" = "exec $XDG_CONFIG_HOME/bspwm/bspwmrc";
+        "restart-bspwm" = "${pkgs.bash}/bin/bash $XDG_CONFIG_HOME/bspwm/bspwmrc";
         "reset-background" =
           "${pkgs.feh}/bin/feh --no-fehbg --bg-fill ~/.background-image";
         "reset-keyboard" = ''

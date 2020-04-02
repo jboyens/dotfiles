@@ -42,6 +42,9 @@ vm:
 clean:
 	@rm -f result
 
+repl:
+	@nix repl $(FLAGS)
+
 
 # Parts
 config: $(NIXOS_PREFIX)/configuration.nix

@@ -21,7 +21,7 @@ with lib; {
           alita.id =
             "2J42GVG-XBN4U67-T7MZTLJ-HQRHEO7-FALMDB5-4MMS5IE-EUEG52T-QTOOAQQ";
           flexo.id =
-            "L5H7E6H-APATPP5-6E4VKS2-HVVASML-SURPAP6-SHMKO7R-N2U2ZJ4-TZCG5QZ";
+            "5ERIUM3-FHYCLVE-FJCEP53-VJWIQDN-5B3H5QH-KLAI2UD-PHFW6AP-GGOYKAK";
           pixel3xl.id =
             "MMO6WXY-ZLRNVVG-FEJNHFQ-S6RLBRL-JJ57M5R-ARZHFDZ-NYXUYVJ-OAFIVQN";
         };
@@ -31,29 +31,31 @@ with lib; {
             if deviceEnabled devices then "sendreceive" else "receiveonly";
         in {
           secrets = rec {
-            devices = [ "mediaserver" ];
+            devices = [ "alita" "flexo" "mediaserver" ];
             path = "/home/${config.my.username}/.secrets";
             watch = true;
             rescanInterval = 3600;
-            type = deviceType [ "mediaserver" ];
+            type = deviceType [ "alita" "mediaserver" "flexo" ];
             enable = deviceEnabled devices;
           };
 
           Workspace = rec {
-            devices = [ "mediaserver" "flexo" "pixel3xl" ];
-            path = "/home/${config.my.username}/workspace";
+            id = "d2ptm-vzs72";
+            devices = [ "alita" "mediaserver" "flexo" ];
+            path = "/home/${config.my.username}/Workspace";
             watch = true;
             rescanInterval = 3600;
-            type = deviceType [ "mediaserver" ];
+            type = deviceType [ "alita" "mediaserver" "flexo" ];
             enable = deviceEnabled devices;
           };
 
           Documents = rec {
-            devices = [ "mediaserver" "flexo" "pixel3xl" ];
+            id = "rkurc-zmhak";
+            devices = [ "alita" "mediaserver" "flexo" "pixel3xl" ];
             path = "/home/${config.my.username}/Documents";
             watch = true;
             rescanInterval = 3600;
-            type = deviceType [ "mediaserver" ];
+            type = deviceType [ "alita" "mediaserver" "flexo" ];
             enable = deviceEnabled devices;
           };
         };
