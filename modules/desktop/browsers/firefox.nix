@@ -15,7 +15,13 @@ with lib;
 
   config = mkIf config.modules.desktop.browsers.firefox.enable {
     my.packages = with pkgs; [
-      firefox-bin
+      (firefox-bin.override {
+        extraNativeMessagingHosts = [ passff-host tridactyl-native ];
+      })
+      (pkgs.writeScriptBin "firefox-private" ''
+        #!${stdenv.shell}
+        ${firefox}/bin/firefox --private-window "$@"
+      '')
       (makeDesktopItem {
         name = "firefox-private";
         desktopName = "Firefox (Private)";
@@ -26,5 +32,8 @@ with lib;
       })
     ];
     my.env.XDG_DESKTOP_DIR = "$HOME"; # (try to) prevent ~/Desktop
+    my.home.xdg = {
+      configFile."tridactyl/tridactylrc".source = <config/tridactyl/tridactylrc>;
+    };
   };
 }

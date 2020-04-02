@@ -10,6 +10,7 @@ with lib; {
   config = mkIf config.modules.services.syncthing.enable {
     services.syncthing = {
       enable = true;
+      package = pkgs.unstable.syncthing;
       openDefaultPorts = true;
       user = config.my.username;
       configDir = "/home/${config.my.username}/.config/syncthing";

@@ -80,6 +80,7 @@
 
   services.thermald.enable = true;
   services.resolved.enable = true;
+  services.resolved.dnssec = "false";
   services.irqbalance.enable = true;
   services.fstrim.enable = true;
 
