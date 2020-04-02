@@ -70,7 +70,7 @@
 
   # services.xserver.exportConfiguration = true;
   services.xserver.xkbModel = "apple";
-  services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
+  services.xserver.xkbOptions = "caps:ctrl_modifier";
   services.xserver.layout = "us";
   services.xserver.xkbVariant = "dvorak";
   services.xserver.videoDrivers = [ "intel" "amdgpu" ];
