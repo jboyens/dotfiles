@@ -5,7 +5,7 @@
 
 { config, lib, pkgs, ... }: {
   my.packages = with pkgs; [
-    (firefox.override {
+    (firefox-bin.override {
       extraNativeMessagingHosts = [ passff-host tridactyl-native ];
     })
     (pkgs.writeScriptBin "firefox-private" ''

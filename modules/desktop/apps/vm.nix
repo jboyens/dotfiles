@@ -4,8 +4,7 @@
 # macOS on qemu/libvirt I'd be happy to leave virtualbox behind.
 
 { config, options, lib, pkgs, ... }:
-with lib;
-{
+with lib; {
   options.modules.desktop.apps.vm = {
     enable = mkOption {
       type = types.bool;
@@ -20,6 +19,11 @@ with lib;
       enableExtensionPack = true; # urg, takes so long to build
     };
 
-    my.user.extraGroups = [ "vboxusers" ];
+    # virtualisation.libvirtd.enable = true;
+
+    my.user.extraGroups = [
+      "vboxusers"
+      # "libvirtd"
+    ];
   };
 }
