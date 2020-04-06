@@ -56,7 +56,7 @@ with lib; {
         })
       ];
 
-      env.PATH = [ "$HOME/.emacs.d/bin" ];
+      env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
       zsh.rc = lib.readFile <config/emacs/aliases.zsh>;
     };
 

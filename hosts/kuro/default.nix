@@ -25,6 +25,7 @@
       browsers.default = "firefox";
       browsers.firefox.enable = true;
       # browsers.qutebrowser.enable = true;
+      # browsers.vimb.enable = true;
 
       # gaming.emulators.psx.enable = true;
       # gaming.steam.enable = true;
@@ -41,7 +42,6 @@
       cc.enable = true;
       common-lisp.enable = true;
       rust.enable = true;
-      scala.enable = true;
     };
 
     media = {

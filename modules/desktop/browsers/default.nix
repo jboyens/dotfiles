@@ -1,7 +1,12 @@
 { config, lib, pkgs, ... }:
 with lib; {
-  imports =
-    [ ./firefox.nix ./qutebrowser.nix ./vivaldi.nix ./google-chrome.nix ];
+  imports = [
+    ./firefox.nix
+    ./google-chrome.nix
+    ./qutebrowser.nix
+    ./vimb.nix
+    ./vivaldi.nix
+  ];
 
   options.modules.desktop.browsers = {
     default = mkOption {

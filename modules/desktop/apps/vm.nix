@@ -16,7 +16,8 @@ with lib; {
   config = mkIf config.modules.desktop.apps.vm.enable {
     virtualisation.virtualbox.host = {
       enable = true;
-      enableExtensionPack = true; # urg, takes so long to build
+      # urg, takes so long to build, but needed for macOS guest
+      enableExtensionPack = true;
     };
 
     # virtualisation.libvirtd.enable = true;
