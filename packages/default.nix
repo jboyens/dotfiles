@@ -4,7 +4,7 @@
       linuxPackages_latest = super.linuxPackages_latest.extend
         (lpself: lpsuper: {
           macbook12-spi-driver =
-            lpself.callPackage ./packages/macbook12-spi-driver.nix { };
+            lpself.callPackage ./macbook12-spi-driver.nix { };
         });
       my = {
         ant-dracula = (callPackage ./ant-dracula.nix { });

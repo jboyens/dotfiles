@@ -37,6 +37,8 @@
       vim.enable = true;
     };
 
+    dev.node.enable = true;
+
     media = { spotify.enable = true; };
 
     shell = {
