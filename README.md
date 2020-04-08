@@ -1,13 +1,3 @@
-# Mein dotfiles
-
-There are a few, special computers in my life; local and remote. Maintaining
-them is busywork I wouldn't wish on my worst enemy. NixOS tempted me with the
-promise of glorious reproducibility and declared its declarative-ness with
-enough chutzpah to make anime real again.
-
-XDG conventions in hand, I set out to conquer my white whale and annihilate what
-vestiges of my social life remain.
-
 ![Me looking busy](/../screenshots/fluorescence/fakebusy.png?raw=true)
 
 <p align="center">
@@ -15,6 +5,8 @@ vestiges of my social life remain.
 <span><img src="/../screenshots/fluorescence/rofi.png?raw=true" height="188" /></span>
 <span><img src="/../screenshots/fluorescence/tiling.png?raw=true" height="188" /></span>
 </p>
+
+# My dotfiles
 
 + **Operating System:** NixOS 19.09
 + **Shell:** zsh 5.7.1 + zgen
@@ -27,18 +19,23 @@ vestiges of my social life remain.
 + **GTK Theme:** [Ant Dracula](https://github.com/EliverLara/Ant-Dracula)
 + **Icon Theme:** [Paper Mono Dark](https://github.com/snwh/paper-icon-theme)
 
+*Works on my machine* ¯\\\_(ツ)_/¯
+
 ## Quick start
 
 ```sh
 # Assumes your partitions are set up and root is mounted on /mnt
-curl https://raw.githubusercontent.com/hlissner/dotfiles/nixos/deploy | sh
+curl https://raw.githubusercontent.com/hlissner/dotfiles/master/deploy | sh
 ```
 
 Which is equivalent to:
 
 ```sh
 USER=${USER:-hlissner}
+HOST=${HOST:-kuro}
+NIXOS_VERSION=19.09
 DOTFILES=/home/$USER/.dotfiles
+
 git clone https://github.com/hlissner/dotfiles /etc/dotfiles
 ln -s /etc/dotfiles $DOTFILES
 chown -R $USER:users $DOTFILES
@@ -50,7 +47,7 @@ nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable
 
 # make /etc/nixos/configuration.nix
 nixos-generate-config --root /mnt
-echo "import /etc/dotfiles \"$$(hostname)\"" >/mnt/etc/nixos/configuration.nix
+echo "import /etc/dotfiles \"$$HOST\" \"$$USER\"" >/mnt/etc/nixos/configuration.nix
 
 # make install
 nixos-install --root /mnt -I "my=/etc/dotfiles"

@@ -6,16 +6,16 @@
     ./cc.nix
     ./clojure.nix
     ./common-lisp.nix
-    # ./godot.nix
+    ./godot.nix
     # ./haskell.nix
     # ./latex.nix
-    # ./love2d.nix
-    # ./node.nix
-    # ./python.nix
+    ./lua.nix
+    ./node.nix
+    ./python.nix
     ./rust.nix
     ./scala.nix
-    # ./unity3d.nix
-    # ./zsh.nix
+    ./unity3d.nix
+    ./zsh.nix
   ];
 
   options = {};

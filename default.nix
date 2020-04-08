@@ -1,6 +1,6 @@
 # default.nix --- my dotfile bootstrapper
 
-device:
+device: username:
 { pkgs, options, lib, config, ... }:
 {
   networking.hostName = lib.mkDefault device;
@@ -17,11 +17,21 @@ device:
     "bin=/etc/dotfiles/bin"
     "config=/etc/dotfiles/config"
   ];
+
   # Add custom packages & unstable channel, so they can be accessed via pkgs.*
-  nixpkgs.overlays = import ./overlays.nix;
+  nixpkgs.overlays = import ./packages;
   nixpkgs.config.allowUnfree = true;  # forgive me Stallman senpai
 
   environment.systemPackages = with pkgs; [
+    # Just the bear necessities~
+    coreutils
+    git
+    killall
+    unzip
+    vim
+    wget
+    sshfs
+
     gnumake               # for our own makefile
     my.cached-nix-shell   # for instant nix-shell scripts
   ];
@@ -31,6 +41,15 @@ device:
     nsh = "nix-shell";
     nen = "nix-env";
     dots = "make -C ~/.dotfiles";
+  };
+
+  ### Primary user account
+  my.username = username;
+  my.user = {
+    isNormalUser = true;
+    uid = 1000;
+    extraGroups = [ "wheel" "video" "networkmanager" ];
+    shell = pkgs.zsh;
   };
 
   # This value determines the NixOS release with which your system is to be
