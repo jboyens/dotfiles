@@ -20,7 +20,7 @@ with lib;
         desktopName = "Vimb (Private)";
         genericName = "Open an incognito Vimb window";
         icon = "vim";
-        exec = "${firefox-bin}/bin/vimb --incognito";
+        exec = "${firefox}/bin/vimb --incognito";
         categories = "Network";
       })
     ];

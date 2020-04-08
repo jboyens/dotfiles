@@ -5,7 +5,7 @@
 
 { config, lib, pkgs, ... }: {
   my.packages = with pkgs; [
-    (firefox-bin.override {
+    (firefox.override {
       extraNativeMessagingHosts = [ passff-host tridactyl-native ];
     })
     (pkgs.writeScriptBin "firefox-private" ''
@@ -17,7 +17,7 @@
       desktopName = "Firefox (Private)";
       genericName = "Open a private Firefox window";
       icon = "firefox";
-      exec = "${firefox-bin}/bin/firefox --private-window";
+      exec = "${firefox}/bin/firefox --private-window";
       categories = "Network";
     })
   ];
