@@ -14,7 +14,10 @@ with lib; {
 
   config = mkIf config.modules.dev.node.enable {
     my = {
-      packages = with pkgs; [ nodejs yarn ];
+      packages = with pkgs; [
+        unstable.nodejs-13_x
+        (unstable.yarn.override { nodejs = unstable.nodejs-13_x; })
+      ];
 
       env.NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/config";
       env.NPM_CONFIG_CACHE = "$XDG_CACHE_HOME/npm";

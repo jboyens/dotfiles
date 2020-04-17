@@ -22,6 +22,8 @@
         logcli = (callPackage ./logcli.nix { });
         ripcord = (callPackage ./ripcord.nix { });
         zunit = (callPackage ./zunit.nix { });
+        hll2350dw = (callPackage ./hll2350dw.nix { });
+        "3mux" = (callPackage ./3mux { });
       };
 
       nur = import (builtins.fetchTarball

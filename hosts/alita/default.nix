@@ -10,7 +10,6 @@
     ## Apps
     # <modules/cloud.nix>
     <modules/db/postgres.nix>
-    <modules/dev/node.nix>
     <modules/dev/podman.nix>
     <modules/shell/utils.nix>
   ];
@@ -29,7 +28,10 @@
       browsers.default = "firefox";
       browsers.firefox.enable = true;
       browsers.google-chrome.enable = true;
+      browsers.vivaldi.enable = true;
     };
+
+    dev.node.enable = true;
 
     editors = {
       default = "emacs";
@@ -37,9 +39,7 @@
       vim.enable = true;
     };
 
-    media = {
-      spotify.enable = true;
-    };
+    media = { spotify.enable = true; };
 
     shell = {
       direnv.enable = true;
@@ -82,6 +82,21 @@
   services.resolved.enable = true;
   services.irqbalance.enable = true;
   services.fstrim.enable = true;
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.my.hll2350dw ];
+
+  hardware.printers.ensureDefaultPrinter = "HLL2350DW";
+  hardware.printers.ensurePrinters = [{
+    name = "HLL2350DW";
+    deviceUri = "socket://192.168.86.29:9100";
+    model = "brother-HLL2350DW-cups-en.ppd";
+    ppdOptions = {
+      Duplex = "DuplexNoTumble";
+      PageSize = "Letter";
+    };
+  }];
+
+  programs.system-config-printer.enable = true;
 
   time.timeZone = "America/Los_Angeles";
   # time.timeZone = "Europe/Copenhagen";
@@ -101,6 +116,7 @@
     pkgs.my.credhub-cli
     pkgs.my.logcli
     # pkgs.my.gmailctl
+    pkgs.my."3mux"
   ];
 
   services.psd.enable = true;
@@ -204,7 +220,8 @@
     enable = true;
     hooks = {
       postswitch = {
-        "restart-bspwm" = "${pkgs.bash}/bin/bash $XDG_CONFIG_HOME/bspwm/bspwmrc";
+        "restart-bspwm" =
+          "${pkgs.bash}/bin/bash $XDG_CONFIG_HOME/bspwm/bspwmrc";
         "reset-background" =
           "${pkgs.feh}/bin/feh --no-fehbg --bg-fill ~/.background-image";
         "reset-keyboard" = ''
