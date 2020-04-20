@@ -34,7 +34,7 @@ with lib; {
             if deviceEnabled devices then "sendreceive" else "receiveonly";
         in {
           secrets = rec {
-            devices = [ "alita" "flexo" "mediaserver" ];
+            devices = [ "alita" "flexo" "mediaserver" "kitt" ];
             path = "/home/${config.my.username}/.secrets";
             watch = true;
             rescanInterval = 3600;
@@ -44,7 +44,7 @@ with lib; {
 
           Workspace = rec {
             id = "d2ptm-vzs72";
-            devices = [ "alita" "mediaserver" "flexo" ];
+            devices = [ "alita" "mediaserver" "flexo" "kitt" ];
             path = "/home/${config.my.username}/Workspace";
             watch = true;
             rescanInterval = 3600;
@@ -58,7 +58,7 @@ with lib; {
             path = "/home/${config.my.username}/Documents";
             watch = true;
             rescanInterval = 3600;
-            type = deviceType [ "alita" "mediaserver" "flexo" ];
+            type = deviceType [ "alita" "mediaserver" "flexo" "kitt" ];
             enable = deviceEnabled devices;
           };
         };
