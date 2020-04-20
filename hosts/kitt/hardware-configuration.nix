@@ -9,13 +9,24 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "mitigations=off" ];
   boot.blacklistedKernelModules = [ ];
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "rtsx_usb_sdmmc"
+    "aes_x86_64"
+    "aesni_intel"
+    "cryptd"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [
     (pkgs.linuxPackages_latest.v4l2loopback.overrideAttrs (oa: rec {
-      name = "v4l2loopback-${version}-${pkgs.linuxPackages_latest.kernel.version}";
+      name =
+        "v4l2loopback-${version}-${pkgs.linuxPackages_latest.kernel.version}";
       version = "0.12.4";
       src = pkgs.fetchFromGitHub {
         owner = "umlaeute";
@@ -55,14 +66,18 @@
     options = [ "noatime" ];
   };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
+  boot.initrd.luks.devices."cryptroot".device =
+    "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/161F-64F3";
     fsType = "vfat";
   };
 
-  swapDevices = [{ device = "/swapfile"; size = 10000;}];
+  swapDevices = [{
+    device = "/swapfile";
+    size = 10000;
+  }];
 
   nix.maxJobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

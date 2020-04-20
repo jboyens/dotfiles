@@ -42,16 +42,6 @@ with lib; {
             enable = deviceEnabled devices;
           };
 
-          Workspace = rec {
-            id = "d2ptm-vzs72";
-            devices = [ "alita" "mediaserver" "flexo" "kitt" ];
-            path = "/home/${config.my.username}/Workspace";
-            watch = true;
-            rescanInterval = 3600;
-            type = deviceType [ "alita" "mediaserver" "flexo" "kitt" ];
-            enable = deviceEnabled devices;
-          };
-
           Documents = rec {
             id = "rkurc-zmhak";
             devices = [ "alita" "mediaserver" "flexo" "pixel3xl" "kitt" ];
