@@ -14,7 +14,6 @@
           "https://github.com/xzfc/cached-nix-shell/archive/master.tar.gz")
           { });
         credhub-cli = (callPackage ./credhub-cli.nix { });
-        emacs27 = (callPackage ./emacs27.nix { });
         # dell-bios-fan-control = (callPackage ./packages/dell-bios-fan-control.nix {});
         ferdi = (callPackage ./ferdi.nix { });
         # gmailctl = (callPackage ./packages/gmailctl.nix { });

@@ -39,6 +39,7 @@
       noto-fonts-cjk
       font-awesome-ttf
       siji
+      iosevka
     ];
     fontconfig.defaultFonts = {
       sansSerif = [ "Ubuntu" ];

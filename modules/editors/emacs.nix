@@ -50,7 +50,7 @@ with lib; {
         (makeDesktopItem {
           name = "org-protocol";
           desktopName = "org-protocol";
-          exec = "${my.emacs27}/bin/emacsclient %u";
+          exec = "${emacsUnstable}/bin/emacsclient %u";
           categories = "System";
           mimeType = "x-scheme-handler/org-protocol";
         })
