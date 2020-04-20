@@ -31,6 +31,8 @@
   networking.hosts = {
     "192.168.86.34" = [ "mediaserver" ];
     "192.168.86.100" = [ "irongiant" "bender" ];
+    "192.168.86.50" = [ "alita" ];
+    "192.168.86.40" = [ "kitt" ];
   };
 
 

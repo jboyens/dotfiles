@@ -25,6 +25,8 @@ with lib; {
             "5ERIUM3-FHYCLVE-FJCEP53-VJWIQDN-5B3H5QH-KLAI2UD-PHFW6AP-GGOYKAK";
           pixel3xl.id =
             "MMO6WXY-ZLRNVVG-FEJNHFQ-S6RLBRL-JJ57M5R-ARZHFDZ-NYXUYVJ-OAFIVQN";
+          kitt.id =
+            "Z6KVBYP-VAKL7WV-GQECKAS-FU23XXB-Q5G2RR3-3JQHCHY-BLGK4UM-B3OETA2";
         };
         folders = let
           deviceEnabled = devices: lib.elem config.networking.hostName devices;
@@ -36,7 +38,7 @@ with lib; {
             path = "/home/${config.my.username}/.secrets";
             watch = true;
             rescanInterval = 3600;
-            type = deviceType [ "alita" "mediaserver" "flexo" ];
+            type = deviceType [ "alita" "mediaserver" "flexo" "kitt" ];
             enable = deviceEnabled devices;
           };
 
@@ -46,13 +48,13 @@ with lib; {
             path = "/home/${config.my.username}/Workspace";
             watch = true;
             rescanInterval = 3600;
-            type = deviceType [ "alita" "mediaserver" "flexo" ];
+            type = deviceType [ "alita" "mediaserver" "flexo" "kitt" ];
             enable = deviceEnabled devices;
           };
 
           Documents = rec {
             id = "rkurc-zmhak";
-            devices = [ "alita" "mediaserver" "flexo" "pixel3xl" ];
+            devices = [ "alita" "mediaserver" "flexo" "pixel3xl" "kitt" ];
             path = "/home/${config.my.username}/Documents";
             watch = true;
             rescanInterval = 3600;
