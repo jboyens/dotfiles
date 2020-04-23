@@ -47,6 +47,8 @@ with lib; {
         # :lang rust
         rustfmt
         rls
+        # :lang org
+        gnuplot
         (makeDesktopItem {
           name = "org-protocol";
           desktopName = "org-protocol";
