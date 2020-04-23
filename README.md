@@ -1,3 +1,6 @@
+[![Made with Doom Emacs](https://img.shields.io/badge/Made_with-Doom_Emacs-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white)](https://github.com/hlissner/doom-emacs)
+[![NixOS 20.03](https://img.shields.io/badge/NixOS-v20.03-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+
 ![Me looking busy](/../screenshots/fluorescence/fakebusy.png?raw=true)
 
 <p align="center">
@@ -8,8 +11,8 @@
 
 # My dotfiles
 
-+ **Operating System:** NixOS 19.09
-+ **Shell:** zsh 5.7.1 + zgen
++ **Operating System:** NixOS
++ **Shell:** zsh + zgen
 + **DM:** lightdm + lightdm-mini-greeter
 + **WM:** bspwm + polybar
 + **Editor:** [Doom Emacs][doom-emacs] (and occasionally [vim][vimrc])
@@ -25,7 +28,8 @@
 
 ```sh
 # Assumes your partitions are set up and root is mounted on /mnt
-curl https://raw.githubusercontent.com/hlissner/dotfiles/master/deploy | sh
+git clone https://github.com/hlissner/dotfiles /etc/dotfiles
+make -C /etc/dotfiles install
 ```
 
 Which is equivalent to:
@@ -33,7 +37,7 @@ Which is equivalent to:
 ```sh
 USER=${USER:-hlissner}
 HOST=${HOST:-kuro}
-NIXOS_VERSION=19.09
+NIXOS_VERSION=20.03
 DOTFILES=/home/$USER/.dotfiles
 
 git clone https://github.com/hlissner/dotfiles /etc/dotfiles

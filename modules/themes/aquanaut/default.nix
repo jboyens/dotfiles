@@ -16,9 +16,9 @@ with lib; {
       path = ./.;
     };
 
-    services.compton = {
-      activeOpacity = "1.00";
-      inactiveOpacity = "1.00";
+    services.picom = {
+      activeOpacity = "0.96";
+      inactiveOpacity = "0.75";
       settings = {
         blur-background = true;
         blur-background-frame = true;

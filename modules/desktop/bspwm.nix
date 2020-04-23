@@ -21,13 +21,13 @@ with lib;
     ];
 
     services = {
-      compton.enable = true;
+      picom.enable = true;
       redshift.enable = true;
       xserver = {
         enable = true;
+        displayManager.defaultSession = "none+bspwm";
         displayManager.lightdm.enable = true;
         displayManager.lightdm.greeters.mini.enable = true;
-        windowManager.default = "bspwm";
         windowManager.bspwm.enable = true;
       };
     };
