@@ -59,6 +59,9 @@
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.pulseaudio.support32Bit = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
