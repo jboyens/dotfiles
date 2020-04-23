@@ -22,6 +22,7 @@
       apps.discord.enable = true;
       apps.slack.enable = true;
       apps.vm.enable = true;
+      apps.zoom.enable = true;
 
       term.default = "xst";
       term.st.enable = true;

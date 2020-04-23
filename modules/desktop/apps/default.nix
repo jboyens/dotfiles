@@ -5,6 +5,7 @@
     ./daw.nix
     ./discord.nix
     ./slack.nix
+    ./zoom-us.nix
     ./graphics.nix
     ./recording.nix
     ./rofi.nix
