@@ -20,6 +20,7 @@
 
       apps.rofi.enable = true;
       apps.discord.enable = true;
+      apps.slack.enable = true;
       apps.vm.enable = true;
 
       term.default = "xst";
