@@ -18,19 +18,36 @@
     desktop = {
       bspwm.enable = true;
 
-      apps.rofi.enable = true;
-      apps.discord.enable = true;
-      apps.slack.enable = true;
-      apps.vm.enable = true;
-      apps.zoom.enable = true;
+      apps = {
+        rofi.enable = true;
+        discord.enable = true;
+        slack.enable = true;
+        vm.enable = true;
+        zoom.enable = true;
+      };
 
       term.default = "xst";
       term.st.enable = true;
 
-      browsers.default = "firefox";
-      browsers.firefox.enable = true;
-      browsers.google-chrome.enable = true;
-      browsers.vivaldi.enable = true;
+      browsers = {
+        default = "firefox";
+        firefox.enable = true;
+        google-chrome.enable = true;
+        vivaldi.enable = true;
+      };
+
+      gaming = {
+        steam.enable = true;
+        factorio.enable = false;
+        emulators = {
+          psx.enable = false; # Playstation
+          ds.enable = false; # Nintendo DS
+          gb.enable = false; # GameBoy + GameBoy Color
+          gba.enable = false; # GameBoy Advance
+          snes.enable = false; # Super Nintendo
+        };
+      };
+
     };
 
     dev.node.enable = true;
@@ -56,6 +73,7 @@
     services = {
       syncthing.enable = true;
       ssh.enable = true;
+      docker.enable = true;
     };
 
     themes.fluorescence.enable = true;
@@ -78,7 +96,7 @@
   services.xserver.layout = "us";
   services.xserver.xkbVariant = "dvorak";
   services.xserver.videoDrivers = [ "intel" "nouveau" ];
-  i18n.consoleUseXkbConfig = true;
+  console.useXkbConfig = true;
 
   services.thermald.enable = true;
   services.resolved.enable = true;
@@ -179,8 +197,6 @@
   programs.iftop.enable = true;
   programs.iotop.enable = true;
 
-  virtualisation.docker.enable = true;
-
   networking.wireguard.interfaces = { };
 
   services.autorandr.enable = true;
@@ -205,9 +221,11 @@
       "mobile" = {
         hooks = {
           preswitch = "${pkgs.xorg.xrandr}/bin/xrandr --output eDP1 --primary";
+          postswitch = "${pkgs.pulseaudio}/bin/pactl set-card-profile output:analog-stereo+input:analog-stereo";
         };
         fingerprint = {
-          eDP1 = "00ffffffffffff004d10ba1400000000161d0104a52213780ede50a3544c99260f505400000001010101010101010101010101010101ac3780a070383e403020350058c210000018000000000000000000000000000000000000000000fe004d57503154804c513135364d31000000000002410332001200000a010a202000d3";
+          eDP1 =
+            "00ffffffffffff004d10ba1400000000161d0104a52213780ede50a3544c99260f505400000001010101010101010101010101010101ac3780a070383e403020350058c210000018000000000000000000000000000000000000000000fe004d57503154804c513135364d31000000000002410332001200000a010a202000d3";
         };
         config = {
           eDP1 = {
@@ -225,9 +243,14 @@
       };
 
       "home" = {
+        hooks = {
+          postswitch = "${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo-extra2+input:analog-stereo";
+        };
         fingerprint = {
-          DP3 = "00ffffffffffff001e6d085b211a01000a1c0103803c2278ea3035a7554ea3260f50542108007140818081c0a9c0d1c081000101010108e80030f2705a80b0588a0058542100001e04740030f2705a80b0588a0058542100001a000000fd00283d1e873c000a202020202020000000fc004c4720556c7472612048440a2001db020339714d902220050403020161605d5e5f230907076d030c001000b83c20006001020367d85dc401788003e30f0003681a00000101283d00023a801871382d40582c450058542100001a565e00a0a0a029503020350058542100001a00000000000000000000000000000000000000000000000000000000000000000000bb";
-          eDP1 = "00ffffffffffff004d10ba1400000000161d0104a52213780ede50a3544c99260f505400000001010101010101010101010101010101ac3780a070383e403020350058c210000018000000000000000000000000000000000000000000fe004d57503154804c513135364d31000000000002410332001200000a010a202000d3";
+          DP3 =
+            "00ffffffffffff001e6d085b211a01000a1c0103803c2278ea3035a7554ea3260f50542108007140818081c0a9c0d1c081000101010108e80030f2705a80b0588a0058542100001e04740030f2705a80b0588a0058542100001a000000fd00283d1e873c000a202020202020000000fc004c4720556c7472612048440a2001db020339714d902220050403020161605d5e5f230907076d030c001000b83c20006001020367d85dc401788003e30f0003681a00000101283d00023a801871382d40582c450058542100001a565e00a0a0a029503020350058542100001a00000000000000000000000000000000000000000000000000000000000000000000bb";
+          eDP1 =
+            "00ffffffffffff004d10ba1400000000161d0104a52213780ede50a3544c99260f505400000001010101010101010101010101010101ac3780a070383e403020350058c210000018000000000000000000000000000000000000000000fe004d57503154804c513135364d31000000000002410332001200000a010a202000d3";
         };
         config = {
           eDP1 = {
