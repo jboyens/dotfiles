@@ -39,5 +39,7 @@ with lib; {
     (mkIf config.modules.dev.cloud.microsoft.enable {
       my.packages = with pkgs; [ azure-cli ];
     })
+
+    ({ my.packages = with pkgs; [ unstable.terraform ]; })
   ];
 }
