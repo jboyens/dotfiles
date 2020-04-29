@@ -13,6 +13,7 @@ in {
     ./desktop
     ./dev
     ./editors
+    ./email
     ./media
     ./services
     ./shell

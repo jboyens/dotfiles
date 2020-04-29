@@ -7,11 +7,6 @@
     <nixos-hardware/common/pc/laptop>
     <nixos-hardware/common/pc/laptop/hdd>
     ./hardware-configuration.nix
-    ## Apps
-    # <modules/cloud.nix>
-    <modules/db/postgres.nix>
-    <modules/dev/podman.nix>
-    <modules/shell/utils.nix>
   ];
 
   modules = {
@@ -24,6 +19,7 @@
         slack.enable = true;
         vm.enable = true;
         zoom.enable = true;
+        dbeaver.enable = true;
       };
 
       term.default = "xst";
@@ -51,12 +47,17 @@
     };
 
     dev.node.enable = true;
+    dev.cloud.google.enable = true;
+    dev.podman.enable = true;
 
     editors = {
       default = "emacs";
       emacs.enable = true;
       vim.enable = true;
+      vscode.enable = true;
     };
+
+    email = { mu.enable = true; };
 
     media = { spotify.enable = true; };
 
@@ -65,9 +66,11 @@
       git.enable = true;
       gnupg.enable = true;
       pass.enable = true;
+      pgcenter.enable = true;
       tmux.enable = true;
       ranger.enable = true;
       zsh.enable = true;
+      utils.enable = true;
     };
 
     services = {
@@ -81,7 +84,10 @@
 
   networking.useDHCP = true;
   networking.wireless.enable = true;
-  networking.wireless.networks = { Sledgehammer = { psk = "nagasaki"; }; };
+  networking.wireless.networks = {
+    Sledgehammer = { psk = "nagasaki"; };
+    FLEXE = { psk = "xxxxx"; };
+  };
 
   services.xserver.libinput = {
     enable = true;
@@ -221,7 +227,8 @@
       "mobile" = {
         hooks = {
           preswitch = "${pkgs.xorg.xrandr}/bin/xrandr --output eDP1 --primary";
-          postswitch = "${pkgs.pulseaudio}/bin/pactl set-card-profile output:analog-stereo+input:analog-stereo";
+          postswitch =
+            "${pkgs.pulseaudio}/bin/pactl set-card-profile output:analog-stereo+input:analog-stereo";
         };
         fingerprint = {
           eDP1 =
@@ -244,7 +251,8 @@
 
       "home" = {
         hooks = {
-          postswitch = "${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo-extra2+input:analog-stereo";
+          postswitch =
+            "${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo-extra2+input:analog-stereo";
         };
         fingerprint = {
           DP3 =

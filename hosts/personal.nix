@@ -1,13 +1,8 @@
 # hosts/personal.nix --- settings common to my personal systems
 
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
   # Support for more filesystems
-  environment.systemPackages = with pkgs; [
-    exfat
-    ntfs3g
-    hfsprogs
-  ];
+  environment.systemPackages = with pkgs; [ exfat ntfs3g hfsprogs ];
 
   # Nothing in /tmp should survive a reboot
   boot.tmpOnTmpfs = true;
@@ -35,7 +30,6 @@
     "192.168.86.40" = [ "kitt" ];
   };
 
-
   ### A tidy $HOME is a tidy mind
   # Obey XDG conventions;
   my.home.xdg.enable = true;
@@ -43,9 +37,9 @@
     # These are the defaults, but some applications are buggy when these lack
     # explicit values.
     XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_CACHE_HOME  = "$HOME/.cache";
-    XDG_DATA_HOME   = "$HOME/.local/share";
-    XDG_BIN_HOME    = "$HOME/.local/bin";
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
   # Conform more programs to XDG conventions. The rest are handled by their
@@ -61,16 +55,16 @@
 
   # Prevents ~/.esd_auth files by disabling the esound protocol module for
   # pulseaudio, which I likely don't need. Is there a better way?
-  hardware.pulseaudio.configFile =
-    let paConfigFile =
-          with pkgs; runCommand "disablePulseaudioEsoundModule"
-            { buildInputs = [ pulseaudio ]; } ''
-              mkdir "$out"
-              cp ${pulseaudio}/etc/pulse/default.pa "$out/default.pa"
-              sed -i -e 's|load-module module-esound-protocol-unix|# ...|' "$out/default.pa"
-            '';
-      in lib.mkIf config.hardware.pulseaudio.enable
-        "${paConfigFile}/default.pa";
+  hardware.pulseaudio.configFile = let
+    paConfigFile = with pkgs;
+      runCommand "disablePulseaudioEsoundModule" {
+        buildInputs = [ pulseaudio ];
+      } ''
+        mkdir "$out"
+        cp ${pulseaudio}/etc/pulse/default.pa "$out/default.pa"
+        sed -i -e 's|load-module module-esound-protocol-unix|# ...|' "$out/default.pa"
+      '';
+  in lib.mkIf config.hardware.pulseaudio.enable "${paConfigFile}/default.pa";
 
   # Clean up leftovers, as much as we can
   system.userActivationScripts.cleanupHome = ''

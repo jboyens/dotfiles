@@ -3,13 +3,14 @@
 {
   imports = [
     ./daw.nix
+    ./dbeaver.nix
     ./discord.nix
-    ./slack.nix
-    ./zoom-us.nix
     ./graphics.nix
     ./recording.nix
     ./rofi.nix
     ./skype.nix
+    ./slack.nix
     ./vm.nix
+    ./zoom-us.nix
   ];
 }
