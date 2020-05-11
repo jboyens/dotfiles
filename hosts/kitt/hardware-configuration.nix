@@ -62,6 +62,7 @@
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
+  hardware.steam-hardware.enable = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
@@ -69,8 +70,10 @@
     options = [ "noatime" ];
   };
 
-  boot.initrd.luks.devices."cryptroot".device =
-    "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
+  boot.initrd.luks.devices."cryptroot"= {
+    device = "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
+    allowDiscards = true;
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/161F-64F3";
