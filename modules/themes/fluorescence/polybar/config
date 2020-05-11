@@ -201,7 +201,7 @@ bar-used-empty-foreground = ${colors.fg-alt}
 
 [module/wlan]
 type = internal/network
-interface = ${env:WLP:wlp3s0}
+interface = ${env:WLP:wlp59s0}
 interval = 3.0
 
 format-connected = <ramp-signal>
