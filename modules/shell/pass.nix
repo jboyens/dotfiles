@@ -14,6 +14,9 @@ with lib;
         (pass.withExtensions (exts: [
           exts.pass-otp
           exts.pass-genphrase
+          exts.pass-update
+          exts.pass-audit
+          exts.pass-checkup
         ]))
       ];
       env.PASSWORD_STORE_DIR = "$HOME/.secrets/password-store";
