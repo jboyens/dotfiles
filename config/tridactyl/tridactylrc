@@ -54,3 +54,6 @@ set hintdelay 100
 " Make Tridactyl work on more sites at the expense of some security. For
 " details, read the comment at the top of this file.
 fixamo_quiet
+
+bind J tabnext
+bind K tabprev
