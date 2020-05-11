@@ -146,7 +146,7 @@
   ];
 
   services.psd.enable = true;
-
+  services.upower.enable = true;
   services.lorri.enable = true;
 
   # Battery life!
