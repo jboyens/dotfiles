@@ -22,6 +22,7 @@ with lib;
         HOME="$XDG_DATA_HOME/steamlib" exec ${steam-run-native}/bin/steam-run "$@"
         '')
       xboxdrv  # driver for 360 controller
+      steamcontroller
     ];
 
     hardware.opengl.driSupport32Bit = true;
