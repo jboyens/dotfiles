@@ -143,6 +143,7 @@
     pkgs.my.bosh-bootloader
     pkgs.my.credhub-cli
     pkgs.my.logcli
+    pkgs.my.ferdi
     # pkgs.my.gmailctl
     pkgs.my."3mux"
   ];
