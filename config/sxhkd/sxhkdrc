@@ -8,7 +8,7 @@ super + t
 	bspc desktop -l next
 
 super + apostrophe
-	bspc window -s last
+	bspc node -s last
 
 # Attach to a detached session. If none is available create a new one, rather
 # than attach to one that is already attached to elsewhere.
