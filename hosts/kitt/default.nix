@@ -30,6 +30,7 @@
         firefox.enable = true;
         google-chrome.enable = true;
         vivaldi.enable = true;
+        qutebrowser.enable = true;
       };
 
       gaming = {
