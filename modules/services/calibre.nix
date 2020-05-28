@@ -10,6 +10,7 @@ with lib;
 
   config = mkIf config.modules.services.calibre.enable {
     services.calibre-server.enable = true;
+    services.calibre-server.libraryDir = "/home/jboyens/Books";
     networking.firewall.allowedTCPPorts = [ 8080 ];
   };
 }

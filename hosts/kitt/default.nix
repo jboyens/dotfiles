@@ -78,6 +78,7 @@
       syncthing.enable = true;
       ssh.enable = true;
       docker.enable = true;
+      calibre.enable = true;
     };
 
     themes.fluorescence.enable = true;
