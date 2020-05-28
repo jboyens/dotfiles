@@ -7,7 +7,7 @@
   imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "mitigations=off" ];
+  boot.kernelParams = [ "mitigations=off" "i915.enable_guc=2" ];
   boot.blacklistedKernelModules = [ ];
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -20,6 +20,7 @@
     "aes_x86_64"
     "aesni_intel"
     "cryptd"
+    "i915"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];

@@ -104,6 +104,11 @@
   services.xserver.layout = "us";
   services.xserver.xkbVariant = "dvorak";
   services.xserver.videoDrivers = [ "intel" "nouveau" ];
+  services.xserver.exportConfiguration = true;
+  services.xserver.useGlamor = true;
+  services.xserver.deviceSection = ''
+    Option "DRI" "3"
+    '';
   console.useXkbConfig = true;
 
   services.thermald.enable = true;
