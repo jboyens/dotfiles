@@ -23,6 +23,7 @@
         zunit = (callPackage ./zunit.nix { });
         hll2350dw = (callPackage ./hll2350dw.nix { });
         "3mux" = (callPackage ./3mux { });
+        # tanka = (callPackage ./tanka.nix {});
       };
 
       nur = import (builtins.fetchTarball

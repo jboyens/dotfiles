@@ -146,6 +146,7 @@
     pkgs.my.ferdi
     # pkgs.my.gmailctl
     pkgs.my."3mux"
+    # pkgs.my.tanka
   ];
 
   services.psd.enable = true;
