@@ -150,6 +150,10 @@
   services.psd.enable = true;
   services.upower.enable = true;
   services.lorri.enable = true;
+  services.udev.packages = with pkgs; [
+    yubikey-personalization
+  ];
+  services.pcscd.enable = true;
 
   # Battery life!
   services.tlp.enable = true;
