@@ -97,6 +97,9 @@
     clickMethod = "clickfinger";
   };
   services.blueman.enable = true;
+  services.fwupd.enable = true;
+
+  virtualisation.libvirtd.enable = true;
 
   # services.xserver.exportConfiguration = true;
   services.xserver.xkbModel = "dell";
@@ -121,7 +124,7 @@
   hardware.printers.ensureDefaultPrinter = "HLL2350DW";
   hardware.printers.ensurePrinters = [{
     name = "HLL2350DW";
-    deviceUri = "socket://192.168.86.29:9100";
+    deviceUri = "socket://192.168.86.39:9100";
     model = "brother-HLL2350DW-cups-en.ppd";
     ppdOptions = {
       Duplex = "DuplexNoTumble";

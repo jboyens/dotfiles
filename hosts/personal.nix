@@ -28,6 +28,7 @@
     "192.168.86.100" = [ "irongiant" "bender" ];
     "192.168.86.50" = [ "alita" ];
     "192.168.86.40" = [ "kitt" ];
+    "172.17.0.3" = [ "minikube.local" "minikube" ];
   };
 
   ### A tidy $HOME is a tidy mind

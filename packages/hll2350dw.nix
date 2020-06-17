@@ -3,13 +3,15 @@
 
 let
   version = "4.0.0-1";
-  lprdeb = fetchurl {
+in stdenv.mkDerivation {
+  pname = "hll2350dw-cups";
+  version = "4.0.0-1";
+
+  src = fetchurl {
     url =
       "https://download.brother.com/welcome/dlf103566/hll2350dwpdrv-${version}.i386.deb";
     sha256 = "863c6a40b3b6883376834acf98a6178d385b3a95ecc4cbf3604f15102c85f02c";
   };
-in stdenv.mkDerivation {
-  name = "cups-brother-hll2350dw";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ cups ghostscript dpkg a2ps ];
@@ -18,18 +20,22 @@ in stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out
-    dpkg-deb -x ${lprdeb} $out
+    dpkg-deb -x $src $out
 
     substituteInPlace $out/opt/brother/Printers/HLL2350DW/lpd/lpdfilter \
       --replace /opt "$out/opt" \
       --replace /usr/bin/perl ${perl}/bin/perl \
-      --replace "BR_PRT_PATH =~" "BR_PRT_PATH = \"$out/opt/brother/Printers/HLL2350DW/\"; #" \
+      --replace "BR_PRT_PATH =~" "BR_PRT_PATH = \"$out\"; #" \
       --replace "PRINTER =~" "PRINTER = \"HLL2350DW\"; #"
 
+    _PLAT=x86_64
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      $out/opt/brother/Printers/HLL2350DW/lpd/x86_64/brprintconflsr3
+      $out/opt/brother/Printers/HLL2350DW/lpd/$_PLAT/brprintconflsr3
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      $out/opt/brother/Printers/HLL2350DW/lpd/x86_64/rawtobr3
+      $out/opt/brother/Printers/HLL2350DW/lpd/$_PLAT/rawtobr3
+
+    ln -s $out/opt/brother/Printers/HLL2350DW/lpd/$_PLAT/brprintconflsr3 $out/opt/brother/Printers/HLL2350DW/lpd/brprintconflsr3
+    ln -s $out/opt/brother/Printers/HLL2350DW/lpd/$_PLAT/rawtobr3 $out/opt/brother/Printers/HLL2350DW/lpd/rawtobr3
 
     for f in \
       $out/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper \
