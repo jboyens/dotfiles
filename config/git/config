@@ -10,8 +10,11 @@
 	user = jboyens
 [rebase]
 	autosquash = true
+    autostash = true
 [push]
 	default = current
+[pull]
+    rebase = true
 [diff]
 	algorithm = histogram
 [alias]

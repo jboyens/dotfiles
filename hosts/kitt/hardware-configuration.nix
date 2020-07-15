@@ -28,12 +28,12 @@
     (pkgs.linuxPackages_latest.v4l2loopback.overrideAttrs (oa: rec {
       name =
         "v4l2loopback-${version}-${pkgs.linuxPackages_latest.kernel.version}";
-      version = "0.12.4";
+      version = "0.12.5";
       src = pkgs.fetchFromGitHub {
         owner = "umlaeute";
         repo = "v4l2loopback";
         rev = "v${version}";
-        sha256 = "0sp7n6hprgf1z7vzwshs5gyyn6syn4pw5xx7xqrfcwkx6cja6sys";
+        sha256 = "1qi4l6yam8nrlmc3zwkrz9vph0xsj1cgmkqci4652mbpbzigg7vn";
       };
     }))
   ];
@@ -83,7 +83,7 @@
 
   swapDevices = [{
     device = "/swapfile";
-    size = 10000;
+    size = 10240;
   }];
 
   nix.maxJobs = lib.mkDefault 12;

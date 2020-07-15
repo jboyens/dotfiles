@@ -16,14 +16,15 @@
         credhub-cli = (callPackage ./credhub-cli.nix { });
         # dell-bios-fan-control = (callPackage ./packages/dell-bios-fan-control.nix {});
         ferdi = (callPackage ./ferdi.nix { });
-        # gmailctl = (callPackage ./packages/gmailctl.nix { });
+        gmailctl = (callPackage ./packages/gmailctl.nix { });
         linode-cli = (callPackage ./linode-cli.nix { });
         logcli = (callPackage ./logcli.nix { });
         ripcord = (callPackage ./ripcord.nix { });
         zunit = (callPackage ./zunit.nix { });
         hll2350dw = (callPackage ./hll2350dw.nix { });
         "3mux" = (callPackage ./3mux { });
-        # tanka = (callPackage ./tanka.nix {});
+        autotiling = (callPackage ./autotiling.nix { });
+        broxy = (callPackage ./broxy.nix { });
       };
 
       nur = import (builtins.fetchTarball

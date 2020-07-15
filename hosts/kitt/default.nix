@@ -11,7 +11,8 @@
 
   modules = {
     desktop = {
-      bspwm.enable = true;
+      bspwm.enable = false;
+      swaywm.enable = true;
 
       apps = {
         rofi.enable = true;
@@ -36,6 +37,7 @@
       gaming = {
         steam.enable = true;
         factorio.enable = false;
+        dwarf-fortress.enable = true;
         emulators = {
           psx.enable = false; # Playstation
           ds.enable = false; # Nintendo DS
@@ -98,6 +100,7 @@
   };
   services.blueman.enable = true;
   services.fwupd.enable = true;
+  services.pipewire.enable = true;
 
   virtualisation.libvirtd.enable = true;
 
@@ -115,7 +118,7 @@
   console.useXkbConfig = true;
 
   services.thermald.enable = true;
-  services.resolved.enable = true;
+  # services.resolved.enable = true;
   services.irqbalance.enable = true;
   services.fstrim.enable = true;
   services.printing.enable = true;
@@ -133,6 +136,8 @@
   }];
 
   programs.system-config-printer.enable = true;
+  programs.sway.enable = true;
+  programs.ssh.startAgent = true;
 
   time.timeZone = "America/Los_Angeles";
   # time.timeZone = "Europe/Copenhagen";
@@ -170,50 +175,6 @@
   powerManagement.enable = true;
   powerManagement.powertop.enable = false;
 
-  # systemd.services.dell-bios-fan-control = {
-  #   enable = true;
-  #   description = "Disable Dell BIOS Fan Control";
-  #   wantedBy = ["multi-user.target" "graphical.target" "rescue.target" "fancontrol.service"];
-  #   unitConfig = {
-  #     Type = "oneshot";
-  #   };
-  #
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.my.dell-bios-fan-control}/bin/dell-bios-fan-control 0";
-  #     Restart = "no";
-  #   };
-  # };
-
-  # systemd.services.fancontrol = {
-  #   enable = true;
-  #   description = "Fan control";
-  #   wantedBy = [ "multi-user.target" "graphical.target" "rescue.target" ];
-  #
-  #   unitConfig = { Type = "simple"; };
-  #
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.lm_sensors}/bin/fancontrol";
-  #     Restart = "always";
-  #   };
-  # };
-  #
-  # environment.etc.fancontrol = {
-  #   text = ''
-  #     INTERVAL=10
-  #     DEVPATH=hwmon4=
-  #     DEVNAME=hwmon4=dell_smm
-  #     FCTEMPS=hwmon4/pwm1=hwmon4/temp1_input
-  #     FCFANS= hwmon4/pwm1=hwmon4/fan1_input
-  #     MINTEMP=hwmon4/pwm1=40
-  #     MAXTEMP=hwmon4/pwm1=65
-  #     MINSTART=hwmon4/pwm1=150
-  #     MINSTOP=hwmon4/pwm1=150
-  #     MINPWM=hwmon4/pwm1=150
-  #   '';
-  #   mode = "444";
-  # };
-
-  # Monitor backlight control
   programs.light.enable = true;
 
   programs.iftop.enable = true;
