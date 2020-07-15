@@ -67,7 +67,7 @@ let cfg = config.modules; in
       ];
 
       xdg.configFile = mkMerge [
-        (mkIf config.services.xserver.enable {
+        (mkIf (config.services.xserver.enable || cfg.desktop.swaywm.enable) {
           "xtheme/90-theme".source    = ./Xresources;
           # GTK
           "gtk-3.0/settings.ini".text = ''
@@ -97,10 +97,15 @@ let cfg = config.modules; in
           "bspwm/rc.d/polybar".source = ./polybar/run.sh;
           "bspwm/rc.d/theme".source   = ./bspwmrc;
         })
+        (mkIf cfg.desktop.swaywm.enable {
+          "sway/rc.d/swaytheme".source = ./swaytheme;
+          "waybar".source = ./waybar;
+          "alacritty".source = ./alacritty;
+        })
         (mkIf cfg.desktop.apps.rofi.enable {
           "rofi/theme" = { source = ./rofi; recursive = true; };
         })
-        (mkIf (cfg.desktop.bspwm.enable || cfg.desktop.stumpwm.enable) {
+        (mkIf (cfg.desktop.bspwm.enable) { # || cfg.desktop.swaywm.enable) {
           "polybar" = { source = ./polybar; recursive = true; };
           "dunst/dunstrc".source = ./dunstrc;
         })
