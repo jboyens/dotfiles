@@ -5,5 +5,6 @@
     ./emulators.nix
     ./factorio.nix
     ./steam.nix
+    ./dwarf-fortress.nix
   ];
 }

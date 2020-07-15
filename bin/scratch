@@ -3,23 +3,65 @@
 # Toggle a scratch terminal window. A scratch terminal is a disposable terminal
 # for one-off, quick commands that don't warrant a dedicated terminal.
 
-SCRID=scratch
-CMD=${1:-'tmux new-session -A -s scratch -n scratch'}
-focused=$(xdotool getactivewindow)
-scratch=$(xdotool search --onlyvisible --classname $SCRID)
-if [[ -n $scratch ]]; then
-    if [[ $focused == $scratch ]]; then
+function get_focused {
+    if [ -z "$WAYLAND_DISPLAY" ]
+    then
+        xdotool getactivewindow
+    else
+        swaywindow -f
+    fi
+}
+
+function find_scratch {
+    if [ -z "$WAYLAND_DISPLAY" ]
+    then
+        xdotool search --onlyvisible --classname "$1"
+    else
+        swaywindow -s "$1"
+    fi
+}
+
+function kill_window {
+    if [ -z "$WAYLAND_DISPLAY" ]
+    then
         xdotool windowkill $scratch
     else
-        xdotool windowactivate $scratch
+        swaywindow -k "$1"
     fi
-elif command -v urxvt >/dev/null; then
-    urxvt -name $SCRID \
-          -e $SHELL -c "$CMD"
+}
+
+function activate_window {
+    if [ -z "$WAYLAND_DISPLAY" ]
+    then
+        xdotool windowactivate $scratch
+    else
+        swaywindow -a "$1"
+    fi
+}
+
+
+SCRID=scratch
+CMD=${1:-'tmux new-session -A -s scratch -n scratch'}
+focused=$(get_focused)
+scratch=$(find_scratch "$SCRID")
+if [[ -n $scratch ]]; then
+    if [[ $focused == "$scratch" ]]; then
+        kill_window "$scratch"
+    else
+        activate_window "$scratch"
+    fi
+elif command -v alacritty >/dev/null; then
+    alacritty --class $SCRID \
+        --config-file=<(yq --yaml-output \
+            '.font.size=14 | .live_config_reload=false' \
+            ~/.config/alacritty/alacritty.yml) \
+        --command $SHELL -c "$CMD"
+# elif command -v urxvt >/dev/null; then
+#     urxvt -name $SCRID -e "$SHELL" -c "$CMD"
 elif command -v xst >/dev/null; then
     xst -t $SCRID -n $SCRID -c $SCRID \
         -f "$(xrdb -query | grep 'scratch\.font' | cut -f2)" \
-        -e $SHELL -c "$CMD"
+        -e "$SHELL" -c "$CMD"
 else
     >&2 echo "No shell to launch the scratch terminal with"
     exit 1

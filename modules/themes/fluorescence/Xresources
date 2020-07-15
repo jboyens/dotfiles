@@ -50,7 +50,7 @@
 
 
 !! general
-scratch.font: Fira Code:pixelsize=16
+scratch.font: xft:Fira Code:pixelsize=16
 
 
 !! xst

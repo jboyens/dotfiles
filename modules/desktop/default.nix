@@ -3,6 +3,7 @@
 {
   imports = [
     ./bspwm.nix
+    ./swaywm.nix
     # ./stumpwm.nix
 
     ./apps

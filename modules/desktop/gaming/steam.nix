@@ -19,7 +19,7 @@ with lib;
       # for GOG and humblebundle games
       (writeScriptBin "steam-run" ''
         #!${stdenv.shell}
-        HOME="$XDG_DATA_HOME/steamlib" exec ${steam-run-native}/bin/steam-run "$@"
+        HOME="$XDG_DATA_HOME/steamlib" exec ${steam-run}/bin/steam-run "$@"
         '')
       xboxdrv  # driver for 360 controller
       steamcontroller

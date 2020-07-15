@@ -17,6 +17,7 @@ with lib;
           #!${stdenv.shell}
           exec ${tmux}/bin/tmux -f "$TMUX_HOME/config" "$@"
           '')
+        tmux.man
       ];
 
       env.TMUX_HOME = "$XDG_CONFIG_HOME/tmux";

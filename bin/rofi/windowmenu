@@ -1,4 +1,11 @@
 #!/usr/bin/env sh
-rofi -show window \
-     -show-icons \
-     -theme theme/windowmenu.rasi
+if [ -z "$WAYLAND_DISPLAY" ];
+then
+    rofi -show window \
+        -show-icons \
+        -theme theme/windowmenu.rasi
+else
+    swaywindow -w \
+        | rofi -dmenu -theme theme/windowmenu.rasi \
+        | { read -r id name; swaymsg "[con_id=$id] focus"; }
+fi
