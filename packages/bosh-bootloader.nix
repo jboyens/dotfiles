@@ -1,15 +1,15 @@
 { stdenv, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
-  pname = "bosh-bootloader";
-  version = "v8.4.0";
+  name = "bosh-bootloader-${version}";
+  version = "8.4.0";
 
   goPackagePath = "github.com/cloudfoundry/bosh-bootloader";
 
   src = fetchFromGitHub {
     owner = "cloudfoundry";
-    repo = pname;
-    rev = version;
+    repo = "bosh-bootloader";
+    rev = "v${version}";
     sha256 = "1nchnkn4ks8ca4nbd19xwxivn6jldl1w6wzfflrn4qq1z409yncg";
   };
 

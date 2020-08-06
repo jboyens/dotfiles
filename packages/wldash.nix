@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "wldash";
-  version = "20200618";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "kennylevinsen";

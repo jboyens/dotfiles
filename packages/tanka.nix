@@ -1,18 +1,17 @@
 { stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
-  name = "tanka";
-  pname = "${name}-${version}";
-  version = "0.9.2";
+  name = "tanka-${version}";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "grafana";
-    repo = name;
+    repo = "tanka";
     rev = "v${version}";
-    sha256 = "18psf1mxxki68n3crdh0ys5cgy7i9n0klqxw674fbqkzah6xcw46";
+    sha256 = "0hp10qgalglsdhh6z6v4azh2hsr89mdrv1g5lssfl5jyink409yd";
   };
 
-  modSha256 = "0pv3lhzl96ygzh9y01hi9klrrk403ii92imr9yrbimaf7rsvyvjp";
+  modSha256 = "0hgyibmxv4pkgwnw2ijnlga9mx2qj9liq529nvqm4j4hmj1xg4l5";
 
   subPackages = ["cmd/tk"];
 

@@ -1,17 +1,17 @@
 { stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
-  pname = "gmailctl-${version}";
-  version = "0.6.0";
+  name = "gmailctl-${version}";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "mbrt";
-    repo = pname;
+    repo = "gmailctl";
     rev = "v${version}";
-    sha256 = "0g581gdkib7bj86blpm8skjvbnivmzh9ddikxai9hr5qq231j1pb";
+    sha256 = "08q4yjfbwlldirf3j5db18l8kn6sf288wd364s50jlcx2ka8w50j";
   };
 
-  modSha256 = "1c4mz6yxwiv9185algqhd7fxr3d7048y1qiqzjnv54bppcpvsq4l";
+  modSha256 = "1c7dk6l8lkq2j04cp5g97hwkwfmmyn5r0vpr5zpavvalxgjidsf4";
 
   subPackages = ["cmd/gmailctl"];
 

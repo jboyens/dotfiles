@@ -1,16 +1,16 @@
 { stdenv, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
-  pname = "bosh-cli";
-  version = "v6.2.1";
+  name = "bosh-cli-${version}";
+  version = "6.3.1";
 
   goPackagePath = "github.com/cloudfoundry/bosh-cli";
 
   src = fetchFromGitHub {
     owner = "cloudfoundry";
-    repo = pname;
-    rev = version;
-    sha256 = "12isqj3m05xkm9vjgcigkpa663z858yc2l4hi1nfldw6cca90kc6";
+    repo = "bosh-cli";
+    rev = "v${version}";
+    sha256 = "1rbb9cqzxnvp6vnd6pjhk1im09lngjy2h586j3mfwrfrpv17c7xb";
   };
 
   meta = with stdenv.lib; {
