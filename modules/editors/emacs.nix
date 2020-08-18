@@ -19,7 +19,9 @@ with lib; {
     my = {
       packages = with pkgs; [
         ## Doom dependencies
-        config.modules.editors.emacs.pkg
+        ((emacsPackagesNgGen config.modules.editors.emacs.pkg).emacsWithPackages (epkgs: [
+          epkgs.emacs-libvterm
+        ]))
         git
         (ripgrep.override { withPCRE2 = true; })
         gnutls # for TLS connectivity
