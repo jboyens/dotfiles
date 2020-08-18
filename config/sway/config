@@ -11,7 +11,8 @@ set $super Mod4
 set $alt Mod1
 set $control Ctrl
 set $shift Shift
-set $hyper $control+$super+$shift
+set $hyper $control+$alt+$super+$shift
+set $meh $control+$alt+$shift
 
 # Home row direction keys, like vim
 set $left h
@@ -169,7 +170,10 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     bindsym $super+Grave exec ~/.dotfiles/bin/scratch
     bindsym $super+Shift+Grave exec emacsclient -e '(doom/open-scratch-buffer)'
 
-    bindsym $hyper+e "SOMETHING"
+    bindsym $hyper+e exec ~/.dotfiles/bin/activate emacs
+    bindsym $hyper+f exec ~/.dotfiles/bin/activate firefox
+    bindsym $hyper+s exec ~/.dotfiles/bin/activate slack
+    bindsym $hyper+z exec ~/.dotfiles/bin/activate zoom zoom-us
 #
 # Moving around:
 #
@@ -318,9 +322,9 @@ for_window [class=scratch] border pixel 2
 # for_window [class=URxvt instance=scratch] resize set width 1200 height 560
 # for_window [class=URxvt instance=scratch] border pixel 2
 
-exec ~/autotiling/autotiling
+exec_always ~/autotiling/autotiling-exec
 # exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
-exec_always pkill mako; exec mako --default-timeout 5000
+exec_always ~/.dotfiles/bin/mako-exec
 # exec_always pkill kanshi; exec kanshi
 exec waybar
 exec redshift
