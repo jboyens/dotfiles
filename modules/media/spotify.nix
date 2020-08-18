@@ -12,6 +12,7 @@ with lib;
   };
 
   config = mkIf config.modules.media.spotify.enable {
+    networking.firewall.allowedTCPPorts = [ 57621 ];
     my.packages = with pkgs; [
       # # services.spotifyd doesn't work so we'll have to roll our own spotifyd +
       # # spotify-tui solution. The dbus interface doesn't work, though, so we
