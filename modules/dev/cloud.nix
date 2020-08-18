@@ -40,6 +40,12 @@ with lib; {
       my.packages = with pkgs; [ azure-cli ];
     })
 
-    ({ my.packages = with pkgs; [ unstable.terraform ]; })
+    ({
+      my.packages = with pkgs; [
+        unstable.terraform
+        unstable.kubectl
+        unstable.minikube
+      ];
+    })
   ];
 }
