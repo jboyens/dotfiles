@@ -11,6 +11,7 @@
     mpv # video player
     xclip
     xdotool
+    xdg_utils
     libqalculate # calculator cli w/ currency conversion
     (makeDesktopItem {
       name = "scratch-calc";
@@ -40,6 +41,7 @@
       font-awesome-ttf
       siji
       iosevka
+      comic-neue
     ];
     fontconfig.defaultFonts = {
       sansSerif = [ "Ubuntu" ];
