@@ -18,10 +18,9 @@ with lib; {
     #   enable = true;
     #   # urg, takes so long to build, but needed for macOS guest
     #   # enableExtensionPack = true;
-    # }    virtualisation.libvirtd.enable = true;
-;
+    # };
 
-
+    virtualisation.libvirtd.enable = true;
     my.user.extraGroups = [
       # "vboxusers"
       "libvirtd"
