@@ -1,6 +1,6 @@
 # Kitt -- my work laptop
 
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
   imports = [
     ../personal.nix # common settings
     <nixos-hardware/common/cpu/intel>
@@ -30,7 +30,7 @@
         default = "firefox";
         firefox.enable = true;
         google-chrome.enable = true;
-        vivaldi.enable = true;
+        vivaldi.enable = false;
         qutebrowser.enable = true;
       };
 
@@ -43,7 +43,7 @@
           ds.enable = false; # Nintendo DS
           gb.enable = false; # GameBoy + GameBoy Color
           gba.enable = false; # GameBoy Advance
-          snes.enable = false; # Super Nintendo
+          snes.enable = true; # Super Nintendo
         };
       };
 
@@ -52,6 +52,7 @@
     dev.node.enable = true;
     dev.cloud.google.enable = true;
     dev.podman.enable = true;
+    dev.db.enable = true;
 
     editors = {
       default = "emacs";
@@ -80,18 +81,15 @@
       syncthing.enable = true;
       ssh.enable = true;
       docker.enable = true;
-      calibre.enable = true;
+      calibre.enable = false;
     };
 
     themes.fluorescence.enable = true;
   };
 
-  networking.useDHCP = true;
-  networking.wireless.enable = true;
-  networking.wireless.networks = {
-    Sledgehammer = { psk = "nagasaki"; };
-    FLEXE = { psk = "xxxxx"; };
-  };
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
 
   services.xserver.libinput = {
     enable = true;
@@ -101,8 +99,6 @@
   services.blueman.enable = true;
   services.fwupd.enable = true;
   services.pipewire.enable = true;
-
-  virtualisation.libvirtd.enable = true;
 
   # services.xserver.exportConfiguration = true;
   services.xserver.xkbModel = "dell";
@@ -114,7 +110,7 @@
   services.xserver.useGlamor = true;
   services.xserver.deviceSection = ''
     Option "DRI" "3"
-    '';
+  '';
   console.useXkbConfig = true;
 
   services.thermald.enable = true;
@@ -152,23 +148,34 @@
     #   mkdir -p "$XDG_CONFIG_HOME/nvidia"
     #   exec ${config.boot.kernelPackages.nvidia_x11.settings}/bin/nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"
     # '')
-    pkgs.my.bosh-cli
-    pkgs.my.bosh-bootloader
-    pkgs.my.credhub-cli
+    # pkgs.my.bosh-cli
+    # pkgs.my.bosh-bootloader
+    # pkgs.my.credhub-cli
     pkgs.my.logcli
     pkgs.my.ferdi
+    pkgs.my.glab
+    pkgs.my.git-delete-merged-branches
     # pkgs.my.gmailctl
-    pkgs.my."3mux"
+    # pkgs.my."3mux"
     # pkgs.my.tanka
+
+    pkgs.lxqt.lxqt-policykit
   ];
 
   services.psd.enable = true;
   services.upower.enable = true;
   services.lorri.enable = true;
-  services.udev.packages = with pkgs; [
-    yubikey-personalization
-  ];
+  services.udev.packages = with pkgs; [ yubikey-personalization ];
   services.pcscd.enable = true;
+  services.gvfs = {
+    enable = true;
+    package = lib.mkForce pkgs.gnome3.gvfs;
+  };
+
+  services.samba = {
+    enable = true;
+    securityType = "user";
+  };
 
   # Battery life!
   services.tlp.enable = true;
@@ -179,86 +186,7 @@
 
   programs.iftop.enable = true;
   programs.iotop.enable = true;
+  programs.dconf.enable = true;
 
   networking.wireguard.interfaces = { };
-
-  services.autorandr.enable = true;
-  my.home.programs.autorandr = {
-    enable = true;
-    hooks = {
-      postswitch = {
-        "restart-bspwm" =
-          "${pkgs.bash}/bin/bash $XDG_CONFIG_HOME/bspwm/bspwmrc";
-        "reset-background" =
-          "${pkgs.feh}/bin/feh --no-fehbg --bg-fill ~/.background-image";
-        "reset-keyboard" = ''
-          if ${pkgs.xorg.xinput}/bin/xinput | grep "ErgoDox" 1>/dev/null; then
-            ${pkgs.xorg.setxkbmap}/bin/setxkbmap us -model dell -option ""
-          else
-            ${pkgs.xorg.setxkbmap}/bin/setxkbmap dvorak -option "${config.services.xserver.xkbOptions}"
-          fi
-        '';
-      };
-    };
-    profiles = {
-      "mobile" = {
-        hooks = {
-          preswitch = "${pkgs.xorg.xrandr}/bin/xrandr --output eDP1 --primary";
-          postswitch =
-            "${pkgs.pulseaudio}/bin/pactl set-card-profile output:analog-stereo+input:analog-stereo";
-        };
-        fingerprint = {
-          eDP1 =
-            "00ffffffffffff004d10ba1400000000161d0104a52213780ede50a3544c99260f505400000001010101010101010101010101010101ac3780a070383e403020350058c210000018000000000000000000000000000000000000000000fe004d57503154804c513135364d31000000000002410332001200000a010a202000d3";
-        };
-        config = {
-          eDP1 = {
-            enable = true;
-            primary = true;
-            gamma = "1.0:0.909:0.833";
-            mode = "1920x1080";
-            position = "0x0";
-            rate = "60.01";
-          };
-          DP1.enable = false;
-          DP2.enable = false;
-          DP3.enable = false;
-        };
-      };
-
-      "home" = {
-        hooks = {
-          postswitch =
-            "${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo-extra2+input:analog-stereo";
-        };
-        fingerprint = {
-          DP3 =
-            "00ffffffffffff001e6d085b211a01000a1c0103803c2278ea3035a7554ea3260f50542108007140818081c0a9c0d1c081000101010108e80030f2705a80b0588a0058542100001e04740030f2705a80b0588a0058542100001a000000fd00283d1e873c000a202020202020000000fc004c4720556c7472612048440a2001db020339714d902220050403020161605d5e5f230907076d030c001000b83c20006001020367d85dc401788003e30f0003681a00000101283d00023a801871382d40582c450058542100001a565e00a0a0a029503020350058542100001a00000000000000000000000000000000000000000000000000000000000000000000bb";
-          eDP1 =
-            "00ffffffffffff004d10ba1400000000161d0104a52213780ede50a3544c99260f505400000001010101010101010101010101010101ac3780a070383e403020350058c210000018000000000000000000000000000000000000000000fe004d57503154804c513135364d31000000000002410332001200000a010a202000d3";
-        };
-        config = {
-          eDP1 = {
-            enable = true;
-            gamma = "1.0:0.909:0.833";
-            mode = "1920x1080";
-            position = "0x360";
-            rate = "60.01";
-          };
-
-          DP3 = {
-            enable = true;
-            primary = true;
-            position = "1920x0";
-            mode = "2560x1440";
-            rate = "30.00";
-            gamma = "1.0:0.909:0.833";
-          };
-
-          DP1.enable = false;
-          DP2.enable = false;
-        };
-      };
-    };
-  };
 }
