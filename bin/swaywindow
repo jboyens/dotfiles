@@ -1,13 +1,16 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash -p jq sway
 ### swaymsg - simple xdotool-ish replacement
-###   -f, -focused  Find the currently focused window
-###   -s, -search   Find a window with the app_id / WM_CLASS of the argument
-###   -k, -kill     Kill a window by the con_id (returned from search)
-###   -a, -activate Activate a window by the con_id (returned from search)
-###   -w, -windows  List of windows in the format of conn_id\tname
-###   -j, -json     Dump the raw JSON
-###   -n, -name     Get the window name
-###   -h, -help     Display this help message
+###
+### swaymsg command [args]
+###   -f -focused       Find the currently focused window
+###   -s -search text   Find a window with the app_id / WM_CLASS of the argument
+###   -k -kill id       Kill a window by the con_id (returned from search)
+###   -a -activate id   Activate a window by the con_id (returned from search)
+###   -w -windows       List of windows in the format of conn_id\tname
+###   -j -json          Dump the raw JSON
+###   -n -name id       Get the window name
+###   -h -help          Display this help message
 
 function show-help {
     sed -rn 's/^### ?//;T;p' "$0"
@@ -31,7 +34,7 @@ case $1 in
             exit 1
         fi
         term=$(echo "$2" | tr '[:upper:]' '[:lower:]')
-        id=$(echo "$FLAT_NODES" | jq -r "select((.app_id|tostring|ascii_downcase)==\"$term\" or (.name|tostring|ascii_downcase)==\"$term\" or (.window_properties.instance|tostring|ascii_downcase)==\"$term\") | (.id | tostring)")
+        id=$(echo "$FLAT_NODES" | jq -r "select((.app_id+.name+.window_properties.instance)|test(\"$term\";\"i\")) | (.id|tostring)")
         if [ -z "$id" ];
         then
             exit 1
