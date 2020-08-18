@@ -8,6 +8,8 @@
 	whitespace = trailing-space
 [github]
 	user = jboyens
+[gitlab]
+    user = jr.boyens@flexe.com
 [rebase]
 	autosquash = true
     autostash = true
