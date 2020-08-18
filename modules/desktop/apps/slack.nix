@@ -10,7 +10,7 @@ with lib;
 
   config = mkIf config.modules.desktop.apps.slack.enable {
     my.packages = with pkgs; [
-      unstable.slack
+      (unstable.slack.override { nss = pkgs.unstable.nss_3_44; })
       # ripcord
     ];
   };
