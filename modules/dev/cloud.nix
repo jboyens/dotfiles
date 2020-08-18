@@ -29,7 +29,7 @@ with lib; {
 
   config = mkMerge [
     (mkIf config.modules.dev.cloud.google.enable {
-      my.packages = with pkgs; [ google-cloud-sdk ];
+      my.packages = with pkgs; [ google-cloud-sdk cloud-sql-proxy ];
     })
 
     (mkIf config.modules.dev.cloud.amazon.enable {
