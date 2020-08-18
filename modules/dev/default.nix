@@ -6,6 +6,7 @@
     ./clojure.nix
     ./cloud.nix
     ./common-lisp.nix
+    ./db.nix
     ./godot.nix
     # ./haskell.nix
     # ./latex.nix
