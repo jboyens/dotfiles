@@ -9,6 +9,12 @@ with lib; {
   };
 
   config = mkIf config.modules.email.mu.enable {
-    my = { packages = with pkgs; [ unstable.mu unstable.offlineimap ]; };
+    my = {
+      packages = with pkgs; [
+        unstable.mu
+        unstable.offlineimap
+        unstable.imapfilter
+      ];
+    };
   };
 }
