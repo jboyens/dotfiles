@@ -54,6 +54,7 @@ let cfg = config.modules; in
     my.packages = with pkgs; [
       my.ant-dracula
       paper-icon-theme # for rofi
+      gnome3.defaultIconTheme
     ];
     my.zsh.rc = lib.readFile ./zsh/prompt.zsh;
 
@@ -70,6 +71,18 @@ let cfg = config.modules; in
         (mkIf (config.services.xserver.enable || cfg.desktop.swaywm.enable) {
           "xtheme/90-theme".source    = ./Xresources;
           # GTK
+          "gtk-4.0/settings.ini".text = ''
+            [Settings]
+            gtk-theme-name=Ant-Dracula
+            gtk-icon-theme-name=Paper
+            gtk-fallback-icon-theme=gnome
+            gtk-application-prefer-dark-theme=true
+            gtk-cursor-theme-name=Paper
+            gtk-xft-hinting=1
+            gtk-xft-hintstyle=hintfull
+            gtk-xft-rgba=none
+          '';
+          # GTK3
           "gtk-3.0/settings.ini".text = ''
             [Settings]
             gtk-theme-name=Ant-Dracula
