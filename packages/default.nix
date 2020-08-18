@@ -29,6 +29,7 @@
         pragli = (callPackage ./pragli.nix { });
         tanka = (callPackage ./tanka.nix { });
         wldash = (callPackage ./wldash.nix { });
+        git-delete-merged-branches = (callPackage ./git-delete-merged-branches.nix { });
       };
 
       nur = import (builtins.fetchTarball
@@ -39,15 +40,12 @@
       # Occasionally, "stable" packages are broken or incomplete, so access to the
       # bleeding edge is necessary, as a last resort.
       unstable = import <nixpkgs-unstable> { inherit config; };
-
-      wayland-pkgs = import (builtins.fetchTarball
-        "https://github.com/colemickens/nixpkgs-wayland/archive/master.tar.gz") {
-          inherit super;
-        };
     })
 
   # emacsGit
   (import (builtins.fetchTarball
-    "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz"))
+  "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz"))
 
+  # (import (builtins.fetchTarball
+  # "https://github.com/colemickens/nixpkgs-wayland/archive/master.tar.gz"))
 ]
