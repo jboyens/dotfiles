@@ -5,7 +5,7 @@
     xfce.thunar
     xfce.tumbler # for thumbnails
 
-    calibre # managing my ebooks
+    # calibre # managing my ebooks
     evince # pdf reader
     feh # image viewer
     mpv # video player
