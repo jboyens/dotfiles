@@ -26,6 +26,34 @@ with lib; {
 
       # for understanding who has what open
       lsof
+
+      # for running commands repeatedly
+      unstable.entr
+
+      # for downloading things rapidly
+      axel
+
+      # for monitoring
+      unstable.ytop
+
+      # for json parsing
+      unstable.jq
+
+      # for yaml parsing
+      unstable.yq
+
+      # for pretty du
+      unstable.du-dust
+
+      # dig
+      bind
+
+      # sound
+      pavucontrol
+      pamixer
+
+      # network
+      mtr
     ];
   };
 }
