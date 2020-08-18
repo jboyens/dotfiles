@@ -64,6 +64,13 @@
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
   hardware.steam-hardware.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+
+    package = pkgs.pulseaudioFull;
+    extraModules = [ pkgs.pulseaudio-modules-bt pkgs.pulseeffects ];
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
