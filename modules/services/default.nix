@@ -10,6 +10,7 @@
     # ./mpd.nix
     # ./nginx.nix
     # ./plex.nix
+    ./printing.nix
     ./ssh.nix
     ./syncthing.nix
     # ./transmission.nix

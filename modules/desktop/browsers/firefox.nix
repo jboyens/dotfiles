@@ -18,19 +18,19 @@ with lib; {
 
   config = mkIf config.modules.desktop.browsers.firefox.enable {
     my.packages = with pkgs; [
-      (firefox.override {
+      (unstable.firefox.override {
         extraNativeMessagingHosts = [ passff-host tridactyl-native ];
       })
       (pkgs.writeScriptBin "firefox-private" ''
         #!${stdenv.shell}
-        ${firefox}/bin/firefox --private-window "$@"
+        ${unstable.firefox}/bin/firefox --private-window "$@"
       '')
       (makeDesktopItem {
         name = "firefox-private";
         desktopName = "Firefox (Private)";
         genericName = "Open a private Firefox window";
         icon = "firefox";
-        exec = "${firefox}/bin/firefox --private-window";
+        exec = "${unstable.firefox}/bin/firefox --private-window";
         categories = "Network";
       })
     ];

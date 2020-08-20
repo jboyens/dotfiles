@@ -21,9 +21,10 @@
     "aesni_intel"
     "cryptd"
     "i915"
+    # "nouveau"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
   boot.extraModulePackages = [
     (pkgs.linuxPackages_latest.v4l2loopback.overrideAttrs (oa: rec {
       name =
@@ -41,14 +42,17 @@
     options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
   '';
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    optimus_prime = {
-      enable = true;
-      nvidiaBusId = "PCI:1:0:0";
-      intelBusId = "PCI:0:2:0";
-    };
-  };
+  # hardware.bumblebee.enable = true;
+  # hardware.bumblebee.driver = "nouveau";
+
+  # hardware.nvidia = {
+  #   modesetting.enable = true;
+  #   optimus_prime = {
+  #     enable = true;
+  #     nvidiaBusId = "PCI:1:0:0";
+  #     intelBusId = "PCI:0:2:0";
+  #   };
+  # };
 
   services.udev.extraRules = ''
     ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789B]?", ENV{ID_MM_DEVICE_IGNORE}="1"
@@ -57,11 +61,17 @@
     KERNEL=="ttyACM*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789B]?", MODE:="0666"
   '';
 
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.opengl.extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver ];
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
   hardware.pulseaudio.support32Bit = true;
   hardware.steam-hardware.enable = true;
   hardware.bluetooth.enable = true;

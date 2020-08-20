@@ -46,7 +46,7 @@ with lib; {
         export _JAVA_AWT_WM_NONREPARENTING=1
         export MOZ_ENABLE_WAYLAND=1
         export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
-        xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
+        # xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
       '';
       wrapperFeatures = {
         gtk = true;

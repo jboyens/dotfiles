@@ -1,6 +1,17 @@
 # Kitt -- my work laptop
 
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, ... }:
+
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
+in
+{
   imports = [
     ../personal.nix # common settings
     <nixos-hardware/common/cpu/intel>
@@ -49,10 +60,12 @@
 
     };
 
-    dev.node.enable = true;
-    dev.cloud.google.enable = true;
-    dev.podman.enable = true;
-    dev.db.enable = true;
+    dev = {
+      node.enable = true;
+      cloud.google.enable = true;
+      podman.enable = true;
+      db.enable = true;
+    };
 
     editors = {
       default = "emacs";
@@ -82,6 +95,7 @@
       ssh.enable = true;
       docker.enable = true;
       calibre.enable = false;
+      printing.enable = true;
     };
 
     themes.fluorescence.enable = true;
@@ -100,39 +114,19 @@
   services.fwupd.enable = true;
   services.pipewire.enable = true;
 
-  # services.xserver.exportConfiguration = true;
   services.xserver.xkbModel = "dell";
   services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
   services.xserver.layout = "us";
   services.xserver.xkbVariant = "dvorak";
-  services.xserver.videoDrivers = [ "intel" "nouveau" ];
-  services.xserver.exportConfiguration = true;
-  services.xserver.useGlamor = true;
-  services.xserver.deviceSection = ''
-    Option "DRI" "3"
-  '';
   console.useXkbConfig = true;
 
   services.thermald.enable = true;
   # services.resolved.enable = true;
   services.irqbalance.enable = true;
   services.fstrim.enable = true;
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.my.hll2350dw ];
 
-  hardware.printers.ensureDefaultPrinter = "HLL2350DW";
-  hardware.printers.ensurePrinters = [{
-    name = "HLL2350DW";
-    deviceUri = "socket://192.168.86.39:9100";
-    model = "brother-HLL2350DW-cups-en.ppd";
-    ppdOptions = {
-      Duplex = "DuplexNoTumble";
-      PageSize = "Letter";
-    };
-  }];
-
-  programs.system-config-printer.enable = true;
   programs.sway.enable = true;
+
   programs.ssh.startAgent = true;
 
   time.timeZone = "America/Los_Angeles";
@@ -142,40 +136,20 @@
   environment.systemPackages = [
     pkgs.acpi
     pkgs.linuxPackages.cpupower
-    # Respect XDG conventions, damn it!
-    # (pkgs.writeScriptBin "nvidia-settings" ''
-    #   #!${pkgs.stdenv.shell}
-    #   mkdir -p "$XDG_CONFIG_HOME/nvidia"
-    #   exec ${config.boot.kernelPackages.nvidia_x11.settings}/bin/nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"
-    # '')
-    # pkgs.my.bosh-cli
-    # pkgs.my.bosh-bootloader
-    # pkgs.my.credhub-cli
     pkgs.my.logcli
     pkgs.my.ferdi
     pkgs.my.glab
     pkgs.my.git-delete-merged-branches
-    # pkgs.my.gmailctl
-    # pkgs.my."3mux"
-    # pkgs.my.tanka
-
     pkgs.lxqt.lxqt-policykit
   ];
 
-  services.psd.enable = true;
+  services.psd.enable = false;
   services.upower.enable = true;
   services.lorri.enable = true;
+
+  # YubiKey
   services.udev.packages = with pkgs; [ yubikey-personalization ];
   services.pcscd.enable = true;
-  services.gvfs = {
-    enable = true;
-    package = lib.mkForce pkgs.gnome3.gvfs;
-  };
-
-  services.samba = {
-    enable = true;
-    securityType = "user";
-  };
 
   # Battery life!
   services.tlp.enable = true;
@@ -187,6 +161,4 @@
   programs.iftop.enable = true;
   programs.iotop.enable = true;
   programs.dconf.enable = true;
-
-  networking.wireguard.interfaces = { };
 }

@@ -1,7 +1,9 @@
 # themes/aquanaut/default.nix --- a sea-blue linux theme
 
 { config, options, lib, pkgs, ... }:
-with lib; {
+with lib;
+let cfg = config.modules;
+in {
   options.modules.themes.aquanaut = {
     enable = mkOption {
       type = types.bool;
@@ -41,8 +43,18 @@ with lib; {
     my.packages = with pkgs; [
       nordic
       paper-icon-theme # for rofi
+      gnome3.defaultIconTheme
     ];
     my.zsh.rc = lib.readFile ./zsh/prompt.zsh;
+
+    my.home.home.file = mkMerge [
+      (mkIf cfg.desktop.browsers.firefox.enable {
+        ".mozilla/firefox/${cfg.desktop.browsers.firefox.profileName}.default/chrome/userChrome.css" = {
+          source = ./firefox/userChrome.css;
+        };
+      })
+    ];
+
     my.home.xdg.configFile = {
       "bspwm/rc.d/polybar".source = ./polybar/run.sh;
       "bspwm/rc.d/theme".source = ./bspwmrc;
