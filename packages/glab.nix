@@ -2,18 +2,18 @@
 
 buildGoModule rec {
   pname = "glab";
-  version = "v1.7.0";
+  version = "1.10.0";
 
   goPackagePath = "github.com/profclems/glab";
 
   src = fetchFromGitHub {
     owner = "profclems";
     repo = pname;
-    rev = version;
-    sha256 = "078rcrvnnhqblpzynwzsb3rkpls5mb4fpyc1l1dp5aqh8m87p7f7";
+    rev = "v${version}";
+    sha256 = "13j0hvnn7hns2azznn7b4069mmk6xisyygmf7lqw152rariccl5d";
   };
 
-  modSha256 = "0gbs5y4i82s0f0g9gkwrb0ldcd8mibmhx38xgap2fgpsj1d9m4yn";
+  vendorSha256 = "1f3fkshfsw7aqnhjfbsjs43zl905r747fdi3i2fpfv1h7rfp4ib6";
 
   subPackages = [ "cmd/glab" ];
 

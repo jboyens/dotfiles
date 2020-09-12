@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
       --prefix LD_LIBRARY_PATH : "${LD_LIBRARY_PATH}";
   '';
 
-  cargoSha256 = "0nldjcn9hk93908yr01a40aqc3ljj8mfi6x1nwr24fvh6n3h1v6g";
+  cargoSha256 = "1jp8zfyrczfiljs7nv813744n1j1q4hld7x54wvhahkqvgapagwk";
 
   meta = with stdenv.lib; {
     description = "A dashboard/launcher/control-panel thing for Wayland";

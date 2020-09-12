@@ -23,7 +23,7 @@ in stdenv.mkDerivation {
     gtk3 atk glib pango gdk-pixbuf cairo freetype fontconfig dbus
     gnome2.GConf nss nspr alsaLib cups expat stdenv.cc.cc
   ];
-  runtimeDependencies = [ udev.lib libnotify ];
+  runtimeDependencies = [ udev libnotify ];
 
   unpackPhase = "dpkg-deb -x $src .";
 

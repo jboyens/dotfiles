@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "logcli-${version}";
-  version = "1.5.0";
+  version = "1.6.1";
 
   goPackagePath = "github.com/grafana/loki";
   subPackages = [ "cmd/logcli" ];
@@ -11,7 +11,7 @@ buildGoPackage rec {
     owner = "grafana";
     repo = "loki";
     rev = "v${version}";
-    sha256 = "137lnd69p8qfg2z8l32dr1mrk2lhrxjx392xfij11sy5i9blfc3n";
+    sha256 = "0bakskzizazc5cd6km3n6facc5val5567zinnxg3yjy29xdi64ww";
   };
 
   meta = with stdenv.lib; {
