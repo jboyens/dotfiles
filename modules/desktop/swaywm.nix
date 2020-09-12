@@ -25,7 +25,8 @@ with lib; {
       wl-clipboard
       # unstable.sway-contrib.inactive-windows-transparency
       # current version of i3ipc in 20.03 is too old
-      my.autotiling
+      # my.autotiling
+      autotiling
     ];
 
     services = {

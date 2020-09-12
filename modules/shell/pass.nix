@@ -11,7 +11,7 @@ with lib;
   config = mkIf config.modules.shell.pass.enable {
     my = {
       packages = with pkgs; [
-        (pass.withExtensions (exts: [
+        (pass-wayland.withExtensions (exts: [
           exts.pass-otp
           exts.pass-genphrase
           exts.pass-update

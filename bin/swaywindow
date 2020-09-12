@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -i bash -p jq sway
+# shellcheck shell=bash
 ### swaymsg - simple xdotool-ish replacement
 ###
 ### swaymsg command [args]
@@ -21,7 +22,7 @@ if [[ $# == 0 ]] || [[ "$1" == "-h" ]]; then
     exit 1
 fi
 
-FLAT_NODES=$(swaymsg -t get_tree | jq '.nodes[].nodes[] | if .nodes then [recurse(.nodes[])] else [] end + .floating_nodes | .[] | select(.nodes==[])')
+FLAT_NODES=$(swaymsg -t get_tree | jq '.nodes[].nodes[] | if .nodes then [recurse(.nodes[])] else [] end + .floating_nodes | .[] | select(.nodes==[]) | select(.type=="con" or .type=="floating_con")')
 
 case $1 in
     "-f"|"-focused")
