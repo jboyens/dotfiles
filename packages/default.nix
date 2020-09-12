@@ -7,7 +7,7 @@
             lpself.callPackage ./macbook12-spi-driver.nix { };
         });
       my = {
-        ant-dracula = (callPackage ./ant-dracula.nix { });
+        dracula-theme = (callPackage ./dracula-theme.nix { });
         bosh-bootloader = (callPackage ./bosh-bootloader.nix { });
         bosh-cli = (callPackage ./bosh-cli.nix { });
         cached-nix-shell = (callPackage (builtins.fetchTarball

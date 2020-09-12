@@ -52,7 +52,7 @@ let cfg = config.modules; in
 
     fonts.fonts = [ pkgs.nerdfonts ];
     my.packages = with pkgs; [
-      my.ant-dracula
+      my.dracula-theme
       paper-icon-theme # for rofi
       gnome3.defaultIconTheme
     ];
@@ -73,10 +73,10 @@ let cfg = config.modules; in
           # GTK
           "gtk-4.0/settings.ini".text = ''
             [Settings]
-            gtk-theme-name=Ant-Dracula
+            gtk-theme-name=Dracula
             gtk-icon-theme-name=Paper
             gtk-fallback-icon-theme=gnome
-            gtk-application-prefer-dark-theme=true
+            gtk-application-prefer-dark-theme=0
             gtk-cursor-theme-name=Paper
             gtk-xft-hinting=1
             gtk-xft-hintstyle=hintfull
@@ -85,10 +85,10 @@ let cfg = config.modules; in
           # GTK3
           "gtk-3.0/settings.ini".text = ''
             [Settings]
-            gtk-theme-name=Ant-Dracula
+            gtk-theme-name=Dracula
             gtk-icon-theme-name=Paper
             gtk-fallback-icon-theme=gnome
-            gtk-application-prefer-dark-theme=true
+            gtk-application-prefer-dark-theme=0
             gtk-cursor-theme-name=Paper
             gtk-xft-hinting=1
             gtk-xft-hintstyle=hintfull
@@ -96,7 +96,7 @@ let cfg = config.modules; in
           '';
           # GTK2 global theme (widget and icon theme)
           "gtk-2.0/gtkrc".text = ''
-            gtk-theme-name="Ant-Dracula"
+            gtk-theme-name="Dracula"
             gtk-icon-theme-name="Paper-Mono-Dark"
             gtk-font-name="Sans 10"
           '';
