@@ -15,8 +15,8 @@ with lib; {
   config = mkIf config.modules.dev.node.enable {
     my = {
       packages = with pkgs; [
-        nodejs-13_x
-        (yarn.override { nodejs = nodejs-13_x; })
+        nodejs
+        yarn
       ];
 
       env.NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/config";

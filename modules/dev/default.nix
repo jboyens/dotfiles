@@ -14,6 +14,7 @@
     ./node.nix
     ./podman.nix
     ./python.nix
+    ./ruby.nix
     ./rust.nix
     ./scala.nix
     ./unity3d.nix

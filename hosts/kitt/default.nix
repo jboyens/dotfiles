@@ -62,6 +62,7 @@ in
 
     dev = {
       node.enable = true;
+      ruby.enable = true;
       cloud.google.enable = true;
       podman.enable = true;
       db.enable = true;
@@ -111,6 +112,7 @@ in
     clickMethod = "clickfinger";
   };
   services.blueman.enable = true;
+  services.geoclue2.enable = true;
   services.fwupd.enable = true;
   services.pipewire.enable = true;
 
@@ -137,7 +139,7 @@ in
     pkgs.acpi
     pkgs.linuxPackages.cpupower
     pkgs.my.logcli
-    pkgs.my.ferdi
+    # pkgs.my.ferdi
     pkgs.my.glab
     pkgs.my.git-delete-merged-branches
     pkgs.lxqt.lxqt-policykit

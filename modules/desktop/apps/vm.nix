@@ -13,7 +13,7 @@ with lib; {
   };
 
   # TODO Figure out macOS guest on libvirt/qemu instead
-  config = mkIf config.modules.desktop.apps.vm.enable {   
+  config = mkIf config.modules.desktop.apps.vm.enable {
     # virtualisation.virtualbox.host = {
     #   enable = true;
     #   # urg, takes so long to build, but needed for macOS guest
@@ -21,6 +21,7 @@ with lib; {
     # };
 
     virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.qemuPackage = (pkgs.qemu_kvm.override { smbdSupport = true; });
     my.user.extraGroups = [
       # "vboxusers"
       "libvirtd"

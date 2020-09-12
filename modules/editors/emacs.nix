@@ -20,7 +20,7 @@ with lib; {
       packages = with pkgs; [
         ## Doom dependencies
         ((emacsPackagesNgGen config.modules.editors.emacs.pkg).emacsWithPackages (epkgs: [
-          epkgs.emacs-libvterm
+          epkgs.vterm
         ]))
         git
         (ripgrep.override { withPCRE2 = true; })

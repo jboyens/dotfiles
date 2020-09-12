@@ -29,7 +29,7 @@ in {
       ## Convenience aliases
       home =
         mkOption { type = options.home-manager.users.type.functor.wrapped; };
-      user = mkOption { type = types.submodule; };
+      user = mkOption { type = options.users.users.type.functor.wrapped; };
       packages = mkOption { type = with types; listOf package; };
 
       ## Environment
@@ -69,8 +69,7 @@ in {
 
   config = {
     ## Convenience aliases
-    home-manager.users.${config.my.username} =
-      mkAliasDefinitions options.my.home;
+    home-manager.users.${config.my.username} = mkAliasDefinitions options.my.home;
     users.users.${config.my.username} = mkAliasDefinitions options.my.user;
     my.user.packages = config.my.packages;
 
