@@ -3,13 +3,17 @@
 # Toggle a scratch terminal window. A scratch terminal is a disposable terminal
 # for one-off, quick commands that don't warrant a dedicated terminal.
 
+echoerr() { echo "$(date +"%s")" "- $*" 1>&2; }
+
 function get_focused {
+    echoerr s get focused
     if [ -z "$WAYLAND_DISPLAY" ]
     then
         xdotool getactivewindow
     else
         swaywindow -f
     fi
+    echoerr f get focused
 }
 
 function find_scratch {
