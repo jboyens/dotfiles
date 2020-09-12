@@ -75,6 +75,7 @@
   hardware.pulseaudio.support32Bit = true;
   hardware.steam-hardware.enable = true;
   hardware.bluetooth.enable = true;
+  services.hardware.bolt.enable = true;
   hardware.pulseaudio = {
     enable = true;
 
