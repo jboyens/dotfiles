@@ -28,6 +28,10 @@ with lib;
       # the below MIGHT work better
       # env.PATH = [ "$(gem environment gemdir)/bin" ];
       env.PATH = [ "$HOME/.gem/ruby/${cfg.package.version.libDir}/bin" ];
+
+      alias.bi = "bundle install";
+      alias.be = "bundle exec";
+      alias.pry = "bundle exec pry";
     };
   };
 }
