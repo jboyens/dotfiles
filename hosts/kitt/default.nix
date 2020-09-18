@@ -111,6 +111,14 @@ in {
     tapping = true;
     clickMethod = "clickfinger";
   };
+  services.avahi = {
+    enable = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      userServices = true;
+    };
+  };
   services.blueman.enable = true;
   services.geoclue2.enable = true;
   services.fwupd.enable = true;
