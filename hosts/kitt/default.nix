@@ -10,8 +10,7 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec -a "$0" "$@"
   '';
-in
-{
+in {
   imports = [
     ../personal.nix # common settings
     <nixos-hardware/common/cpu/intel>
@@ -99,7 +98,8 @@ in
       printing.enable = true;
     };
 
-    themes.fluorescence.enable = true;
+    themes.fluorescence.enable = false;
+    themes.aquanaut.enable = true;
   };
 
   networking.wireless.iwd.enable = true;
