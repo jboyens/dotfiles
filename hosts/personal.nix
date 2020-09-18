@@ -21,8 +21,9 @@
   };
 
   ### Universal defaults
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 8080 51820 51821 ];
+  networking.firewall.enable = false;
+  networking.firewall.allowedTCPPorts = [ 22 8080 51820 51821 2869 ];
+  networking.firewall.allowedUDPPorts = [ 1900 ];
   networking.hosts = {
     "192.168.86.34" = [ "mediaserver" ];
     "192.168.86.100" = [ "irongiant" "bender" ];
