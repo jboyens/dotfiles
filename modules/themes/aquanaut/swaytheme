@@ -1,0 +1,5 @@
+default_border pixel 1
+default_floating_border pixel 1
+
+client.focused "#798cb3" "#798cb3" "#181a23"
+client.unfocused "#11141b" "#11141b" "#ffffff"

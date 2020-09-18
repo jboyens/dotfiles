@@ -16,6 +16,10 @@ in {
       name = "Aquanaut";
       version = "0.1";
       path = ./.;
+
+      wallpaper = {
+        path = "${config.modules.theme.path}/wallpaper.jpg";
+      };
     };
 
     services.picom = {
@@ -47,51 +51,67 @@ in {
     ];
     my.zsh.rc = lib.readFile ./zsh/prompt.zsh;
 
-    my.home.home.file = mkMerge [
-      (mkIf cfg.desktop.browsers.firefox.enable {
-        ".mozilla/firefox/${cfg.desktop.browsers.firefox.profileName}.default/chrome/userChrome.css" = {
-          source = ./firefox/userChrome.css;
-        };
-      })
-    ];
+    my.home = {
+      home.file = mkMerge [
+        (mkIf cfg.desktop.browsers.firefox.enable {
+          ".mozilla/firefox/${cfg.desktop.browsers.firefox.profileName}.default/chrome/userChrome.css" =
+            {
+              source = ./firefox/userChrome.css;
+            };
+        })
+      ];
 
-    my.home.xdg.configFile = {
-      "bspwm/rc.d/polybar".source = ./polybar/run.sh;
-      "bspwm/rc.d/theme".source = ./bspwmrc;
-      "dunst/dunstrc".source = ./dunstrc;
-      "polybar" = {
-        source = ./polybar;
-        recursive = true;
-      };
-      "rofi/theme" = {
-        source = ./rofi;
-        recursive = true;
-      };
-      "tmux/theme".source = ./tmux.conf;
-      "xtheme/90-theme".source = ./Xresources;
-      # GTK
-      "gtk-3.0/settings.ini".text = ''
-        [Settings]
-        gtk-theme-name=Nordic-blue
-        gtk-icon-theme-name=Paper
-        gtk-fallback-icon-theme=gnome
-        gtk-application-prefer-dark-theme=true
-        gtk-cursor-theme-name=Paper
-        gtk-xft-hinting=1
-        gtk-xft-hintstyle=hintfull
-        gtk-xft-rgba=none
-      '';
-      # GTK2 global theme (widget and icon theme)
-      "gtk-2.0/gtkrc".text = ''
-        gtk-theme-name="Nordic-blue"
-        gtk-icon-theme-name="Paper-Mono-Dark"
-        gtk-font-name="Sans 10"
-      '';
-      # QT4/5 global theme
-      "Trolltech.conf".text = ''
-        [Qt]
-        style=Nordic-blue
-      '';
+      xdg.configFile = mkMerge [
+        (mkIf (config.services.xserver.enable || cfg.desktop.swaywm.enable) {
+          "xtheme/90-theme".source = ./Xresources;
+          # GTK
+          "gtk-3.0/settings.ini".text = ''
+            [Settings]
+            gtk-theme-name=Nordic-bluish-accent
+            gtk-icon-theme-name=Paper
+            gtk-fallback-icon-theme=gnome
+            gtk-application-prefer-dark-theme=true
+            gtk-cursor-theme-name=Paper
+            gtk-xft-hinting=1
+            gtk-xft-hintstyle=hintfull
+            gtk-xft-rgba=none
+          '';
+          # GTK2 global theme (widget and icon theme)
+          "gtk-2.0/gtkrc".text = ''
+            gtk-theme-name="Nordic-bluish-accent"
+            gtk-icon-theme-name="Paper-Mono-Dark"
+            gtk-font-name="Sans 10"
+          '';
+          # QT4/5 global theme
+          "Trolltech.conf".text = ''
+            [Qt]
+            style=Nordic-bluish-accent
+          '';
+        })
+        (mkIf cfg.desktop.bspwm.enable {
+          "bspwm/rc.d/polybar".source = ./polybar/run.sh;
+          "bspwm/rc.d/theme".source = ./bspwmrc;
+        })
+        (mkIf cfg.desktop.swaywm.enable {
+          "sway/rc.d/swaytheme".source = ./swaytheme;
+          "waybar".source = ./waybar;
+          "alacritty".source = ./alacritty;
+        })
+        (mkIf cfg.desktop.apps.rofi.enable {
+          "rofi/theme" = {
+            source = ./rofi;
+            recursive = true;
+          };
+        })
+        (mkIf (cfg.desktop.bspwm.enable) { # || cfg.desktop.swaywm.enable) {
+          "polybar" = {
+            source = ./polybar;
+            recursive = true;
+          };
+          "dunst/dunstrc".source = ./dunstrc;
+        })
+        (mkIf cfg.shell.tmux.enable { "tmux/theme".source = ./tmux.conf; })
+      ];
     };
   };
 }
