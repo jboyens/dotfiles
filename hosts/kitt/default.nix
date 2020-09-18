@@ -151,6 +151,7 @@ in {
     pkgs.my.glab
     pkgs.my.git-delete-merged-branches
     pkgs.lxqt.lxqt-policykit
+    pkgs.my.fraidycat
   ];
 
   services.psd.enable = false;

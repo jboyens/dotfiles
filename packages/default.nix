@@ -16,6 +16,7 @@
         credhub-cli = (callPackage ./credhub-cli.nix { });
         # dell-bios-fan-control = (callPackage ./packages/dell-bios-fan-control.nix {});
         ferdi = (callPackage ./ferdi.nix { });
+        fraidycat = (callPackage ./fraidycat.nix { });
         gmailctl = (callPackage ./gmailctl.nix { });
         linode-cli = (callPackage ./linode-cli.nix { });
         logcli = (callPackage ./logcli.nix { });
