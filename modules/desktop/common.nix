@@ -28,7 +28,7 @@
 
   ## Fonts
   fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       ubuntu_font_family
