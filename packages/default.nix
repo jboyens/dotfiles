@@ -31,6 +31,7 @@
         tanka = (callPackage ./tanka.nix { });
         wldash = (callPackage ./wldash.nix { });
         git-delete-merged-branches = (callPackage ./git-delete-merged-branches.nix { });
+        file_5_37 = (callPackage ./file_5_37.nix { libgnurx = pkgs.libgnurx; });
       };
 
       nur = import (builtins.fetchTarball
