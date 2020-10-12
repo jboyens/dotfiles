@@ -41,11 +41,15 @@ with lib; {
     })
 
     ({
-      my.packages = with pkgs; [
-        unstable.terraform
-        unstable.kubectl
-        unstable.minikube
-      ];
+      my = {
+        packages = with pkgs; [
+          unstable.terraform
+          unstable.kubectl
+          unstable.minikube
+        ];
+
+        alias.k = "kubectl";
+      };
     })
   ];
 }
