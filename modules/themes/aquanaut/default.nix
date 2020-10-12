@@ -48,6 +48,7 @@ in {
       nordic
       paper-icon-theme # for rofi
       gnome3.defaultIconTheme
+      hicolor-icon-theme
     ];
     my.zsh.rc = lib.readFile ./zsh/prompt.zsh;
 
@@ -60,6 +61,20 @@ in {
             };
         })
       ];
+
+      dconf.enable = true;
+      dconf.settings = {
+        "org/gnome/desktop/interface" = {
+          cursor-theme = "Paper";
+          gtk-theme = "Nordic-bluish-accent";
+          icon-theme = "Paper";
+        };
+
+        "org/gnome/settings-daemon/plugins/xsettings" = {
+          antialiasing = "grayscale";
+          hinting = "slight";
+        };
+      };
 
       xdg.configFile = mkMerge [
         (mkIf (config.services.xserver.enable || cfg.desktop.swaywm.enable) {
