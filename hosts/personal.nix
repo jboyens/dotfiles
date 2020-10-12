@@ -53,6 +53,9 @@
     INPUTRC = "$XDG_CACHE_HOME/readline/inputrc";
     LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
     WGETRC = "$XDG_CACHE_HOME/wgetrc";
+
+    # compat. w/ Ubuntu
+    USERNAME = "${config.my.username}";
   };
 
   # Prevents ~/.esd_auth files by disabling the esound protocol module for
