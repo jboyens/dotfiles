@@ -67,6 +67,20 @@ let cfg = config.modules; in
         })
       ];
 
+      dconf.enable = true;
+      dconf.settings = {
+        "org/gnome/desktop/interface" = {
+          cursor-theme = "Paper";
+          gtk-theme = "Dracula";
+          icon-theme = "Paper";
+        };
+
+        "org/gnome/settings-daemon/plugins/xsettings" = {
+          antialiasing = "grayscale";
+          hinting = "slight";
+        };
+      };
+
       xdg.configFile = mkMerge [
         (mkIf (config.services.xserver.enable || cfg.desktop.swaywm.enable) {
           "xtheme/90-theme".source    = ./Xresources;

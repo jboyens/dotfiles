@@ -1,5 +1,5 @@
 default_border pixel 1
 default_floating_border pixel 1
 
-client.focused "#bd93f9" "#bd93f9" "#181a23"
-client.unfocused "#181a23" "#181a23" "#ffffff"
+client.focused "#bd93f9" "#bd93f9" "#181a23" "#bd93f9"
+client.unfocused "#181a23" "#181a23" "#ffffff" "#181a23"

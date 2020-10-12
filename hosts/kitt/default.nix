@@ -33,8 +33,8 @@ in {
         dbeaver.enable = true;
       };
 
-      term.default = "xst";
-      term.st.enable = true;
+      term.default = "alacritty";
+      term.alacritty.enable = true;
 
       browsers = {
         default = "firefox";
@@ -98,8 +98,8 @@ in {
       printing.enable = true;
     };
 
-    themes.fluorescence.enable = false;
-    themes.aquanaut.enable = true;
+    themes.fluorescence.enable = true;
+    themes.aquanaut.enable = false;
   };
 
   networking.wireless.iwd.enable = true;
@@ -166,6 +166,16 @@ in {
   services.tlp.enable = true;
   powerManagement.enable = true;
   powerManagement.powertop.enable = false;
+
+  services.earlyoom.enable = true;
+  services.earlyoom.enableNotifications = true;
+  services.offlineimap = {
+    enable = true;
+    install = true;
+    path = with pkgs; [ imapfilter ];
+    onCalendar = "*:0/15:0";
+    timeoutStartSec = "240sec";
+  };
 
   programs.light.enable = true;
 
