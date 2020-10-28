@@ -28,8 +28,10 @@
         "sway/workspaces"
     ],
     "modules-right": [
+        "idle_inhibitor",
         "network",
         "battery",
+        "tray",
         "clock"
     ],
 
@@ -111,7 +113,8 @@
         "format-wifi": "  ({signalStrength}%)", // Icon: wifi
         "format-ethernet": "", // Icon: ethernet
         "format-disconnected": "⚠  Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}"
+        "tooltip-format": "{ifname}: {essid} - {ipaddr}",
+        "on-click": "nm-connection-editor"
     },
 
     "sway/mode": {
@@ -182,6 +185,14 @@
     "tray": {
         "icon-size": 21,
         "spacing": 10
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
     }
 
 }

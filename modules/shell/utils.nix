@@ -34,7 +34,7 @@ with lib; {
       axel
 
       # for monitoring
-      unstable.ytop
+      unstable.bottom
 
       # for json parsing
       unstable.jq

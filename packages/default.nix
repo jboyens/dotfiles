@@ -1,11 +1,6 @@
 [
   (self: super:
     with super; {
-      linuxPackages_latest = super.linuxPackages_latest.extend
-        (lpself: lpsuper: {
-          macbook12-spi-driver =
-            lpself.callPackage ./macbook12-spi-driver.nix { };
-        });
       my = {
         dracula-theme = (callPackage ./dracula-theme.nix { });
         bosh-bootloader = (callPackage ./bosh-bootloader.nix { });
@@ -42,14 +37,12 @@
       # Occasionally, "stable" packages are broken or incomplete, so access to the
       # bleeding edge is necessary, as a last resort.
       unstable = import <nixpkgs-unstable> { inherit config; };
-      wayland-overlay = import (builtins.fetchTarball
-        "https://github.com/colemickens/nixpkgs-wayland/archive/master.tar.gz") {
-          inherit super;
-      };
     })
 
   # emacsGit
   (import (builtins.fetchTarball
   "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz"))
 
+  (import (builtins.fetchTarball
+  "https://github.com/colemickens/nixpkgs-wayland/archive/master.tar.gz"))
 ]

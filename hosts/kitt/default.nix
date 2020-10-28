@@ -15,7 +15,7 @@ in {
     ../personal.nix # common settings
     <nixos-hardware/common/cpu/intel>
     <nixos-hardware/common/pc/laptop>
-    <nixos-hardware/common/pc/laptop/hdd>
+    <nixos-hardware/common/pc/laptop/ssd>
     ./hardware-configuration.nix
   ];
 
@@ -37,7 +37,7 @@ in {
       term.alacritty.enable = true;
 
       browsers = {
-        default = "firefox";
+        default = "qutebrowser";
         firefox.enable = true;
         google-chrome.enable = true;
         vivaldi.enable = false;
@@ -102,9 +102,26 @@ in {
     themes.aquanaut.enable = false;
   };
 
-  networking.wireless.iwd.enable = true;
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
+  networking = {
+    networkmanager = {
+      enable = true;
+      wifi = {
+        powersave = false;
+        backend = "iwd";
+      };
+    };
+    enableIPv6 = false;
+  };
+
+  environment.etc."iwd/main.conf" = {
+    mode = "0644";
+    text = ''
+      [General]
+      ControlPortOverNL80211=False
+      [Rank]
+      BandModifier5Ghz=2.0
+    '';
+  };
 
   services.xserver.libinput = {
     enable = true;

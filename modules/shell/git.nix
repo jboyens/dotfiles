@@ -20,6 +20,7 @@ with lib; {
       home.xdg.configFile = {
         "git/config".source = <config/git/config>;
         "git/ignore".source = <config/git/ignore>;
+        "git/attributes".source = <config/git/attributes>;
       };
     };
   };

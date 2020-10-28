@@ -11,8 +11,8 @@ with lib; {
 
   config = mkIf config.modules.desktop.swaywm.enable {
     environment.systemPackages = with pkgs; [
-      (waybar.override { pulseSupport = true; })
-      # waybar
+      # (waybar.override { pulseSupport = true; })
+      waybar
       wofi
       mako
       kanshi

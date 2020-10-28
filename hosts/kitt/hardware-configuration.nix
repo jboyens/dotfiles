@@ -6,8 +6,8 @@
 {
   imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "mitigations=off" "i915.enable_guc=2" ];
+  boot.kernelPackages = pkgs.linuxPackages_5_9;
+  boot.kernelParams = [ "mitigations=off" "i915.enable_guc=2" "acpi_osi=Linux" "mem_sleep_default=deep" ];
   boot.blacklistedKernelModules = [ ];
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -26,9 +26,9 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
   boot.extraModulePackages = [
-    (pkgs.linuxPackages_latest.v4l2loopback.overrideAttrs (oa: rec {
+    (pkgs.linuxPackages_5_9.v4l2loopback.overrideAttrs (oa: rec {
       name =
-        "v4l2loopback-${version}-${pkgs.linuxPackages_latest.kernel.version}";
+        "v4l2loopback-${version}-${pkgs.linuxPackages_5_9.kernel.version}";
       version = "0.12.5";
       src = pkgs.fetchFromGitHub {
         owner = "umlaeute";
@@ -40,6 +40,8 @@
   ];
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
+    options iwlwifi 11n_disable=8 bt_coex_active=1 power_save=0
+    options iwlmvm power_scheme=1
   '';
 
   # hardware.bumblebee.enable = true;
