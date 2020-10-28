@@ -1,13 +1,13 @@
 [user]
-	name = Henrik Lissner
-	email = henrik@lissner.net
-	signingkey = 5F6C0EA160557395
+	name = JR Boyens
+	email = jboyens@fooninja.org
+	signingkey = 785C9CAE60A7B23F
 [commit]
 	gpgsign = true
 [core]
 	whitespace = trailing-space
 [github]
-	user = hlissner
+	user = jboyens
 [rebase]
 	autosquash = true
 [push]
@@ -31,7 +31,7 @@
 	clean = git-lfs clean -- %f
 [url "https://github.com/"]
     insteadOf = gh:
-[url "git@github.com:hlissner/"]
+[url "git@github.com:jboyens/"]
     insteadOf = gh:/
 [url "https://gitlab.com/"]
     insteadOf = gl:
