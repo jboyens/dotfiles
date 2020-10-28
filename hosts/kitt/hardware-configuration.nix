@@ -68,7 +68,8 @@
 
   # Storage
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
+    # device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
     options = [ "noatime" ];
   };
