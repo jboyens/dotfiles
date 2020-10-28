@@ -13,6 +13,11 @@ device: username:
   networking.hostName = lib.mkDefault device;
   my.username = username;
 
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   imports = [
     ./modules
     "${./hosts}/${device}"
