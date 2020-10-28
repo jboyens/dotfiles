@@ -8,10 +8,17 @@
 	whitespace = trailing-space
 [github]
 	user = jboyens
+[gitlab]
+    user = jr.boyens@flexe.com
 [rebase]
 	autosquash = true
+    autostash = true
 [push]
 	default = current
+[pull]
+    rebase = true
+[diff]
+	algorithm = histogram
 [alias]
 	amend = commit --amend
 	exec = "!exec "
@@ -24,6 +31,7 @@
 	ranked-authors = !git authors | sort | uniq -c | sort -n
 	emails = !git log --format="%aE" | sort -u
 	email-domains = !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
+	st = status
 [filter "lfs"]
 	required = true
 	smudge = git-lfs smudge -- %f
@@ -41,3 +49,9 @@
     insteadOf = bb:
 [url "https://git.v0.com"]
     insteadOf = v0:
+[pager]
+    diff = diff-so-fancy | less --tabs=1,5 -RFX
+    show = diff-so-fancy | less --tabs=1,5 -RFX
+    log = diff-so-fancy | less --tabs=1,5 -RFX
+[protocol]
+	version = 2
