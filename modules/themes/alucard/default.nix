@@ -38,7 +38,7 @@ in {
     }
 
     # Desktop (X11) theming
-    (mkIf config.services.xserver.enable {
+    (mkIf (config.services.xserver.enable || config.programs.sway.enable) {
       user.packages = with pkgs; [
         unstable.dracula-theme
         paper-icon-theme # for rofi
@@ -101,6 +101,9 @@ in {
         (mkIf (desktop.bspwm.enable || desktop.stumpwm.enable) {
           "polybar" = { source = ./config/polybar; recursive = true; };
           "dunst/dunstrc".source = ./config/dunstrc;
+        })
+        (mkIf desktop.swaywm.enable {
+          "waybar" = { source = ./config/waybar; recursive = true; };
         })
         (mkIf desktop.media.graphics.vector.enable {
           "inkscape/templates/default.svg".source = ./config/inkscape/default-template.svg;

@@ -4,7 +4,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop;
 in {
-  config = mkIf config.services.xserver.enable {
+  config = mkIf (config.services.xserver.enable || config.programs.sway.enable) {
     assertions = [
       {
         assertion = (countAttrs (n: v: n == "enable" && value) cfg) < 2;
@@ -14,7 +14,7 @@ in {
         assertion =
           let srv = config.services;
           in srv.xserver.enable ||
-             srv.sway.enable ||
+             config.programs.sway.enable ||
              !(anyAttrs
                (n: v: isAttrs v &&
                       anyAttrs (n: v: isAttrs v && v.enable))
@@ -46,6 +46,7 @@ in {
         symbola
         noto-fonts
         noto-fonts-cjk
+        iosevka-bin
       ];
     };
 

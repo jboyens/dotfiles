@@ -1,4 +1,4 @@
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -9,8 +9,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+
+    # assumes user id of 1000
     modules.theme.onReload.swaywm = ''
-      ${pkgs.sway}/bin/swaymsg reload
+      ${pkgs.sway}/bin/swaymsg -s /run/user/1000/sway-ipc.1000.$(pgrep -x sway).sock reload
     '';
 
     environment.systemPackages = with pkgs; [

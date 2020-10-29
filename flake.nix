@@ -10,7 +10,7 @@
 {
   description = "A grossly incandescent nixos config.";
 
-  inputs = 
+  inputs =
     {
       # Core dependencies
       nixos.url          = "nixpkgs/nixos-20.09";
@@ -21,6 +21,7 @@
       # Extras
       emacs-overlay.url  = "github:nix-community/emacs-overlay";
       nixos-hardware.url = "github:nixos/nixos-hardware";
+      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
     };
 
   outputs = inputs @ { self, nixos, nixos-unstable, home-manager, ... }:

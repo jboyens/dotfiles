@@ -8,7 +8,8 @@
   ## Modules
   modules = {
     desktop = {
-      bspwm.enable = true;
+      bspwm.enable = false;
+      swaywm.enable = true;
       apps = {
         discord.enable = true;
         rofi.enable = true;
@@ -32,8 +33,9 @@
         spotify.enable = true;
       };
       term = {
-        default = "xst";
-        st.enable = true;
+        default = "alacritty";
+        st.enable = false;
+        alacritty.enable = true;
       };
       vm = {
         qemu.enable = true;
@@ -52,7 +54,7 @@
         # zfs.enable = true;
         ssd.enable = true;
       };
-      nvidia.enable = true;
+      # nvidia.enable = true;
       sensors.enable = true;
     };
     shell = {
@@ -65,6 +67,7 @@
     };
     services = {
       ssh.enable = true;
+      docker.enable = true;
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
@@ -77,8 +80,12 @@
   services.openssh.startWhenNeeded = true;
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false
   # here. Per-interface useDHCP will be mandatory in the future, so this
   # generated config replicates the default behaviour.
   networking.useDHCP = false;
+
+  services.lorri.enable = true;
 }

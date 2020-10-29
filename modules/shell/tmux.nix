@@ -19,7 +19,12 @@ in {
   config = mkIf cfg.enable {
     user.packages = [ tmux ];
 
-    modules.theme.onReload.tmux = "${tmux}/bin/tmux source-file $TMUX_HOME/extraInit";
+    modules.theme.onReload.tmux = ''
+      if [ -d "/tmp/tmux-1000" ]; then
+        TMUX_HOME=$${TMUX_HOME:-"/home/jboyens/.config/tmux"}
+        ${tmux}/bin/tmux source-file $TMUX_HOME/extraInit";
+      fi
+    '';
 
     modules.shell.zsh = {
       rcInit = "_cache tmuxifier init -";

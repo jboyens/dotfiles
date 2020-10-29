@@ -1,0 +1,82 @@
+#!/usr/bin/env cached-nix-shell
+#! nix-shell -i bash -p jq sway
+# shellcheck shell=bash
+### swaymsg - simple xdotool-ish replacement
+###
+### swaymsg command [args]
+###   -f -focused       Find the currently focused window
+###   -s -search text   Find a window with the app_id / WM_CLASS of the argument
+###   -k -kill id       Kill a window by the con_id (returned from search)
+###   -a -activate id   Activate a window by the con_id (returned from search)
+###   -w -windows       List of windows in the format of conn_id\tname
+###   -j -json          Dump the raw JSON
+###   -n -name id       Get the window name
+###   -h -help          Display this help message
+
+function show-help {
+    sed -rn 's/^### ?//;T;p' "$0"
+}
+
+if [[ $# == 0 ]] || [[ "$1" == "-h" ]]; then
+    show-help
+    exit 1
+fi
+
+FLAT_NODES=$(swaymsg -t get_tree | jq '.nodes[].nodes[] | if .nodes then [recurse(.nodes[])] else [] end + .floating_nodes | .[] | select(.nodes==[]) | select(.type=="con" or .type=="floating_con")')
+
+case $1 in
+    "-f"|"-focused")
+        echo "$FLAT_NODES" | jq -r 'select(.focused==true) | (.id | tostring)'
+        ;;
+    "-s"|"-search")
+        if [ -z "$2" ]
+        then
+            show-help
+            exit 1
+        fi
+        term=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+        id=$(echo "$FLAT_NODES" | jq -r "select((.app_id+.name+.window_properties.instance)|test(\"$term\";\"i\")) | (.id|tostring)")
+        if [ -z "$id" ];
+        then
+            exit 1
+        else
+            echo "$id"
+        fi
+        ;;
+    "-k"|"-kill")
+        if [ -z "$2" ]
+        then
+            show-help
+            exit 1
+        fi
+        swaymsg "[con_id=$2] kill"
+        ;;
+    "-a"|"-activate")
+        if [ -z "$2" ]
+        then
+            show-help
+            exit 1
+        fi
+        swaymsg "[con_id=$2] focus"
+        ;;
+    "-w"|"-windows")
+        echo "$FLAT_NODES" | jq -r '((.id | tostring) + "\t" + .name)'
+        ;;
+    "-h"|"-help")
+        show-help
+        ;;
+    "-j"|"-json")
+        echo "$FLAT_NODES"
+        ;;
+    "-n"|"-name")
+        if [ -z "$2" ]
+        then
+            show-help
+            exit 1
+        fi
+        echo "$FLAT_NODES" | jq -r "select(.id==$2) | (.name|tostring)"
+        ;;
+    *)
+        show-help
+        ;;
+esac

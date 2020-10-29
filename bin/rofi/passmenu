@@ -5,6 +5,15 @@
 #
 # Example: passmenu [RESUME]
 
+if [ -z "$WAYLAND_DISPLAY" ]
+then
+    WIN_CMD="xdotool getactivewindow"
+    NAME_CMD="xdotool getwindowname"
+else
+    WIN_CMD="swaywindow -f"
+    NAME_CMD="swaywindow -n"
+fi
+
 ROFI_CMD='rofi -dmenu -theme theme/passmenu.rasi'
 MSG_CMD='notify-send'
 set -e
@@ -23,9 +32,9 @@ fi
 
 url=
 # Get qutebrowser's current url
-win=$(xdotool getactivewindow)
+win=$($WIN_CMD)
 if [[ -n $win ]]; then
-  winname=$(xdotool getwindowname $win)
+  winname=$($NAME_CMD $win)
   if [[ $winname =~ " - Mozilla Firefox$" ]]; then
     url=${winname% - Mozilla*}
     url=${url##* - }

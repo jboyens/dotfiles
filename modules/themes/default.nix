@@ -39,11 +39,11 @@ in {
   config = mkIf (cfg.active != null) (mkMerge [
     # Read xresources files in ~/.config/xtheme/* to allow modular
     # configuration of Xresources.
-    (let xrdb = ''${pkgs.xorg.xrdb}/bin/xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*'';
-     in {
-       services.xserver.displayManager.sessionCommands = xrdb;
-       modules.theme.onReload.xtheme = xrdb;
-     })
+    # (let xrdb = ''${pkgs.xorg.xrdb}/bin/xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*'';
+    #  in {
+    #    services.xserver.displayManager.sessionCommands = xrdb;
+    #    modules.theme.onReload.xtheme = xrdb;
+    #  })
 
     {
       home.configFile = {
@@ -93,7 +93,7 @@ in {
          # Set the wallpaper ourselves so we don't need .background-image and/or
          # .fehbg polluting $HOME
          services.xserver.displayManager.sessionCommands = command;
-         modules.theme.onReload.wallpaper = command;
+         # modules.theme.onReload.wallpaper = command;
 
          home.dataFile = mkIf (cfg.wallpaper != null) {
            "wallpaper".source = cfg.wallpaper;
