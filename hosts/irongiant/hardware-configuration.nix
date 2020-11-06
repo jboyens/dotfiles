@@ -44,8 +44,8 @@
     fsType = "vfat";
   };
 
-  swapDevices = [{
-    device = "/swapfile";
-    size = 10240;
-  }];
+  #swapDevices = [{
+  #  device = "/swapfile";
+  #  size = 10240;
+  #}];
 }

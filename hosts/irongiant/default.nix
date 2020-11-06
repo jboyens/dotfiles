@@ -46,7 +46,7 @@
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
-    # theme.active = "alucard";
+    theme.active = "alucard";
   };
 
   ## Local config
