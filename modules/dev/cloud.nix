@@ -32,6 +32,7 @@ in {
           unstable.kubectl
           unstable.minikube
           unstable.k9s
+          unstable.kubernetes-helm
         ];
       };
 

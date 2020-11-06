@@ -28,11 +28,18 @@
         # emulators.psx.enable = true;
       };
       media = {
-        daw.enable = true;
+        daw.enable = false;
         documents.enable = true;
-        graphics.enable = true;
+        documents.pdf.enable = true;
+        graphics = {
+          enable = true;
+          tools.enable = true;
+          raster.enable = false;
+          vector.enable = false;
+          sprites.enable = false;
+        };
         mpv.enable = true;
-        recording.enable = true;
+        recording.enable = false;
         spotify.enable = true;
       };
       term = {
@@ -85,6 +92,7 @@
     services = {
       ssh.enable = true;
       docker.enable = true;
+      printing.enable = true;
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
@@ -117,7 +125,7 @@
   services.pcscd.enable = true;
   services.tlp.enable = true;
   powerManagement.enable = true;
-  powerManagement.powertop.enable = true;
+  # powerManagement.powertop.enable = true;
 
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;

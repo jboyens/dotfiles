@@ -12,7 +12,7 @@ in {
     user.packages = with pkgs; [
       mpv-with-scripts
       mpvc  # CLI controller for mpv
-      (mkIf config.services.xserver.enable
+      (mkIf (config.services.xserver.enable || config.programs.sway.enable)
         celluloid)  # nice GTK GUI for mpv
     ];
   };

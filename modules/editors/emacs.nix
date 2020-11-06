@@ -54,8 +54,8 @@ in {
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
       # :lang rust
-      rustfmt
-      unstable.rust-analyzer
+      # rustfmt
+      # unstable.rust-analyzer
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
