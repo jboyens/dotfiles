@@ -108,6 +108,10 @@ in {
         (mkIf desktop.media.graphics.vector.enable {
           "inkscape/templates/default.svg".source = ./config/inkscape/default-template.svg;
         })
+
+        (mkIf desktop.term.alacritty.enable {
+          "alacritty" = { source = ./config/alacritty; recursive = true; };
+        })
       ];
     })
   ]);

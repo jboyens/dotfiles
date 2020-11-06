@@ -12,12 +12,15 @@
       swaywm.enable = true;
       apps = {
         discord.enable = true;
+        slack.enable = true;
         rofi.enable = true;
+        zoom.enable = true;
         # godot.enable = true;
       };
       browsers = {
         default = "firefox";
         firefox.enable = true;
+        chromium.enable = true;
       };
       gaming = {
         steam.enable = true;
@@ -41,6 +44,16 @@
         qemu.enable = true;
       };
     };
+    dev = {
+      cc.enable = true;
+      cloud = {
+        google.enable = true;
+        amazon.enable = true;
+      };
+      db = {
+        postgres.enable = true;
+      };
+    };
     editors = {
       default = "nvim";
       emacs.enable = true;
@@ -57,6 +70,9 @@
       # nvidia.enable = true;
       sensors.enable = true;
     };
+    email = {
+      mu4e.enable = true;
+    };
     shell = {
       direnv.enable = true;
       git.enable    = true;
@@ -64,6 +80,7 @@
       pass.enable   = true;
       tmux.enable   = true;
       zsh.enable    = true;
+      utils.enable  = true;
     };
     services = {
       ssh.enable = true;
@@ -88,4 +105,25 @@
   networking.useDHCP = false;
 
   services.lorri.enable = true;
+  services.blueman.enable = true;
+  services.geoclue2.enable = true;
+  services.fwupd.enable = true;
+  services.pipewire.enable = true;
+
+  services.thermald.enable = true;
+  services.irqbalance.enable = true;
+  services.fstrim.enable = true;
+  services.upower.enable = true;
+  services.pcscd.enable = true;
+  services.tlp.enable = true;
+  powerManagement.enable = true;
+  powerManagement.powertop.enable = true;
+
+  services.earlyoom.enable = true;
+  services.earlyoom.enableNotifications = true;
+
+  programs.light.enable = true;
+  programs.iftop.enable = true;
+  programs.iotop.enable = true;
+  programs.dconf.enable = true;
 }

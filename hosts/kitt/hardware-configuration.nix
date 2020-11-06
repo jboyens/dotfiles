@@ -4,24 +4,23 @@
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
   boot = {
-    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "rtsx_usb_sdmmc" "aes_x86_64" "aesni_intel" "cryptd" "i915" ];
+    initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "ahci"
+      "usb_storage"
+      "usbhid"
+      "sd_mod"
+      "rtsx_usb_sdmmc"
+      "aes_x86_64"
+      "aesni_intel"
+      "cryptd"
+      "i915"
+    ];
     initrd.kernelModules = [];
-    extraModulePackages = [
-      (pkgs.linuxPackages_latest.v4l2loopback.overrideAttrs (oa: rec {
-        name = "v4l2loopback-${version}-${pkgs.linuxPackages_latest.kernel.version}";
-        version = "0.12.5";
-        src = pkgs.fetchFromGitHub {
-          owner = "umlaeute";
-          repo = "v4l2loopback";
-          rev = "v${version}";
-          sha256 = "1qi4l6yam8nrlmc3zwkrz9vph0xsj1cgmkqci4652mbpbzigg7vn";
-        };
-      }))
-    ];
-    kernelModules = [
-      "kvm-intel"
-      "v4l2loopback"
-    ];
+    kernelPackages = pkgs.linuxPackages_5_9;
+    extraModulePackages = with pkgs.linuxPackages_5_9; [ v4l2loopback ];
+    kernelModules = [ "kvm-intel" "v4l2loopback" ];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
       #      vulnerabilities. This is not a good idea for mission critical or
@@ -29,6 +28,7 @@
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
       "mem_sleep_default=deep"
+      "acpi_osi=Linux"
     ];
     extraModprobeConfig = ''
       options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"

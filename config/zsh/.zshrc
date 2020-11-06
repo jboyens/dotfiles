@@ -1,5 +1,6 @@
 [ -d "$ZGEN_DIR" ] || git clone https://github.com/tarjoilija/zgen "$ZGEN_DIR"
-source $ZGEN_SOURCE
+# source $ZGEN_SOURCE
+source $ZGEN_DIR/zgen.zsh
 if ! zgen saved; then
   echo "Initializing zgen"
   zgen load hlissner/zsh-autopair autopair.zsh
@@ -10,6 +11,8 @@ if ! zgen saved; then
   [ -z "$SSH_CONNECTION" ] && zgen load zdharma/fast-syntax-highlighting
   zgen save
 fi
+
+autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
 
 source $ZDOTDIR/config.zsh
 if [[ $TERM != dumb ]]; then
@@ -43,7 +46,6 @@ if [[ $TERM != dumb ]]; then
   source $ZDOTDIR/extra.zshrc
 
   ##
-  autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
   autopair-init
 
   # If you have host-local configuration, this is where you'd put it

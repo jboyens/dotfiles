@@ -13,7 +13,7 @@ in {
 
     # assumes user id of 1000
     modules.theme.onReload.swaywm = ''
-      ${pkgs.sway}/bin/swaymsg -s /run/user/1000/sway-ipc.1000.$(pgrep -x sway).sock reload
+      ${pkgs.sway}/bin/swaymsg reload
     '';
 
     environment.systemPackages = with pkgs; [
@@ -29,6 +29,10 @@ in {
       unstable.xdg-desktop-portal-wlr
       wl-clipboard
       autotiling
+      wlay
+      wlr-randr
+      light
+      wev
     ];
 
     services = {

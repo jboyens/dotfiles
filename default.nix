@@ -50,7 +50,7 @@ with inputs;
   fileSystems."/".device = "/dev/disk/by-label/nixos";
 
   # Use the latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   boot.loader = {
     efi.canTouchEfiVariables = true;

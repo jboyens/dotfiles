@@ -122,6 +122,9 @@ in {
         "datareporting.healthreport.uploadEnabled" = false;
         "datareporting.healthreport.service.enabled" = false;
         "datareporting.policy.dataSubmissionEnabled" = false;
+
+        # Disable DNS-over-HTTPS
+        "network.trr.mode" = 5;
       };
 
       # Use a stable profile name so we can target it in themes

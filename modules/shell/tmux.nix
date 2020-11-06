@@ -20,10 +20,7 @@ in {
     user.packages = [ tmux ];
 
     modules.theme.onReload.tmux = ''
-      if [ -d "/tmp/tmux-1000" ]; then
-        TMUX_HOME=$${TMUX_HOME:-"/home/jboyens/.config/tmux"}
-        ${tmux}/bin/tmux source-file $TMUX_HOME/extraInit";
-      fi
+        ${tmux}/bin/tmux source-file $TMUX_HOME/extraInit
     '';
 
     modules.shell.zsh = {
