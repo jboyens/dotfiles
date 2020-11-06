@@ -61,6 +61,7 @@
   # generated config replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp0s20u1.useDHCP = true;
+  networking.domain = "fooninja.org";
 
   services.lorri.enable = true;
   services.thermald.enable = true;

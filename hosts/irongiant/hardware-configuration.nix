@@ -22,6 +22,9 @@
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
     ];
+    extraModprobeConfig = ''
+      options nfs nfs4_disable_idmapping=0
+    '';
   };
 
   hardware.enableRedistributableFirmware = true;
@@ -42,6 +45,12 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/074A-FDB3";
     fsType = "vfat";
+  };
+
+  fileSystems."/mnt/nas" = {
+    device = "192.168.86.34:/volume1/homes";
+    fsType = "nfs";
+    options = [ "nfsvers=4.1" ];
   };
 
   #swapDevices = [{
