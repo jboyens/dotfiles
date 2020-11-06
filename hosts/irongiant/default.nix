@@ -19,7 +19,7 @@
     };
     editors = {
       default = "nvim";
-      emacs.enable = true;
+      emacs.enable = false;
       vim.enable = true;
     };
     hardware = {
