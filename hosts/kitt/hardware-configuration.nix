@@ -34,6 +34,7 @@
       options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
       options iwlwifi 11n_disable=8 bt_coex_active=1 power_save=0
       options iwlmvm power_scheme=1
+      options nfs nfs4_disable_idmapping=0
     '';
   };
 
@@ -82,6 +83,18 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/161F-64F3";
     fsType = "vfat";
+  };
+
+  fileSystems."/mnt/nas/homes" = {
+    device = "192.168.86.34:/volume1/homes";
+    fsType = "nfs";
+    options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+  };
+
+  fileSystems."/mnt/nas/backup" = {
+    device = "192.168.86.34:/volume1/backup";
+    fsType = "nfs";
+    options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
   };
 
   swapDevices = [{

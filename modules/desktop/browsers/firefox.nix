@@ -27,7 +27,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       user.packages = with pkgs; [
-        (unstable.firefox.override {
+        (unstable.firefox-bin.override {
           extraNativeMessagingHosts = [ passff-host tridactyl-native ];
         })
         (makeDesktopItem {
@@ -35,7 +35,7 @@ in {
           desktopName = "Firefox (Private)";
           genericName = "Open a private Firefox window";
           icon = "firefox";
-          exec = "${unstable.firefox}/bin/firefox --private-window";
+          exec = "${unstable.firefox-bin}/bin/firefox --private-window";
           categories = "Network";
         })
       ];
