@@ -33,10 +33,13 @@ in {
           unstable.minikube
           unstable.k9s
           unstable.kubernetes-helm
+          my.krew
+          unstable.open-policy-agent
         ];
       };
 
       modules.shell.zsh.aliases.k = "kubectl";
+      env.PATH = [ "$HOME/.krew/bin" ];
     })
   ];
 }
