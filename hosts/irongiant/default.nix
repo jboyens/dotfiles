@@ -11,7 +11,7 @@
       cc.enable = true;
       cloud = {
         google.enable = true;
-        amazon.enable = true;
+        amazon.enable = false;
       };
       db = {
         postgres.enable = true;
@@ -43,6 +43,10 @@
       ssh.enable = true;
       docker.enable = true;
       printing.enable = true;
+      wireguard = {
+        enable = true;
+	server.enable = true;
+      };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
@@ -62,6 +66,7 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s20u1.useDHCP = true;
   networking.domain = "fooninja.org";
+  networking.firewall.enable = false;
 
   services.lorri.enable = true;
   services.thermald.enable = true;
@@ -72,4 +77,32 @@
 
   programs.iftop.enable = true;
   programs.iotop.enable = true;
+
+  services.traefik.enable = true;
+  services.traefik.staticConfigOptions = {
+    log.level = "DEBUG";
+    accessLog.format = "json";
+    api.dashboard = true;
+    api.insecure = true;
+
+    entryPoints.http.address = "0.0.0.0:80";
+    entryPoints.traefik.address = "0.0.0.0:8080";
+  };
+
+  services.traefik.dynamicConfigOptions = {
+    http.routers = {
+      ha-host = {
+        rule = "Host(`ha.fooninja.org`)";
+        service = "ha";
+      };
+
+      sonarr-host = {
+        rule = "Host(`sonarr.fooninja.org`)";
+        service = "sonarr";
+      };
+    };
+
+    http.services.ha.loadBalancer.servers = [{ url = "http://192.168.86.34:8123"; }];
+    http.services.sonarr.loadBalancer.servers = [{ url = "http://192.168.86.34:8989"; }];
+  };
 }
