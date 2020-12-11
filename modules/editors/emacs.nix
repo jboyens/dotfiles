@@ -35,6 +35,7 @@ in {
       (mkIf (config.programs.gnupg.agent.enable)
         pinentry_emacs)   # in-emacs gnupg prompts
       zstd                # for undo-fu-session/undo-tree compression
+      python3             # for treemacs
 
       ## Module dependencies
       # :checkers spell
