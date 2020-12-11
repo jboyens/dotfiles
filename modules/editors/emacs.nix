@@ -57,6 +57,13 @@ in {
       # :lang rust
       rustfmt
       unstable.rust-analyzer
+      (makeDesktopItem {
+          name = "org-protocol";
+          desktopName = "org-protocol";
+          exec = "${emacsGcc}/bin/emacsclient %u";
+          categories = "System";
+          mimeType = "x-scheme-handler/org-protocol";
+        })
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
