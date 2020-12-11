@@ -11,7 +11,13 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       qemu
+      virt-manager
     ];
+
+    virtualisation.libvirtd.enable = true;
+    programs.dconf.enable = true;
+
+    user.extraGroups = [ "libvirtd" ];
   };
 }
 
