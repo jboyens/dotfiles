@@ -15,6 +15,8 @@ in {
       gitAndTools.diff-so-fancy
       (mkIf config.modules.shell.gnupg.enable
         gitAndTools.git-crypt)
+      my.git-sync
+      my.git-delete-merged-branches
     ];
 
     home.configFile = {
