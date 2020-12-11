@@ -1,0 +1,36 @@
+font=Fira Sans 11
+background-color=#2A2D39
+text-color=#BBC2CF
+default-timeout 14000
+anchor=top-right
+padding=20,16
+border-size=1
+border-radius=2
+border-color=#1A1C25
+width=440
+height=1000
+margin=4,26
+markup=1
+format=<b>%s</b>\n%b
+icons=1
+icon-location=right
+icon-path=/nix/store/hiji8llx4bgm4wlbz4jnxjs8jc679w57-slack-4.11.1/share/pixmaps
+ignore-timeout=1
+
+[app-name="Slack"]
+group-by=summary
+
+[urgency=low]
+background-color=#1E2029
+text-color=#BBC2CF
+default-timeout=8000
+
+[urgency=normal]
+background-color=#2A2D39
+text-color=#BBC2CF
+default-timeout=14000
+
+[urgency=critical]
+background-color=#CC6666
+text-color=#1E2029
+default-timeout=0
