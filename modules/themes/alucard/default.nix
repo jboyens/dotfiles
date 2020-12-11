@@ -38,7 +38,7 @@ in {
     }
 
     # Desktop (X11) theming
-    (mkIf (config.services.xserver.enable || config.programs.sway.enable) {
+    (mkIf (config.services.xserver.enable || config.modules.desktop.swaywm.enable) {
       user.packages = with pkgs; [
         dracula-theme
         paper-icon-theme # for rofi

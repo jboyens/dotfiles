@@ -56,7 +56,7 @@ output * bg ~/.local/share/wallpaper fill
 #
 
 output "Sharp Corporation 0x14BA 0x00000000" {
-  pos 0,720
+  pos 0,525
   scale 1
   subpixel rgb
 }
@@ -73,11 +73,11 @@ output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
 #
 # Example configuration:
 #
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#          resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -175,6 +175,19 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     bindsym $hyper+f exec $DOTFILES/bin/activate firefox
     bindsym $hyper+s exec $DOTFILES/bin/activate slack
     bindsym $hyper+z exec $DOTFILES/bin/activate zoom zoom-us
+
+    mode "screenshot" {
+        bindsym t exec grimshot copy active
+        bindsym s exec grimshot copy screen
+        bindsym o exec grimshot copy output
+        bindsym a exec grimshot copy area
+        bindsym w exec grimshot copy window
+        # Return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+    bindsym $meh+s mode "screenshot"
+
 #
 # Moving around:
 #
@@ -304,22 +317,89 @@ for_window [class=scratch] border pixel 2
 # for_window [class=URxvt instance=scratch] resize set width 1200 height 560
 # for_window [class=URxvt instance=scratch] border pixel 2
 
-exec_always autotiling
+# exec_always autotiling
 # exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
-exec_always $DOTFILES/bin/mako-exec
+# exec_always $DOTFILES/bin/mako-exec
 # exec_always pkill kanshi; exec kanshi
-exec waybar
-exec redshift
+# exec waybar
+# exec redshift
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
+# exec /run/current-system/sw/libexec/polkit-gnome-authentication-agent-1
 
 bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
 bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
 bindsym XF86AudioMute exec pamixer -t && if [ $(pamixer --get-mute) == true ]; then; echo 0; else; pamixer --get-volume; fi > $SWAYSOCK.wob
 
-bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
-bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+bindsym XF86MonBrightnessUp exec brightnessctl set +10% && brightnessctl_perc > $SWAYSOCK.wob
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%- && brightnessctl_perc > $SWAYSOCK.wob
+
+## Colors
+set $blk  "#1E2029"
+set $bblk "#282a36"
+set $red  "#ffb86c"
+set $bred "#de935f"
+set $grn  "#50fa7b"
+set $bgrn "#0189cc"
+set $ylw  "#f0c674"
+set $bylw "#f9a03f"
+set $blu  "#61bfff"
+set $bblu "#8be9fd"
+set $mag  "#bd93f9"
+set $bmag "#ff79c6"
+set $cyn  "#8be9fd"
+set $bcyn "#0189cc"
+set $wht  "#f8f8f2"
+set $bwht "#e2e2dc"
+set $bg $blk
+set $fg $wht
+
+set $color0  blk
+set $color8  bblk
+set $color1  red
+set $color9  bred
+set $color2  grn
+set $color10 bgrn
+set $color3  ylw
+set $color11 bylw
+set $color4  blu
+set $color12 bblu
+set $color5  mag
+set $color13 bmag
+set $color6  cyn
+set $color14 bcyn
+set $color7  wht
+set $color15 bwht
+
+set $color234 "#1E2029"
+set $color235 "#282a36"
+set $color236 "#373844"
+set $color237 "#44475a"
+set $color239 "#565761"
+set $color240 "#6272a4"
+set $color241 "#b6b6b2"
+
+set $bg-alt "#1E2029"
+set $fg-alt "#373844"
+set $bg-dark "#181a23"
+set $alert $ylw
+set $accent "#604c7e"
+
+bar {
+  id bottom
+  status_command i3status-rs
+  font "FiraCode Nerd Font 9"
+  colors {
+    background $bg
+    statusline $fg
+    separator $bg-dark
+    focused_workspace $bg-dark $bg-dark $fg
+    inactive_workspace $bg-dark $bg-dark $fg-alt
+    urgent_workspace $bg-dark $bg-dark $alert
+  }
+}
 
 include /etc/sway/config.d/*
 include ~/.config/sway/rc.d/*
 
 exec_always xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"

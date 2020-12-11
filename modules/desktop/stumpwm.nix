@@ -20,8 +20,8 @@ in {
       redshift.enable = true;
       xserver = {
         enable = true;
-        windowManager.default = "stumpwm";
         windowManager.stumpwm.enable = true;
+        displayManager.defaultSession = "none+stumpwm";
         displayManager.lightdm.enable = true;
         displayManager.lightdm.greeters.mini.enable = true;
       };
