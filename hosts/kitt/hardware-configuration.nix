@@ -15,9 +15,9 @@
       "aes_x86_64"
       "aesni_intel"
       "cryptd"
-      "i915"
     ];
     initrd.kernelModules = [];
+    blacklistedKernelModules = [ "nouveau" ];
     kernelPackages = pkgs.linuxPackages_5_9;
     extraModulePackages = with pkgs.linuxPackages_5_9; [ v4l2loopback ];
     kernelModules = [ "kvm-intel" "v4l2loopback" ];
@@ -58,6 +58,15 @@
 
       package = pkgs.pulseaudioFull;
       extraModules = [ pkgs.pulseaudio-modules-bt pkgs.pulseeffects ];
+    };
+
+    nvidia = lib.mkIf config.modules.hardware.nvidia.enable {
+      prime = {
+        offload.enable = true;
+
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
     };
   };
   services.hardware.bolt.enable = true;
