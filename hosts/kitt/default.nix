@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, stdenv, lib, ... }:
 {
   imports = [
     ../personal.nix
@@ -53,9 +53,11 @@
     };
     dev = {
       cc.enable = true;
+      rust.enable = true;
       cloud = {
         google.enable = true;
-        amazon.enable = true;
+        # currently broken
+        amazon.enable = false;
       };
       db = {
         postgres.enable = true;
@@ -74,11 +76,19 @@
         # zfs.enable = true;
         ssd.enable = true;
       };
-      # nvidia.enable = true;
+      nvidia.enable = false;
       sensors.enable = true;
     };
     email = {
       mu4e.enable = true;
+      mu4e.package = (pkgs.unstable.offlineimap.overrideAttrs(oa: {
+        src = pkgs.fetchFromGitHub {
+          owner = "OfflineIMAP";
+          repo = "offlineimap";
+          rev = "2d0d07cd6a0560e5845ac09a0b3fbada3a034ba6";
+          sha256 = "NU/kqsBUPR+0EnEDIXMQaBU6gm2Y+KExH5XWKMFJ2x0=";
+        };
+      }));
     };
     shell = {
       direnv.enable = true;
@@ -93,6 +103,10 @@
       ssh.enable = true;
       docker.enable = true;
       printing.enable = true;
+      wireguard = {
+        enable = true;
+        client.enable = false;
+      };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
@@ -105,7 +119,7 @@
   services.openssh.startWhenNeeded = true;
 
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.backend = "iwd";
   networking.domain = "fooninja.org";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false
