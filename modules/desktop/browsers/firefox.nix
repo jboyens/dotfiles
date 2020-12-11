@@ -7,7 +7,11 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.browsers.firefox;
+let
+  cfg = config.modules.desktop.browsers.firefox;
+  wrappedFF = pkgs.unstable.firefox.override {
+    extraNativeMessagingHosts = with pkgs; [ passff-host tridactyl-native ];
+  };
 in {
   options.modules.desktop.browsers.firefox = with types; {
     enable = mkBoolOpt false;
@@ -27,15 +31,13 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       user.packages = with pkgs; [
-        (unstable.firefox-bin.override {
-          extraNativeMessagingHosts = [ passff-host tridactyl-native ];
-        })
+        wrappedFF
         (makeDesktopItem {
           name = "firefox-private";
           desktopName = "Firefox (Private)";
           genericName = "Open a private Firefox window";
           icon = "firefox";
-          exec = "${unstable.firefox-bin}/bin/firefox --private-window";
+          exec = "${wrappedFF}/bin/firefox --private-window";
           categories = "Network";
         })
       ];
@@ -125,6 +127,14 @@ in {
 
         # Disable DNS-over-HTTPS
         "network.trr.mode" = 5;
+
+        # Disable sponsored top sites
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+      };
+
+      home.configFile."tridactyl" = {
+        source = "${configDir}/tridactyl";
+        recursive = true;
       };
 
       # Use a stable profile name so we can target it in themes
