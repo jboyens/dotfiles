@@ -71,7 +71,7 @@ inboxes = ["/home/jboyens/.mail/flexe/INBOX", "/home/jboyens/.mail/fooninja/INBO
 [[block]]
 block = "weather"
 format = "{weather} {temp}°F"
-service = { name = "openweathermap", api_key = "***REMOVED***", city_id = "5809844", units = "imperial" }
+service = { name = "openweathermap", api_key = "00000000000000000000000000000000", city_id = "5809844", units = "imperial" }
 
 [[block]]
 block = "time"
