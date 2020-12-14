@@ -104,6 +104,7 @@ in {
         })
         (mkIf desktop.swaywm.enable {
           "waybar" = { source = ./config/waybar; recursive = true; };
+          "i3status-rust" = { source = ./config/i3status-rust; recursive = true; };
         })
         (mkIf desktop.media.graphics.vector.enable {
           "inkscape/templates/default.svg".source = ./config/inkscape/default-template.svg;

@@ -106,45 +106,6 @@ in {
       };
     };
 
-    # systemd.user.services.waybar = {
-    #   description = "Waybar";
-    #   wantedBy = [ "graphical-session.target" ];
-    #   partOf = [ "graphical-session.target" ];
-    #   serviceConfig = {
-    #     ExecStart = "${waybar}/bin/waybar";
-    #     RestartSec = 5;
-    #     Restart = "always";
-    #   };
-    # };
-
-    # systemd.user.services.gnome-polkit = {
-    #   description = "GNOME Polkit";
-    #   wantedBy = [ "graphical-session.target" ];
-    #   partOf = [ "graphical-session.target" ];
-    #   serviceConfig = {
-    #     ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-    #     RestartSec = 5;
-    #     Restart = "always";
-    #   };
-    # };
-
-    systemd.user.services.swayidle = {
-      description = "Sway idle";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = ''
-          ${pkgs.swayidle}/bin/swayidle -w \
-            timeout 300 'swaylock -f -c 000000' \
-            timeout 600 'swaymsg "output * dpms off"' \
-            resume 'swaymsg "output * dpms on"' \
-            before-sleep 'swaylock -f -c 000000'
-        '';
-        RestartSec = 5;
-        Restart = "always";
-      };
-    };
-
     # link recursively so other modules can link files in their folders
     home.configFile = {
       "sway" = {
