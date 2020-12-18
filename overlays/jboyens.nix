@@ -1,7 +1,7 @@
-self: super:
+final: prev:
 {
-  offlineimap = super.offlineimap.overrideAttrs (old: {
-    src = super.fetchFromGitHub {
+  offlineimap = prev.offlineimap.overrideAttrs (old: {
+    src = prev.fetchFromGitHub {
       owner = "OfflineIMAP";
       repo = "offlineimap";
       rev = "2d0d07cd6a0560e5845ac09a0b3fbada3a034ba6";
