@@ -60,10 +60,16 @@ in {
       (makeDesktopItem {
           name = "org-protocol";
           desktopName = "org-protocol";
-          exec = "${emacsGcc}/bin/emacsclient %u";
+          exec = "${emacsPgtkGcc}/bin/emacsclient %u";
           categories = "System";
           mimeType = "x-scheme-handler/org-protocol";
         })
+      # :lang nix
+      nixfmt
+      # :lang sh
+      shellcheck
+      # :lang org
+      graphviz
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
