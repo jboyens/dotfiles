@@ -26,7 +26,7 @@ with lib.my;
   config = {
     user = {
       description = "The primary user account";
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "proc" ];
       isNormalUser = true;
       name = let name = builtins.getEnv "USER"; in
              if elem name [ "" "root" ]
