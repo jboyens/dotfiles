@@ -62,7 +62,7 @@ output "Sharp Corporation 0x14BA 0x00000000" {
 }
 
 output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
-  scale 1.5
+  scale 1
   subpixel rgb
   # mode 2560x1440
   mode 3840x2160@59.997002Hz
