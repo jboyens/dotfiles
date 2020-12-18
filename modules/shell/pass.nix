@@ -8,7 +8,7 @@ in {
     enable = mkBoolOpt false;
     package = mkOption {
       type = types.package;
-      default = if config.modules.desktop.swaywm.enable then pkgs.pass else pkgs.pass-wayland;
+      default = if config.modules.desktop.swaywm.enable then pkgs.pass-wayland else pkgs.pass;
       defaultText = "pkgs.pass";
       description = "If Wayland: pass-wayland else pass";
     };
