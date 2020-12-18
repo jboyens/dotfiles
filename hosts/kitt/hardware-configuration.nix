@@ -18,8 +18,8 @@
     ];
     initrd.kernelModules = [];
     blacklistedKernelModules = [ "nouveau" ];
-    kernelPackages = pkgs.linuxPackages_5_9;
-    extraModulePackages = with pkgs.linuxPackages_5_9; [ v4l2loopback ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
     kernelModules = [ "kvm-intel" "v4l2loopback" ];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
