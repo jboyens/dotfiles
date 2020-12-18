@@ -40,15 +40,17 @@ in {
       gtk_engines
       gsettings-desktop-schemas
       gnome3.adwaita-icon-theme
+      hicolor-icon-theme
       gnome3.defaultIconTheme
       flashfocus
       polkit_gnome
       i3status-rust
+      gammastep
     ];
 
     services = {
-      redshift.enable = true;
-      redshift.package = pkgs.redshift-wlr;
+      # redshift.enable = true;
+      # redshift.package = pkgs.redshift-wlr;
 
       xserver.enable = false;
     };
@@ -84,12 +86,28 @@ in {
       after = [ "graphical-session-pre.target" ];
     };
 
-    systemd.user.services.autotiling = {
-      description = "Sway autotiling";
+    # 2020/12/18 - DISABLED as it breaks window movement
+    # See:
+    #   https://github.com/nwg-piotr/autotiling/issues/19
+    #   https://github.com/swaywm/sway/pull/5756
+    #
+    # systemd.user.services.autotiling = {
+    #   description = "Sway autotiling";
+    #   wantedBy = [ "graphical-session.target" ];
+    #   partOf = [ "graphical-session.target" ];
+    #   serviceConfig = {
+    #     ExecStart = "${pkgs.autotiling}/bin/autotiling";
+    #     RestartSec = 5;
+    #     Restart = "always";
+    #   };
+    # };
+
+    systemd.user.services.gammastep = {
+      description = "Screen color temperature manager";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.autotiling}/bin/autotiling";
+        ExecStart = "${pkgs.gammastep}/bin/gammastep";
         RestartSec = 5;
         Restart = "always";
       };
