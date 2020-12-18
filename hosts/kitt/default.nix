@@ -103,6 +103,14 @@
       ssh.enable = true;
       docker.enable = true;
       printing.enable = true;
+      restic = {
+        enable = true;
+        backups = {
+          workspace.enable = true;
+          home.enable = true;
+          mail.enable = true;
+        };
+      };
       wireguard = {
         enable = true;
         client.enable = false;
@@ -139,6 +147,10 @@
   services.upower.enable = true;
   services.pcscd.enable = true;
   services.tlp.enable = true;
+  services.tlp.settings = {
+    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    DEVICES_TO_DISABLE_ON_BAT = "bluetooth";
+  };
   powerManagement.enable = true;
   # powerManagement.powertop.enable = true;
 
