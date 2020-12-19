@@ -1,9 +1,5 @@
-{ pkgs, stdenv, lib, ... }:
-{
-  imports = [
-    ../personal.nix
-    ./hardware-configuration.nix
-  ];
+{ pkgs, stdenv, lib, ... }: {
+  imports = [ ../personal.nix ./hardware-configuration.nix ];
 
   ## Modules
   modules = {
@@ -47,21 +43,18 @@
         st.enable = false;
         alacritty.enable = true;
       };
-      vm = {
-        qemu.enable = true;
-      };
+      vm = { qemu.enable = true; };
     };
     dev = {
       cc.enable = true;
       rust.enable = true;
       cloud = {
+        enable = true;
         google.enable = true;
         # currently broken
         amazon.enable = false;
       };
-      db = {
-        postgres.enable = true;
-      };
+      db = { postgres.enable = true; };
     };
     editors = {
       default = "nvim";
@@ -81,7 +74,7 @@
     };
     email = {
       mu4e.enable = true;
-      mu4e.package = (pkgs.unstable.offlineimap.overrideAttrs(oa: {
+      mu4e.package = (pkgs.unstable.offlineimap.overrideAttrs (oa: {
         src = pkgs.fetchFromGitHub {
           owner = "OfflineIMAP";
           repo = "offlineimap";
@@ -92,12 +85,12 @@
     };
     shell = {
       direnv.enable = true;
-      git.enable    = true;
-      gnupg.enable  = true;
-      pass.enable   = true;
-      tmux.enable   = true;
-      zsh.enable    = true;
-      utils.enable  = true;
+      git.enable = true;
+      gnupg.enable = true;
+      pass.enable = true;
+      tmux.enable = true;
+      zsh.enable = true;
+      utils.enable = true;
     };
     services = {
       ssh.enable = true;
@@ -120,7 +113,6 @@
     };
     theme.active = "alucard";
   };
-
 
   ## Local config
   programs.ssh.startAgent = true;
@@ -161,4 +153,10 @@
   programs.iftop.enable = true;
   programs.iotop.enable = true;
   programs.dconf.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+    gtkUsePortal = true;
+  };
 }
