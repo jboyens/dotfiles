@@ -19,15 +19,11 @@ with inputs;
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
-    nixPath = [
-      "nixpkgs=${nixpkgs}"
-      "nixpkgs-unstable=${nixpkgs-unstable}"
+    nixPath = (mapAttrsToList (n: v: "${n}=${v}") inputs) ++ [
       "nixpkgs-overlays=${dotFilesDir}/overlays"
-      "home-manager=${home-manager}"
       "dotfiles=${dotFilesDir}"
     ];
     binaryCaches = [
-      "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://nixpkgs-wayland.cachix.org"
     ];
@@ -48,13 +44,13 @@ with inputs;
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
-  fileSystems."/".device = "/dev/disk/by-label/nixos";
+  fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
   # Use the latest kernel
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   boot.loader = {
-    efi.canTouchEfiVariables = true;
+    efi.canTouchEfiVariables = mkDefault true;
     systemd-boot.configurationLimit = 10;
     systemd-boot.enable = mkDefault true;
   };
@@ -67,5 +63,6 @@ with inputs;
     vim
     wget
     gnumake
+    unzip
   ];
 }

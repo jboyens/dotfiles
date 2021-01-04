@@ -5,7 +5,7 @@ with lib;
   networking.hosts =
     let hostConfig = {
           "192.168.1.2"  = [ "ao" ];
-          "192.168.1.3"  = [ "aka" ];
+          "192.168.1.3"  = [ "kiiro" ];
           "192.168.1.10" = [ "kuro" ];
           "192.168.1.11" = [ "shiro" ];
           "192.168.1.12" = [ "midori" ];
@@ -22,4 +22,7 @@ with lib;
     latitude = 47.6062;
     longitude = -122.3321;
   } else {});
+
+  ##
+  modules.shell.bitwarden.config.server = "p.v0.io";
 }
