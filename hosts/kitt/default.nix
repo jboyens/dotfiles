@@ -46,6 +46,7 @@
       vm = { qemu.enable = true; };
     };
     dev = {
+      android.enable = true;
       cc.enable = true;
       rust.enable = true;
       cloud = {
