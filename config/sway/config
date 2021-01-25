@@ -57,7 +57,7 @@ output * bg ~/.local/share/wallpaper fill
 #
 
 output "Sharp Corporation 0x14BA 0x00000000" {
-  pos 0,525
+  pos 3840 723
   scale 1
   subpixel rgb
 }
@@ -67,7 +67,7 @@ output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
   subpixel rgb
   # mode 2560x1440
   mode 3840x2160@59.997002Hz
-  pos 1920 0
+  pos 0 0
 }
 
 ### Idle configuration
