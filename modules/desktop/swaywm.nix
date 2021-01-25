@@ -19,6 +19,7 @@ in {
     '';
 
     environment.systemPackages = with pkgs; [
+      swaybg
       waybar
       wofi
       mako
@@ -46,6 +47,8 @@ in {
       polkit_gnome
       i3status-rust
       gammastep
+      wayvnc
+      wlvncc
     ];
 
     services = {
