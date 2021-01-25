@@ -12,7 +12,6 @@
       "usbhid"
       "sd_mod"
       "rtsx_usb_sdmmc"
-      "aes_x86_64"
       "aesni_intel"
       "cryptd"
     ];
@@ -20,7 +19,7 @@
     blacklistedKernelModules = [ "nouveau" ];
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
-    kernelModules = [ "kvm-intel" "v4l2loopback" ];
+    kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
       #      vulnerabilities. This is not a good idea for mission critical or
