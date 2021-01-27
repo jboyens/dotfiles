@@ -7,11 +7,7 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = [
-      "xhci_pci"
-      "ahci"
-      "usbhid"
-    ];
+    initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" ];
     initrd.kernelModules = [ "dm-snapshot" ];
     kernelPackages = pkgs.linuxPackages_5_9;
     kernelModules = [ "kvm-intel" ];
@@ -53,8 +49,8 @@
     options = [ "nfsvers=4.1" ];
   };
 
-  #swapDevices = [{
-  #  device = "/swapfile";
-  #  size = 10240;
-  #}];
+  swapDevices = [{
+    device = "/swapfile";
+    size = 10240;
+  }];
 }
