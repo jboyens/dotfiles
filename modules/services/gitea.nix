@@ -9,12 +9,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # I prefer git@... ssh addresses over gitea@...
+    # Allows git@... clone addresses rather than gitea@...
     users.users.git = {
       useDefaultShell = true;
       home = "/var/lib/gitea";
       group = "gitea";
     };
+
+    user.extraGroups = [ "gitea" ];
 
     services.gitea = {
       enable = true;
@@ -22,14 +24,27 @@ in {
       user = "git";
       database.user = "git";
 
-      disableRegistration = true;
       # We're assuming SSL-only connectivity
       cookieSecure = true;
       # Only log what's important
-      log.level = "Error";
+      log.level = "Info";
       settings.server.DISABLE_ROUTER_LOG = true;
     };
 
-    user.extraGroups = [ "gitea" ];
+    services.fail2ban.jails.gitea = ''
+      enabled = true
+      filter = gitea
+      logpath = ${config.services.gitea.log.rootPath}/gitea.log
+      bantime = 1800
+      findtime = 3600
+      banaction = %(banaction_allports)s
+    '';
+
+    modules.backup.targets.gitea = {
+      baseDir = config.users.users.git.home;
+      owner = "git";
+      targets = [ "repositories" "data" ];
+      suspendServices = [ "gitea" ];
+    };
   };
 }
