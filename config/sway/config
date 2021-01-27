@@ -37,6 +37,8 @@ smart_gaps on
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg ~/.local/share/wallpaper fill
 
+seat * xcursor_theme Paper 10
+
 # output "ViewSonic Corporation VA2759 Series UL7181601169" {
 #     subpixel rgb
 #     pos 960 244
@@ -326,6 +328,8 @@ for_window [app_id=pavucontrol] border pixel 2
 for_window [app_id=pavucontrol] move position center
 
 for_window [floating=true] border pixel 2
+for_window [title="Firefox — Sharing Indicator"] floating true
+for_window [title="Firefox — Sharing Indicator"] move postion 50ppt 100ppt
 
 # for_window [class=URxvt instance=scratch] floating true
 # for_window [class=URxvt instance=scratch] resize set width 1200 height 560

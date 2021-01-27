@@ -40,11 +40,13 @@ in {
     fonts = {
       fontDir.enable = true;
       enableGhostscriptFonts = true;
+      enableDefaultFonts = true;
       fonts = with pkgs; [
         ubuntu_font_family
         dejavu_fonts
         symbola
         noto-fonts
+        noto-fonts-emoji
         noto-fonts-cjk
         iosevka-bin
         (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; })

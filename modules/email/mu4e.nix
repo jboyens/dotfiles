@@ -27,7 +27,10 @@ in {
       serviceConfig = {
         Type      = "oneshot";
         ExecStart = "${cfg.package}/bin/offlineimap -u syslog -o";
-        TimeoutStartSec = "240sec";
+        # 14 minutes for REALLY long syncs when I archive a bunch of mail
+        # this makes sense because it's going to run again a minute after this
+        # and it takes about a minute for it to "shutdown" cleanly
+        TimeoutStartSec = "840sec";
       };
       path = with pkgs; [ imapfilter ];
     };
