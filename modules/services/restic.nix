@@ -11,21 +11,21 @@ in {
         enable = mkEnableOption false;
         paths = mkOption {
           type = types.listOf types.path;
-          default = [ "${homeDir}/Workspace" ];
+          default = [ "${config.user.home}/Workspace" ];
         };
       };
       home = {
         enable = mkEnableOption false;
         paths = mkOption {
           type = types.listOf types.path;
-          default = [ "${homeDir}" ];
+          default = [ "${config.user.home}" ];
         };
       };
       mail = {
         enable = mkEnableOption false;
         paths = mkOption {
           type = types.listOf types.path;
-          default = [ "${homeDir}/.mail" ];
+          default = [ "${config.user.home}/.mail" ];
         };
       };
     };
