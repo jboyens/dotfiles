@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1609364598,
+        "narHash": "sha256-dKFCWfUKXRP1z0k/bRMoDOuT0iKM5/starxgG0jn7Ek=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "37b1d2aa3f2afd196350e43b5e90e8bfd8718d90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "cachix": {
       "locked": {
         "lastModified": 1611602709,
@@ -18,11 +39,11 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1611706393,
-        "narHash": "sha256-LXMvB7w8UM4VRVl7oMrH55tZDLquZYoBherqu7ekYFM=",
+        "lastModified": 1611749592,
+        "narHash": "sha256-e7xjBXKtYcUeef0EZmAZWK7+yemoeVQbLlLEorrjH84=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "e16a15ca3b49be0bdfe8bd06fa3334c502122dbf",
+        "rev": "3c2a371b7709294d4f417f513158da17401ce127",
         "type": "github"
       },
       "original": {
