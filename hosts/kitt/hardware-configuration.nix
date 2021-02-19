@@ -56,7 +56,7 @@
       enable = true;
 
       package = pkgs.pulseaudioFull;
-      extraModules = [ pkgs.pulseaudio-modules-bt pkgs.pulseeffects ];
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
     };
 
     nvidia = lib.mkIf config.modules.hardware.nvidia.enable {
