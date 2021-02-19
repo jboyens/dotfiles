@@ -60,4 +60,4 @@ bind K tabprev
 
 bind O fillcmdline tabopen
 
-bind zp js javascript:location.href = 'org-protocol://roam-ref?template=r&ref=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title)
+bind zp js window.location.href = 'org-protocol://roam-ref?template=r&ref=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title)
