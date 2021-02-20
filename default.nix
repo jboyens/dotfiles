@@ -39,7 +39,7 @@ with lib.my; {
     useSandbox = true;
   };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
-  system.stateVersion = "20.09";
+  system.stateVersion = "21.03";
 
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
@@ -57,6 +57,7 @@ with lib.my; {
 
   # Just the bear necessities...
   environment.systemPackages = with pkgs; [
+    bind
     cached-nix-shell
     coreutils
     git

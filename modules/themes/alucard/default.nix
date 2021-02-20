@@ -19,101 +19,119 @@ in {
           };
         };
 
-        shell.zsh.rcFiles  = [ ./config/zsh/prompt.zsh ];
+        shell.zsh.rcFiles = [ ./config/zsh/prompt.zsh ];
         shell.tmux.rcFiles = [ ./config/tmux.conf ];
         desktop.browsers = {
-          firefox.userChrome = concatMapStringsSep "\n" readFile [
-            ./config/firefox/userChrome.css
-          ];
-          qutebrowser.userStyles = concatMapStringsSep "\n" toCSSFile [
-            ./config/qutebrowser/github.scss
-            ./config/qutebrowser/monospace-textareas.scss
-            ./config/qutebrowser/quora.scss
-            ./config/qutebrowser/stackoverflow.scss
-            ./config/qutebrowser/xkcd.scss
-            ./config/qutebrowser/youtube.scss
-          ];
+          firefox.userChrome = concatMapStringsSep "\n" readFile
+            [ ./config/firefox/userChrome.css ];
+          qutebrowser.userStyles = concatMapStringsSep "\n" readFile
+            (map toCSSFile [
+              ./config/qutebrowser/userstyles/monospace-textareas.scss
+              ./config/qutebrowser/userstyles/stackoverflow.scss
+              ./config/qutebrowser/userstyles/xkcd.scss
+            ]);
         };
       };
     }
 
     # Desktop (X11) theming
-    (mkIf (config.services.xserver.enable || config.modules.desktop.swaywm.enable) {
-      user.packages = with pkgs; [
-        dracula-theme
-        paper-icon-theme # for rofi
-      ];
-      fonts = {
-        fonts = with pkgs; [
-          fira-code
-          fira-code-symbols
-          jetbrains-mono
-          siji
-          font-awesome-ttf
+    (mkIf
+      (config.services.xserver.enable || config.modules.desktop.swaywm.enable) {
+        user.packages = with pkgs; [
+          dracula-theme
+          paper-icon-theme # for rofi
         ];
-        fontconfig.defaultFonts = {
-          sansSerif = ["Fira Sans"];
-          monospace = ["Fira Code"];
+        fonts = {
+          fonts = with pkgs; [
+            fira-code
+            fira-code-symbols
+            jetbrains-mono
+            siji
+            font-awesome-ttf
+          ];
+          fontconfig.defaultFonts = {
+            sansSerif = [ "Fira Sans" ];
+            monospace = [ "Fira Code" ];
+          };
         };
-      };
 
-      # Compositor
-      services.picom = {
-        fade = true;
-        fadeDelta = 1;
-        fadeSteps = [ 0.01 0.012 ];
-        shadow = true;
-        shadowOffsets = [ (-10) (-10) ];
-        shadowOpacity = 0.22;
-        # activeOpacity = "1.00";
-        # inactiveOpacity = "0.92";
-        settings = {
-          shadow-radius = 12;
-          # blur-background = true;
-          # blur-background-frame = true;
-          # blur-background-fixed = true;
-          blur-kern = "7x7box";
-          blur-strength = 320;
+        # Compositor
+        services.picom = {
+          fade = true;
+          fadeDelta = 1;
+          fadeSteps = [ 1.0e-2 1.2e-2 ];
+          shadow = true;
+          shadowOffsets = [ (-10) (-10) ];
+          shadowOpacity = 0.22;
+          # activeOpacity = "1.00";
+          # inactiveOpacity = "0.92";
+          settings = {
+            shadow-radius = 12;
+            # blur-background = true;
+            # blur-background-frame = true;
+            # blur-background-fixed = true;
+            blur-kern = "7x7box";
+            blur-strength = 320;
+          };
         };
-      };
 
-      # Login screen theme
-      services.xserver.displayManager.lightdm.greeters.mini.extraConfig = ''
-        text-color = "#ff79c6"
-        password-background-color = "#1E2029"
-        window-color = "#181a23"
-        border-color = "#181a23"
-      '';
+        # Login screen theme
+        services.xserver.displayManager.lightdm.greeters.mini.extraConfig = ''
+          text-color = "#ff79c6"
+          password-background-color = "#1E2029"
+          window-color = "#181a23"
+          border-color = "#181a23"
+        '';
 
-      # Other dotfiles
-      home.configFile = with config.modules; mkMerge [
-        {
-          # Sourced from sessionCommands in modules/themes/default.nix
-          "xtheme/90-theme".source = ./config/Xresources;
-        }
-        (mkIf desktop.bspwm.enable {
-          "bspwm/rc.d/polybar".source = ./config/polybar/run.sh;
-          "bspwm/rc.d/theme".source = ./config/bspwmrc;
-        })
-        (mkIf desktop.apps.rofi.enable {
-          "rofi/theme" = { source = ./config/rofi; recursive = true; };
-        })
-        (mkIf (desktop.bspwm.enable || desktop.stumpwm.enable) {
-          "polybar" = { source = ./config/polybar; recursive = true; };
-          "dunst/dunstrc".source = ./config/dunstrc;
-        })
-        (mkIf desktop.swaywm.enable {
-          "waybar" = { source = ./config/waybar; recursive = true; };
-          "i3status-rust" = { source = ./config/i3status-rust; recursive = true; };
-        })
-        (mkIf desktop.media.graphics.vector.enable {
-          "inkscape/templates/default.svg".source = ./config/inkscape/default-template.svg;
-        })
-
-        (mkIf desktop.term.alacritty.enable {
-          "alacritty" = { source = ./config/alacritty; recursive = true; };
-        })
-      ];
-    })
+        # Other dotfiles
+        home.configFile = with config.modules;
+          mkMerge [
+            {
+              # Sourced from sessionCommands in modules/themes/default.nix
+              "xtheme/90-theme".source = ./config/Xresources;
+            }
+            (mkIf desktop.bspwm.enable {
+              "bspwm/rc.d/polybar".source = ./config/polybar/run.sh;
+              "bspwm/rc.d/theme".source = ./config/bspwmrc;
+            })
+            (mkIf desktop.apps.rofi.enable {
+              "rofi/theme" = {
+                source = ./config/rofi;
+                recursive = true;
+              };
+            })
+            (mkIf (desktop.bspwm.enable || desktop.stumpwm.enable) {
+              "polybar" = {
+                source = ./config/polybar;
+                recursive = true;
+              };
+              "dunst/dunstrc".source = ./config/dunstrc;
+            })
+            (mkIf desktop.swaywm.enable {
+              "waybar" = {
+                source = ./config/waybar;
+                recursive = true;
+              };
+              "i3status-rust" = {
+                source = ./config/i3status-rust;
+                recursive = true;
+              };
+            })
+            (mkIf desktop.media.graphics.vector.enable {
+              "inkscape/templates/default.svg".source =
+                ./config/inkscape/default-template.svg;
+            })
+            (mkIf desktop.term.alacritty.enable {
+              "alacritty" = {
+                source = ./config/alacritty;
+                recursive = true;
+              };
+            })
+            (mkIf desktop.browsers.qutebrowser.enable {
+              "qutebrowser/extra/theme.py".source =
+                ./config/qutebrowser/theme.py;
+            })
+          ];
+      })
   ]);
 }

@@ -16,15 +16,26 @@
     extraModulePackages = [ ];
     # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
     #      vulnerabilities. This is not a good idea for mission critical or
-    #      server/headless builds, but on my lonely home system I prioritize raw
-    #      performance over security.  The gains are minor.
+    #      server/headless builds, but Kuro isn't either. I'll prioritize raw
+    #      performance over security here, though the gains are minor.
     kernelParams = [ "mitigations=off" ];
+  };
+
+  # Modules
+  modules.hardware = {
+    audio.enable = true;
+    fs = {
+      enable = true;
+      ssd.enable = true;
+    };
   };
 
   # CPU
   nix.maxJobs = lib.mkDefault 8;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   hardware.cpu.intel.updateMicrocode = true;
+  # performance gives better battery life/perf than ondemand on sandy bridge and
+  # newer because of intel pstates.
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Power management
   environment.systemPackages = [ pkgs.acpi ];
@@ -48,6 +59,11 @@
       device = "/dev/disk/by-label/home";
       fsType = "ext4";
       options = [ "noatime" ];
+    };
+    "/usr/drive" = {
+      device = "kiiro:/volume1/homes/hlissner/Drive";
+      fsType = "nfs";
+      options = [ "nofail" "noauto" "x-systemd.automount" ];
     };
   };
   swapDevices = [ { device = "/dev/disk/by-label/swap"; }];

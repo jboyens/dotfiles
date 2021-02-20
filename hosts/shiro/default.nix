@@ -40,23 +40,14 @@
       vim.enable = true;
     };
     dev = {};
-    hardware = {
-      audio.enable = true;
-      fs = {
-        enable = true;
-        ssd.enable = true;
-      };
-    };
     shell = {
+      adl.enable = true;
       bitwarden.enable = true;
       direnv.enable = true;
       git.enable = true;
       gnupg.enable = true;
       tmux.enable = true;
       zsh.enable = true;
-    };
-    hardware = {
-
     };
     services = {
       # syncthing.enable = true;
