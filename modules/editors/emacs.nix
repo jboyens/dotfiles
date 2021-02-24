@@ -60,7 +60,8 @@ in {
       (makeDesktopItem {
           name = "org-protocol";
           desktopName = "org-protocol";
-          exec = "${emacsPgtkGcc}/bin/emacsclient %u";
+          exec = "${emacsPgtkGcc}/bin/emacsclient -n %u";
+          type = "Application";
           categories = "System";
           mimeType = "x-scheme-handler/org-protocol";
         })
