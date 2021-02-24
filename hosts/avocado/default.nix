@@ -1,7 +1,7 @@
 { pkgs, stdenv, lib, ... }:
 {
   imports = [
-    ../personal.nix
+    ../home.nix
     ./hardware-configuration.nix
   ];
 

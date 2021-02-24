@@ -1,5 +1,5 @@
 { pkgs, stdenv, lib, ... }: {
-  imports = [ ../personal.nix ./hardware-configuration.nix ];
+  imports = [ ../home.nix ./hardware-configuration.nix ];
 
   ## Modules
   modules = {
@@ -14,9 +14,10 @@
         # godot.enable = true;
       };
       browsers = {
-        default = "firefox";
+        default = "qutebrowser";
         firefox.enable = true;
         chromium.enable = true;
+        qutebrowser.enable = true;
       };
       gaming = {
         steam.enable = true;
@@ -43,7 +44,9 @@
         st.enable = false;
         alacritty.enable = true;
       };
-      vm = { qemu.enable = true; };
+      vm = {
+        qemu.enable = true;
+      };
     };
     dev = {
       android.enable = true;
@@ -96,6 +99,7 @@
     services = {
       ssh.enable = true;
       docker.enable = true;
+      podman.enable = false;
       printing.enable = true;
       restic = {
         enable = true;
