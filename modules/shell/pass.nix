@@ -2,23 +2,19 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.shell.pass;
+let
+  cfg = config.modules.shell.pass;
+  package = pkgs.pass-wayland.overrideAttrs(oa: { x11Support = false; waylandSupport = true; });
 in {
   options.modules.shell.pass = with types; {
     enable = mkBoolOpt false;
     passwordStoreDir = mkOpt str "$HOME/.secrets/password-store";
-    package = mkOption {
-      type = types.package;
-      default = if config.modules.desktop.swaywm.enable then pkgs.pass-wayland else pkgs.pass;
-      defaultText = "pkgs.pass";
-      description = "If Wayland: pass-wayland else pass";
-    };
   };
 
   config = mkIf cfg.enable {
     user.packages = with pkgs;
       [
-        (cfg.package.withExtensions (exts:
+        (package.withExtensions (exts:
           [ exts.pass-otp exts.pass-genphrase exts.pass-update exts.pass-audit ]
           ++ (if config.modules.shell.gnupg.enable then
             [ exts.pass-tomb ]
