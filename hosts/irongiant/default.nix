@@ -241,6 +241,13 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 80 8080 3000 9116 ];
+
+  services.minecraft-server = {
+    enable = true;
+    eula = true;
+    openFirewall = true;
+  };
+
   services.traefik.enable = true;
   services.traefik.staticConfigOptions = {
     log.level = "DEBUG";
