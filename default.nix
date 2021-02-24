@@ -36,10 +36,10 @@ with lib.my; {
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     ];
     registry = registryInputs // { dotfiles.flake = inputs.self; };
-    useSandbox = true;
+    autoOptimiseStore = true;
   };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
-  system.stateVersion = "21.03";
+  system.stateVersion = "21.05";
 
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
@@ -47,12 +47,13 @@ with lib.my; {
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
   # Use the latest kernel
-  boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
-
-  boot.loader = {
-    efi.canTouchEfiVariables = mkDefault true;
-    systemd-boot.configurationLimit = 10;
-    systemd-boot.enable = mkDefault true;
+  boot = {
+    kernelPackages = mkDefault pkgs.linuxPackages_latest;
+    loader = {
+      efi.canTouchEfiVariables = mkDefault true;
+      systemd-boot.configurationLimit = 10;
+      systemd-boot.enable = mkDefault true;
+    };
   };
 
   # Just the bear necessities...

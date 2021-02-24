@@ -10,11 +10,14 @@
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
-      #      vulnerabilities. This is not a good idea for mission critical or
-      #      server/headless builds, but on my lonely home system I prioritize
-      #      raw performance over security.  The gains are minor.
+      #      vulnerabilities. Don't copy this blindly! And especially not for
+      #      mission critical or server/headless builds exposed to the world.
       "mitigations=off"
     ];
+
+    # Refuse ICMP echo requests on my desktop/laptop; nobody has any business
+    # pinging them, unlike my servers.
+    kernel.sysctl."net.ipv4.icmp_echo_ignore_broadcasts" = 1;
   };
 
   # Modules
@@ -75,12 +78,18 @@
     "/usr/drive" = {
       device = "kiiro:/volume1/homes/hlissner/Drive";
       fsType = "nfs";
-      options = [ "nofail" "noauto" "x-systemd.automount" "x-systemd.idle-timeout=5min" ];
+      options = [
+        "nofail" "noauto" "noatime" "x-systemd.automount" "x-systemd.idle-timeout=5min"
+        "nodev" "nosuid" "noexec"
+      ];
     };
     "/usr/store" = {
       device = "/dev/disk/by-label/store";
       fsType = "ext4";
-      options = [ "noauto" "noatime" "x-systemd.automount" "x-systemd.idle-timeout=5min" ];
+      options = [
+        "noauto" "noatime" "x-systemd.automount" "x-systemd.idle-timeout=5min"
+        "nodev" "nosuid" "noexec"
+      ];
     };
   };
   swapDevices = [];

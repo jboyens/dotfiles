@@ -5,7 +5,8 @@
 with lib.my;
 {
   imports = [
-    ../personal.nix
+    ../server.nix
+    ../home.nix
     ./hardware-configuration.nix
 
     ./modules/gitea.nix
@@ -27,7 +28,6 @@ with lib.my;
 
     theme.active = "alucard";
   };
-
 
   ## Local config
   networking.networkmanager.enable = true;

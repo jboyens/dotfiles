@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ../personal.nix
+    ../home.nix
     ./hardware-configuration.nix
   ];
 
@@ -13,6 +13,7 @@
         discord.enable = true;
         rofi.enable = true;
         # godot.enable = true;
+        signal.enable = true;
       };
       browsers = {
         default = "brave";
