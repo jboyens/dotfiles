@@ -16,8 +16,5 @@ in {
     user.extraGroups = [ "plugdev" ];
 
     services.xserver.xkbOptions = "compose:ralt";
-
-    hardware.keyboard.zsa.enable = true;
-    user.extraGroups = [ "plugdev" ];
   };
 }
