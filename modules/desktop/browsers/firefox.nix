@@ -52,6 +52,8 @@ in {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         # Stop creating ~/Downloads!
         "browser.download.dir" = "${config.user.home}/dl";
+        # Don't use site-specific zoom
+        "browser.zoom.siteSpecific" = false;
         # Don't use the built-in password manager; a nixos user is more likely
         # using an external one (you are using one, right?).
         "signon.rememberSignons" = false;
