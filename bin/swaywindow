@@ -10,7 +10,8 @@
 ###   -a -activate id   Activate a window by the con_id (returned from search)
 ###   -w -windows       List of windows in the format of conn_id\tname
 ###   -j -json          Dump the raw JSON
-###   -n -name id       Get the window name
+###   -n -name id       Get the window name or "app_id"
+###   -t -title id      Get the window title
 ###   -h -help          Display this help message
 
 function show-help {
@@ -69,6 +70,14 @@ case $1 in
         echo "$FLAT_NODES"
         ;;
     "-n"|"-name")
+        if [ -z "$2" ]
+        then
+            show-help
+            exit 1
+        fi
+        echo "$FLAT_NODES" | jq -r "select(.id==$2) | (.app_id|tostring)"
+        ;;
+    "-t"|"-title")
         if [ -z "$2" ]
         then
             show-help
