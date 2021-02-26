@@ -1,5 +1,10 @@
 { ... }: {
-  imports = [ ../home.nix ./hardware-configuration.nix ];
+  imports = [
+    ../home.nix
+    ./hardware-configuration.nix
+
+    ./modules/bitwarden.nix
+  ];
 
   ## Modules
   modules = {
@@ -164,9 +169,7 @@
         lifecycler = {
           address = "127.0.0.1";
           ring = {
-            kvstore = {
-              store = "inmemory";
-            };
+            kvstore = { store = "inmemory"; };
             replication_factor = 1;
           };
           final_sleep = "0s";
@@ -176,18 +179,16 @@
       };
 
       schema_config = {
-        configs = [
-          {
-            from = "2020-05-15";
-            store = "boltdb";
-            object_store = "filesystem";
-            schema = "v11";
-            index = {
-              prefix = "index_";
-              period = "168h";
-            };
-          }
-        ];
+        configs = [{
+          from = "2020-05-15";
+          store = "boltdb";
+          object_store = "filesystem";
+          schema = "v11";
+          index = {
+            prefix = "index_";
+            period = "168h";
+          };
+        }];
       };
 
       storage_config = {
@@ -211,36 +212,26 @@
         grpc_listen_port = 0;
       };
 
-      positions = {
-        filename = "/tmp/positions.yaml";
-      };
+      positions = { filename = "/tmp/positions.yaml"; };
 
-      clients = [
-        { url = "http://127.0.0.1:3100/loki/api/v1/push"; }
-      ];
+      clients = [{ url = "http://127.0.0.1:3100/loki/api/v1/push"; }];
 
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "12h";
-            labels = {
-              job = "systemd-journal";
-            };
-          };
+      scrape_configs = [{
+        job_name = "journal";
+        journal = {
+          max_age = "12h";
+          labels = { job = "systemd-journal"; };
+        };
 
-          relabel_configs = [
-            {
-              source_labels = ["__journal__systemd_unit"];
-              target_label = "unit";
-            }
-          ];
-        }
-      ];
+        relabel_configs = [{
+          source_labels = [ "__journal__systemd_unit" ];
+          target_label = "unit";
+        }];
+      }];
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 8080 3000 9116 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 9116 ];
 
   services.minecraft-server = {
     enable = true;
@@ -250,15 +241,22 @@
 
   services.traefik.enable = true;
   services.traefik.staticConfigOptions = {
-    log.level = "DEBUG";
-    accessLog.format = "json";
+    log.level = "WARN";
+    # accessLog.format = "json";
     api.dashboard = true;
     api.insecure = true;
 
     metrics.prometheus = { };
 
     entryPoints.http.address = "0.0.0.0:80";
+    entryPoints.https.address = "0.0.0.0:443";
     entryPoints.traefik.address = "0.0.0.0:8080";
+
+    certificatesResolvers.letsencrypt.acme = {
+      email = "jboyens@fooninja.org";
+      storage = "/run/secrets/acme.json";
+      httpChallenge.entryPoint = "http";
+    };
   };
 
   services.traefik.dynamicConfigOptions = {
@@ -282,6 +280,12 @@
         rule = "Host(`prometheus.fooninja.org`)";
         service = "prometheus";
       };
+
+      bitwarden-host = {
+        rule = "Host(`bw.fooninja.org`)";
+        service = "bitwarden";
+        tls.certResolver = "letsencrypt";
+      };
     };
 
     http.services.ha.loadBalancer.servers =
@@ -292,5 +296,7 @@
       [{ url = "http://localhost:3000"; }];
     http.services.prometheus.loadBalancer.servers =
       [{ url = "http://localhost:9090"; }];
+    http.services.bitwarden.loadBalancer.servers =
+      [{ url = "http://localhost:8000"; }];
   };
 }

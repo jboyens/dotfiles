@@ -23,7 +23,7 @@ with lib; {
     { });
 
   # So thw bitwarden CLI knows where to find my server.
-  # modules.shell.bitwarden.config.server = "p.v0.io";
+  modules.shell.bitwarden.config.server = "bw.fooninja.org";
 
   # services.syncthing.declarative = {
   #   devices = {

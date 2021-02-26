@@ -65,6 +65,9 @@ in {
 
       # wireless
       iw
+
+      # notify-send
+      libnotify
     ];
   };
 }

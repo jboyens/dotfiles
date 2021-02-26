@@ -14,9 +14,13 @@ elif [[ $1 == -f ]]; then
   systemctl suspend
 else
   echo "Shutting my eyes..."
-  if command -v slock >/dev/null; then
-    pgrep slock >/dev/null || slock &
+  if [ -z "$(pgrep swayidle)" ]; then
+    if command -v slock >/dev/null; then
+        pgrep slock >/dev/null || slock &
+    fi
+    sleep 1
+    xset dpms force off
+  else
+      pkill -USR1 swayidle
   fi
-  sleep 1
-  xset dpms force off
 fi

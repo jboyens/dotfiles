@@ -17,7 +17,13 @@
         default = "qutebrowser";
         firefox.enable = true;
         chromium.enable = true;
-        qutebrowser.enable = true;
+        qutebrowser = {
+          enable = true;
+          extraConfig = ''
+            c.colors.webpage.prefers_color_scheme_dark = True
+            c.colors.webpage.preferred_color_scheme = "dark"
+          '';
+        };
       };
       gaming = {
         steam.enable = true;
@@ -44,9 +50,7 @@
         st.enable = false;
         alacritty.enable = true;
       };
-      vm = {
-        qemu.enable = true;
-      };
+      vm = { qemu.enable = true; };
     };
     dev = {
       android.enable = true;
@@ -95,6 +99,7 @@
       tmux.enable = true;
       zsh.enable = true;
       utils.enable = true;
+      bitwarden.enable = true;
     };
     services = {
       ssh.enable = true;
