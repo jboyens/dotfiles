@@ -26,7 +26,7 @@
         };
       };
       gaming = {
-        steam.enable = true;
+        steam.enable = false;
         # emulators.enable = true;
         # emulators.psx.enable = true;
       };
@@ -70,7 +70,7 @@
       vim.enable = true;
     };
     hardware = {
-      audio.enable = true;
+      audio.enable = false;
       ergodox.enable = true;
       fs = {
         enable = true;
@@ -139,9 +139,16 @@
 
   services.lorri.enable = true;
   services.blueman.enable = true;
+  #broken on unstable
   services.geoclue2.enable = true;
   services.fwupd.enable = true;
-  services.pipewire.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    jack.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+  };
 
   services.thermald.enable = true;
   services.irqbalance.enable = true;

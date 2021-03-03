@@ -49,11 +49,11 @@
       extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver ];
       extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
     };
-    pulseaudio.support32Bit = true;
+    pulseaudio.support32Bit = false;
     steam-hardware.enable = true;
     bluetooth.enable = true;
     pulseaudio = {
-      enable = true;
+      enable = false;
 
       package = pkgs.pulseaudioFull;
       extraModules = [ pkgs.pulseaudio-modules-bt ];
