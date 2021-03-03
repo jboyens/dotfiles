@@ -24,15 +24,16 @@ with lib.my; {
   };
 
   config = {
-    user = let
-      user = builtins.getEnv "USER";
-      name = if elem user [ "" "root" ] then "jboyens" else user;
+    user =
+      let user = builtins.getEnv "USER";
+          name = if elem user [ "" "root" ] then "jboyens" else user;
     in {
       inherit name;
       description = "The primary user account";
-      extraGroups = [ "wheel" "proc" ];
+      extraGroups = [ "wheel" ];
       isNormalUser = true;
       home = "/home/${name}";
+      group = "users";
       uid = 1000;
     };
 
@@ -73,7 +74,7 @@ with lib.my; {
 
     # must already begin with pre-existing PATH. Also, can't use binDir here,
     # because it contains a nix store path.
-    env.PATH = [ "$XDG_CONFIG_HOME/dotfiles/bin" "$XDG_BIN_HOME" "$PATH" ];
+    env.PATH = [ "$DOTFILES_BIN" "$XDG_BIN_HOME" "$PATH" ];
 
     environment.extraInit = concatStringsSep "\n"
       (mapAttrsToList (n: v: ''export ${n}="${v}"'') config.env);
