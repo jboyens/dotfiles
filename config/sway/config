@@ -169,7 +169,7 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 
     # password manager
     bindsym $super+Slash exec $DOTFILES/bin/rofi/filemenu -x
-    bindsym $super+Backslash exec $DOTFILES/bin/rofi/passmenu
+    bindsym $super+Backslash exec $DOTFILES/bin/rofi/bwmenu
 
     bindsym $super+Grave exec $DOTFILES/bin/scratch
     bindsym $super+Shift+Grave exec emacsclient -e '(doom/open-scratch-buffer)'

@@ -21,6 +21,6 @@ in {
       # for recording and remastering audio
       (if cfg.audio.enable then [ audacity ] else []) ++
       # for longer term streaming/recording the screen
-      (if cfg.video.enable then [ obs-studio handbrake ] else []);
+      (if cfg.video.enable then [ obs-studio obs-wlrobs obs-xdg-portal handbrake ] else []);
   };
 }

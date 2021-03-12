@@ -25,7 +25,7 @@ in {
 
     user.packages = with pkgs; [
       feh       # image viewer
-      xclip
+      # xclip
       xdotool
       xorg.xwininfo
       libqalculate  # calculator cli w/ currency conversion

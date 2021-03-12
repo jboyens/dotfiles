@@ -21,7 +21,6 @@
           enable = true;
           extraConfig = ''
             c.colors.webpage.prefers_color_scheme_dark = True
-            c.colors.webpage.preferred_color_scheme = "dark"
           '';
         };
       };
@@ -42,7 +41,7 @@
           sprites.enable = false;
         };
         mpv.enable = true;
-        recording.enable = false;
+        recording.enable = true;
         spotify.enable = true;
       };
       term = {
@@ -70,7 +69,9 @@
       vim.enable = true;
     };
     hardware = {
-      audio.enable = false;
+      audio.enable = true;
+      bluetooth.enable = true;
+      bluetooth.audio.enable = true;
       ergodox.enable = true;
       fs = {
         enable = true;
@@ -142,13 +143,7 @@
   #broken on unstable
   services.geoclue2.enable = true;
   services.fwupd.enable = true;
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    jack.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-  };
+  services.pipewire.enable = true;
 
   services.thermald.enable = true;
   services.irqbalance.enable = true;
@@ -174,6 +169,6 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
-    gtkUsePortal = true;
+    # gtkUsePortal = true;
   };
 }

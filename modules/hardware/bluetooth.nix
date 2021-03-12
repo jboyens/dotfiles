@@ -23,10 +23,12 @@ in {
         extraModules = [ pkgs.pulseaudio-modules-bt ];
       };
 
-      hardware.bluetooth.extraConfig = ''
-        [General]
-        Enable=Source,Sink,Media,Socket
-      '';
+      hardware.bluetooth.settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+          MultiProfile = "multiple";
+        };
+      };
     })
   ]);
 }

@@ -51,12 +51,9 @@
     };
     pulseaudio.support32Bit = false;
     steam-hardware.enable = true;
-    bluetooth.enable = true;
-    pulseaudio = {
-      enable = false;
-
-      package = pkgs.pulseaudioFull;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
+    bluetooth = {
+      enable = true;
+      package = pkgs.bluezFull;
     };
 
     nvidia = lib.mkIf config.modules.hardware.nvidia.enable {

@@ -12,7 +12,13 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      chromium
+      (chromium.override {
+        enableWideVine = true;
+        commandLineArgs = [
+          "--enable-features=UseOzonePlatform"
+          "--ozone-platform=wayland"
+        ];
+      })
     ];
   };
 }

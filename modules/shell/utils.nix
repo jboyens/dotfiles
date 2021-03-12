@@ -68,6 +68,8 @@ in {
 
       # notify-send
       libnotify
+
+      my.wl-clipboard-x11
     ];
   };
 }

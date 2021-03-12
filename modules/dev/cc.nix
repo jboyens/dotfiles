@@ -18,7 +18,7 @@ in {
     user.packages = with pkgs; [
       clang
       gcc
-      bear
+      unstable.bear
       gdb
       cmake
       llvmPackages.libcxx

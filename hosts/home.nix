@@ -7,6 +7,7 @@ with lib; {
       "192.168.86.100" = [ "irongiant" ];
       "192.168.86.161" = [ "avocado" ];
       "192.168.86.34" = [ "mediaserver" "nas" "backup-host" ];
+      "192.168.49.2" = [ "dev" "dev.fooninja.org" ];
     };
     hosts = flatten (attrValues hostConfig);
     hostName = config.networking.hostName;
