@@ -51,3 +51,7 @@
     log = diff-so-fancy | less --tabs=1,5 -RFX
 [protocol]
 	version = 2
+[diff "lisp"]
+	xfuncname = "^(((;;;+ )|\\(|([ \t]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$"
+[diff "org"]
+	xfuncname = "^(\\*+ +.*)$"

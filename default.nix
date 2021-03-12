@@ -12,24 +12,21 @@ with lib.my; {
 
   # Common config for all nixos machines; and to ensure the flake operates
   # soundly
-  environment.variables.DOTFILES = findFirst pathExists dotFilesDir [
-    "${config.user.home}/.config/dotfiles"
-    "/etc/dotfiles"
-  ];
-  environment.variables.DOTFILES_BIN = "$DOTFILES/bin";
+  environment.variables.DOTFILES = config.dotfiles.dir;
+  environment.variables.DOTFILES_BIN = config.dotfiles.binDir;
 
   # Configure nix and nixpkgs
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
-  nix = let
-    filteredInputs = filterAttrs (n: _: n != "self") inputs;
+  nix =
+    let filteredInputs = filterAttrs (n: _: n != "self") inputs;
     nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
     registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
   in {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
     nixPath = nixPathInputs ++ [
-      "nixpkgs-overlays=${dotFilesDir}/overlays"
-      "dotfiles=${dotFilesDir}"
+        "nixpkgs-overlays=${config.dotfiles.dir}/overlays"
+        "dotfiles=${config.dotfiles.dir}"
     ];
     binaryCaches = [
       "https://nix-community.cachix.org"
@@ -40,7 +37,6 @@ with lib.my; {
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     ];
     registry = registryInputs // { dotfiles.flake = inputs.self; };
-    useSandbox = true;
     autoOptimiseStore = true;
   };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
