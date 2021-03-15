@@ -281,12 +281,20 @@
         service = "prometheus";
       };
 
+      bitwarden-wss = {
+        rule = "Host(`bw.fooninja.org`) && PathPrefix(`/notifications/hub`)";
+        service = "bitwarden-wss";
+        tls.certResolver = "letsencrypt";
+      };
+
       bitwarden-host = {
         rule = "Host(`bw.fooninja.org`)";
         service = "bitwarden";
         tls.certResolver = "letsencrypt";
       };
     };
+
+    http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto="https";
 
     http.services.ha.loadBalancer.servers =
       [{ url = "http://192.168.86.34:8123"; }];
@@ -298,5 +306,7 @@
       [{ url = "http://localhost:9090"; }];
     http.services.bitwarden.loadBalancer.servers =
       [{ url = "http://localhost:8000"; }];
+    http.services.bitwarden-wss.loadBalancer.servers =
+      [{ url = "http://localhost:8001"; }];
   };
 }

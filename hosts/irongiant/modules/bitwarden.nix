@@ -8,6 +8,8 @@
     invitationsAllowed = true;
     domain = "https://bw.fooninja.org";
     httpPort = 8000;
+    websocketEnabled = true;
+    websocketPort = 8001;
   };
 
   # Inject secrets at runtime
