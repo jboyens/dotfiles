@@ -14,8 +14,8 @@ in appimageTools.wrapType2 rec {
   extraPkgs = pkgs: with pkgs; [ libsecret ];
 
   meta = with stdenv.lib; {
-    description = "A wrapper to use wl-clipboard as a drop-in replacement to X11 clipboard tools";
-    homepage    = "https://github.com/brunelli/wl-clipboard-x11";
+    description = "Bitwarden Desktop app";
+    homepage    = "https://github.com/bitwarden/desktop";
     license     = licenses.gpl3;
     platforms   = platforms.linux;
     maintainers = with maintainers; [ jboyens ];
