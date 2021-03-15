@@ -12,6 +12,8 @@
 ###   -j -json          Dump the raw JSON
 ###   -n -name id       Get the window name or "app_id"
 ###   -t -title id      Get the window title
+###   -g -geom id       Get the window's geometry
+###   -p -props id      Get the window's "props" (only for XWayland apps)
 ###   -h -help          Display this help message
 
 function show-help {
@@ -23,7 +25,7 @@ if [[ $# == 0 ]] || [[ "$1" == "-h" ]]; then
     exit 1
 fi
 
-FLAT_NODES=$(swaymsg -t get_tree | jq '.nodes[].nodes[] | if .nodes then [recurse(.nodes[])] else [] end + .floating_nodes | .[] | select(.nodes==[]) | select(.type=="con" or .type=="floating_con")')
+FLAT_NODES=$(swaymsg -t get_tree 2>/dev/null | jq '.nodes[].nodes[] | if .nodes then [recurse(.nodes[])] else [] end + .floating_nodes | .[] | select(.nodes==[]) | select(.type=="con" or .type=="floating_con")')
 
 case $1 in
     "-f"|"-focused")
@@ -84,6 +86,22 @@ case $1 in
             exit 1
         fi
         echo "$FLAT_NODES" | jq -r "select(.id==$2) | (.name|tostring)"
+        ;;
+    "-g"|"-geom")
+        if [ -z "$2" ]
+        then
+            show-help
+            exit 1
+        fi
+        echo "$FLAT_NODES" | jq -r "select(.id==$2) | .rect"
+        ;;
+    "-p"|"-props")
+        if [ -z "$2" ]
+        then
+            show-help
+            exit 1
+        fi
+        echo "$FLAT_NODES" | jq -r "select(.id==$2) | .window_properties"
         ;;
     *)
         show-help
