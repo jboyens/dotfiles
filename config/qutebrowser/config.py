@@ -71,11 +71,11 @@ config.bind('<Ctrl+E>',    'hint inputs --first ;; edit-text', mode='normal')
 config.bind('<Shift+Ins>', 'fake-key <Ctrl+V>', mode='insert')
 
 # Bitwarden integration
-config.bind(";pp", 'spawn -u qute-bwmenu')
-config.bind(";pu", 'spawn -u qute-bwmenu --field username')
-config.bind(";ps", 'spawn -u qute-bwmenu --field password')
-config.bind(";po", 'spawn -u qute-bwmenu --field otp')
-config.bind(";pl", 'spawn -u qute-bwmenu --last')
+config.bind(";pp", 'spawn -u qute-bitwarden')
+config.bind(";pu", 'spawn -u qute-bitwarden --username-only')
+config.bind(";ps", 'spawn -u qute-bitwarden --password-only')
+config.bind(";po", 'spawn -u qute-bitwarden --totp-only')
+config.bind(";pl", 'spawn -u qute-bitwarden --last')
 
 ## Ex-commands
 
