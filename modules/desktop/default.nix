@@ -26,8 +26,9 @@ in {
     user.packages = with pkgs; [
       feh       # image viewer
       # xclip
-      xdotool
-      xorg.xwininfo
+      # xdotool
+      # xorg.xwininfo
+      ydotool
       libqalculate  # calculator cli w/ currency conversion
       (makeDesktopItem {
         name = "scratch-calc";
