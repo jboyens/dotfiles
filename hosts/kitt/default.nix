@@ -7,7 +7,8 @@
       bspwm.enable = false;
       swaywm.enable = true;
       apps = {
-        discord.enable = true;
+        bitwarden.enable = true;
+        discord.enable = false;
         slack.enable = true;
         rofi.enable = true;
         zoom.enable = true;
