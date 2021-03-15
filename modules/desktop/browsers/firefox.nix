@@ -135,7 +135,7 @@ in {
       };
 
       home.configFile."tridactyl" = {
-        source = "${configDir}/tridactyl";
+        source = "${config.dotfiles.configDir}/tridactyl";
         recursive = true;
       };
 

@@ -132,7 +132,7 @@ in {
     # link recursively so other modules can link files in their folders
     home.configFile = {
       "sway" = {
-        source = "${configDir}/sway";
+        source = "${config.dotfiles.configDir}/sway";
         recursive = true;
       };
 
