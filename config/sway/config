@@ -173,6 +173,7 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 
     bindsym $super+Grave exec $DOTFILES/bin/scratch
     bindsym $super+Shift+Grave exec emacsclient -e '(doom/open-scratch-buffer)'
+    bindsym $super+e exec emacsclient -e '(emacs-everywhere)'
 
     bindsym $hyper+e exec $DOTFILES/bin/activate emacs
     bindsym $hyper+f exec $DOTFILES/bin/activate firefox
@@ -245,9 +246,9 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     # bindsym $super+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $super+s layout stacking
-    bindsym $super+w layout tabbed
-    bindsym $super+e layout toggle split
+    # bindsym $super+s layout stacking
+    # bindsym $super+w layout tabbed
+    # bindsym $super+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $super+$control+f fullscreen
