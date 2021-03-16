@@ -74,6 +74,7 @@
       bluetooth.enable = true;
       bluetooth.audio.enable = true;
       ergodox.enable = true;
+      sony-1000Xm3.enable = true;
       fs = {
         enable = true;
         # zfs.enable = true;
