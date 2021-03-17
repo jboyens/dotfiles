@@ -13,7 +13,7 @@ in {
 
     services.printing = {
       enable = true;
-      drivers = with pkgs; [ brlaser ];
+      drivers = with pkgs; [ my.hll2350dw-cups ];
     };
 
     hardware.printers = {
@@ -21,7 +21,15 @@ in {
       ensurePrinters = [{
         name = "HLL2350DW";
         deviceUri = "socket://192.168.86.39:9100";
-        model = "drv:///brlaser.drv/br1200.ppd";
+        model = "brother-HLL2350DW-cups-en.ppd";
+        ppdOptions = {
+          PageSize = "Letter";
+          MediaType = "PLAIN";
+          Resolution = "600dpi";
+          InputSlot = "TRAY1";
+          Duplex = "DuplexNoTumble";
+          TonerSaveMode = "OFF";
+        };
       }];
     };
   };
