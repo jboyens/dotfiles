@@ -95,17 +95,17 @@ in {
     # See:
     #   https://github.com/nwg-piotr/autotiling/issues/19
     #   https://github.com/swaywm/sway/pull/5756
-    #
-    # systemd.user.services.autotiling = {
-    #   description = "Sway autotiling";
-    #   wantedBy = [ "graphical-session.target" ];
-    #   partOf = [ "graphical-session.target" ];
-    #   serviceConfig = {
-    #     ExecStart = "${pkgs.autotiling}/bin/autotiling";
-    #     RestartSec = 5;
-    #     Restart = "always";
-    #   };
-    # };
+    # 2021/03/16 - ENABLED as a test
+    systemd.user.services.autotiling = {
+      description = "Sway autotiling";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.autotiling}/bin/autotiling";
+        RestartSec = 5;
+        Restart = "always";
+      };
+    };
 
     systemd.user.services.gammastep = {
       description = "Screen color temperature manager";
@@ -124,6 +124,17 @@ in {
       partOf = [ "graphical-session.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.mako}/bin/mako";
+        RestartSec = 5;
+        Restart = "always";
+      };
+    };
+
+    systemd.user.services.kanshi = {
+      description = "Kanshi display configuration";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.kanshi}/bin/kanshi";
         RestartSec = 5;
         Restart = "always";
       };
