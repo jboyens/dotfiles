@@ -17,10 +17,55 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       cfg.package
-      mu
+      # don't install mu4e here
+      # mu
       imapfilter
       unstable.isync
     ];
+
+    systemd.user.services."goimapnotify@" = {
+      enable = true;
+      description = "IMAP notifier using IDLE, golang version.";
+      unitConfig = {
+        ConditionPathExists="%h/.config/imapnotify/%I/notify.conf";
+        After="network.target";
+      };
+      serviceConfig = {
+        ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
+        Restart = "always";
+        RestartSec = "30";
+      };
+      path = with pkgs; [ isync mu ];
+      wantedBy = [ "default.target" ];
+    };
+
+    systemd.user.timers."mbsync" = {
+      enable = true;
+      description = "call mbsync on all accounts every 15 m";
+      unitConfig = {
+        ConditionPathExists="%h/.mbsyncrc";
+      };
+      timerConfig = {
+        Unit = "mbsync.service";
+        OnBootSec="30s";
+        OnUnitInactiveSec="15m";
+        Persistent = "true";
+      };
+      wantedBy = [ "default.target" ];
+    };
+
+    systemd.user.services."mbsync" = {
+      enable = true;
+      description = "mbsync service, sync all mail";
+      unitConfig = {
+        ConditionPathExists="%h/.mbsyncrc";
+        Documentation="man:mbsync(1)";
+      };
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.isync}/bin/mbsync -c %h/.mbsyncrc --all";
+      };
+    };
 
     # systemd.user.services.offlineimap = {
     #   enable = true;

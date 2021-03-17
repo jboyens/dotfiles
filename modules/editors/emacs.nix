@@ -72,6 +72,8 @@ in {
       shellcheck
       # :lang org
       graphviz
+
+      (mu.override { emacs = emacsPgtkGcc; })
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
