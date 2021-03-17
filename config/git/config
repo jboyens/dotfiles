@@ -7,7 +7,7 @@
 [core]
 	whitespace = trailing-space
 [init]
-	defaultBranch = main
+	defaultBranch = master
 [github]
 	user = jboyens
 [gitlab]
