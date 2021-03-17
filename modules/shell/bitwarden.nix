@@ -18,7 +18,7 @@ in {
 
     system.userActivationScripts = mkIf (cfg.config != {}) {
       initBitwarden = ''
-        ${concatStringsSep "\n" (mapAttrsToList (n: v: "bw config ${n} ${v}") cfg.config)}
+        ${concatStringsSep "\n" (mapAttrsToList (n: v: "${pkgs.bitwarden-cli}/bin/bw config ${n} ${v}") cfg.config)}
       '';
     };
   };
