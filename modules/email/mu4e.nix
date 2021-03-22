@@ -21,6 +21,7 @@ in {
       # mu
       imapfilter
       unstable.isync
+      msmtp
     ];
 
     systemd.user.services."goimapnotify@" = {
