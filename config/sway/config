@@ -59,7 +59,7 @@ seat * xcursor_theme Paper 10
 #
 
 output "Sharp Corporation 0x14BA 0x00000000" {
-  pos 3840 723
+  pos 3840 433
   scale 1
   subpixel rgb
 }
