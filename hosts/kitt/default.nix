@@ -155,7 +155,6 @@
   services.tlp.enable = true;
   services.tlp.settings = {
     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-    DEVICES_TO_DISABLE_ON_BAT = "bluetooth";
   };
   powerManagement.enable = true;
   # powerManagement.powertop.enable = true;
