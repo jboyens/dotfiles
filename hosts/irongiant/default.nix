@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ../home.nix
     ./hardware-configuration.nix
@@ -13,6 +13,7 @@
       cloud = {
         google.enable = true;
         amazon.enable = false;
+        enable = true;
       };
       db = { postgres.enable = true; };
     };
@@ -75,6 +76,13 @@
 
   programs.iftop.enable = true;
   programs.iotop.enable = true;
+
+  services.k3s = {
+    enable = true;
+    package = pkgs.my.k3s_1_20;
+  };
+
+  systemd.enableCgroupAccounting = true;
 
   services.prometheus = {
     enable = true;
@@ -231,7 +239,7 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 9116 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 9116 6443 ];
 
   services.minecraft-server = {
     enable = true;
@@ -241,7 +249,7 @@
 
   services.traefik.enable = true;
   services.traefik.staticConfigOptions = {
-    log.level = "WARN";
+    log.level = "DEBUG";
     # accessLog.format = "json";
     api.dashboard = true;
     api.insecure = true;
@@ -254,7 +262,7 @@
 
     certificatesResolvers.letsencrypt.acme = {
       email = "jboyens@fooninja.org";
-      storage = "/run/secrets/acme.json";
+      storage = "/var/lib/traefik/acme.json";
       httpChallenge.entryPoint = "http";
     };
   };
@@ -281,17 +289,18 @@
         service = "prometheus";
       };
 
+      bitwarden-host = {
+        rule = "Host(`bw.fooninja.org`)";
+        service = "bitwarden";
+        tls.certResolver = "letsencrypt";
+      };
+
       bitwarden-wss = {
         rule = "Host(`bw.fooninja.org`) && PathPrefix(`/notifications/hub`)";
         service = "bitwarden-wss";
         tls.certResolver = "letsencrypt";
       };
 
-      bitwarden-host = {
-        rule = "Host(`bw.fooninja.org`)";
-        service = "bitwarden";
-        tls.certResolver = "letsencrypt";
-      };
     };
 
     http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto="https";
