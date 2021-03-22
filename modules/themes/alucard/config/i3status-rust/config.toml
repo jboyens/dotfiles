@@ -27,6 +27,11 @@ block = "music"
 buttons = ["play", "next"]
 
 [[block]]
+block = "bluetooth"
+mac = "94:DB:56:02:CF:44"
+label = " Sony"
+
+[[block]]
 block = "disk_space"
 path = "/"
 alias = "/"
