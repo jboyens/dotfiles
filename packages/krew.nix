@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   name = "krew-${version}";
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Krew is the package manager for kubectl plugins";
     homepage = https://github.com/kubernetes-sigs/krew;
     license = licenses.asl20;

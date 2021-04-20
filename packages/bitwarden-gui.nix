@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, appimageTools }:
+{ stdenv, lib, fetchurl, appimageTools }:
 
 let
   pname = "bitwarden";
@@ -13,7 +13,7 @@ in appimageTools.wrapType2 rec {
 
   extraPkgs = pkgs: with pkgs; [ libsecret ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Bitwarden Desktop app";
     homepage    = "https://github.com/bitwarden/desktop";
     license     = licenses.gpl3;

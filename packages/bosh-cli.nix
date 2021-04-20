@@ -1,4 +1,4 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ stdenv, lib, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
   name = "bosh-cli-${version}";
@@ -13,7 +13,7 @@ buildGoPackage rec {
     sha256 = "10wbnmm2i2rr6n29l0xskzfcfr6ipkkvc8qz7savlg0mxya5fgs5";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The command-line interface to the BOSH cloud orchestration system";
     homepage = https://github.com/cloudfoundry/bosh-cli;
     license = licenses.asl20;

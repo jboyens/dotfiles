@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, bluez, glew, glfw3, dbus, cmake, pkg-config, git }:
+{ stdenv, lib, fetchFromGitHub, bluez, glew, glfw3, dbus, cmake, pkg-config, git }:
 
 let
   pname = "sony-headphones-client";
@@ -34,7 +34,7 @@ in stdenv.mkDerivation rec {
     cp SonyHeadphonesClient $out/bin
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An alternative for the mobile-only Sony Headphones app";
     homepage    = "https://github.com/Plutoberth/SonyHeadphonesClient";
     license     = licenses.mit;

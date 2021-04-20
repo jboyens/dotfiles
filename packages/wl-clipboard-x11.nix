@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, wl-clipboard }:
+{ stdenv, lib, fetchFromGitHub, wl-clipboard }:
 
 let
   pname = "wl-clipboard-x11";
@@ -31,7 +31,7 @@ in stdenv.mkDerivation rec {
 	ln -sf "$out/usr/share/wl-clipboard-x11/wl-clipboard-x11" "$out/bin/xsel"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A wrapper to use wl-clipboard as a drop-in replacement to X11 clipboard tools";
     homepage    = "https://github.com/brunelli/wl-clipboard-x11";
     license     = licenses.gpl3;

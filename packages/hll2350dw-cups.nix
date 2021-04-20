@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeWrapper
+{ stdenv, lib, fetchurl, makeWrapper
 , cups
 , dpkg
 , a2ps, ghostscript, gnugrep, gnused, coreutils, file, perl, which
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ; do
       #substituteInPlace $f \
       wrapProgram $f \
-        --prefix PATH : ${stdenv.lib.makeBinPath [
+        --prefix PATH : ${lib.makeBinPath [
           coreutils ghostscript gnugrep gnused
         ]}
     done
@@ -57,10 +57,10 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/brother/Printers/HLL2350DW/cupswrapper/brother-HLL2350DW-cups-en.ppd $out/share/cups/model/
 
     wrapProgram $out/opt/brother/Printers/HLL2350DW/lpd/lpdfilter \
-      --prefix PATH ":" ${ stdenv.lib.makeBinPath [ ghostscript a2ps file gnused gnugrep coreutils which ] }
+      --prefix PATH ":" ${ lib.makeBinPath [ ghostscript a2ps file gnused gnugrep coreutils which ] }
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://www.brother.com/";
     description = "Brother HL-L2350DW combined print driver";
     license = licenses.unfree;
