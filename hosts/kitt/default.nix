@@ -12,14 +12,15 @@
         slack.enable = true;
         rofi.enable = true;
         zoom.enable = true;
+        maestral.enable = true;
         # godot.enable = true;
       };
       browsers = {
-        default = "qutebrowser";
+        default = "firefox";
         firefox.enable = true;
-        chromium.enable = true;
+        chromium.enable = false;
         qutebrowser = {
-          enable = true;
+          enable = false;
           extraConfig = ''
             c.colors.webpage.prefers_color_scheme_dark = True
           '';

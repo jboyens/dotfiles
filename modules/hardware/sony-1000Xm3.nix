@@ -9,6 +9,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    user.packages = [ pkgs.my.sony-headphones-client ];
+    user.packages = [
+      # pkgs.my.sony-headphones-client
+    ];
   };
 }
