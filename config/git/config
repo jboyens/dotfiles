@@ -35,6 +35,8 @@
 	clean = git-lfs clean -- %f
 [url "https://github.com/"]
     insteadOf = gh:
+[url "git@github.com:"]
+    insteadOf = ssh+gh:
 [url "git@github.com:jboyens/"]
     insteadOf = gh:/
 [url "https://gitlab.com/"]

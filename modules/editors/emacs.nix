@@ -57,6 +57,9 @@ in {
       nodePackages.javascript-typescript-langserver
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
+      # :lang beancount
+      beancount
+      fava
       # :lang rust
       rustfmt
       unstable.rust-analyzer
