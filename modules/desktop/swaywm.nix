@@ -49,6 +49,7 @@ in {
       gammastep
       wayvnc
       wlvncc
+      playerctl
     ];
 
     services = {

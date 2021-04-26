@@ -77,8 +77,8 @@ output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' \
+         timeout 600 'swaylock -f -c 000000' \
+         timeout 1200 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
 
@@ -348,6 +348,12 @@ exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
 bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
 bindsym XF86AudioMute exec pamixer -t && if [ $(pamixer --get-mute) == true ]; then; echo 0; else; pamixer --get-volume; fi > $SWAYSOCK.wob
+
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioNext exec playerctl next
 
 bindsym XF86MonBrightnessUp exec brightnessctl set +10% && brightnessctl_perc > $SWAYSOCK.wob
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%- && brightnessctl_perc > $SWAYSOCK.wob
