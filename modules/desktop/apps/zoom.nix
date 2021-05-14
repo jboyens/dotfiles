@@ -10,7 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      my.zoom-us
+      unstable.zoom-us
     ];
   };
 }
