@@ -4,11 +4,11 @@ with python3Packages;
 
 buildPythonApplication rec {
   pname = "git-delete-merged-branches";
-  version = "5.1.0";
+  version = "6.0.5";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1c52x2z6fzx8sqcfrdli5i4cxa7i8jyr84dv54q8rnxnjcjmavjq";
+    sha256 = "sha256-kY+FLissid0Nyw7lqnS2PDuUlP7KkSafAxi7Y3xOTsc=";
   };
 
   pick = buildPythonPackage rec {
@@ -26,7 +26,7 @@ buildPythonApplication rec {
 
   doCheck = false;
 
-  propagatedBuildInputs = [ colorama pick ];
+  propagatedBuildInputs = [ colorama pick clintermission ];
 
   meta = with lib; {
     description = "";

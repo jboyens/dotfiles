@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   name = "krew-${version}";
-  version = "0.4.0";
+  version = "0.4.1";
 
   # goPackagePath = "sigs.k8s.io/krew";
 
@@ -10,10 +10,10 @@ buildGoModule rec {
     owner = "kubernetes-sigs";
     repo = "krew";
     rev = "v${version}";
-    sha256 = "m9aIibivbNpLDu2HSoWQ0nOnvQFfLDOYSUDXZW+8i7k=";
+    sha256 = "sha256-+YwBkXrj5sWlMA01GfBhu12st+es5YygkD16jc+blt8=";
   };
 
-  vendorSha256 = "9g1WiBaNDOEhfMGM+iQptfNcAmV3fp1gaktlq8uWuq4=";
+  vendorSha256 = "sha256-49kWaU5dYqd86DvHi3mh5jYUQVmFlI8zsWtAFseYriE=";
 
   subPackages = [ "cmd/krew" ];
 
