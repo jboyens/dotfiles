@@ -11,6 +11,15 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       unstable.slack
+
+      (makeDesktopItem {
+        name = "slack-wayland";
+        desktopName = "Slack (Wayland)";
+        genericName = "Open Slack on Wayland";
+        icon = "slack";
+        exec = "${unstable.electron}/bin/electron ${unstable.slack}/lib/slack/resources/app.asar --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        categories = "Network";
+      })
     ];
   };
 }
