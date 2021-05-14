@@ -4,7 +4,7 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.desktop.swaywm;
-  waybar = inputs.nixpkgs.legacyPackages.x86_64-linux.waybar;
+  # waybar = inputs.nixpkgs.legacyPackages.x86_64-linux.waybar;
 in {
   options.modules.desktop.swaywm = {
     enable = mkBoolOpt false;
