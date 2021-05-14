@@ -8,6 +8,8 @@ with lib;
 with lib.my;
 let cfg = config.modules.editors.emacs;
     configDir = config.dotfiles.configDir;
+    # myEmacs = pkgs.emacsPgtkGcc;
+    myEmacs = pkgs.emacsPgtk;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -23,7 +25,7 @@ in {
     user.packages = with pkgs; [
       ## Emacs itself
       binutils       # native-comp needs 'as', provided by this
-      ((emacsPackagesNgGen emacsPgtkGcc).emacsWithPackages (epkgs: [
+      ((emacsPackagesFor myEmacs).emacsWithPackages (epkgs: [
         epkgs.vterm
       ]))   # 28 + pgtk + native-comp
 
@@ -66,7 +68,7 @@ in {
       (makeDesktopItem {
           name = "org-protocol";
           desktopName = "org-protocol";
-          exec = "${emacsPgtkGcc}/bin/emacsclient -n %u";
+          exec = "${myEmacs}/bin/emacsclient -n %u";
           type = "Application";
           categories = "System";
           mimeType = "x-scheme-handler/org-protocol";
@@ -78,7 +80,7 @@ in {
       # :lang org
       graphviz
 
-      (mu.override { emacs = emacsPgtkGcc; })
+      (mu.override { emacs = myEmacs; })
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
