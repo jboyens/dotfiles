@@ -43,6 +43,7 @@
       ssh.enable = true;
       docker.enable = true;
       printing.enable = true;
+      fail2ban.enable = true;
       wireguard = {
         enable = true;
         server.enable = true;
@@ -76,11 +77,6 @@
 
   programs.iftop.enable = true;
   programs.iotop.enable = true;
-
-  services.k3s = {
-    enable = true;
-    package = pkgs.my.k3s_1_20;
-  };
 
   systemd.enableCgroupAccounting = true;
 
