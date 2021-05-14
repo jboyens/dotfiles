@@ -13,6 +13,7 @@
         rofi.enable = true;
         zoom.enable = true;
         maestral.enable = true;
+        signal.enable = true;
         # godot.enable = true;
       };
       browsers = {
