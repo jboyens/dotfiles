@@ -4,6 +4,8 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+include theme
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -21,7 +23,7 @@ set $up k
 set $right l
 
 # Your preferred terminal emulator
-set $term alacritty
+set $term foot
 
 focus_follows_mouse yes
 mouse_warping container
@@ -39,37 +41,18 @@ output * bg ~/.local/share/wallpaper fill
 
 seat * xcursor_theme Paper 10
 
-# output "ViewSonic Corporation VA2759 Series UL7181601169" {
-#     subpixel rgb
-#     pos 960 244
-# }
-#
-# output "Acer Technologies K272HL T67AA0018531" {
-#     transform 90 clockwise
-#     subpixel vrgb
-#     position 2880 0
-# }
-#
-# output "Apple Computer Inc Color LCD 0x00000000" {
-#   scale 1
-#   subpixel rgb
-#   # pos 0 1000
-#   pos 0 1324
-# }
-#
-
 output "Sharp Corporation 0x14BA 0x00000000" {
-  pos 3840 433
-  scale 1
-  subpixel rgb
+    pos 0 0
 }
 
 output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
-  scale 1
-  subpixel rgb
-  # mode 2560x1440
-  mode 3840x2160@59.997002Hz
-  pos 0 0
+    pos 0 0
+    mode 3840x2160@60Hz
+}
+
+output "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E" {
+    pos 3840 0
+    mode 3840x2160@60hz
 }
 
 ### Idle configuration
@@ -114,6 +97,13 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_options caps:ctrl_modifier,altwin:swap_lalt_lwin
 }
 
+input "1133:49948:Logitech_USB_Keyboard" {
+    xkb_model dell
+    xkb_layout us
+    xkb_variant dvorak
+    xkb_options caps:ctrl_modifier,altwin:swap_lalt_lwin
+}
+
 input "1149:8257:Kensington_Kensington_Slimblade_Trackball" {
     scroll_factor 4
 }
@@ -137,7 +127,7 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 #
     # Start a terminal
     bindsym $super+$control+Return exec $term
-    bindsym $super+Return exec $term -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"
+    bindsym $super+Return exec $term bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"
 
     # Start a browser
     bindsym $super+Ctrl+Slash exec firefox
@@ -147,7 +137,8 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 
     # Start your launcher
     # bindsym $super+Space exec $DOTFILES/base/arch-desktop/bin/kitty-app-launcher
-    bindsym $super+Space exec $DOTFILES/bin/rofi/appmenu
+    # bindsym $super+Space exec $DOTFILES/bin/rofi/appmenu
+    bindsym $super+Space exec wofi -c ~/.config/wofi/config -s ~/.config/wofi/styles.css
 
     bindsym $super+Tab exec $DOTFILES/bin/rofi/windowmenu
 
@@ -358,56 +349,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86MonBrightnessUp exec brightnessctl set +10% && brightnessctl_perc > $SWAYSOCK.wob
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%- && brightnessctl_perc > $SWAYSOCK.wob
 
-## Colors
-set $blk  "#1E2029"
-set $bblk "#282a36"
-set $red  "#ffb86c"
-set $bred "#de935f"
-set $grn  "#50fa7b"
-set $bgrn "#0189cc"
-set $ylw  "#f0c674"
-set $bylw "#f9a03f"
-set $blu  "#61bfff"
-set $bblu "#8be9fd"
-set $mag  "#bd93f9"
-set $bmag "#ff79c6"
-set $cyn  "#8be9fd"
-set $bcyn "#0189cc"
-set $wht  "#f8f8f2"
-set $bwht "#e2e2dc"
-set $bg $blk
-set $fg $wht
-
-set $color0  blk
-set $color8  bblk
-set $color1  red
-set $color9  bred
-set $color2  grn
-set $color10 bgrn
-set $color3  ylw
-set $color11 bylw
-set $color4  blu
-set $color12 bblu
-set $color5  mag
-set $color13 bmag
-set $color6  cyn
-set $color14 bcyn
-set $color7  wht
-set $color15 bwht
-
-set $color234 "#1E2029"
-set $color235 "#282a36"
-set $color236 "#373844"
-set $color237 "#44475a"
-set $color239 "#565761"
-set $color240 "#6272a4"
-set $color241 "#b6b6b2"
-
-set $bg-alt "#1E2029"
-set $fg-alt "#373844"
-set $bg-dark "#181a23"
-set $alert $ylw
-set $accent "#604c7e"
+bindswitch --locked lid:on exec swaymsg output eDP-1 disable
+bindswitch --locked lid:off exec swaymsg output eDP-1 enable
 
 bar {
   id bottom
@@ -416,10 +359,10 @@ bar {
   colors {
     background $bg
     statusline $fg
-    separator $bg-dark
-    focused_workspace $bg-dark $bg-dark $fg
-    inactive_workspace $bg-dark $bg-dark $fg-alt
-    urgent_workspace $bg-dark $bg-dark $alert
+    separator $bg_dark
+    focused_workspace $bg_dark $bg_dark $fg
+    inactive_workspace $bg_dark $bg_dark $fg_alt
+    urgent_workspace $bg_dark $bg_dark $alert
   }
 }
 

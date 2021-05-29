@@ -38,6 +38,7 @@ with lib.my; {
     ];
     registry = registryInputs // { dotfiles.flake = inputs.self; };
     autoOptimiseStore = true;
+    sandboxPaths = [ "/bin/sh=${pkgs.bash}/bin/sh" ];
   };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
   system.stateVersion = "21.05";
@@ -67,5 +68,7 @@ with lib.my; {
     wget
     gnumake
     unzip
+
+    unstable.cacert
   ];
 }

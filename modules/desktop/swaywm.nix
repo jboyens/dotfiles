@@ -12,11 +12,11 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
-#
+
     # assumes user id of 1000
-    modules.theme.onReload.swaywm = ''
-      ${pkgs.sway}/bin/swaymsg reload
-    '';
+    # modules.theme.onReload.swaywm = ''
+    #   ${pkgs.sway}/bin/swaymsg reload
+    # '';
 
     environment.systemPackages = with pkgs; [
       swaybg
@@ -50,6 +50,7 @@ in {
       wayvnc
       wlvncc
       playerctl
+      unstable.foot
     ];
 
     services = {

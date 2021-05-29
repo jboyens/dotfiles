@@ -16,6 +16,11 @@ in {
       [ "$TERM" = alacritty ] && export TERM=xterm-256color
     '';
 
+    home.configFile."alacritty" = {
+      source = "${config.dotfiles.configDir}/alacritty";
+      recursive = true;
+    };
+
     user.packages = with pkgs; [
       alacritty
     ];

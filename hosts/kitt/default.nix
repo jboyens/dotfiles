@@ -1,4 +1,5 @@
-{ pkgs, stdenv, lib, ... }: {
+{ pkgs, stdenv, lib, ... }:
+{
   imports = [ ../home.nix ./hardware-configuration.nix ];
 
   ## Modules
@@ -48,7 +49,7 @@
         spotify.enable = true;
       };
       term = {
-        default = "alacritty";
+        default = "foot";
         st.enable = false;
         alacritty.enable = true;
       };
@@ -126,7 +127,7 @@
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
-    theme.active = "alucard";
+    theme.active = "focus";
   };
 
   ## Local config
@@ -147,7 +148,7 @@
   services.lorri.enable = true;
   services.blueman.enable = true;
   #broken on unstable
-  services.geoclue2.enable = true;
+  services.geoclue2.enable = false;
   services.fwupd.enable = true;
   services.pipewire.enable = true;
 

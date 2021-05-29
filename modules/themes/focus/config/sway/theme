@@ -1,0 +1,48 @@
+## Colors
+set $blk  "#282828"
+set $bblk "#928374"
+set $red  "#cc241d"
+set $bred "#fb4934"
+set $grn  "#98971a"
+set $bgrn "#b8bb26"
+set $ylw  "#d79921"
+set $bylw "#fabd2f"
+set $blu  "#458588"
+set $bblu "#83a598"
+set $mag  "#b16286"
+set $bmag "#d3869b"
+set $cyn  "#689d6a"
+set $bcyn "#8ec07c"
+set $wht  "#a89984"
+set $bwht "#ebdbb2"
+set $bg $blk
+set $fg $wht
+
+set $color0  blk
+set $color8  bblk
+set $color1  red
+set $color9  bred
+set $color2  grn
+set $color10 bgrn
+set $color3  ylw
+set $color11 bylw
+set $color4  blu
+set $color12 bblu
+set $color5  mag
+set $color13 bmag
+set $color6  cyn
+set $color14 bcyn
+set $color7  wht
+set $color15 bwht
+
+set $color234 "#1d2021"
+set $color235 "#282828"
+set $color236 "#32302f"
+set $color237 "#3c3836"
+set $color239 "#504945"
+
+set $bg_alt $blk
+set $fg_alt $color236
+set $bg_dark $color234
+set $alert $ylw
+set $accent $blu

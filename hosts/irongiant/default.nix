@@ -41,7 +41,7 @@
     };
     services = {
       ssh.enable = true;
-      docker.enable = true;
+      docker.enable = false;
       printing.enable = true;
       fail2ban.enable = true;
       wireguard = {

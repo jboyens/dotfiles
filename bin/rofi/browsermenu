@@ -61,7 +61,7 @@ def get_bookmarks browser
      "#{ENV['XDG_CONFIG_HOME']}/firefox/.mozilla/firefox/#{user}.default",
      "#{ENV['XDG_DATA_HOME']}/mozilla/firefox/#{user}.default"].each do |dir|
       if Dir.exists? dir
-        db "#{dir}/places.sqlite",
+        return db "#{dir}/places.sqlite",
            ["SELECT DISTINCT mb.title, mp.url FROM moz_bookmarks mb",
             "INNER JOIN moz_places mp ON mp.id = mb.fk",
             "WHERE mb.type = 1 AND mb.title IS NOT NULL",
@@ -69,6 +69,7 @@ def get_bookmarks browser
             "LIMIT 200"].join(' ')
       end
     end
+    return []
   when :brave
     f = File.read "#{ENV['XDG_CONFIG_HOME']}/BraveSoftware/Brave-Browser/Default/Bookmarks"
     data = JSON.parse f

@@ -14,6 +14,7 @@ with lib.my; {
       binDir     = mkOpt t "${config.dotfiles.dir}/bin";
       configDir  = mkOpt t "${config.dotfiles.dir}/config";
       modulesDir = mkOpt t "${config.dotfiles.dir}/modules";
+      patchesDir = mkOpt t "${config.dotfiles.dir}/patches";
       themesDir  = mkOpt t "${config.dotfiles.modulesDir}/themes";
     };
 

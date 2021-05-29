@@ -14,7 +14,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       editorconfig-core-c
-      unstable.neovim
+      unstable.neovim-unwrapped
     ];
 
     # This is for non-neovim, so it loads my nvim config
