@@ -54,7 +54,6 @@
       "mitigations=off"
       "i915.mitigations=off"
       "mem_sleep_default=deep"
-      "iommu=soft"
     ];
     extraModprobeConfig = ''
       options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
