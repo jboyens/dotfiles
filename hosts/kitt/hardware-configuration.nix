@@ -90,6 +90,8 @@
       package = pkgs.bluezFull;
     };
 
+    video.hidpi.enable = true;
+
     nvidia = lib.mkIf config.modules.hardware.nvidia.enable {
       prime = {
         offload.enable = true;
