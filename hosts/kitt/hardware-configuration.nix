@@ -25,23 +25,23 @@
     # kernelPackages = pkgs.linuxPackages_latest;
     # kernelPackages = pkgs.linuxPackages_5_12;
     kernelPackages = let
-      linux_5_12_8_pkg = { fetchurl, buildLinux, ... } @ args:
+      linux_5_12_9_pkg = { fetchurl, buildLinux, ... } @ args:
 
         buildLinux (args // rec {
-          version = "5.12.8";
+          version = "5.12.9";
           modDirVersion = version;
 
           src = fetchurl {
-            url = "mirror://kernel/linux/kernel/v5.x/linux-5.12.8.tar.xz";
-            sha256 = "134g8d5zvbzdqxy7z6a527dqcmiq4ixf7s05rnnsc4qcajpbcimd";
+            url = "mirror://kernel/linux/kernel/v5.x/linux-5.12.9.tar.xz";
+            sha256 = "0vg71h8r90fl01a8khyf1776y76rgqisxafky89cswa2fpsvxyn7";
           };
           kernelPatches = [];
 
           extraMeta.branch = "5.12";
         } // (args.argsOverride or {}));
-      linux_5_12_8 = pkgs.callPackage linux_5_12_8_pkg{};
+      linux_5_12_9 = pkgs.callPackage linux_5_12_9_pkg{};
     in
-      pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_5_12_8);
+      pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_5_12_9);
 
     # kernelPackages = pkgs.linuxPackages_testing;
     # extraModulePackages = with pkgs.linuxPackages_5_12; [ v4l2loopback ];
