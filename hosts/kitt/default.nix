@@ -134,6 +134,11 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
 
+  services.prometheus.exporters.node = {
+    enable = true;
+    enabledCollectors = [ "systemd" ];
+  };
+
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
 
