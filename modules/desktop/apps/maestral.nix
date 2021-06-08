@@ -10,18 +10,31 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
+      maestral
       maestral-gui
     ];
 
-    systemd.user.services.maestral = {
-      description = "Maestral Dropbox Client";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+    systemd.user.services."maestral-daemon@maestral" = {
+      description = "Maestral daemon for the config %i";
+      wantedBy = [ "default.target" ];
+
       serviceConfig = {
-        ExecStart = "${pkgs.maestral-gui}/bin/maestral_qt";
-        RestartSec = 5;
-        Restart = "always";
+        Type = "notify";
+        ExecStart = "${pkgs.maestral}/bin/maestral start -f -c %i";
+        ExecStop = "${pkgs.maestral}/bin/maestral stop";
+        WatchdogSec = 30;
       };
     };
+
+    # systemd.user.services.maestral = {
+    #   description = "Maestral Dropbox Client";
+    #   wantedBy = [ "graphical-session.target" ];
+    #   partOf = [ "graphical-session.target" ];
+    #   serviceConfig = {
+    #     ExecStart = "${pkgs.maestral-gui}/bin/maestral_qt";
+    #     RestartSec = 5;
+    #     Restart = "always";
+    #   };
+    # };
   };
 }
