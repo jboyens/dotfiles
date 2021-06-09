@@ -52,6 +52,7 @@
         default = "foot";
         st.enable = false;
         alacritty.enable = true;
+        foot.enable = true;
       };
       vm = { qemu.enable = true; };
     };
