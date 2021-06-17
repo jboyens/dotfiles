@@ -20,15 +20,11 @@ in {
       ensureDefaultPrinter = "HLL2350DW";
       ensurePrinters = [{
         name = "HLL2350DW";
-        deviceUri = "socket://192.168.86.39:9100";
-        model = "brother-HLL2350DW-cups-en.ppd";
+        deviceUri = "ipp://192.168.86.39";
+        model = "everywhere";
         ppdOptions = {
           PageSize = "Letter";
-          MediaType = "PLAIN";
-          Resolution = "600dpi";
-          InputSlot = "TRAY1";
           Duplex = "DuplexNoTumble";
-          TonerSaveMode = "OFF";
         };
       }];
     };
