@@ -156,7 +156,25 @@
   services.lorri.enable = true;
   services.blueman.enable = true;
   #broken on unstable
-  services.geoclue2.enable = false;
+  services.geoclue2.enable = true;
+  services.geoclue2.enableDemoAgent = true;
+  services.geoclue2.appConfig = {
+    "gammastep" = {
+      isAllowed = true;
+      isSystem = false;
+      users = [];
+    };
+    "redshift" = {
+      isAllowed = true;
+      isSystem = false;
+      users = [];
+    };
+    "org.freedesktop.DBus" = {
+      isAllowed = true;
+      isSystem = true;
+      users = [];
+    };
+  };
   services.fwupd.enable = true;
   services.pipewire.enable = true;
 
