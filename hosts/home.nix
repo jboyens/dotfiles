@@ -28,35 +28,38 @@ with lib; {
 
 
   ## Not using syncthing atm
-  # services.syncthing.declarative = {
-  #   # Purge folders not declaratively configured!
-  #   overrideFolders = true;
-  #   overrideDevices = true;
-  #   devices = {
-  #     kuro.id  = "4UJSUBN-V7LCISG-6ZE7SBN-YPXM5FQ-CE7CD2U-W4KZC7O-4HUZZSW-6DXAGQQ";
-  #     shiro.id = "G4DUO25-AMQQIWS-SRZE5TJ-43CCQZJ-5ULEZBS-P2LMZZU-V5JA5CS-6X7RLQK";
-  #     kiiro.id = "3A6G2NR-WQMASWG-7EFUX6G-GJB6WYX-HYGDA7N-EYZYANY-NDRKI3W-32RQ4QG";
-  #   };
-  #   folders =
-  #     let mkShare = devices: type: paths: attrs: (rec {
-  #           inherit devices type;
-  #           path = if lib.isAttrs paths
-  #                  then paths."${config.networking.hostName}"
-  #                  else paths;
-  #           watch = false;
-  #           rescanInterval = 3600; # every hour
-  #           enable = lib.elem config.networking.hostName devices;
-  #         } // attrs);
-  #     in {
-  #       projects = mkShare [ "kuro" "shiro" ] "sendreceive" #         "${config.user.home}/projects"
-  #         { watch = true;
-  #           rescanInterval = 3600 * 4; }; # every 4 hours
-  #       serverBackup = mkShare [ "ao" "kiiro" ] "sendonly" "/run/backups"
-  #       mainBackup = mkShare [ "kuro" "kiiro" ] "sendreceive" #         "/usr/store"
-  #         { versioning = {
-  #             type = "staggered";
-  #             params.maxAge = "356";
-  #           }; };
-  #     };
-  # };
+  services.syncthing.declarative = {
+    # Purge folders not declaratively configured!
+    overrideFolders = true;
+    overrideDevices = true;
+    devices = {
+      mediaserver.id  = "L5ZEYSY-NVT73GS-NAD36HV-AO3YJZQ-H53QRJ7-3XVXO5X-PXA2QWN-3J6DQAC";
+      kitt.id  = "Z6KVBYP-VAKL7WV-GQECKAS-FU23XXB-Q5G2RR3-3JQHCHY-BLGK4UM-B3OETA2";
+      pixel3xl.id = "MMO6WXY-ZLRNVVG-FEJNHFQ-S6RLBRL-JJ57M5R-ARZHFDZ-NYXUYVJ-OAFIVQN";
+    };
+    folders =
+      let mkShare = devices: type: paths: attrs: (rec {
+            inherit devices type;
+            path = if lib.isAttrs paths
+                   then paths."${config.networking.hostName}"
+                   else paths;
+            watch = false;
+            rescanInterval = 3600; # every hour
+            enable = lib.elem config.networking.hostName devices;
+          } // attrs);
+      in {
+        documents = mkShare [ "mediaserver" "kitt" "pixel3xl" ] "sendreceive" "${config.user.home}/Documents"
+          { watch = true;
+            rescanInterval = 300; }; # every 5 minutes
+        secrets = mkShare [ "mediaserver" "kitt" ] "sendreceive" "${config.user.home}/.secrets"
+          { watch = true;
+            rescanInterval = 3600; }; # every hour
+        # serverBackup = mkShare [ "ao" "kiiro" ] "sendonly" "/run/backups"
+        # mainBackup = mkShare [ "kuro" "kiiro" ] "sendreceive" #         "/usr/store"
+        #   { versioning = {
+        #       type = "staggered";
+        #       params.maxAge = "356";
+        #     }; };
+      };
+  };
 }

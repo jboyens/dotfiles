@@ -122,6 +122,7 @@
           mail.enable = true;
         };
       };
+      syncthing.enable = true;
       wireguard = {
         enable = true;
         client.enable = false;
