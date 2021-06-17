@@ -33,7 +33,7 @@ in {
           my.krew
           unstable.open-policy-agent
           my.istioctl_1_5
-          my.kind_0_11
+          kind
         ];
       };
 
