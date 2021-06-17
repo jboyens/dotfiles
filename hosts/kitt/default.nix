@@ -138,7 +138,8 @@
   services.openssh.startWhenNeeded = true;
 
   services.prometheus.exporters.node = {
-    enable = true;
+    enable = false;
+    openFirewall = true;
     enabledCollectors = [ "systemd" ];
   };
 
