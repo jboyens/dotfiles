@@ -8,8 +8,9 @@ with lib;
 with lib.my;
 let cfg = config.modules.editors.emacs;
     configDir = config.dotfiles.configDir;
-    myEmacs = pkgs.emacsPgtkGcc;
+    # myEmacs = pkgs.emacsPgtkGcc;
     # myEmacs = pkgs.emacsPgtk;
+    myEmacs = pkgs.emacsGcc;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -80,7 +81,24 @@ in {
       # :lang org
       graphviz
 
-      (mu.override { emacs = myEmacs; })
+      # (mu.override { emacs = myEmacs; })
+
+      mpc_cli
+
+      # :lang terraform
+      terraform-ls
+
+      # :lang go
+      gocode
+      gomodifytags
+      gotests
+      gore
+
+      # :lang markdown
+      discount
+
+      # :lang web
+      html-tidy
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
