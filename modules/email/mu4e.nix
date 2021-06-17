@@ -18,7 +18,7 @@ in {
     user.packages = with pkgs; [
       cfg.package
       # don't install mu4e here
-      # mu
+      mu
       imapfilter
       unstable.isync
       msmtp
