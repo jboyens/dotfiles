@@ -192,11 +192,21 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     bindsym $super+$up focus up
     bindsym $super+$right focus right
 
+    bindsym $super+$control+$left focus output left
+    bindsym $super+$control+$down focus output down
+    bindsym $super+$control+$up focus output up
+    bindsym $super+$control+$right focus output right
+
     # Move the focused window with the same, but add Shift
     bindsym $super+$shift+$left move left
     bindsym $super+$shift+$down move down
     bindsym $super+$shift+$up move up
     bindsym $super+$shift+$right move right
+
+    bindsym $super+$shift+$control+$left move output left
+    bindsym $super+$shift+$control+$down move output down
+    bindsym $super+$shift+$control+$up move output up
+    bindsym $super+$shift+$control+$right move output right
 #
 # Workspaces:
 #
