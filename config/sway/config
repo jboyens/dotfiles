@@ -165,6 +165,8 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     bindsym $super+Grave exec $DOTFILES/bin/scratch
     bindsym $super+Shift+Grave exec emacsclient -e '(doom/open-scratch-buffer)'
     bindsym $super+e exec emacsclient -e '(emacs-everywhere)'
+    bindsym $super+$control+t exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k t
+    bindsym $super+$control+n exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k n
 
     bindsym $hyper+e exec $DOTFILES/bin/activate emacs
     bindsym $hyper+f exec $DOTFILES/bin/activate firefox
