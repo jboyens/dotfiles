@@ -56,6 +56,7 @@
 
   ## Local config
   programs.ssh.startAgent = true;
+  programs.mosh.enable = true;
   services.openssh.startWhenNeeded = true;
 
   # networking.networkmanager.enable = true;
@@ -116,11 +117,11 @@
         scrape_interval = "10s";
         static_configs = [{ targets = [ "192.168.86.100:3000" ]; }];
       }
-      {
-        job_name = "pihole";
-        scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.34:9617" ]; }];
-      }
+      # {
+      #   job_name = "pihole";
+      #   scrape_interval = "10s";
+      #   static_configs = [{ targets = [ "192.168.86.34:9617" ]; }];
+      # }
       {
         job_name = "ping";
         scrape_interval = "10s";
@@ -130,6 +131,16 @@
         job_name = "docker";
         scrape_interval = "10s";
         static_configs = [{ targets = [ "192.168.86.34:9323" ]; }];
+      }
+      {
+        job_name = "dex";
+        scrape_interval = "10s";
+        static_configs = [{ targets = [ "192.168.86.34:8386" ]; }];
+      }
+      {
+        job_name = "blocky";
+        scrape_interval = "10s";
+        static_configs = [{ targets = [ "192.168.86.34:4000" ]; }];
       }
       {
         job_name = "snmp";
