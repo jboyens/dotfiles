@@ -111,7 +111,7 @@
     services = {
       ssh.enable = true;
       docker.enable = true;
-      mpd.enable = true;
+      # mpd.enable = true;
       podman.enable = false;
       printing.enable = true;
       restic = {
