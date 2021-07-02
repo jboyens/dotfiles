@@ -102,9 +102,9 @@
         job_name = "node_exporter";
         scrape_interval = "10s";
         static_configs = [
+          { targets = [ "192.168.86.176:9100" ]; }
           { targets = [ "192.168.86.34:9100" ]; }
           { targets = [ "192.168.86.100:9100" ]; }
-          { targets = [ "192.168.86.76:9100" ]; }
         ];
       }
       {
