@@ -43,7 +43,7 @@ in {
       gnome3.adwaita-icon-theme
       hicolor-icon-theme
       gnome3.defaultIconTheme
-      flashfocus
+      # flashfocus
       polkit_gnome
       i3status-rust
       gammastep

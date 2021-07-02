@@ -62,7 +62,7 @@ in {
       texlive.combined.scheme-medium
       # :lang beancount
       beancount
-      fava
+      # fava
       # :lang rust
       rustfmt
       unstable.rust-analyzer

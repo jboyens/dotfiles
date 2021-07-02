@@ -14,13 +14,13 @@ final: prev:
   });
 
   mu = prev.mu.overrideAttrs(oa: rec {
-    version = "9020389a5625391da8f996eadf2e022d118d4881";
+    version = "7034556ab4d7b0fc36eda93ab4b7a5370fdbea83";
 
     src = prev.fetchFromGitHub {
       owner  = "djcb";
       repo   = "mu";
       rev    = version;
-      sha256 = "sha256-WWoJ5aWpZXYKaPvqghVSsyLsicYMupl9PxsIrd3byUY=";
+      sha256 = "sha256-4XefHlIGB/H/Slt4O9nFe3lMsGhtK/KWtyeEznNNmrk=";
     };
   });
 }
