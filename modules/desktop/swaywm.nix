@@ -142,6 +142,17 @@ in {
       };
     };
 
+    systemd.user.services.mpris-proxy = {
+      description = "mpris-proxy";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+        RestartSec = 5;
+        Restart = "always";
+      };
+    };
+
     # link recursively so other modules can link files in their folders
     home.configFile = {
       "sway" = {
