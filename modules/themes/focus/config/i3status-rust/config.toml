@@ -44,7 +44,7 @@ alert = 10.0
 
 [[block]]
 block = "net"
-device = "wlp59s0"
+device = "wlan0"
 format = "{signal_strength} {bitrate}"
 
 [[block]]

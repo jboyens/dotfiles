@@ -145,8 +145,8 @@
 
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
+  networking.networkmanager.wifi.backend = "iwd";
 
-  # networking.networkmanager.wifi.backend = "iwd";
   networking.domain = "fooninja.org";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false

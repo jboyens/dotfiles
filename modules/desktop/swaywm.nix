@@ -43,7 +43,7 @@ in {
       gnome3.adwaita-icon-theme
       hicolor-icon-theme
       gnome3.defaultIconTheme
-      # flashfocus
+      my.flashfocus
       polkit_gnome
       i3status-rust
       gammastep
@@ -148,6 +148,29 @@ in {
       partOf = [ "graphical-session.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+        RestartSec = 5;
+        Restart = "always";
+      };
+    };
+
+    systemd.user.services.flashfocus = {
+      description = "flashfocus";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.my.flashfocus}/bin/flashfocus";
+        RestartSec = 5;
+        Restart = "always";
+      };
+      path = with pkgs; [ procps ];
+    };
+
+    systemd.user.services.waybar = {
+      description = "waybar";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.waybar}/bin/waybar";
         RestartSec = 5;
         Restart = "always";
       };

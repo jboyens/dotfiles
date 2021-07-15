@@ -42,7 +42,7 @@ output * bg ~/.local/share/wallpaper fill
 seat * xcursor_theme Paper 10
 
 output "Sharp Corporation 0x14BA 0x00000000" {
-    pos 0 0
+    pos 1920 2160
 }
 
 output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
@@ -324,7 +324,7 @@ for_window [title=doom-capture] floating true
 for_window [title=doom-capture] resize set width 940 height 760
 for_window [title=doom-capture] border pixel 2
 
-for_window [class=Slack] move to output eDP-1
+# for_window [class=Slack] move to output eDP-1
 
 for_window [app_id=pavucontrol] floating true
 for_window [app_id=pavucontrol] resize set width 1200 height 800
@@ -339,14 +339,7 @@ for_window [title="Firefox — Sharing Indicator"] move postion 50ppt 100ppt
 # for_window [class=URxvt instance=scratch] resize set width 1200 height 560
 # for_window [class=URxvt instance=scratch] border pixel 2
 
-# exec_always autotiling
-# exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
-# exec_always $DOTFILES/bin/mako-exec
-# exec_always pkill kanshi; exec kanshi
-# exec waybar
-# exec redshift
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
-# exec /run/current-system/sw/libexec/polkit-gnome-authentication-agent-1
 
 bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
 bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
@@ -361,25 +354,26 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86MonBrightnessUp exec brightnessctl set +10% && brightnessctl_perc > $SWAYSOCK.wob
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%- && brightnessctl_perc > $SWAYSOCK.wob
 
-bindswitch --locked lid:on exec swaymsg output eDP-1 disable
-bindswitch --locked lid:off exec swaymsg output eDP-1 enable
+bindswitch --reload --locked lid:on exec swaymsg output eDP-1 disable
+bindswitch --reload --locked lid:off exec swaymsg output eDP-1 enable
 
-bar {
-  id bottom
-  status_command i3status-rs
-  font "FiraCode Nerd Font 9"
-  colors {
-    background $bg
-    statusline $fg
-    separator $bg_dark
-    focused_workspace $bg_dark $bg_dark $fg
-    inactive_workspace $bg_dark $bg_dark $fg_alt
-    urgent_workspace $bg_dark $bg_dark $alert
-  }
-}
+# bar {
+#   id bottom
+#   status_command i3status-rs
+#   font "FiraCode Nerd Font 9"
+#   colors {
+#     background $bg
+#     statusline $fg
+#     separator $bg_dark
+#     focused_workspace $bg_dark $bg_dark $fg
+#     inactive_workspace $bg_dark $bg_dark $fg_alt
+#     urgent_workspace $bg_dark $bg_dark $alert
+#   }
+# }
 
 include /etc/sway/config.d/*
 include ~/.config/sway/rc.d/*
 
 exec_always xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
+exec_always "$XDG_CONFIG_HOME"/dotfiles/bin/laptop.sh
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
