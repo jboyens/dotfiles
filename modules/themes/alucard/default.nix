@@ -38,7 +38,7 @@ in {
     (mkIf
       (config.services.xserver.enable || config.modules.desktop.swaywm.enable) {
         user.packages = with pkgs; [
-          dracula-theme
+          unstable.dracula-theme
           paper-icon-theme # for rofi
         ];
         fonts = {

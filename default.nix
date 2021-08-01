@@ -62,7 +62,6 @@ with lib.my; {
   environment.systemPackages = with pkgs; [
     bind
     cached-nix-shell
-    coreutils
     git
     vim
     wget
