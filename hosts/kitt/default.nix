@@ -76,7 +76,7 @@
     hardware = {
       audio.enable = true;
       bluetooth.enable = true;
-      bluetooth.audio.enable = true;
+      bluetooth.audio.enable = false;
       ergodox.enable = true;
       sony-1000Xm3.enable = true;
       fs = {
@@ -125,7 +125,7 @@
       syncthing.enable = true;
       wireguard = {
         enable = true;
-        client.enable = false;
+        client.enable = true;
       };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
@@ -145,7 +145,7 @@
 
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.backend = "iwd";
 
   networking.domain = "fooninja.org";
 

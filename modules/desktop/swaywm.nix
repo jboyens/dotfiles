@@ -114,7 +114,7 @@ in {
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.gammastep}/bin/gammastep";
+        ExecStart = "${pkgs.gammastep}/bin/gammastep -l 47.553341:-122.370537";
         RestartSec = 5;
         Restart = "always";
       };

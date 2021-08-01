@@ -23,28 +23,28 @@
     initrd.kernelModules = [ ];
     blacklistedKernelModules = [ ];
     # kernelPackages = pkgs.linuxPackages_latest;
-    # kernelPackages = pkgs.linuxPackages_5_12;
-    kernelPackages = let
-      linux_5_13_2_pkg = { fetchurl, buildLinux, ... } @ args:
-
-        buildLinux (args // rec {
-          version = "5.13.2";
-          modDirVersion = version;
-
-          src = fetchurl {
-            url = "mirror://kernel/linux/kernel/v5.x/linux-5.13.2.tar.xz";
-            sha256 = "0dx9khk7fh003xyb3xix0kc0rmjncg7ric5p830zhadnrw4hv563";
-          };
-          kernelPatches = [];
-
-          extraMeta.branch = "5.13";
-        } // (args.argsOverride or {}));
-      linux_5_13_2 = pkgs.callPackage linux_5_13_2_pkg{};
-    in
-      pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_5_13_2);
+    kernelPackages = pkgs.linuxPackages_5_13;
+    # kernelPackages = let
+    #   linux_5_13_2_pkg = { fetchurl, buildLinux, ... } @ args:
+    #
+    #     buildLinux (args // rec {
+    #       version = "5.13.2";
+    #       modDirVersion = version;
+    #
+    #       src = fetchurl {
+    #         url = "mirror://kernel/linux/kernel/v5.x/linux-5.13.2.tar.xz";
+    #         sha256 = "0dx9khk7fh003xyb3xix0kc0rmjncg7ric5p830zhadnrw4hv563";
+    #       };
+    #       kernelPatches = [];
+    #
+    #       extraMeta.branch = "5.13";
+    #     } // (args.argsOverride or {}));
+    #   linux_5_13_2 = pkgs.callPackage linux_5_13_2_pkg{};
+    # in
+    #   pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_5_13_2);
 
     # kernelPackages = pkgs.linuxPackages_testing;
-    # extraModulePackages = with pkgs.linuxPackages_5_12; [ v4l2loopback ];
+    extraModulePackages = with pkgs.linuxPackages_5_13; [ v4l2loopback ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -83,7 +83,7 @@
       extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver ];
       extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
     };
-    pulseaudio.support32Bit = false;
+    # pulseaudio.support32Bit = false;
     steam-hardware.enable = true;
     bluetooth = {
       enable = true;

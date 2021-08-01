@@ -71,7 +71,7 @@ in {
           privateKeyFile = "/home/jboyens/.secrets/wireguard/kitt/private.key";
           peers = [{
             publicKey = "kxhD+BPEcgdK2N7KfZ/05QOhYtTMR0r8CccuYRpx8mc=";
-            allowedIPs = [ "192.168.86.0/24" "10.100.0.0/24" ];
+            allowedIPs = [ "10.100.0.0/24" "192.168.86.0/24" ];
             endpoint = "bender.fooninja.org:51820";
             persistentKeepalive = 25;
           }];
