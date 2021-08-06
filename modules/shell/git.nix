@@ -18,6 +18,7 @@ in {
         gitAndTools.git-crypt)
       my.git-sync
       my.git-delete-merged-branches
+      act
     ];
 
     home.configFile = {
