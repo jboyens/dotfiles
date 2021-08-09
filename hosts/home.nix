@@ -23,8 +23,8 @@ with lib; {
   } else
     { });
 
-  # So thw bitwarden CLI knows where to find my server.
-  modules.shell.bitwarden.config.server = "bw.fooninja.org";
+  # So the vaultwarden CLI knows where to find my server.
+  modules.shell.vaultwarden.config.server = "bw.fooninja.org";
 
 
   ## Not using syncthing atm

@@ -2,20 +2,20 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.bitwarden;
+let cfg = config.modules.services.vaultwarden;
 in {
-  options.modules.services.bitwarden = {
+  options.modules.services.vaultwarden = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
     services.vaultwarden.enable = true;
 
-    user.extraGroups = [ "bitwarden_rs" ];
+    user.extraGroups = [ "vaultwarden" ];
 
-    services.fail2ban.jails.bitwarden_rs = ''
+    services.fail2ban.jails.vaultwarden = ''
       enabled = true
-      filter = bitwarden_rs
+      filter = vaultwarden
       port = 80,443,8002
       maxretry = 5
     '';
