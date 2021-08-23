@@ -28,7 +28,7 @@ with lib; {
 
 
   ## Not using syncthing atm
-  services.syncthing.declarative = {
+  services.syncthing = {
     # Purge folders not declaratively configured!
     overrideFolders = true;
     overrideDevices = true;
