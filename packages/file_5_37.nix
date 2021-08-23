@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, file, zlib, libgnurx }:
+{ lib, stdenv, fetchurl, file, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "file";
@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) file;
-  buildInputs = [ zlib ]
-    ++ lib.optional stdenv.hostPlatform.isWindows libgnurx;
+  buildInputs = [ zlib ];
 
   doCheck = true;
 
