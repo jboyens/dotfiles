@@ -199,6 +199,20 @@
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;
 
+  services.nfs.idmapd.settings = {
+    General = {
+      Domain = "fooninja.org";
+    };
+
+    Translation = {
+      GSS-Methods="static,nsswitch";
+    };
+
+    Static = {
+      "jboyens@fooninja.org" = "jboyens";
+    };
+  };
+
   programs.light.enable = true;
   programs.iftop.enable = true;
   programs.iotop.enable = true;
