@@ -304,10 +304,11 @@ module Hey
         end
         from = from ? "#{profile}-#{from}-link" : profile
         to   = to   ? "#{profile}-#{to}-link"   : profile
-        fromDevs = `nix-store -q --references #{from}`.split
-        toDevs   = `nix-store -q --references #{to}`.split
-        puts (fromDevs - toDevs).map { |d| "\e[31m-#{d}\e[0m" }
-        puts (toDevs - fromDevs).map { |d| "\e[32m+#{d}\e[0m" }
+        puts `nix store diff-closures #{from} #{to}`
+        #fromDevs = `nix-store -q --references #{from}`.split
+        #toDevs   = `nix-store -q --references #{to}`.split
+        #puts (fromDevs - toDevs).map { |d| "\e[31m-#{d}\e[0m" }
+        #puts (toDevs - fromDevs).map { |d| "\e[32m+#{d}\e[0m" }
       when /ls|list/
         sh ["nix-env", "--list-generations", "--profile", profile], sudo: true
       when "remove"
