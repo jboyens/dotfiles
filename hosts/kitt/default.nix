@@ -60,6 +60,7 @@
       android.enable = true;
       cc.enable = true;
       rust.enable = true;
+      go.enable = true;
       cloud = {
         enable = true;
         google.enable = true;
@@ -67,6 +68,7 @@
         amazon.enable = false;
       };
       db = { postgres.enable = true; };
+      ruby.enable = true;
     };
     editors = {
       default = "nvim";
