@@ -51,6 +51,7 @@ in {
       wlvncc
       playerctl
       unstable.foot
+      my.remontoire
     ];
 
     services = {
