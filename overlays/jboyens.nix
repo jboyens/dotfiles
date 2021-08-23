@@ -1,26 +1,26 @@
 final: prev:
 {
   pgcenter = prev.pgcenter.overrideAttrs(oa: rec {
-    version = "0.9.0";
+    version = "0.9.2";
 
     src = prev.fetchFromGitHub {
       owner  = "lesovsky";
       repo   = "pgcenter";
       rev    = "v${version}";
-      sha256 = "sha256-IBybV1aAdjj061b9CJHNlRqIwegoMU5hvi/0F+tRbVA=";
+      sha256 = "xaY01T12/5Peww9scRgfc5yHj7QA8BEwOK5l6OedziY=";
     };
 
     vendorSha256 = final.lib.fakeHash;
   });
 
   mu = prev.mu.overrideAttrs(oa: rec {
-    version = "7034556ab4d7b0fc36eda93ab4b7a5370fdbea83";
+    version = "b62f70f9d03a72fbdf25f652e2c9897ece475de8";
 
     src = prev.fetchFromGitHub {
       owner  = "djcb";
       repo   = "mu";
       rev    = version;
-      sha256 = "sha256-4XefHlIGB/H/Slt4O9nFe3lMsGhtK/KWtyeEznNNmrk=";
+      sha256 = "oF6n4ayc70FKO3v3wKoPocjFlWOYlpv5614o2+xfdWs=";
     };
   });
 }

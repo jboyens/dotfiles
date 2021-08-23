@@ -4,11 +4,11 @@ with python3Packages;
 
 buildPythonApplication rec {
   pname = "git-delete-merged-branches";
-  version = "6.0.5";
+  version = "6.2.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-kY+FLissid0Nyw7lqnS2PDuUlP7KkSafAxi7Y3xOTsc=";
+    sha256 = "sha256-4nwu2X3Ydhvhwn2fU5K9gWjIz6YuurN82edf8bdLo3Y=";
   };
 
   pick = buildPythonPackage rec {
