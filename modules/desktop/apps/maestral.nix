@@ -14,15 +14,20 @@ in {
       maestral-gui
     ];
 
-    systemd.user.services."maestral-daemon@maestral" = {
-      description = "Maestral daemon for the config %i";
-      wantedBy = [ "default.target" ];
+    home-manager.users.${config.user.name}.systemd.user.services."maestral-daemon@maestral" = {
+      Unit = {
+        Description = "Maestral daemon for the config %i";
+      };
 
-      serviceConfig = {
+      Service = {
         Type = "notify";
         ExecStart = "${pkgs.maestral}/bin/maestral start -f -c %i";
         ExecStop = "${pkgs.maestral}/bin/maestral stop";
-        WatchdogSec = 30;
+        WatchdogSec = "30s";
+      };
+
+      Install = {
+        WantedBy = [ "default.target" ];
       };
     };
 
