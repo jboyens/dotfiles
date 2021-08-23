@@ -83,10 +83,17 @@ in {
       (let wCfg = config.services.xserver.desktopManager.wallpaper;
            command = ''
              if [ -e "$XDG_DATA_HOME/wallpaper" ]; then
-               ${pkgs.feh}/bin/feh --bg-${wCfg.mode} \
-                 ${optionalString wCfg.combineScreens "--no-xinerama"} \
-                 --no-fehbg \
-                 $XDG_DATA_HOME/wallpaper
+               if [ -n $WAYLAND_DISPLAY ]; then
+                  ${pkgs.sway}/bin/swaymsg \
+                    output '*' bg \
+                    $XDG_DATA_HOME/wallpaper \
+                    fill
+               else
+                  ${pkgs.feh}/bin/feh --bg-${wCfg.mode} \
+                    ${optionalString wCfg.combineScreens "--no-xinerama"} \
+                      --no-fehbg \
+                      $XDG_DATA_HOME/wallpaper
+                fi
              fi
           '';
        in {

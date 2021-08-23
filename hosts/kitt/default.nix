@@ -132,7 +132,7 @@
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
-    theme.active = "focus";
+    theme.active = "nord";
   };
 
   ## Local config
