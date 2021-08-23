@@ -70,6 +70,8 @@ in {
       libnotify
 
       my.wl-clipboard-x11
+
+      envsubst
     ];
   };
 }

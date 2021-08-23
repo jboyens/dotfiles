@@ -32,8 +32,9 @@ in {
           unstable.kubernetes-helm
           my.krew
           unstable.open-policy-agent
-          my.istioctl_1_5
-          kind
+          istioctl
+          unstable.kind
+          unstable.kustomize
         ];
       };
 
