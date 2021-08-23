@@ -39,49 +39,11 @@ smart_gaps on
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg ~/.local/share/wallpaper fill
 
-seat * xcursor_theme Paper 10
-
-output "Sharp Corporation 0x14BA 0x00000000" {
-    pos 1920 2160
-}
-
-output "Goldstar Company Ltd LG Ultra HD 0x00001B21" {
-    pos 0 0
-    mode 3840x2160@60Hz
-}
-
-output "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E" {
-    pos 3840 0
-    mode 3840x2160@60hz
-}
-
-### Idle configuration
-#
-# Example configuration:
-#
 exec swayidle -w \
          timeout 600 'swaylock -f -c 000000' \
          timeout 1200 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
-
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 input "0:0:Apple_SPI_Keyboard" {
     xkb_model apple_laptop
@@ -126,20 +88,28 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 # Basics:
 #
     # Start a terminal
+    ## Launch // Terminal // <Super> <Control> <Enter> ##
     bindsym $super+$control+Return exec $term
+
+    ## Launch // Tmux // <Super> <Enter> ##
     bindsym $super+Return exec $term bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"
 
     # Start a browser
+    ## Launch // Browser // <Super> <Ctrl> / ##
     bindsym $super+Ctrl+Slash exec firefox
 
     # Kill focused window
+    ## Session // Terminate App // <Super> q ##
     bindsym $super+q kill
 
     # Start your launcher
     # bindsym $super+Space exec $DOTFILES/base/arch-desktop/bin/kitty-app-launcher
     # bindsym $super+Space exec $DOTFILES/bin/rofi/appmenu
+    ## Launch // Application // <Super> Space ##
     bindsym $super+Space exec wofi -c ~/.config/wofi/config -s ~/.config/wofi/styles.css
 
+    ## Navigate // Window by Name // <Super> Tab ##
+    # bindsym $super+Tab exec $DOTFILES/bin/rofi/windowmenu
     bindsym $super+Tab exec $DOTFILES/bin/rofi/windowmenu
 
     # Drag floating windows by holding down $super and left mouse button.
@@ -150,36 +120,67 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     floating_modifier $super normal
 
     # Reload the configuration file
-    # bindsym $super+Shift+c reload
+    ## Session // Reload Sway Config // <Super><Shift> c ##
+    bindsym $super+Shift+c reload
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $super+$alt+Escape --to-code exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-
-    # reload config file
+    ## Session // Reload Sway Config (alt.) // <Super><Control><Shift><Escape> ##
     bindsym $super+$control+$shift+Escape reload
 
-    # password manager
+    ## Launch // This Dialog // <Super><Shift> ? ##
+    bindsym $super+question exec $DOTFILES/bin/remontoire-toggle
+
+    # Exit sway (logs you out of your Wayland session)
+    ## Session // Exit // <Super><Alt><Escape> ##
+    bindsym $super+$alt+Escape exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+    ## Launch // File Search // <Super>/ ##
     bindsym $super+Slash exec $DOTFILES/bin/rofi/filemenu -x
+
+    # password manager
+    ## Launch // Password Manager // <Super>\ ##
     bindsym $super+Backslash exec $DOTFILES/bin/rofi/bwmenu
 
+    ## Launch // Scratch // <Super>` ##
     bindsym $super+Grave exec $DOTFILES/bin/scratch
+
+    ## Emacs // Scratch Buffer // <Super><Shift>` ##
     bindsym $super+Shift+Grave exec emacsclient -e '(doom/open-scratch-buffer)'
+
+    ## Emacs // Emacs Everywhere // <Super>e ##
     bindsym $super+e exec emacsclient -e '(emacs-everywhere)'
+
+    ## Org Capture // TODO // <Super><Control>t ##
     bindsym $super+$control+t exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k t
+
+    ## Org Capture // Note // <Super><Control>n ##
     bindsym $super+$control+n exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k n
 
+    ## Navigate // Activate Emacs // <Hyper>e ##
     bindsym $hyper+e exec $DOTFILES/bin/activate emacs
+
+    ## Navigate // Activate Firefox // <Hyper>f ##
     bindsym $hyper+f exec $DOTFILES/bin/activate firefox
+
+    ## Navigate // Activate Slack // <Hyper>s ##
     bindsym $hyper+s exec $DOTFILES/bin/activate slack
+
+    ## Navigate // Activate Zoom // <Hyper>z ##
     bindsym $hyper+z exec $DOTFILES/bin/activate zoom zoom-us
 
+    ## Screenshot // Enter Screenshot Mode // <Meh>s ##
     mode "screenshot" {
+        ## Screenshot // Copy Active // t ##
         bindsym t exec grimshot copy active
+        ## Screenshot // Copy Screen // s ##
         bindsym s exec grimshot copy screen
+        ## Screenshot // Copy Output // o ##
         bindsym o exec grimshot copy output
+        ## Screenshot // Copy Area // a ##
         bindsym a exec grimshot copy area
+        ## Screenshot // Copy Window // w ##
         bindsym w exec grimshot copy window
         # Return to default mode
+        ## Screenshot // Exit Screenshot Mode // Escape or Enter ##
         bindsym Return mode "default"
         bindsym Escape mode "default"
     }
@@ -189,22 +190,27 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 # Moving around:
 #
     # Move your focus around
+
+    ## Navigate // Relative Window // <Super> k j h l ##
     bindsym $super+$left focus left
     bindsym $super+$down focus down
     bindsym $super+$up focus up
     bindsym $super+$right focus right
 
+    ## Navigate // Relative Output // <Super><Control> k j h l ##
     bindsym $super+$control+$left focus output left
     bindsym $super+$control+$down focus output down
     bindsym $super+$control+$up focus output up
     bindsym $super+$control+$right focus output right
 
     # Move the focused window with the same, but add Shift
+    ## Modify // Window Position // <Super><Shift> k j h l ##
     bindsym $super+$shift+$left move left
     bindsym $super+$shift+$down move down
     bindsym $super+$shift+$up move up
     bindsym $super+$shift+$right move right
 
+    ## Modify // Window Output // <Super><Shift><Control> k j h l ##
     bindsym $super+$shift+$control+$left move output left
     bindsym $super+$shift+$control+$down move output down
     bindsym $super+$shift+$control+$up move output up
@@ -213,6 +219,7 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 # Workspaces:
 #
     # Switch to workspace
+    ## Navigate // Workspaces 1-10 // <Super> 1..0 ##
     bindsym $super+1 workspace 1
     bindsym $super+2 workspace 2
     bindsym $super+3 workspace 3
@@ -224,6 +231,7 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     bindsym $super+9 workspace 9
     bindsym $super+0 workspace 10
     # Move focused container to workspace
+    ## Modify // Move Window to Workspace 1-10 // <Super><Shift> 1..0 ##
     bindsym $super+$shift+1 move container to workspace 1
     bindsym $super+$shift+2 move container to workspace 2
     bindsym $super+$shift+3 move container to workspace 3
@@ -237,6 +245,7 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 
+    ## Navigate // Workspace Prev/Next // <Super>[ or ] ##
     bindsym $super+Bracketleft workspace prev
     bindsym $super+Bracketright workspace next
 #
@@ -254,16 +263,20 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     # bindsym $super+e layout toggle split
 
     # Make the current focus fullscreen
+    ## Modify // Window Fullscreen Toggle // <Super><Control> f ##
     bindsym $super+$control+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
+    ## Modify // Window Floating Toggle // <Super> f ##
     bindsym $super+f floating toggle
 
     # Swap focus between the tiling area and the floating area
     # bindsym $super+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $super+a focus parent
+    ## Navigate // Relative Parent // <Super> a ##
+   bindsym $super+a focus parent
+
 #
 # Scratchpad:
 #
@@ -271,26 +284,32 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
+    ## Modify // Move to Scratchpad // <Super><Shift> - ##
     bindsym $super+Shift+minus move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
+    ## Navigate // Scratchpad // <Super> - ##
     bindsym $super+minus scratchpad show
 #
 # Resizing containers:
 #
 
+    ## Resize // Grow Container // <Super> + ↑ ↓ ← → ##
     bindsym $super+Left resize grow width 40 px
     bindsym $super+Down resize grow height 40 px
     bindsym $super+Up resize grow height 40 px
     bindsym $super+Right resize grow width 40 px
 
+    ## Resize // Shrink Container // <Super><Control> + ↑ ↓ ← → ##
     bindsym $super+$control+Left resize shrink width 40 px
     bindsym $super+$control+Down resize shrink height 40 px
     bindsym $super+$control+Up resize shrink height 40 px
     bindsym $super+$control+Right resize shrink width 40 px
 
+## Resize // Enter Resize Mode // <Super> r ##
 mode "resize" {
+    ## Resize // Resize Window // k j h l or ↑ ↓ ← → ##
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
@@ -307,6 +326,7 @@ mode "resize" {
     bindsym Right resize grow width 10px
 
     # Return to default mode
+    ## Resize // Exit Resize Mode // Escape or Enter ##
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -376,4 +396,5 @@ include ~/.config/sway/rc.d/*
 
 exec_always xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 exec_always "$XDG_CONFIG_HOME"/dotfiles/bin/laptop.sh
+exec_always systemctl --user restart kanshi
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
