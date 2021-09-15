@@ -130,7 +130,7 @@
     "sway/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
-        "format": "{icon}",
+        "format": "{name}",
         "format-icons": {
             "1:www": "龜", // Icon: firefox-browser
             "2:mail": "", // Icon: mail
@@ -142,9 +142,9 @@
             "default": ""
     },
     "persistent_workspaces": {
-        "1": [],
-        "2": [],
-        "3": [],
+        "1": ["DP-5"],
+        "2": ["DP-3"],
+        "3": ["eDP-1"],
         "4": [],
         "5": [],
         "6": []

@@ -130,7 +130,7 @@
     "sway/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
-        "format": "{icon}",
+        "format": "{name}",
         "format-icons": {
             "1:www": "龜", // Icon: firefox-browser
             "2:mail": "", // Icon: mail
