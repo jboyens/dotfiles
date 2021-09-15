@@ -9,7 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.bitwarden_rs.enable = true;
+    services.vaultwarden.enable = true;
 
     user.extraGroups = [ "bitwarden_rs" ];
 

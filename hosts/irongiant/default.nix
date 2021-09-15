@@ -45,8 +45,8 @@
       printing.enable = true;
       fail2ban.enable = true;
       wireguard = {
-        enable = true;
-        server.enable = true;
+        enable = false;
+        server.enable = false;
       };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
@@ -72,6 +72,7 @@
   services.lorri.enable = true;
   services.thermald.enable = true;
   services.irqbalance.enable = true;
+  services.tailscale.enable = true;
 
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;
@@ -105,6 +106,7 @@
           { targets = [ "192.168.86.176:9100" ]; }
           { targets = [ "192.168.86.34:9100" ]; }
           { targets = [ "192.168.86.100:9100" ]; }
+          { targets = [ "192.168.86.1:9100" ]; }
         ];
       }
       {
@@ -146,7 +148,7 @@
         job_name = "snmp";
         scrape_interval = "10s";
         static_configs = [
-          { targets = [ "192.168.86.1" ]; }
+          { targets = [ "192.168.86.46" ]; }
           { targets = [ "192.168.86.189" ]; }
         ];
         metrics_path = "/snmp";
@@ -232,18 +234,22 @@
 
       clients = [{ url = "http://127.0.0.1:3100/loki/api/v1/push"; }];
 
-      scrape_configs = [{
-        job_name = "journal";
-        journal = {
-          max_age = "12h";
-          labels = { job = "systemd-journal"; };
-        };
+      scrape_configs = [
+        {
+          job_name = "journal";
+          journal = {
+            max_age = "12h";
+            labels = { job = "systemd-journal"; };
+          };
 
-        relabel_configs = [{
-          source_labels = [ "__journal__systemd_unit" ];
-          target_label = "unit";
-        }];
-      }];
+          relabel_configs = [
+            {
+              source_labels = [ "__journal__systemd_unit" ];
+              target_label = "unit";
+            }
+          ];
+        }
+      ];
     };
   };
 
@@ -311,7 +317,8 @@
 
     };
 
-    http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto="https";
+    http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto =
+      "https";
 
     http.services.ha.loadBalancer.servers =
       [{ url = "http://192.168.86.34:8123"; }];

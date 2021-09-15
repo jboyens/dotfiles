@@ -59,6 +59,10 @@ in {
               publicKey = "cAnOtDzfBUL+c8Nu5Vc666JxcDfXkm/rIjo0Dh99LiA=";
               allowedIPs = [ "10.100.0.3/32" ];
             }
+            {
+              publicKey = "HMVHqyqm/pP1b6YjQ9OmMiUu7Zd50fBzMTAdmNWHqm0=";
+              allowedIPs = [ "10.100.0.4/32" ];
+            }
           ];
         };
       };

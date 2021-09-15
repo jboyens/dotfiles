@@ -3,7 +3,7 @@
 {
   modules.services.bitwarden.enable = true;
 
-  services.bitwarden_rs.config = {
+  services.vaultwarden.config = {
     signupsAllowed = false;
     invitationsAllowed = true;
     domain = "https://bw.fooninja.org";
@@ -13,7 +13,7 @@
   };
 
   # Inject secrets at runtime
-  systemd.services.bitwarden_rs.serviceConfig = {
+  systemd.services.vaultwarden.serviceConfig = {
     EnvironmentFile = [ config.age.secrets.bitwarden-smtp-env.path ];
     Restart = "on-failure";
     RestartSec = "2s";
