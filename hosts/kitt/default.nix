@@ -126,8 +126,8 @@
       };
       syncthing.enable = true;
       wireguard = {
-        enable = true;
-        client.enable = true;
+        enable = false;
+        client.enable = false;
       };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
@@ -181,6 +181,7 @@
   services.fwupd.enable = true;
   services.pipewire.enable = true;
 
+  services.tailscale.enable = true;
   services.thermald.enable = true;
   services.irqbalance.enable = true;
   services.fstrim.enable = true;
