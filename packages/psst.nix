@@ -1,17 +1,23 @@
-{ lib, rustPlatform, fetchFromGitHub, wrapGAppsHook, pkg-config, dbus, gtk3, cairo }:
+{ lib, pkgs, fetchFromGitHub, wrapGAppsHook, pkg-config, dbus, gtk3, cairo }:
 
-rustPlatform.buildRustPackage rec {
+let
+  mkRustPlatform = pkgs.callPackage ./mk-rust-platform.nix {};
+    rustPlatform = mkRustPlatform {
+      channel = "stable";
+    };
+in rustPlatform.buildRustPackage rec {
   pname = "psst";
-  version = "e6e3cfafa547ea188e23145b501e669f62558bf4";
+  version = "37b1cce64aa079189f36857dd991e2e998e8bec1";
 
   src = fetchFromGitHub {
     owner = "jpochyla";
     repo = pname;
     rev = version;
-    sha256 = "1Cd9Vs+H/hzCfAI18JEyPcKjeVhCXkCikcPzHmYiytM=";
+    sha256 = "sha256-wDJsf+xAraRDnc3uBrK3E0/2N/X63Wjvzto42MynFww=";
+    fetchSubmodules = true;
   };
 
-  cargoSha256 = "I0vF2CVPB8yTVYZNNmiC5X9ePf3bZ8fhMbMXECBaes4=";
+  cargoSha256 = "sha256-YKfAOSXkxQxn+eld4ZFMn5W42wrdWoEi2pvYW947cNo=";
 
   nativeBuildInputs = [
     wrapGAppsHook

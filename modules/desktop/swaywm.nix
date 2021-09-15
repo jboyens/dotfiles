@@ -45,7 +45,7 @@ in {
       gnome3.defaultIconTheme
       my.flashfocus
       polkit_gnome
-      i3status-rust
+      unstable.i3status-rust
       gammastep
       wayvnc
       wlvncc
