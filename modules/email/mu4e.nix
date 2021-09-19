@@ -96,8 +96,7 @@ in {
 
           Timer = {
             Unit = "mbsync.service";
-            OnBootSec="30s";
-            OnUnitInactiveSec="15m";
+            OnCalendar = "*:0/15";
             Persistent = "true";
           };
 
