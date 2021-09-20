@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 {
-  modules.services.bitwarden.enable = true;
+  modules.services.vaultwarden.enable = true;
 
   services.vaultwarden.config = {
     signupsAllowed = false;
@@ -14,7 +14,7 @@
 
   # Inject secrets at runtime
   systemd.services.vaultwarden.serviceConfig = {
-    EnvironmentFile = [ config.age.secrets.bitwarden-smtp-env.path ];
+    EnvironmentFile = [ config.age.secrets.vaultwarden-smtp-env.path ];
     Restart = "on-failure";
     RestartSec = "2s";
   };

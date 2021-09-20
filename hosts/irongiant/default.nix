@@ -3,7 +3,7 @@
     ../home.nix
     ./hardware-configuration.nix
 
-    ./modules/bitwarden.nix
+    ./modules/vaultwarden.nix
   ];
 
   ## Modules

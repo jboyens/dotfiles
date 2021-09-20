@@ -108,7 +108,7 @@
       tmux.enable = true;
       zsh.enable = true;
       utils.enable = true;
-      bitwarden.enable = true;
+      vaultwarden.enable = true;
     };
     services = {
       ssh.enable = true;

@@ -7,5 +7,5 @@ let
   systems = [ irongiant_host_key kitt_host_key ];
 in {
   "wireguard.key.age".publicKeys = users ++ systems;
-  "bitwarden-smtp-env.age".publicKeys = users ++ systems;
+  "vaultwarden-smtp-env.age".publicKeys = users ++ systems;
 }
