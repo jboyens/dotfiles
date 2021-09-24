@@ -61,6 +61,10 @@
       cc.enable = true;
       rust.enable = true;
       go.enable = true;
+      node = {
+        enable = true;
+        enableGlobally = true;
+      };
       cloud = {
         enable = true;
         google.enable = true;

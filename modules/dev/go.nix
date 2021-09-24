@@ -20,6 +20,7 @@ in {
       gotests
       gomodifytags
       golangci-lint
+      delve
     ];
   };
 }
