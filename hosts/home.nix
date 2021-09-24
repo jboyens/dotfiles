@@ -36,6 +36,7 @@ with lib; {
       mediaserver.id  = "L5ZEYSY-NVT73GS-NAD36HV-AO3YJZQ-H53QRJ7-3XVXO5X-PXA2QWN-3J6DQAC";
       kitt.id  = "Z6KVBYP-VAKL7WV-GQECKAS-FU23XXB-Q5G2RR3-3JQHCHY-BLGK4UM-B3OETA2";
       pixel3xl.id = "MMO6WXY-ZLRNVVG-FEJNHFQ-S6RLBRL-JJ57M5R-ARZHFDZ-NYXUYVJ-OAFIVQN";
+      irongiant.id = "FEEF2M2-B3JYJJX-IHFFP5A-2ZTIGFD-YISKNNB-5G3RML6-ASOG6DB-HSXYKQR";
     };
     folders =
       let mkShare = devices: type: paths: attrs: (rec {
@@ -48,10 +49,10 @@ with lib; {
             enable = lib.elem config.networking.hostName devices;
           } // attrs);
       in {
-        documents = mkShare [ "mediaserver" "kitt" "pixel3xl" ] "sendreceive" "${config.user.home}/Documents"
+        documents = mkShare [ "mediaserver" "kitt" "pixel3xl" "irongiant" ] "sendreceive" "${config.user.home}/Documents"
           { watch = true;
             rescanInterval = 300; }; # every 5 minutes
-        secrets = mkShare [ "mediaserver" "kitt" ] "sendreceive" "${config.user.home}/.secrets"
+        secrets = mkShare [ "mediaserver" "kitt" "irongiant" ] "sendreceive" "${config.user.home}/.secrets"
           { watch = true;
             rescanInterval = 3600; }; # every hour
         # serverBackup = mkShare [ "ao" "kiiro" ] "sendonly" "/run/backups"

@@ -44,6 +44,7 @@
       docker.enable = false;
       printing.enable = true;
       fail2ban.enable = true;
+      syncthing.enable = true;
       wireguard = {
         enable = false;
         server.enable = false;
@@ -253,7 +254,7 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 9116 6443 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 9116 6443 8384 ];
 
   services.minecraft-server = {
     enable = true;
