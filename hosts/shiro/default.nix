@@ -12,13 +12,14 @@
     desktop = {
       bspwm.enable = true;
       apps = {
-        discord.enable = true;
         rofi.enable = true;
-        # skype.enable = true;
       };
       browsers = {
         default = "firefox";
         firefox.enable = true;
+      };
+      gaming = {
+        steam.enable = true;
       };
       media = {
         # daw.enable = true;
@@ -63,5 +64,5 @@
   networking.wireless.enable = true;
   hardware.opengl.enable = true;
 
-  # time.timeZone = "Europe/Copenhagen";
+  time.timeZone = "Europe/Copenhagen";
 }

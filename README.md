@@ -1,7 +1,18 @@
 [![Made with Doom Emacs](https://img.shields.io/badge/Made_with-Doom_Emacs-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white)](https://github.com/hlissner/doom-emacs)
 [![NixOS Unstable](https://img.shields.io/badge/NixOS-unstable-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-**Hey,** you. You're finally awake. You were trying to configure your OS declaratively, right? Walked right into that NixOS ambush, same as us, and those dotfiles over there.
+**Hey,** you. You're finally awake. You were trying to configure your OS
+declaratively, right? Walked right into that NixOS ambush, same as us, and those
+dotfiles over there.
+
+> **Disclaimer:** _This is not a community framework or distribution._ It's a
+> private configuration and an ongoing experiment while I feel out NixOS. I make
+> no guarantees that it will work out of the box for anyone but myself. It may
+> also change drastically and without warning. 
+> 
+> Until I can bend spoons with my nix-fu, please don't treat me like an
+> authority or expert in the NixOS space. Seek help on [the NixOS
+> discourse](https://discourse.nixos.org) instead.
 
 <img src="/../screenshots/alucard/fakebusy.png" width="100%" />
 
@@ -28,17 +39,54 @@
 
 ## Quick start
 
-1. Yoink the latest build of [NixOS 21.05][nixos].
+1. Acquire NixOS 21.11 or newer:
+   ```sh
+   # Yoink nixos-unstable
+   wget -O nixos.iso https://channels.nixos.org/nixos-unstable/latest-nixos-minimal-x86_64-linux.iso
+   
+   # Write it to a flash drive
+   cp nixos.iso /dev/sdX
+   ```
+
 2. Boot into the installer.
-3. Do your partitions and mount your root to `/mnt` ([for example](hosts/kuro/README.org))
-4. Install these dotfiles:
-5. `nix-shell -p git nixFlakes`
-6. `git clone https://github.com/hlissner/dotfiles /mnt/etc/nixos`
-7. Install NixOS: `nixos-install --root /mnt --flake /mnt/etc/nixos#XYZ`, where
-   `XYZ` is [the host you want to install](hosts/).  Use `#generic` for a
-   simple, universal config, or create a sub-directory in `hosts/` for your device. See [host/kuro] for an example.
-8. Reboot!
-9. Change your `root` and `$USER` passwords!
+
+3. Switch to root user: `sudo su -`
+
+4. Do your partitions and mount your root to `/mnt` ([for
+   example](hosts/kuro/README.org)).
+
+5. Install these dotfiles:
+   ```sh
+   nix-shell -p git nixFlakes
+
+   # Set HOST to the desired hostname of this system
+   HOST=...
+   # Set USER to your desired username (defaults to hlissner)
+   USER=...
+
+   git clone https://github.com/hlissner/dotfiles /mnt/etc/nixos
+   cd /mnt/etc/nixos
+   
+   # Create a host config in `hosts/` and add it to the repo:
+   mkdir -p hosts/$HOST/
+   nixos-generate-config --root /mnt --dir hosts/$HOST/
+   rm -f hosts/configuration.nix
+   cp hosts/kuro/config.nix hosts/$HOST/config.nix
+   vim config.nix  # configure this for your system; don't use it verbatim!
+   git add hosts/$HOST/
+   
+   # Install nixOS
+   USER=$USER nixos-install --root /mnt --impure --flake .#$HOST
+   
+   # If you get 'unrecognized option: --impure', replace '--impure' with 
+   # `--option pure-eval no`.
+   ```
+
+6. Then reboot and you're good to go!
+
+> :warning: **Don't forget to change your `root` and `$USER` passwords!** They
+> are set to `nixos` by default.
+
 
 ## Management
 
@@ -65,7 +113,7 @@ Available Commands:
   upgrade                Update all flakes and rebuild system
 
 Options:
-    -d, --dryrun                     Don't change anything; preform dry run
+    -d, --dryrun                     Don't change anything; perform dry run
     -D, --debug                      Show trace on nix errors
     -f, --flake URI                  Change target flake to URI
     -h, --help                       Display this help, or help for a specific command
@@ -78,22 +126,55 @@ Options:
 
   Because declarative, generational, and immutable configuration is a godsend
   when you have a fleet of computers to manage.
+
++ **Should I use NixOS?**
+
+  **Short answer:** no.
   
+  **Long answer:** no really. Don't.
+  
+  **Long long answer:** no really, I'm not kidding. Don't.
+  
+  **Unsigned long long answer:** Ok ok. Do any of these sound like you?
+
+  - You only have one (maybe two) systems to NixOS-ify.
+  - You lack the discipline or dedication to learn a new language, google your
+    issues, and trial'n'error your way to NixOS enlightenment -- all on your
+    own.
+  - "Declarative", "generational", and "immutable" don't make you _fully_ erect.
+  - You're a unix virgin or have limited experience with Linux distros.
+  - You arrived at NixOS by following trends, rather than your needs.
+  - You need somebody else to tell you whether or not you need NixOS.
+  
+  **Then no, you should _not_ use NixOS.**
+
+  - The learning curve is steep.
+  - NixOS is unlike other Linux distros. Your issues will be unique and
+    difficult to google.
+  - The overhead of managing a NixOS config will rarely pay for itself with
+    fewer than 3 systems.
+  - Official documentation for Nix and NixOS is vast, but shallow.
+  - Unofficial resources and example configs are sparse, tend to either be too
+    simple or too complex, or outdated.
+  - The Nix language is obtuse and its toolchain is complicated; multiply this
+    by 1,000 if you've never touched the shell or a functional language before.
+    And you _will_ have to learn Nix to do a fraction of what makes NixOS worth
+    any of the trouble.
+  - A decent grasp of Linux and its ecosystem is necessary to distinguish
+    Nix/NixOS issues from conventional Linux issues (and to debug them).
+    
+  If none of this has deterred you, then you didn't need my advice in the first
+  place. Stop procrastinating and try NixOS.
+
 + **How do you manage secrets?**
 
   With [agenix].
-  
-+ **How do I change the default username?**
 
-  1. Set the `USER` environment variable the first time you run `nixos-install`:
-     `USER=myusername nixos-install --root /mnt --flake /path/to/dotfiles#XYZ`
-  2. Or change `"hlissner"` in modules/options.nix.
-  
 + **Why did you write bin/hey?**
 
-  I envy Guix's CLI and want similar for NixOS, but its toolchain is spread
-  across many commands, none of which are as intuitive: `nix`,
-  `nix-collect-garbage`, `nixos-rebuild`, `nix-env`, `nix-shell`.
+  I envy Guix's CLI and want similar for NixOS, whose toolchain is spread across
+  many commands, none of which are as intuitive: `nix`, `nix-collect-garbage`,
+  `nixos-rebuild`, `nix-env`, `nix-shell`.
   
   I don't claim `hey` is the answer, but everybody likes their own brew.
  
@@ -105,7 +186,7 @@ Options:
   No. Suffer my pain:
   
   + [A three-part tweag article that everyone's read.](https://www.tweag.io/blog/2020-05-25-flakes/)
-  + [An overengineered config to scare off beginners.](https://github.com/nrdxp/nixflk)
+  + [An overengineered config to scare off beginners.](https://github.com/divnix/devos)
   + [A minimalistic config for scared beginners.](https://github.com/colemickens/nixos-flake-example)
   + [A nixos wiki page that spells out the format of flake.nix.](https://nixos.wiki/wiki/Flakes)
   + [Official documentation that nobody reads.](https://nixos.org/learn.html)
@@ -124,5 +205,4 @@ Options:
 [doom-emacs]: https://github.com/hlissner/doom-emacs
 [vim]: https://github.com/hlissner/.vim
 [nixos]: https://releases.nixos.org/?prefix=nixos/unstable/
-[host/kuro]: https://github.com/hlissner/dotfiles/tree/master/hosts/kuro
 [agenix]: https://github.com/ryantm/agenix

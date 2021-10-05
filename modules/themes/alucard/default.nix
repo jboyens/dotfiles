@@ -106,6 +106,15 @@ in {
                 recursive = true;
               };
               "dunst/dunstrc".source = ./config/dunstrc;
+              "Dracula-purple-solid-kvantum" = {
+                recursive = true;
+                source = "${pkgs.unstable.dracula-theme}/share/themes/Dracula/kde/kvantum/Dracula-purple-solid";
+                target = "Kvantum/Dracula-purple-solid";
+              };
+              "kvantum.kvconfig" = {
+                text = "theme=Dracula-purple-solid";
+                target = "Kvantum/kvantum.kvconfig";
+              };
             })
             (mkIf desktop.swaywm.enable {
               "waybar" = {
