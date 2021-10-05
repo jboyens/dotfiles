@@ -132,6 +132,12 @@ in {
 
         # Disable sponsored top sites
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+
+        # Disable IPv6
+        "network.dns.disableIPv6" = true;
+
+        # no initial paint delay
+        "nglayout.initialpaint.delay" = 0;
       };
 
       home.configFile."tridactyl" = {

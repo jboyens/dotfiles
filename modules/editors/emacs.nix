@@ -8,9 +8,9 @@ with lib;
 with lib.my;
 let cfg = config.modules.editors.emacs;
     configDir = config.dotfiles.configDir;
-    # myEmacs = pkgs.emacsPgtkGcc;
+    myEmacs = pkgs.emacsPgtkGcc;
     # myEmacs = pkgs.emacsPgtk;
-    myEmacs = pkgs.emacsGcc;
+    # myEmacs = pkgs.emacsGcc;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;

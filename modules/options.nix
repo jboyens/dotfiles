@@ -42,7 +42,7 @@ with lib.my; {
     in {
       inherit name;
       description = "The primary user account";
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" "networkmanager" "video" ];
       isNormalUser = true;
       home = "/home/${name}";
       group = "users";
