@@ -9,12 +9,10 @@
       swaywm.enable = true;
       apps = {
         bitwarden.enable = true;
-        discord.enable = false;
         slack.enable = true;
         rofi.enable = true;
         zoom.enable = true;
         maestral.enable = true;
-        signal.enable = true;
         # godot.enable = true;
       };
       browsers = {
@@ -151,7 +149,7 @@
 
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
-  # networking.networkmanager.wifi.backend = "iwd";
+  networking.networkmanager.wifi.backend = "iwd";
 
   networking.domain = "fooninja.org";
 

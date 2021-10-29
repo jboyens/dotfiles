@@ -11,7 +11,6 @@
       bspwm.enable = false;
       swaywm.enable = true;
       apps = {
-        discord.enable = true;
         slack.enable = true;
         rofi.enable = true;
         zoom.enable = true;

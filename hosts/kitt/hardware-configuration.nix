@@ -123,6 +123,12 @@
     options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
   };
 
+  fileSystems."/mnt/nas/movies" = {
+    device = "192.168.86.34:/volume1/movies";
+    fsType = "nfs";
+    options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+  };
+
   swapDevices = [{
     device = "/swapfile";
     size = 10240;
