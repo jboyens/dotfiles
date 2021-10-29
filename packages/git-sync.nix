@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "git-sync";
-  version = "20201108";
+  version = "20211029";
 
   src = fetchFromGitHub {
     owner = "simonthum";
     repo = "git-sync";
-    rev = "aa420e3f9681ce54cb3e2de10bd118f2664621ea";
-    sha256 = "cb0IK5mGFUaLZoe24rkDYoad3q2ukKb/lV0oURCsPHM=";
+    rev = "12e0b753055f5d7ccb904b556db982ccf7e8aa84";
+    sha256 = "sha256-DtHHW73milkYO+9fHnEf3RZvGpmNJnWOgiE5NAORzY8=";
   };
 
   buildInputs = [ makeWrapper ];
