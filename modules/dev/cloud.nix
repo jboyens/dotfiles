@@ -35,6 +35,7 @@ in {
           istioctl
           unstable.kind
           unstable.kustomize
+          my.go-jsonnet
         ];
       };
 

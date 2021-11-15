@@ -80,6 +80,10 @@ in {
             Documentation="man:mbsync(1)";
           };
 
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
+
           Service = {
             Type = "oneshot";
             ExecStart = "${pkgs.isync}/bin/mbsync -c %h/.mbsyncrc --all";
@@ -101,7 +105,7 @@ in {
           };
 
           Install = {
-            WantedBy = [ "multi-user.target" ];
+            WantedBy = [ "default.target" ];
           };
         };
       };

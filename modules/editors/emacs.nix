@@ -8,6 +8,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.editors.emacs;
     configDir = config.dotfiles.configDir;
+    # myEmacs = pkgs.emacs;
     myEmacs = pkgs.emacsPgtkGcc;
     # myEmacs = pkgs.emacsPgtk;
     # myEmacs = pkgs.emacsGcc;

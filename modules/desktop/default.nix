@@ -54,6 +54,7 @@ in {
         noto-fonts-emoji
         noto-fonts-cjk
         iosevka-bin
+        oxygenfonts
         (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; })
       ];
     };

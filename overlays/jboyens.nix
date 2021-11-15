@@ -13,14 +13,24 @@ final: prev:
     vendorSha256 = final.lib.fakeHash;
   });
 
-  mu = prev.mu.overrideAttrs(oa: rec {
-    version = "b62f70f9d03a72fbdf25f652e2c9897ece475de8";
-
-    src = prev.fetchFromGitHub {
-      owner  = "djcb";
-      repo   = "mu";
-      rev    = version;
-      sha256 = "oF6n4ayc70FKO3v3wKoPocjFlWOYlpv5614o2+xfdWs=";
-    };
+  open-policy-agent = prev.open-policy-agent.overrideAttrs(oa: rec {
+    doCheck = false;
   });
+
+  # mu = prev.mu.overrideAttrs(oa: rec {
+  #   version = "1c95d28cdeebd58f8fddbdf055fbc5a7408e4e88";
+  #
+  #   src = prev.fetchFromGitHub {
+  #     owner  = "djcb";
+  #     repo   = "mu";
+  #     rev    = version;
+  #     sha256 = "sha256-ZEjKrbccXdZ6Rc/YfOjbLdZDBpgKsC7b6MF/tU1e/nY=";
+  #   };
+  #
+  #   nativeBuildInputs = [ prev.meson prev.pkg-config prev.cmake ];
+  #
+  #   buildInputs = with prev; [
+  #     sqlite xapian glib gmime3 texinfo emacs libsoup icu guile
+  #   ];
+  # });
 }

@@ -12,7 +12,7 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
-
+    #
     # assumes user id of 1000
     # modules.theme.onReload.swaywm = ''
     #   ${pkgs.sway}/bin/swaymsg reload
@@ -48,7 +48,7 @@ in {
       unstable.i3status-rust
       gammastep
       wayvnc
-      wlvncc
+      # wlvncc
       playerctl
       unstable.foot
       my.remontoire
