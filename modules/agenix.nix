@@ -21,7 +21,7 @@ in {
       }) (import secretsFile)
       else {};
     sshKeyPaths =
-      options.age.sshKeyPaths.default ++ (filter pathExists [
+      options.age.identityPaths.default ++ (filter pathExists [
         "${config.user.home}/.ssh/id_ed25519"
         "${config.user.home}/.ssh/id_rsa"
       ]);
