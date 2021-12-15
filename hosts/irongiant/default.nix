@@ -85,10 +85,43 @@
 
   services.prometheus = {
     enable = true;
+    alertmanagers = [
+      {
+        static_configs = [{ targets = [ "192.168.86.100:9093" ]; }];
+      }
+    ];
+    alertmanager = {
+      enable = true;
+      openFirewall = true;
+      configuration = {
+        global = {};
+        receivers = [
+          {
+            name = "jr-phone";
+            pushover_configs = [
+              {
+                user_key = "u1f15wxfacc56bms9f7kkxux1cn3w8";
+                token = "a6c5w7scjicp9nzft4ksyfhz8u1c9r";
+              }
+            ];
+          }
+        ];
+        route = {
+          group_wait = "10s";
+          group_interval = "30s";
+          repeat_interval = "30m";
+          receiver = "jr-phone";
+        };
+      };
+    };
     exporters.node.enable = true;
     exporters.node.enabledCollectors = [ "systemd" ];
     exporters.snmp.enable = true;
     exporters.snmp.configurationPath = ./files/snmp.yml;
+    ruleFiles = [
+      ./files/alerts.yml
+      ./files/recording_rules.yml
+    ];
     scrapeConfigs = [
       {
         job_name = "prometheus";
@@ -104,7 +137,7 @@
         job_name = "node_exporter";
         scrape_interval = "10s";
         static_configs = [
-          { targets = [ "192.168.86.176:9100" ]; }
+          # { targets = [ "192.168.86.176:9100" ]; }
           { targets = [ "192.168.86.34:9100" ]; }
           { targets = [ "192.168.86.100:9100" ]; }
           { targets = [ "192.168.86.1:9100" ]; }
@@ -125,11 +158,11 @@
       #   scrape_interval = "10s";
       #   static_configs = [{ targets = [ "192.168.86.34:9617" ]; }];
       # }
-      {
-        job_name = "ping";
-        scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.34:9427" ]; }];
-      }
+      # {
+      #   job_name = "ping";
+      #   scrape_interval = "10s";
+      #   static_configs = [{ targets = [ "192.168.86.34:9427" ]; }];
+      # }
       {
         job_name = "docker";
         scrape_interval = "10s";
@@ -170,11 +203,15 @@
         ];
       }
     ];
+    webExternalUrl = "http://prometheus.fooninja.org";
   };
   services.grafana = {
     enable = true;
     addr = "0.0.0.0";
     domain = "grafana.fooninja.org";
+    extraOptions = {
+      PANELS_DISABLE_SANITIZE_HTML = "true";
+    };
   };
 
   services.loki = {
