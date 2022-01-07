@@ -42,7 +42,7 @@ in {
       unstable.jq
 
       # for yaml parsing
-      yq
+      yq-go
 
       # for pretty du
       unstable.du-dust

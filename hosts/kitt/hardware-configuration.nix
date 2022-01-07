@@ -84,7 +84,7 @@
 
   # CPU
   nix.maxJobs = lib.mkDefault 12;
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "powersave";
   hardware.cpu.intel.updateMicrocode = true;
 
   # Storage
