@@ -25,8 +25,9 @@
       # Extras
       emacs-overlay.url  = "github:nix-community/emacs-overlay";
       nixos-hardware.url = "github:nixos/nixos-hardware";
-      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
+      nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
       nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+      nixpkgs-wayland.inputs.master.follows = "master";
     };
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:

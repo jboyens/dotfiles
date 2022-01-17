@@ -4,7 +4,6 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.desktop.swaywm;
-  # waybar = inputs.nixpkgs.legacyPackages.x86_64-linux.waybar;
 in {
   options.modules.desktop.swaywm = {
     enable = mkBoolOpt false;
@@ -12,7 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
-    #
+
     # assumes user id of 1000
     # modules.theme.onReload.swaywm = ''
     #   ${pkgs.sway}/bin/swaymsg reload
@@ -21,6 +20,7 @@ in {
     environment.systemPackages = with pkgs; [
       swaybg
       waybar
+      # (wofi.override { wayland = _wayland_newer; })
       wofi
       mako
       kanshi
@@ -28,8 +28,8 @@ in {
       qt5.qtwayland
       grim
       slurp
-      unstable.sway-contrib.grimshot
-      unstable.xdg-desktop-portal-wlr
+      sway-contrib.grimshot
+      xdg-desktop-portal-wlr
       wl-clipboard
       autotiling
       # wlay
@@ -45,12 +45,12 @@ in {
       gnome3.defaultIconTheme
       my.flashfocus
       polkit_gnome
-      unstable.i3status-rust
+      i3status-rust
       gammastep
       wayvnc
       # wlvncc
       playerctl
-      unstable.foot
+      foot
       my.remontoire
     ];
 
