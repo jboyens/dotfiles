@@ -18,7 +18,7 @@
       browsers = {
         default = "firefox";
         firefox.enable = true;
-        chromium.enable = false;
+        chromium.enable = true;
         qutebrowser = {
           enable = false;
           extraConfig = ''

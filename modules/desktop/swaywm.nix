@@ -42,7 +42,6 @@ in {
       gsettings-desktop-schemas
       gnome3.adwaita-icon-theme
       hicolor-icon-theme
-      gnome3.defaultIconTheme
       my.flashfocus
       polkit_gnome
       i3status-rust

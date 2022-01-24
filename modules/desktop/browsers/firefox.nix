@@ -154,6 +154,9 @@ in {
 
         # no initial paint delay
         "nglayout.initialpaint.delay" = 0;
+
+        # force webrender to use Wayland
+        "gfx.webrender.compositor.force-enabled" = true;
       };
 
       home.configFile."tridactyl" = {
