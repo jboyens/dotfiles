@@ -28,17 +28,17 @@ with lib.my; {
         "nixpkgs-overlays=${config.dotfiles.dir}/overlays"
         "dotfiles=${config.dotfiles.dir}"
     ];
-    binaryCaches = [
+    settings.substituters = [
       "https://nix-community.cachix.org"
       "https://nixpkgs-wayland.cachix.org"
     ];
-    binaryCachePublicKeys = [
+    settings.trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     ];
     registry = registryInputs // { dotfiles.flake = inputs.self; };
-    autoOptimiseStore = true;
-    sandboxPaths = [ "/bin/sh=${pkgs.bash}/bin/sh" ];
+    settings.auto-optimise-store = true;
+    settings.extra-sandbox-paths = [ "/bin/sh=${pkgs.bash}/bin/sh" ];
   };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
   system.stateVersion = "21.11";

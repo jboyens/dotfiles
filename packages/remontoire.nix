@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     libgee
   ];
 
-  mesonFlags = [ "-Dprofile=default" ];
+  # mesonFlags = [ "-Dprofile=default" ];
 
    postPatch = ''
     chmod +x build-aux/meson/postinstall.py

@@ -10,7 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+    # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 
     # assumes user id of 1000
     # modules.theme.onReload.swaywm = ''
@@ -18,6 +18,7 @@ in {
     # '';
 
     environment.systemPackages = with pkgs; [
+      swaylock
       swaybg
       waybar
       # (wofi.override { wayland = _wayland_newer; })
@@ -79,6 +80,8 @@ in {
         # xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 
         export WLR_DRM_NO_MODIFIERS=1
+        export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"
+        export XCURSOR_THEME="Paper"
       '';
       wrapperFeatures = {
         gtk = true;

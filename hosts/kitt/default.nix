@@ -59,10 +59,7 @@
       cc.enable = true;
       rust.enable = true;
       go.enable = true;
-      node = {
-        enable = true;
-        enableGlobally = true;
-      };
+      node.enable = true;
       cloud = {
         enable = true;
         google.enable = true;
@@ -111,6 +108,8 @@
       # mpd.enable = true;
       podman.enable = false;
       printing.enable = true;
+      geoclue2.enable = true;
+      tlp.enable = true;
       restic = {
         enable = true;
         backups = {
@@ -153,42 +152,16 @@
 
   services.lorri.enable = true;
   services.blueman.enable = true;
-  #broken on unstable
-  services.geoclue2.enable = true;
-  services.geoclue2.enableDemoAgent = true;
-  services.geoclue2.appConfig = {
-    "gammastep" = {
-      isAllowed = true;
-      isSystem = false;
-      users = [];
-    };
-    "redshift" = {
-      isAllowed = true;
-      isSystem = false;
-      users = [];
-    };
-    "org.freedesktop.DBus" = {
-      isAllowed = true;
-      isSystem = true;
-      users = [];
-    };
-  };
   services.fwupd.enable = true;
   services.pipewire.enable = true;
 
+  services.atd.enable = true;
   services.tailscale.enable = true;
   services.thermald.enable = true;
   services.irqbalance.enable = true;
   services.fstrim.enable = true;
   services.upower.enable = true;
   services.pcscd.enable = true;
-  services.tlp.enable = true;
-  services.tlp.settings = {
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-    CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-    CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-  };
   powerManagement.enable = true;
   # powerManagement.powertop.enable = true;
 
@@ -216,7 +189,10 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
     # gtkUsePortal = true;
   };
 }
