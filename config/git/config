@@ -13,10 +13,11 @@
 [gitlab]
     user = jr.boyens@flexe.com
 [rebase]
-	autosquash = true
-    autostash = true
+	autoSquash = true
+    autoStash = true
 [push]
 	default = current
+	gpgSign = if-asked
 [pull]
     rebase = true
 [diff]

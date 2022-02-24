@@ -27,6 +27,7 @@ in {
     user.packages = with pkgs; [
       ## Emacs itself
       binutils       # native-comp needs 'as', provided by this
+      # 29 + pgtk + native-comp
       ((emacsPackagesFor myEmacs).emacsWithPackages (epkgs: [
         epkgs.vterm
       ]))   # 28 + pgtk + native-comp
@@ -53,8 +54,6 @@ in {
       editorconfig-core-c # per-project style config
       # :tools lookup & :lang org +roam
       sqlite
-      # :lang javascript
-      nodePackages.typescript-language-server
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
       # :lang beancount
