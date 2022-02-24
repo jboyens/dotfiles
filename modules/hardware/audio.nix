@@ -29,64 +29,66 @@ in {
       pulse.enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
-      media-session.enable = true;
-      media-session.config.bluez-monitor = {
-        properties = {
-          "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" ];
-          "bluez5.msbc-support" = true;
-          "bluez5.sbc-xq-support" = true;
-          "bluez5.autoswitch-profile" = true;
-        };
-        rules = [
-          {
-            matches = [ { "device.name" = "~bluez_card.*"; } ];
-            actions = {
-              update-props = {
-                "bluez5.auto-connect" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
-                "bluez5.autoswitch-profile" = true;
-              };
-            };
-          }
-          {
-            matches = [
-              { "node.name" = "~bluez_input.*"; }
-              { "node.name" = "~bluez_output.*"; }
-            ];
-            actions = {
-              update-props = {
-                "node.pause-on-idle" = false;
-              };
-            };
-          }
-        ];
-      };
-      media-session.config.alsa-monitor = {
-        properties = { };
-        rules = [
-          {
-            actions = {
-              update-props = {
-                "api.acp.auto-port" = true;
-                "api.acp.auto-profile" = true;
-                "api.alsa.use-acp" = true;
-                "api.alsa.use-ucm" = false;
-              };
-            };
-            matches = [{ "device.name" = "~alsa_card.*"; }];
-          }
-          {
-            actions = {
-              update-props = {
-                "node.pause-on-idle" = false;
-              };
-            };
-            matches = [
-              { "node.name" = "~alsa_input.*"; }
-              { "node.name" = "~alsa_output.*"; }
-            ];
-          }
-        ];
-      };
+      media-session.enable = false;
+      wireplumber.enable = true;
+      # media-session.enable = true;
+      # media-session.config.bluez-monitor = {
+      #   properties = {
+      #     "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" ];
+      #     "bluez5.msbc-support" = true;
+      #     "bluez5.sbc-xq-support" = true;
+      #     "bluez5.autoswitch-profile" = true;
+      #   };
+      #   rules = [
+      #     {
+      #       matches = [ { "device.name" = "~bluez_card.*"; } ];
+      #       actions = {
+      #         update-props = {
+      #           "bluez5.auto-connect" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+      #           "bluez5.autoswitch-profile" = true;
+      #         };
+      #       };
+      #     }
+      #     {
+      #       matches = [
+      #         { "node.name" = "~bluez_input.*"; }
+      #         { "node.name" = "~bluez_output.*"; }
+      #       ];
+      #       actions = {
+      #         update-props = {
+      #           "node.pause-on-idle" = false;
+      #         };
+      #       };
+      #     }
+      #   ];
+      # };
+      # media-session.config.alsa-monitor = {
+      #   properties = { };
+      #   rules = [
+      #     {
+      #       actions = {
+      #         update-props = {
+      #           "api.acp.auto-port" = true;
+      #           "api.acp.auto-profile" = true;
+      #           "api.alsa.use-acp" = true;
+      #           "api.alsa.use-ucm" = false;
+      #         };
+      #       };
+      #       matches = [{ "device.name" = "~alsa_card.*"; }];
+      #     }
+      #     {
+      #       actions = {
+      #         update-props = {
+      #           "node.pause-on-idle" = false;
+      #         };
+      #       };
+      #       matches = [
+      #         { "node.name" = "~alsa_input.*"; }
+      #         { "node.name" = "~alsa_output.*"; }
+      #       ];
+      #     }
+      #   ];
+      # };
     };
 
     # hardware.pulseaudio.enable = true;

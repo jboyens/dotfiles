@@ -79,9 +79,9 @@ in {
         export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
         # xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 
-        export WLR_DRM_NO_MODIFIERS=1
-        export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"
-        export XCURSOR_THEME="Paper"
+        # export WLR_DRM_NO_MODIFIERS=1
+        # export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"
+        # export XCURSOR_THEME="Paper"
       '';
       wrapperFeatures = {
         gtk = true;

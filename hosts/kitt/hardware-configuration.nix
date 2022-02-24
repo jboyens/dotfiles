@@ -20,8 +20,8 @@
       "aesni_intel"
       "cryptd"
     ];
-    initrd.kernelModules = [ ];
-    blacklistedKernelModules = [ ];
+    initrd.kernelModules = [ "i915" ];
+    blacklistedKernelModules = [ "nouveau" ];
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
@@ -32,6 +32,7 @@
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
       "i915.mitigations=off"
+      "i915.enable_guc=2"
       "mem_sleep_default=deep"
     ];
     extraModprobeConfig = ''
@@ -67,6 +68,10 @@
     bluetooth = {
       enable = true;
       package = pkgs.bluezFull;
+      hsphfpd.enable = true;
+      settings = {
+        General.Enable = "Source,Sink,Media,Socket";
+      };
     };
 
     video.hidpi.enable = true;

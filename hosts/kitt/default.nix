@@ -52,7 +52,7 @@
         alacritty.enable = true;
         foot.enable = true;
       };
-      vm = { qemu.enable = true; };
+      vm = { qemu.enable = false; };
     };
     dev = {
       android.enable = true;
