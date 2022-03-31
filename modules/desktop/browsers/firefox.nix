@@ -39,7 +39,7 @@ in {
           genericName = "Open a private Firefox window";
           icon = "firefox";
           exec = "${wrappedFF}/bin/firefox --private-window";
-          categories = "Network";
+          categories = ["Network"];
         })
       ];
 

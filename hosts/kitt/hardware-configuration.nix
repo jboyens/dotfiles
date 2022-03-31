@@ -20,8 +20,8 @@
       "aesni_intel"
       "cryptd"
     ];
-    initrd.kernelModules = [ "i915" ];
-    blacklistedKernelModules = [ "nouveau" ];
+    initrd.kernelModules = [ "i915" "nouveau" ];
+    blacklistedKernelModules = [ ];
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
@@ -68,7 +68,6 @@
     bluetooth = {
       enable = true;
       package = pkgs.bluezFull;
-      hsphfpd.enable = true;
       settings = {
         General.Enable = "Source,Sink,Media,Socket";
       };

@@ -47,6 +47,30 @@ in {
       };
     };
 
+    colorscheme = {
+      slug = mkOpt str "";
+      name = mkOpt str "";
+      author = mkOpt str "";
+      colors = {
+        base00 = mkOpt str "";
+        base01 = mkOpt str "";
+        base02 = mkOpt str "";
+        base03 = mkOpt str "";
+        base04 = mkOpt str "";
+        base05 = mkOpt str "";
+        base06 = mkOpt str "";
+        base07 = mkOpt str "";
+        base08 = mkOpt str "";
+        base09 = mkOpt str "";
+        base0A = mkOpt str "";
+        base0B = mkOpt str "";
+        base0C = mkOpt str "";
+        base0D = mkOpt str "";
+        base0E = mkOpt str "";
+        base0F = mkOpt str "";
+      };
+    };
+
     colors = {
       black         = mkOpt str "#000000"; # 0
       red           = mkOpt str "#FF0000"; # 1

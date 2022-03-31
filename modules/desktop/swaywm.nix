@@ -20,7 +20,7 @@ in {
     environment.systemPackages = with pkgs; [
       swaylock
       swaybg
-      waybar
+      # waybar
       # (wofi.override { wayland = _wayland_newer; })
       wofi
       mako
@@ -50,8 +50,9 @@ in {
       wayvnc
       # wlvncc
       playerctl
-      foot
+      # foot
       my.remontoire
+      # my.swaycons
     ];
 
     services = {
@@ -80,8 +81,8 @@ in {
         # xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 
         # export WLR_DRM_NO_MODIFIERS=1
-        # export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"
-        # export XCURSOR_THEME="Paper"
+        export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"
+        export XCURSOR_THEME="Paper"
       '';
       wrapperFeatures = {
         gtk = true;
@@ -167,6 +168,17 @@ in {
       };
       path = with pkgs; [ procps ];
     };
+
+    # systemd.user.services.swaycons = {
+    #   description = "swaycons";
+    #   wantedBy = [ "graphical-session.target" ];
+    #   partOf = [ "graphical-session.target" ];
+    #   serviceConfig = {
+    #     ExecStart = "${pkgs.my.swaycons}/bin/swaycons";
+    #     RestartSec = 5;
+    #     Restart = "always";
+    #   };
+    # };
 
     systemd.user.services.waybar = {
       description = "waybar";

@@ -7,6 +7,7 @@
     desktop = {
       bspwm.enable = false;
       swaywm.enable = true;
+      i3.enable = false;
       apps = {
         bitwarden.enable = true;
         slack.enable = true;
@@ -14,6 +15,7 @@
         zoom.enable = true;
         maestral.enable = true;
         # godot.enable = true;
+        waybar.enable = true;
       };
       browsers = {
         default = "firefox";
@@ -101,6 +103,7 @@
       zsh.enable = true;
       utils.enable = true;
       vaultwarden.enable = true;
+      weechat.enable = false;
     };
     services = {
       ssh.enable = true;
@@ -158,6 +161,7 @@
   services.atd.enable = true;
   services.tailscale.enable = true;
   services.thermald.enable = true;
+  services.thermald.package = pkgs.my.thermald;
   services.irqbalance.enable = true;
   services.fstrim.enable = true;
   services.upower.enable = true;
@@ -165,8 +169,11 @@
   powerManagement.enable = true;
   # powerManagement.powertop.enable = true;
 
+  services.ananicy.enable = false;
+
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;
+  services.earlyoom.enableDebugInfo = false;
 
   services.nfs.idmapd.settings = {
     General = {
@@ -189,6 +196,7 @@
 
   xdg.portal = {
     enable = true;
+    wlr.enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk

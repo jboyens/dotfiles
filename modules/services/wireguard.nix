@@ -11,7 +11,7 @@ in {
   };
 
   config = mkMerge [
-    ({ user.packages = with pkgs; [ wireguard ]; })
+    ({ user.packages = with pkgs; [ wireguard-tools ]; })
     (mkIf cfg.server.enable {
       networking.nat.enable = true;
       networking.nat.externalInterface = "enp0s20u1";

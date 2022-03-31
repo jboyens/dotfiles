@@ -17,8 +17,8 @@ in {
         desktopName = "Slack (Wayland)";
         genericName = "Open Slack on Wayland";
         icon = "slack";
-        exec = "${unstable.electron}/bin/electron ${unstable.slack}/lib/slack/resources/app.asar --enable-features=UseOzonePlatform --ozone-platform=wayland";
-        categories = "Network";
+        exec = "${unstable.electron_16}/bin/electron ${unstable.slack}/lib/slack/resources/app.asar --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        categories = ["Network"];
       })
     ];
   };

@@ -28,6 +28,7 @@
       nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
       nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
       nixpkgs-wayland.inputs.master.follows = "master";
+      nix-colors.url = "github:misterio77/nix-colors";
     };
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:

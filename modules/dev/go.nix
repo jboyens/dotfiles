@@ -16,7 +16,7 @@ in {
       gopls
       gocode
       gore
-      goimports
+      gotools
       gotests
       gomodifytags
       golangci-lint

@@ -67,8 +67,8 @@ in {
           desktopName = "org-protocol";
           exec = "${myEmacs}/bin/emacsclient -n %u";
           type = "Application";
-          categories = "System";
-          mimeType = "x-scheme-handler/org-protocol";
+          categories = ["System"];
+          mimeTypes = ["x-scheme-handler/org-protocol"];
         })
       # :lang nix
       nixfmt

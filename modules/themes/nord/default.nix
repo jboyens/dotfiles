@@ -1,6 +1,6 @@
 # modules/themes/alucard/default.nix --- a regal dracula-inspired theme
 
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, home-manager, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -17,6 +17,7 @@ in {
             iconTheme = "Tela-black-dark";
             cursorTheme = "capitaine-cursors";
           };
+          colorscheme = inputs.nix-colors.colorSchemes.nord;
         };
 
         shell.zsh.rcFiles = [ ./config/zsh/prompt.zsh ];
@@ -49,7 +50,7 @@ in {
             fira-code-symbols
             jetbrains-mono
             siji
-            font-awesome-ttf
+            font-awesome
           ];
           fontconfig.defaultFonts = {
             sansSerif = [ "Fira Sans" ];
@@ -110,10 +111,6 @@ in {
               "dunst/dunstrc".source = ./config/dunstrc;
             })
             (mkIf desktop.swaywm.enable {
-              "waybar" = {
-                source = ./config/waybar;
-                recursive = true;
-              };
               "i3status-rust" = {
                 source = ./config/i3status-rust;
                 recursive = true;

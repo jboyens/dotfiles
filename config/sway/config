@@ -34,10 +34,14 @@ default_floating_border pixel 2
 gaps inner 8
 smart_gaps on
 
+font pango:FuraCode Nerd Font 11
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/.local/share/wallpaper fill
+# output * bg ~/.local/share/wallpaper fill
+# until wlroots damage is fixed; solves mouse tracking / rendering issues
+output * bg #000000 solid_color
 
 exec swayidle -w \
          timeout 600 'swaylock -f -c 000000' \
@@ -148,6 +152,15 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 
     ## Emacs // Emacs Everywhere // <Super>e ##
     bindsym $super+e exec emacsclient -e '(emacs-everywhere)'
+
+    ## Emacs // TODO // <Super>t ##
+    bindsym $super+t exec emacsclient -n ~/Documents/org-mode/todo.org
+
+    ## Emacs // Note // <Super>n ##
+    bindsym $super+n exec emacsclient -n ~/Documents/org-mode/notes.org
+
+    ## Emacs // Journal // <Super>d ##
+    bindsym $super+d exec emacsclient -ne '(org-roam-dailies-goto-today)'
 
     ## Org Capture // TODO // <Super><Control>t ##
     bindsym $super+$control+t exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k t
@@ -264,7 +277,8 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
 
     # Switch the current container between different layout styles
     # bindsym $super+s layout stacking
-    # bindsym $super+w layout tabbed
+    ## Modify // Workspace Layout Toggle // <Super> w ##
+    bindsym $super+w layout toggle all
     # bindsym $super+e layout toggle split
 
     # Make the current focus fullscreen

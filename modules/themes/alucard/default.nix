@@ -73,7 +73,7 @@ in {
             fira-code-symbols
             jetbrains-mono
             siji
-            font-awesome-ttf
+            font-awesome
           ];
           fontconfig.defaultFonts = {
             sansSerif = [ "Fira Sans" ];

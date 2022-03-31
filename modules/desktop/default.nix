@@ -28,14 +28,14 @@ in {
       # xclip
       # xdotool
       # xorg.xwininfo
-      ydotool
+      my.ydotool
       libqalculate  # calculator cli w/ currency conversion
       (makeDesktopItem {
         name = "scratch-calc";
         desktopName = "Calculator";
         icon = "calc";
         exec = ''scratch "${tmux}/bin/tmux new-session -s calc -n calc qalc"'';
-        categories = "Development";
+        categories = ["Development"];
       })
       xfce.thunar
       qgnomeplatform        # QPlatformTheme for a better Qt application inclusion in GNOME
@@ -56,6 +56,7 @@ in {
         noto-fonts-emoji
         noto-fonts-cjk
         iosevka-bin
+        (iosevka-bin.override { variant = "sgr-iosevka-term"; })
         oxygenfonts
         (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; })
       ];
