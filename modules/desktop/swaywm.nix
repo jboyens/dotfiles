@@ -10,7 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+    nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 
     # assumes user id of 1000
     # modules.theme.onReload.swaywm = ''
@@ -45,7 +45,7 @@ in {
       hicolor-icon-theme
       my.flashfocus
       polkit_gnome
-      i3status-rust
+      # i3status-rust
       gammastep
       wayvnc
       # wlvncc

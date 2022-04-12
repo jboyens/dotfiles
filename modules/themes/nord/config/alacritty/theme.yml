@@ -4,6 +4,7 @@ window:
     y: 10
 
   dynamic_padding: false
+  opacity: 1.0
 
 tabspace: 4
 
@@ -72,5 +73,3 @@ colors:
     magenta: '#8c738c'
     cyan: '#6d96a5'
     white: '#aeb3bb'
-
-background_opacity: 1.0

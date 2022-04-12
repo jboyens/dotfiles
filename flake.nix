@@ -29,9 +29,10 @@
       nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
       nixpkgs-wayland.inputs.master.follows = "master";
       nix-colors.url = "github:misterio77/nix-colors";
+      nixgl.url = "github:guibou/nixGL";
     };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixgl, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
 
@@ -57,7 +58,7 @@
         };
 
       overlays =
-        mapModules ./overlays import;
+        (mapModules ./overlays import) // { nixgl = nixgl.overlay; };
 
       packages."${system}" =
         mapModules ./packages (p: pkgs.callPackage p {});

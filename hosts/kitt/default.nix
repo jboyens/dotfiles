@@ -11,30 +11,16 @@
       apps = {
         bitwarden.enable = true;
         slack.enable = true;
-        rofi.enable = true;
         zoom.enable = true;
         maestral.enable = true;
-        # godot.enable = true;
         waybar.enable = true;
       };
       browsers = {
         default = "firefox";
         firefox.enable = true;
         chromium.enable = true;
-        qutebrowser = {
-          enable = false;
-          extraConfig = ''
-            c.colors.webpage.prefers_color_scheme_dark = True
-          '';
-        };
-      };
-      gaming = {
-        steam.enable = false;
-        # emulators.enable = true;
-        # emulators.psx.enable = true;
       };
       media = {
-        daw.enable = false;
         documents.enable = true;
         documents.pdf.enable = true;
         graphics = {
@@ -45,19 +31,17 @@
           sprites.enable = false;
         };
         mpv.enable = true;
-        recording.enable = true;
+        recording.enable = false;
         spotify.enable = true;
       };
       term = {
         default = "foot";
-        st.enable = false;
-        alacritty.enable = true;
         foot.enable = true;
       };
       vm = { qemu.enable = false; };
     };
     dev = {
-      android.enable = true;
+      android.enable = false;
       cc.enable = true;
       rust.enable = true;
       go.enable = true;
@@ -65,8 +49,6 @@
       cloud = {
         enable = true;
         google.enable = true;
-        # currently broken
-        amazon.enable = false;
       };
       db = { postgres.enable = true; };
       ruby.enable = true;
@@ -79,15 +61,14 @@
     hardware = {
       audio.enable = true;
       bluetooth.enable = true;
-      bluetooth.audio.enable = false;
       ergodox.enable = true;
+      nvidia.enable = true;
       sony-1000Xm3.enable = true;
       fs = {
         enable = true;
         # zfs.enable = true;
         ssd.enable = true;
       };
-      nvidia.enable = false;
       sensors.enable = true;
     };
     email = {

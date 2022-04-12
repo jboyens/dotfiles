@@ -20,9 +20,9 @@
     kernel.sysctl."net.ipv4.icmp_echo_ignore_broadcasts" = 1;
   };
 
-  # Modules
   modules.hardware = {
     audio.enable = true;
+    bluetooth.enable = true;
     ergodox.enable = true;
     fs = {
       enable = true;
@@ -32,8 +32,11 @@
     sensors.enable = true;
   };
 
+  # Xbox controller support
+  hardware.xpadneo.enable = true;
+
   # CPU
-  nix.settings.max-jobs = lib.mkDefault 16;
+  nix.settings.max-jobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -43,14 +46,14 @@
     # as I need them to be *and* the correct monitor is "primary". Using
     # xrandrHeads does not work.
     monitorSection = ''
-      VendorName  "Unknown"
-      ModelName   "DELL U2515H"
-      HorizSync   30.0 - 113.0
-      VertRefresh 56.0 - 86.0
-      Option      "DPMS"
+      VendorName     "Unknown"
+      ModelName      "Samsung S27E391"
+      HorizSync       30.0 - 81.0
+      VertRefresh     50.0 - 75.0
+      Option         "DPMS"
     '';
     screenSection = ''
-      Option "metamodes" "HDMI-0: nvidia-auto-select +1920+0, DVI-I-1: nvidia-auto-select +0+180, DVI-D-0: nvidia-auto-select +4480+180"
+      Option "metamodes" "HDMI-0: nvidia-auto-select +1920+0, DP-1: 1920x1080_75 +0+0"
       Option "SLI" "Off"
       Option "MultiGPU" "Off"
       Option "BaseMosaic" "off"
@@ -59,7 +62,6 @@
     '';
   };
 
-  # Storage
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/nixos";
@@ -75,22 +77,27 @@
       fsType = "ext4";
       options = [ "noatime" ];
     };
-    "/usr/drive" = {
-      device = "kiiro:/volume1/homes/hlissner/Drive";
-      fsType = "nfs";
-      options = [
-        "nofail" "noauto" "noatime" "x-systemd.automount" "x-systemd.idle-timeout=5min"
-        "nodev" "nosuid" "noexec"
-      ];
+    "/media/games" = {
+      device = "/dev/disk/by-uuid/8C1EE27F1EE261A6";
+      fsType = "ntfs";
+      options = [ "uid=1000" "gid=100" "rw" "user" "exec" "umask=000" ];
     };
-    "/usr/store" = {
-      device = "/dev/disk/by-label/store";
-      fsType = "ext4";
+    "/media/store" = {
+      device = "/dev/disk/by-label/Mimas";
+      fsType = "exfat";
       options = [
-        "noauto" "noatime" "x-systemd.automount" "x-systemd.idle-timeout=5min"
-        "nodev" "nosuid" "noexec"
+        "uid=1000" "gid=100" "rw" "user" "exec" "umask=000" "nofail"
       ];
     };
   };
-  swapDevices = [];
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap"; }
+  ];
+
+  # The global useDHCP flag is deprecated, therefore explicitly set to false
+  # here. Per-interface useDHCP will be mandatory in the future, so this
+  # generated config replicates the default behaviour.
+  networking.useDHCP = false;
+  networking.interfaces.enp42s0.useDHCP = true;
+  networking.interfaces.wlo1.useDHCP = true;
 }
