@@ -82,6 +82,10 @@
   programs.iotop.enable = true;
 
   systemd.enableCgroupAccounting = true;
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 
   services.prometheus = {
     enable = true;
@@ -178,30 +182,30 @@
         scrape_interval = "10s";
         static_configs = [{ targets = [ "192.168.86.34:4000" ]; }];
       }
-      {
-        job_name = "snmp";
-        scrape_interval = "10s";
-        static_configs = [
-          { targets = [ "192.168.86.46" ]; }
-          { targets = [ "192.168.86.189" ]; }
-        ];
-        metrics_path = "/snmp";
-        params.module = [ "synology" ];
-        relabel_configs = [
-          {
-            source_labels = [ "__address__" ];
-            target_label = "__param_target";
-          }
-          {
-            source_labels = [ "__param_target" ];
-            target_label = "instance";
-          }
-          {
-            target_label = "__address__";
-            replacement = "192.168.86.100:9116";
-          }
-        ];
-      }
+      # {
+      #   job_name = "snmp";
+      #   scrape_interval = "10s";
+      #   static_configs = [
+      #     { targets = [ "192.168.86.46" ]; }
+      #     { targets = [ "192.168.86.189" ]; }
+      #   ];
+      #   metrics_path = "/snmp";
+      #   params.module = [ "synology" ];
+      #   relabel_configs = [
+      #     {
+      #       source_labels = [ "__address__" ];
+      #       target_label = "__param_target";
+      #     }
+      #     {
+      #       source_labels = [ "__param_target" ];
+      #       target_label = "instance";
+      #     }
+      #     {
+      #       target_label = "__address__";
+      #       replacement = "192.168.86.100:9116";
+      #     }
+      #   ];
+      # }
     ];
     webExternalUrl = "http://prometheus.fooninja.org";
   };
@@ -347,12 +351,17 @@
         tls.certResolver = "letsencrypt";
       };
 
+      bot-host = {
+        rule = "Host(`bot.fooninja.org`)";
+        service = "bot";
+        tls.certResolver = "letsencrypt";
+      };
+
       bitwarden-wss = {
         rule = "Host(`bw.fooninja.org`) && PathPrefix(`/notifications/hub`)";
         service = "bitwarden-wss";
         tls.certResolver = "letsencrypt";
       };
-
     };
 
     http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto =
@@ -368,6 +377,8 @@
       [{ url = "http://localhost:9090"; }];
     http.services.bitwarden.loadBalancer.servers =
       [{ url = "http://localhost:8000"; }];
+    http.services.bot.loadBalancer.servers =
+      [{ url = "http://192.168.86.76:3000"; }];
     http.services.bitwarden-wss.loadBalancer.servers =
       [{ url = "http://localhost:8001"; }];
   };
