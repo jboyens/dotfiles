@@ -20,8 +20,8 @@
       "aesni_intel"
       "cryptd"
     ];
-    initrd.kernelModules = [ "i915" "nvidia" ];
-    blacklistedKernelModules = [ "nouveau" ];
+    initrd.kernelModules = [ "i915" "nouveau" ];
+    blacklistedKernelModules = [ ];
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
@@ -51,9 +51,9 @@
     # plymouth.enable = true;
   };
 
-  # nixpkgs.config.packageOverrides = pkgs: {
-  #   vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  # };
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
 
   hardware = {
     enableRedistributableFirmware = true;
@@ -61,9 +61,9 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [ (lib.hiPrio nvidia-vaapi-driver) ];
-      # extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver ];
-      # extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
+      # extraPackages = with pkgs; [ (lib.hiPrio nvidia-vaapi-driver) ];
+      extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
     };
     # pulseaudio.support32Bit = false;
     steam-hardware.enable = true;

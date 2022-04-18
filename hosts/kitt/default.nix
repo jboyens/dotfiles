@@ -62,7 +62,7 @@
       audio.enable = true;
       bluetooth.enable = true;
       ergodox.enable = true;
-      nvidia.enable = true;
+      nvidia.enable = false;
       sony-1000Xm3.enable = true;
       fs = {
         enable = true;
