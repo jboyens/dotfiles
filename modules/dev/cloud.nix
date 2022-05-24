@@ -36,6 +36,10 @@ in {
           unstable.kind
           unstable.kustomize
           my.go-jsonnet
+          hadolint
+          kube3d
+          my.tilt
+          stern
         ];
       };
 

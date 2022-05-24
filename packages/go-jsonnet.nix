@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "jsonnet";
-  version = "0.17.0";
+  version = "0.18.0";
   rev = "2f2f6d664f06d064c4b3525ea34a789c1ac95cda";
 
   src = fetchFromGitHub {

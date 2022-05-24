@@ -15,9 +15,9 @@ with pkgs;
   go-jsonnet = (callPackage ./go-jsonnet.nix { });
   hll2350dw-cups = (callPackage ./hll2350dw-cups.nix { });
   krew = (callPackage ./krew.nix { });
-  psst = (callPackage ./psst.nix { });
   remontoire = (callPackage ./remontoire.nix { });
   sony-headphones-client = (callPackage ./sony-headphones-client.nix { });
+  tilt = (callPackage ./tilt.nix {});
   trackma = (callPackage ./trackma.nix { });
   wl-clipboard-x11 = (callPackage ./wl-clipboard-x11.nix { });
 }

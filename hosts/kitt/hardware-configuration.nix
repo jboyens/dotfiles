@@ -23,6 +23,7 @@
     initrd.kernelModules = [ "i915" "nouveau" ];
     blacklistedKernelModules = [ ];
     kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_zen;
     extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
     kernelParams = [
@@ -32,7 +33,9 @@
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
       "i915.mitigations=off"
-      "i915.enable_guc=2"
+      "i915.enable_fbc=1"
+      "i915.enable_guc=3"
+      "i915.modeset=1"
       "mem_sleep_default=deep"
     ];
     extraModprobeConfig = ''

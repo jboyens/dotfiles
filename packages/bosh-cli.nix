@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "bosh-cli-${version}";
-  version = "6.4.17";
+  version = "7.0.0";
 
   goPackagePath = "github.com/cloudfoundry/bosh-cli";
 
@@ -10,7 +10,7 @@ buildGoPackage rec {
     owner = "cloudfoundry";
     repo = "bosh-cli";
     rev = "v${version}";
-    sha256 = "sha256-oVL7tBtdFJt6ktctSZiNZMd6g1LEWQ/Hra4rcGM6BnQ=";
+    sha256 = "sha256-GqU5NK/6adAOqHqhdugk+025sUm6GH2VY94uELDbiiA=";
   };
 
   meta = with lib; {

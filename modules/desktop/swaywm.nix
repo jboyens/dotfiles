@@ -10,7 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+    # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 
     # assumes user id of 1000
     # modules.theme.onReload.swaywm = ''

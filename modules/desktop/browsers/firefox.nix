@@ -47,6 +47,7 @@ in {
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
       env.XDG_DESKTOP_DIR = "$HOME/";
 
+
       modules.desktop.browsers.firefox.settings = {
         # Default to dark theme in DevTools panel
         "devtools.theme" = "dark";
@@ -223,8 +224,11 @@ in {
         recursive = true;
       };
 
+
       # Use a stable profile name so we can target it in themes
       home.file = let cfgPath = ".mozilla/firefox"; in {
+        ".mozilla/native-messaging-hosts/tridactyl.json".source = "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
+
         "${cfgPath}/profiles.ini".text = ''
           [Profile0]
           Name=default

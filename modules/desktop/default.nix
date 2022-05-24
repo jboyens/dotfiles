@@ -28,7 +28,8 @@ in {
       # xclip
       # xdotool
       # xorg.xwininfo
-      my.ydotool
+      # my.ydotool
+      unstable.ydotool
       libqalculate  # calculator cli w/ currency conversion
       (makeDesktopItem {
         name = "scratch-calc";
@@ -38,6 +39,8 @@ in {
         categories = ["Development"];
       })
       xfce.thunar
+      xfce.thunar-volman
+      xfce.tumbler
       qgnomeplatform        # QPlatformTheme for a better Qt application inclusion in GNOME
       libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
       xdg_utils

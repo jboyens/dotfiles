@@ -8,10 +8,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.editors.emacs;
     configDir = config.dotfiles.configDir;
-    # myEmacs = pkgs.emacs;
-    myEmacs = pkgs.emacsPgtkGcc;
-    # myEmacs = pkgs.emacsPgtk;
-    # myEmacs = pkgs.emacsGcc;
+    myEmacs = pkgs.emacsPgtkNativeComp;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -22,8 +19,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
-
     user.packages = with pkgs; [
       ## Emacs itself
       binutils       # native-comp needs 'as', provided by this
@@ -55,7 +50,7 @@ in {
       # :tools lookup & :lang org +roam
       sqlite
       # :lang latex & :lang org (latex previews)
-      texlive.combined.scheme-medium
+      texlive.combined.scheme-full
       # :lang beancount
       beancount
       # fava

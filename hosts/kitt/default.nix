@@ -1,4 +1,4 @@
-{ pkgs, stdenv, lib, ... }:
+{ pkgs, stdenv, lib, inputs, ... }:
 {
   imports = [ ../home.nix ./hardware-configuration.nix ];
 
@@ -134,6 +134,10 @@
   # generated config replicates the default behaviour.
   networking.useDHCP = false;
 
+  # Strict reverse path filtering breaks Tailscale exit node use and some subnet
+  # routing setups.
+  networking.firewall.checkReversePath = "loose";
+
   services.lorri.enable = true;
   services.blueman.enable = true;
   services.fwupd.enable = true;
@@ -150,7 +154,8 @@
   powerManagement.enable = true;
   # powerManagement.powertop.enable = true;
 
-  services.ananicy.enable = false;
+  # services.ananicy.enable = true;
+  # services.ananicy.package = pkgs.ananicy-cpp;
 
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;

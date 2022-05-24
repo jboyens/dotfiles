@@ -10,8 +10,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      maestral
-      maestral-gui
+      unstable.maestral
+      unstable.maestral-gui
     ];
 
     home-manager.users.${config.user.name}.systemd.user.services."maestral-daemon@maestral" = {

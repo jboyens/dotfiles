@@ -18,6 +18,7 @@ in {
 
     env.DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
     env.MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
+    env.DOCKER_BUILDKIT = "1";
 
     user.extraGroups = [ "docker" ];
 

@@ -24,6 +24,7 @@
 
       # Extras
       emacs-overlay.url  = "github:nix-community/emacs-overlay";
+      emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
       nixos-hardware.url = "github:nixos/nixos-hardware";
       nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
       nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +35,7 @@
       jboyens.url = "github:jboyens/nixpkgs?rev=39c8f7fb882f642cbf11429f5dff210e08f6b205";
     };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixgl, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
 
@@ -45,7 +46,12 @@
         config.allowUnfree = true;  # forgive me Stallman senpai
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
-      pkgs  = mkPkgs nixpkgs [ self.overlay ];
+      pkgs  = mkPkgs nixpkgs [
+        self.overlay
+        inputs.emacs-overlay.overlay
+        inputs.nixpkgs-wayland.overlay
+        inputs.nixgl.overlay
+      ];
       pkgs' = mkPkgs nixpkgs-unstable [];
 
       lib = nixpkgs.lib.extend
@@ -60,7 +66,7 @@
         };
 
       overlays =
-        (mapModules ./overlays import) // { nixgl = nixgl.overlay; };
+        (mapModules ./overlays import);
 
       packages."${system}" =
         mapModules ./packages (p: pkgs.callPackage p {});

@@ -1,6 +1,6 @@
 # modules/desktop/term/foot.nix
 
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -13,6 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+
     # xst-256color isn't supported over ssh, so revert to a known one
     modules.shell.zsh.rcInit = ''
       [ "$TERM" = foot ] && export TERM=xterm-256color
@@ -20,6 +22,7 @@ in {
 
     home-manager.users.${config.user.name}.programs = {
       foot.enable = true;
+	  foot.package = pkgs.foot;
       foot.settings = {
         main = {
           font="Iosevka Term";
@@ -39,12 +42,12 @@ in {
           regular6 = "${colorscheme.colors.base0C}";
           regular7 = "${colorscheme.colors.base05}";
           bright0 = "${colorscheme.colors.base03}";
-          bright1 = "${colorscheme.colors.base09}";
-          bright2 = "${colorscheme.colors.base01}";
-          bright3 = "${colorscheme.colors.base02}";
-          bright4 = "${colorscheme.colors.base04}";
-          bright5 = "${colorscheme.colors.base06}";
-          bright6 = "${colorscheme.colors.base0F}";
+          bright1 = "${colorscheme.colors.base08}";
+          bright2 = "${colorscheme.colors.base0B}";
+          bright3 = "${colorscheme.colors.base0A}";
+          bright4 = "${colorscheme.colors.base0D}";
+          bright5 = "${colorscheme.colors.base0E}";
+          bright6 = "${colorscheme.colors.base0C}";
           bright7 = "${colorscheme.colors.base07}";
         };
         key-bindings = {
@@ -56,7 +59,7 @@ in {
 
 
     user.packages = with pkgs; [
-      unstable.foot
+      foot
     ];
   };
 }

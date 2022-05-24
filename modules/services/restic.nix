@@ -2,7 +2,10 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.restic;
+let
+  cfg = config.modules.services.restic;
+  # baseRepo = "sftp://jboyens@192.168.86.34:2223//backup";
+  baseRepo = "rest:http://192.168.86.34:8899";
 in {
   options.modules.services.restic = {
     enable = mkBoolOpt false;
@@ -47,7 +50,7 @@ in {
         Workspace = {
           user = config.user.name;
           paths = cfg.backups.workspace.paths;
-          repository = "rest:http://192.168.86.34:8899/Workspace-restic";
+          repository = "${baseRepo}/Workspace-restic";
           pruneOpts = cfg.pruneOpts;
           extraBackupArgs = [
             "-e /home/jboyens/Workspace/shyft_api_server/log"
@@ -63,7 +66,7 @@ in {
         Mail = {
           user = config.user.name;
           paths = cfg.backups.mail.paths;
-          repository = "rest:http://192.168.86.34:8899/Mail-restic";
+          repository = "${baseRepo}/Mail-restic";
           pruneOpts = cfg.pruneOpts;
           timerConfig = { OnCalendar = "hourly"; };
           passwordFile = "/home/jboyens/.secrets/backup.secret";
@@ -73,7 +76,7 @@ in {
         Home = {
           user = config.user.name;
           paths = cfg.backups.home.paths;
-          repository = "rest:http://192.168.86.34:8899/home-restic";
+          repository = "${baseRepo}/home-restic";
           pruneOpts = cfg.pruneOpts;
           extraBackupArgs =
             [ "--exclude-file /home/jboyens/restic-exclude.txt" "-x" ];
@@ -82,5 +85,9 @@ in {
         };
       })
     ];
+
+    systemd.services.restic-backups-Home.serviceConfig.CPUQuota="200%";
+    systemd.services.restic-backups-Mail.serviceConfig.CPUQuota="200%";
+    systemd.services.restic-backups-Workspace.serviceConfig.CPUQuota="200%";
   };
 }

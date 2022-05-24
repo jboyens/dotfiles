@@ -33,8 +33,8 @@ fixamo_quiet
 set newtab about:blank
 
 " Only hint search results on DDG
-bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
-bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
+bindurl ^https://duckduckgo.com f hint -Jc[class=result__a]
+bindurl ^https://duckduckgo.com F hint -Jbc[class=result__a]
 
 " Allow Ctrl-a to select all in the commandline
 unbind --mode=ex <C-a>
