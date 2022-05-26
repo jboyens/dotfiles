@@ -104,8 +104,6 @@
             name = "jr-phone";
             pushover_configs = [
               {
-                user_key = "u1f15wxfacc56bms9f7kkxux1cn3w8";
-                token = "a6c5w7scjicp9nzft4ksyfhz8u1c9r";
               }
             ];
           }
