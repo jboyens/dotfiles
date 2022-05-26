@@ -40,6 +40,7 @@ in {
           kube3d
           my.tilt
           stern
+          my.sloth
         ];
       };
 
