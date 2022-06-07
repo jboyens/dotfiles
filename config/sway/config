@@ -168,6 +168,9 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     ## Org Capture // Note // <Super><Control>n ##
     bindsym $super+$control+n exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k n
 
+    ## Emacs // Mail // <Super>m ##
+    bindsym $super+m exec emacsclient -ne '(=mu4e)' && $DOTFILES/bin/activate emacs
+
     ## Navigate // Activate Emacs // <Hyper>e ##
     bindsym $hyper+e exec $DOTFILES/bin/activate emacs
 
@@ -418,5 +421,5 @@ include ~/.config/sway/rc.d/*
 
 exec_always xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 exec_always "$XDG_CONFIG_HOME"/dotfiles/bin/laptop.sh
-exec_always systemctl --user restart kanshi
+# exec_always systemctl --user restart kanshi
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"

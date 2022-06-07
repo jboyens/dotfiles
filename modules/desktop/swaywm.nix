@@ -53,6 +53,7 @@ in {
       # foot
       my.remontoire
       # my.swaycons
+      swayr
     ];
 
     services = {
@@ -167,6 +168,18 @@ in {
         Restart = "always";
       };
       path = with pkgs; [ procps ];
+    };
+
+    systemd.user.services.swayrd = {
+      description = "swayrd";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.swayr}/bin/swayrd";
+        RestartSec = 5;
+        Restart = "always";
+      };
+      path = with pkgs; [ wofi ];
     };
 
     # systemd.user.services.swaycons = {

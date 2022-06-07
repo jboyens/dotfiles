@@ -71,9 +71,9 @@ module Hey
   end
   def self.rebuild(*args, sudo: false)
     sh ["nixos-rebuild",
-        "--flake", "#{@@opts[:flake]}##{@@opts[:host]}",
-        "--option", "pure-eval", "no",
-        *args], sudo: sudo
+       "--flake", "#{@@opts[:flake]}##{@@opts[:host]}",
+       "--impure",
+       *args], sudo: sudo
   end
 
   #
