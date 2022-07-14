@@ -80,9 +80,9 @@ in {
             Documentation="man:mbsync(1)";
           };
 
-          Install = {
-            WantedBy = [ "default.target" ];
-          };
+          # Install = {
+          #   WantedBy = [ "default.target" ];
+          # };
 
           Service = {
             Type = "oneshot";

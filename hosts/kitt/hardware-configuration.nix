@@ -21,10 +21,10 @@
       "cryptd"
     ];
     initrd.kernelModules = [ "i915" "nouveau" ];
-    blacklistedKernelModules = [ ];
+    blacklistedKernelModules = [ "iTCO_wdt" ];
     kernelPackages = pkgs.linuxPackages_latest;
     # kernelPackages = pkgs.linuxPackages_zen;
-    extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
+    extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback acpi_call ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -33,10 +33,11 @@
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
       "i915.mitigations=off"
-      "i915.enable_fbc=1"
+      "i915.enable_fbc=0"
       "i915.enable_guc=3"
       "i915.modeset=1"
       "mem_sleep_default=deep"
+      "nmi_watchdog=0"
     ];
     extraModprobeConfig = ''
       options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"

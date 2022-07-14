@@ -157,10 +157,7 @@ in {
                 ./config/inkscape/default-template.svg;
             })
             (mkIf desktop.term.alacritty.enable {
-              "alacritty" = {
-                source = ./config/alacritty;
-                recursive = true;
-              };
+              "alacritty/theme.yml".source = ./config/alacritty/theme.yml;
             })
             (mkIf desktop.browsers.qutebrowser.enable {
               "qutebrowser/extra/theme.py".source =

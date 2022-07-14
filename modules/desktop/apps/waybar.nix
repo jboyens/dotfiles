@@ -85,7 +85,6 @@ in {
             format-ethernet = "";
             format-disconnected = "⚠  Disconnected";
             tooltip-format = "{ifname}: {essid} - {ipaddr}";
-            on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
           };
 
           "sway/mode" = {

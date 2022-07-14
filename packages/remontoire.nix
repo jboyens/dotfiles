@@ -20,13 +20,13 @@
 
 stdenv.mkDerivation rec {
   pname = "remontoire";
-  version = "1.4.0";
+  version = "r2_0";
 
   src = fetchFromGitHub {
     owner = "regolith-linux";
     repo = "remontoire";
     rev = version;
-    sha256 = "sha256-pDubp9f11mj4JzrvdjNo8nt/oUd0iH/FEsVlR9tNgps=";
+    sha256 = "sha256-MiR/p2pD4Jcm6gCIybCGed6Qwcq2dylU02N3CANicvo=";
   };
 
   nativeBuildInputs = [

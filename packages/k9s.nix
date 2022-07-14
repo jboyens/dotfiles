@@ -2,23 +2,23 @@
 
 buildGoModule rec {
   pname = "k9s";
-  version = "b24759e6fecb14ecdba10a0288115c3a60e9c9ad";
+  version = "0.25.21";
 
   src = fetchFromGitHub {
     owner = "derailed";
     repo = "k9s";
-    rev = version;
-    sha256 = "sha256-0/QWNoBUFLUL6elNs9/foUh51+hhB/sIHQ1ztBIfa9c=";
+    rev = "v${version}";
+    sha256 = "sha256-ziIMTMK6G8vXje6GWPvcIWmlubq75XVrJUzZlA+R0Rc=";
   };
 
-  vendorSha256 = "sha256-mMob7M9RQlqaVK0DgHpaAK9d1btzfQetnliUqFTvjJQ=";
+  vendorSha256 = "sha256-wL8Unht/ZRAGDuC/U4SFV5PdExy78F4DMyM8+7CMtOY=";
 
   doCheck = false;
 
   meta = with lib; {
-    description = "Krew is the package manager for kubectl plugins";
+    description = "Kubernetes CLI To Manage Your Clusters In Style";
 
-    homepage = https://github.com/kubernetes-sigs/krew;
+    homepage = https://github.com/derailed/k9s;
     license = licenses.asl20;
     maintainers = [ maintainers.jboyens ];
     platforms = platforms.unix;

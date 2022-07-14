@@ -110,11 +110,12 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     # bindsym $super+Space exec $DOTFILES/base/arch-desktop/bin/kitty-app-launcher
     # bindsym $super+Space exec $DOTFILES/bin/rofi/appmenu
     ## Launch // Application // <Super> Space ##
-    bindsym $super+Space exec wofi -c ~/.config/wofi/config -s ~/.config/wofi/styles.css
+    # bindsym $super+Space exec wofi -c ~/.config/wofi/config -s ~/.config/wofi/styles.css
+    bindsym $super+Space exec $DOTFILES/bin/appmenu
 
     ## Navigate // Window by Name // <Super> Tab ##
     # bindsym $super+Tab exec $DOTFILES/bin/rofi/windowmenu
-    bindsym $super+Tab exec $DOTFILES/bin/rofi/windowmenu
+    bindsym $super+Tab exec swayr switch-window
 
     # Drag floating windows by holding down $super and left mouse button.
     # Resize them with right mouse button + $super.
@@ -251,16 +252,16 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     bindsym $super+0 workspace number 10
     # Move focused container to workspace
     ## Modify // Move Window to Workspace 1-10 // <Super><Shift> 1..0 ##
-    bindsym $super+$shift+1 move container to workspace 1
-    bindsym $super+$shift+2 move container to workspace 2
-    bindsym $super+$shift+3 move container to workspace 3
-    bindsym $super+$shift+4 move container to workspace 4
-    bindsym $super+$shift+5 move container to workspace 5
-    bindsym $super+$shift+6 move container to workspace 6
-    bindsym $super+$shift+7 move container to workspace 7
-    bindsym $super+$shift+8 move container to workspace 8
-    bindsym $super+$shift+9 move container to workspace 9
-    bindsym $super+$shift+0 move container to workspace 10
+    bindsym $super+$shift+1 move window to workspace number 1
+    bindsym $super+$shift+2 move window to workspace number 2
+    bindsym $super+$shift+3 move window to workspace number 3
+    bindsym $super+$shift+4 move window to workspace number 4
+    bindsym $super+$shift+5 move window to workspace number 5
+    bindsym $super+$shift+6 move window to workspace number 6
+    bindsym $super+$shift+7 move window to workspace number 7
+    bindsym $super+$shift+8 move window to workspace number 8
+    bindsym $super+$shift+9 move window to workspace number 9
+    bindsym $super+$shift+0 move window to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 
@@ -421,5 +422,5 @@ include ~/.config/sway/rc.d/*
 
 exec_always xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 exec_always "$XDG_CONFIG_HOME"/dotfiles/bin/laptop.sh
-# exec_always systemctl --user restart kanshi
+exec_always systemctl --user restart kanshi
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"

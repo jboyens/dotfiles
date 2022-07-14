@@ -123,9 +123,28 @@
     enabledCollectors = [ "systemd" ];
   };
 
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.powersave = false;
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.enable = true;
+  # networking.networkmanager.wifi.powersave = false;
+  # networking.networkmanager.wifi.backend = "iwd";
+
+  networking.useNetworkd = true;
+
+  systemd.network.networks = let
+    networkConfig = {
+      DHCP = "yes";
+      Domains = "fooninja.org";
+    };
+  in {
+    "40-wireless" = {
+      enable = true;
+      name = "wl*";
+      inherit networkConfig;
+    };
+  };
+
+  systemd.network.wait-online.extraArgs = [ "--any" ];
+
+  networking.wireless.iwd.enable = true;
 
   networking.domain = "fooninja.org";
 
@@ -138,7 +157,7 @@
   # routing setups.
   networking.firewall.checkReversePath = "loose";
 
-  services.lorri.enable = true;
+  services.lorri.enable = false;
   services.blueman.enable = true;
   services.fwupd.enable = true;
   services.pipewire.enable = true;
@@ -154,8 +173,8 @@
   powerManagement.enable = true;
   # powerManagement.powertop.enable = true;
 
-  # services.ananicy.enable = true;
-  # services.ananicy.package = pkgs.ananicy-cpp;
+  services.ananicy.enable = true;
+  services.ananicy.package = pkgs.ananicy-cpp;
 
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;

@@ -23,11 +23,11 @@ let
   };
 in buildPythonApplication rec {
   pname   = "anime-downloader";
-  version = "5.0.7";
+  version = "5.0.9";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "BP4Wf2efU1RUk6I+82rFcvEdxDSKonTOIZjm3B0x7Eg=";
+    sha256 = "sha256-QOre2VCKMPNZk7L8D0NsNX2ZOdWGJaEL1ZW/wRgW6tQ=";
   };
 
   propagatedBuildInputs = [

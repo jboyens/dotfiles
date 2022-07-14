@@ -9,6 +9,7 @@ with lib.my; {
       dir = mkOpt path
         (removePrefix "/mnt"
           (findFirst pathExists (toString ../.) [
+            "/home/jboyens/.config/dotfiles"
             "/mnt/etc/dotfiles"
             "/etc/dotfiles"
           ]));

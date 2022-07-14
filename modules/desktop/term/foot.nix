@@ -16,9 +16,9 @@ in {
     # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 
     # xst-256color isn't supported over ssh, so revert to a known one
-    modules.shell.zsh.rcInit = ''
-      [ "$TERM" = foot ] && export TERM=xterm-256color
-    '';
+    # modules.shell.zsh.rcInit = ''
+    #   [ "$TERM" = foot ] && export TERM=xterm-256color
+    # '';
 
     home-manager.users.${config.user.name}.programs = {
       foot.enable = true;

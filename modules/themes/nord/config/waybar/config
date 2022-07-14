@@ -33,7 +33,8 @@
       "tooltip": false
     },
     "cpu": {
-      "format": "  {usage}% ({load})",
+      "format": " {usage}% ({load})",
+      "format-icons": [ "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
       "interval": 5,
       "states": {
         "critical": 90,
@@ -57,7 +58,7 @@
     },
     "layer": "top",
     "memory": {
-      "format": "  {percentage}% S: {swapPercentage}%",
+      "format": " {}%",
       "interval": 5,
       "states": {
         "critical": 90,
@@ -83,14 +84,14 @@
     "network": {
       "format-disconnected": "⚠  Disconnected",
       "format-ethernet": "",
-      "format-wifi": "  ({signalStrength}%)",
+      "format-wifi": " ({signalStrength}%)",
       "interval": 5,
-      "on-click": "/nix/store/my52nlcivh3jb9xghh0hwn8p8lk4qz9z-network-manager-applet-1.26.0/bin/nm-connection-editor",
+      "on-click": "/nix/store/64a2kx5ja7yh1vb74m60vk8jfvvjqxsa-network-manager-applet-1.28.0/bin/nm-connection-editor",
       "tooltip-format": "{ifname}: {essid} - {ipaddr}"
     },
     "position": "bottom",
     "pulseaudio": {
-      "format": "{icon}  {volume}%",
+      "format": "{icon} {volume}%",
       "format-bluetooth": "{icon}  {volume}%",
       "format-icons": {
         "car": "",
@@ -105,7 +106,7 @@
         "portable": ""
       },
       "format-muted": "",
-      "on-click": "/nix/store/29p8sh8i3ss18vw8lbxfqs9540617xv2-pavucontrol-5.0/bin/pavucontrol"
+      "on-click": "/nix/store/9bs1pjm26s47ygxwf2xdpknav3k65wvh-pavucontrol-5.0/bin/pavucontrol"
     },
     "sway/mode": {
       "format": "<span style=\"italic\">  {}</span>",
@@ -118,31 +119,7 @@
     "sway/workspaces": {
       "all-outputs": false,
       "disable-scroll": true,
-      "format": "{name}",
-      "format-icons": {
-        "1:www": "龜",
-        "2:mail": "",
-        "3:editor": "",
-        "4:terminals": "",
-        "5:portal": "",
-        "default": "",
-        "focused": "",
-        "urgent": ""
-      },
-      "persistent_workspaces": {
-        "1": [
-          "DP-5"
-        ],
-        "2": [
-          "DP-3"
-        ],
-        "3": [
-          "eDP-1"
-        ],
-        "4": [],
-        "5": [],
-        "6": []
-      }
+      "format": "{icon}"
     },
     "temperature": {
       "critical-threshold": 80,
@@ -158,7 +135,7 @@
       "tooltip": true
     },
     "tray": {
-      "icon-size": 21,
+      "icon-size": 24,
       "spacing": 10
     }
   }

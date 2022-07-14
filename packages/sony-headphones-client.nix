@@ -2,7 +2,7 @@
 
 let
   pname = "sony-headphones-client";
-  version = "1.2";
+  version = "1.3.1";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
@@ -17,7 +17,7 @@ in stdenv.mkDerivation rec {
     owner = "Plutoberth";
     repo = "SonyHeadphonesClient";
     rev = "v${version}";
-    sha256 = "gQ3p3Be0A2I7HzW9h7nw2eBiv+6dNJbMyYbAl1mTrjU=";
+    sha256 = "sha256-flEEHWx94gQrdsPZMvGJUUUpIN3KahJGp2oxIPVncoY=";
   };
 
   sourceRoot = "source/Client/";
