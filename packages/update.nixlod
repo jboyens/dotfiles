@@ -27,8 +27,11 @@ with pkgs;
   sony-headphones-client = (callPackage ./sony-headphones-client.nix { });
   sov = (callPackage ./sov.nix { });
   starsector = (callPackage ./starsector.nix { });
+  swaycons = (callPackage ./swaycons {  });
   testkube = (callPackage ./testkube.nix {});
+  thermald = (callPackage ./thermald {});
   tilt = (callPackage ./tilt.nix {});
   trackma = (callPackage ./trackma.nix { });
   wl-clipboard-x11 = (callPackage ./wl-clipboard-x11.nix { });
+  ydotool = (callPackage ./ydotool { });
 }

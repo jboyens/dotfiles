@@ -41,6 +41,7 @@ in {
           my.tilt
           stern
           my.sloth
+          my.google-cloud-sdk-gke-gcloud-auth-plugin
         ];
       };
 

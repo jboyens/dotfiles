@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "testkube";
-  version = "1.3.0";
+  version = "1.3.17";
 
   src = fetchFromGitHub {
     owner = "kubeshop";
     repo = "testkube";
     rev = "v${version}";
-    sha256 = "sha256-VZKk8ed3042HkJxYPw10t5LEPoU1g8+YEet6pf1+qF0=";
+    sha256 = "sha256-67hFQlWZfmfvHEU5CklgbJl3Pb9YnHhAfMCiY+qhWLo=";
   };
 
-  vendorSha256 = "sha256-HB7DSJYjQo7uOW6zd/WKulPb1VX0dj+3/peMKAnzkRU=";
+  vendorSha256 = "sha256-tekCASZ79vS1CHiNR2xH1iNpRFx98hcJi2PVMJnpwYw=";
 
   meta = with lib; {
     description = "Kubernetes-native framework for test definition and execution";

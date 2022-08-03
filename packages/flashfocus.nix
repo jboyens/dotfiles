@@ -2,11 +2,11 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "flashfocus";
-  version = "2.2.4";
+  version = "2.2.5";
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "sha256-uEbXXy2/ejbzp1vZj0WXDH3dvk/1q7b9pV9zb9DmY7s=";
+    sha256 = "sha256-vyo0p2V+RFsLrua30FR8a5FSYlMZRXyRSRbLlkE9ogQ=";
   };
 
   click_7_x = python3.pkgs.buildPythonPackage rec {
