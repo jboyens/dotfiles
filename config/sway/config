@@ -422,5 +422,5 @@ include ~/.config/sway/rc.d/*
 
 exec_always xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 exec_always "$XDG_CONFIG_HOME"/dotfiles/bin/laptop.sh
-exec_always systemctl --user restart kanshi
-exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+# exec_always systemctl --user restart kanshi
+exec "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP; systemctl --user start graphical-session.target"

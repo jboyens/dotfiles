@@ -199,9 +199,19 @@
   programs.iotop.enable = true;
   programs.dconf.enable = true;
 
+  gtk.iconCache.enable = true;
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    wlr.settings = {
+      screencast = {
+        output_name = "DP-4";
+        max_fps = 30;
+        chooser_type = "simple";
+        chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+      };
+    };
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk

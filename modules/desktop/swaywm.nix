@@ -2,62 +2,22 @@
 
 with lib;
 with lib.my;
-let
-  cfg = config.modules.desktop.swaywm;
+let cfg = config.modules.desktop.swaywm;
 in {
-  options.modules.desktop.swaywm = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.desktop.swaywm = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 
     # assumes user id of 1000
-    # modules.theme.onReload.swaywm = ''
-    #   ${pkgs.sway}/bin/swaymsg reload
-    # '';
+    modules.theme.onReload.swaywm = ''
+      swaySocket="''${XDG_RUNTIME_DIR:-/run/user/$UID}/sway-ipc.$UID.$(${pkgs.procps}/bin/pgrep --uid $UID -x sway || true).sock"
+      if [ -S "$swaySocket" ]; then
+        ${pkgs.sway}/bin/swaymsg -s $swaySocket reload
+      fi
+    '';
 
-    environment.systemPackages = with pkgs; [
-      swaylock
-      swaybg
-      # waybar
-      # (wofi.override { wayland = _wayland_newer; })
-      wofi
-      mako
-      kanshi
-      wob
-      qt5.qtwayland
-      grim
-      slurp
-      sway-contrib.grimshot
-      xdg-desktop-portal-wlr
-      gtk-layer-shell
-      wl-clipboard
-      autotiling
-      # wlay
-      wlr-randr
-      brightnessctl
-      wev
-      polkit_gnome
-      gtk-engine-murrine
-      gtk_engines
-      gsettings-desktop-schemas
-      gnome3.adwaita-icon-theme
-      hicolor-icon-theme
-      my.flashfocus
-      polkit_gnome
-      # i3status-rust
-      gammastep
-      wayvnc
-      # wlvncc
-      playerctl
-      # foot
-      my.remontoire
-      # my.swaycons
-      swayr
-      fuzzel
-      sirula
-    ];
+    environment.systemPackages = with pkgs; [ ];
 
     services = {
       # redshift.enable = true;
@@ -91,84 +51,93 @@ in {
         gtk = true;
         base = true;
       };
-    };
-    systemd.user.targets.sway-session = {
-      description = "Sway compositor session";
-      documentation = [ "man:systemd.special(7)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
+
+      extraPackages = with pkgs; [
+        swaylock
+        swayidle
+        swaybg
+        # waybar
+        # (wofi.override { wayland = _wayland_newer; })
+        wofi
+        mako
+        kanshi
+        wob
+        qt5.qtwayland
+        grim
+        slurp
+        sway-contrib.grimshot
+        xdg-desktop-portal-wlr
+        gtk-layer-shell
+        wl-clipboard
+        autotiling
+        # wlay
+        wlr-randr
+        brightnessctl
+        wev
+        polkit_gnome
+        gtk-engine-murrine
+        gtk_engines
+        gsettings-desktop-schemas
+        gnome3.adwaita-icon-theme
+        hicolor-icon-theme
+        my.flashfocus
+        polkit_gnome
+        # i3status-rust
+        gammastep
+        wayvnc
+        # wlvncc
+        playerctl
+        # foot
+        my.remontoire
+        # my.swaycons
+        swayr
+        fuzzel
+        sirula
+      ];
     };
 
-    # 2020/12/18 - DISABLED as it breaks window movement
-    # See:
-    #   https://github.com/nwg-piotr/autotiling/issues/19
-    #   https://github.com/swaywm/sway/pull/5756
-    # 2021/03/16 - ENABLED as a test
+    programs.waybar.enable = true;
+
     systemd.user.services.autotiling = {
       description = "Sway autotiling";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.autotiling}/bin/autotiling";
-        RestartSec = 5;
-        Restart = "always";
-      };
+      script = "${pkgs.autotiling}/bin/autotiling";
     };
 
     systemd.user.services.gammastep = {
       description = "Screen color temperature manager";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.gammastep}/bin/gammastep -l 47.553341:-122.370537";
-        RestartSec = 5;
-        Restart = "always";
-      };
+      script = "${pkgs.gammastep}/bin/gammastep -l 47.553341:-122.370537";
     };
 
     systemd.user.services.mako = {
       description = "Mako notifications";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.mako}/bin/mako";
-        RestartSec = 5;
-        Restart = "always";
-      };
+      script = "${pkgs.mako}/bin/mako";
     };
 
     systemd.user.services.kanshi = {
       description = "Kanshi display configuration";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.kanshi}/bin/kanshi";
-        RestartSec = 5;
-        Restart = "always";
-      };
+      script = "${pkgs.kanshi}/bin/kanshi";
     };
 
     systemd.user.services.mpris-proxy = {
       description = "mpris-proxy";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
-        RestartSec = 5;
-        Restart = "always";
-      };
+      script = "${pkgs.bluez}/bin/mpris-proxy";
     };
 
     systemd.user.services.flashfocus = {
       description = "flashfocus";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.my.flashfocus}/bin/flashfocus";
-        RestartSec = 5;
-        Restart = "always";
-      };
+      script = "${pkgs.my.flashfocus}/bin/flashfocus";
       path = with pkgs; [ procps ];
     };
 
@@ -176,34 +145,8 @@ in {
       description = "swayrd";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.swayr}/bin/swayrd";
-        RestartSec = 5;
-        Restart = "always";
-      };
+      script = "${pkgs.swayr}/bin/swayrd";
       path = with pkgs; [ wofi ];
-    };
-
-    # systemd.user.services.swaycons = {
-    #   description = "swaycons";
-    #   wantedBy = [ "graphical-session.target" ];
-    #   partOf = [ "graphical-session.target" ];
-    #   serviceConfig = {
-    #     ExecStart = "${pkgs.my.swaycons}/bin/swaycons";
-    #     RestartSec = 5;
-    #     Restart = "always";
-    #   };
-    # };
-
-    systemd.user.services.waybar = {
-      description = "waybar";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.waybar}/bin/waybar";
-        RestartSec = 5;
-        Restart = "always";
-      };
     };
 
     # link recursively so other modules can link files in their folders

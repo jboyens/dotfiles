@@ -20,8 +20,8 @@
       "aesni_intel"
       "cryptd"
     ];
-    initrd.kernelModules = [ "i915" "nouveau" ];
-    blacklistedKernelModules = [ "iTCO_wdt" ];
+    initrd.kernelModules = [ "i915" ];
+    blacklistedKernelModules = [ "iTCO_wdt" "nouveau" ];
     kernelPackages = pkgs.linuxPackages_latest;
     # kernelPackages = pkgs.linuxPackages_zen;
     extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback acpi_call ];

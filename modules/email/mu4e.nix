@@ -25,7 +25,7 @@ in {
     ];
 
     home-manager.users.${config.user.name}.systemd.user = {
-      startServices = "sd-switch";
+      startServices = "suggest";
       services = {
         "goimapnotify@flexe" = {
           Unit = {
