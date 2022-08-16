@@ -34,7 +34,7 @@ in {
           unstable.open-policy-agent
           istioctl
           unstable.kind
-          unstable.kustomize
+          my.kustomize
           my.go-jsonnet
           hadolint
           kube3d

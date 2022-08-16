@@ -4,13 +4,13 @@
 , mesa }:
 
 let
-  version = "5.8.0";
+  version = "5.8.1";
 in stdenv.mkDerivation {
   pname = "ferdi";
   inherit version;
   src = fetchurl {
     url = "https://github.com/getferdi/ferdi/releases/download/v${version}/ferdi_${version}_amd64.deb";
-    sha256 = "sha256-Dd/iH9dtr4WvM++bSURF8kI6BsF6uBiSFviC/ik2H+o=";
+    sha256 = lib.fakeHash;
   };
 
   # don't remove runtime deps

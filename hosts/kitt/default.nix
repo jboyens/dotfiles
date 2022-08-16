@@ -10,6 +10,7 @@
       i3.enable = false;
       apps = {
         bitwarden.enable = true;
+        ferdium.enable = true;
         slack.enable = true;
         zoom.enable = true;
         maestral.enable = true;
