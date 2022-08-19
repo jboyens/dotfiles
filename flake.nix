@@ -14,21 +14,24 @@
     {
       # Core dependencies.
       nixpkgs.url = "nixpkgs/nixos-unstable";     # primary nixpkgs
-      # nixpkgs.url = "nixpkgs/nixpkgs-unstable";     # primary nixpkgs
-      # nixpkgs.url = "nixpkgs/master";     # primary nixpkgs
       nixpkgs-unstable.url = "nixpkgs/master";    # for packages on the edge
+
       home-manager.url = "github:nix-community/home-manager/master";
       home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
       agenix.url = "github:ryantm/agenix";
       agenix.inputs.nixpkgs.follows = "nixpkgs";
 
       # Extras
       emacs-overlay.url  = "github:nix-community/emacs-overlay";
       emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
       nixos-hardware.url = "github:nixos/nixos-hardware";
+
       nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
       nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
       nixpkgs-wayland.inputs.master.follows = "master";
+
       nix-colors.url = "github:misterio77/nix-colors";
       nixgl.url = "github:guibou/nixGL";
 
@@ -50,9 +53,12 @@
         self.overlay
         inputs.emacs-overlay.overlay
         inputs.nixpkgs-wayland.overlay
-        inputs.nixgl.overlay
       ];
-      pkgs' = mkPkgs nixpkgs-unstable [];
+      pkgs' = mkPkgs nixpkgs-unstable [
+        self.overlay
+        inputs.emacs-overlay.overlay
+        inputs.nixpkgs-wayland.overlay
+      ];
 
       lib = nixpkgs.lib.extend
         (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });

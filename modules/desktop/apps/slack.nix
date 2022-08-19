@@ -11,6 +11,14 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       slack
+      (makeDesktopItem {
+        name = "slack-wayland";
+        desktopName = "Slack (Wayland)";
+        genericName = "Open Slack as a Wayland app";
+        icon = "slack";
+        exec = "${slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        categories = ["Network"];
+      })
     ];
   };
 }

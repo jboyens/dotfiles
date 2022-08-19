@@ -54,6 +54,8 @@ with lib.my; {
   # this default behavior here.
   networking.useDHCP = mkDefault false;
 
+  home-manager.useGlobalPkgs = true;
+
   # Use the latest kernel
   boot = {
     kernelPackages = mkDefault pkgs.linuxPackages_latest;

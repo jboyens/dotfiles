@@ -2,9 +2,12 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.swaywm;
+let
+  cfg = config.modules.desktop.swaywm;
 in {
-  options.modules.desktop.swaywm = { enable = mkBoolOpt false; };
+  options.modules.desktop.swaywm = {
+    enable = mkBoolOpt false;
+  };
 
   config = mkIf cfg.enable {
     # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
@@ -93,6 +96,8 @@ in {
         swayr
         fuzzel
         sirula
+
+        i3status-rust
       ];
     };
 
