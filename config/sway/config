@@ -39,9 +39,13 @@ font pango:FuraCode Nerd Font 11
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg ~/.local/share/wallpaper fill
+output * bg ~/.local/share/wallpaper fill
 # until wlroots damage is fixed; solves mouse tracking / rendering issues
-output * bg #000000 solid_color
+# output * bg #000000 solid_color
+
+output eDP-1 mode 1920x1080@60Hz position 6940,2160
+output "LG Electronics LG Ultra HD 0x00001B21" mode 3840x2160@60Hz position 0,0 scale 1.0
+output "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E" mode 3840x2160@60Hz position 3840,0 scale 1.0
 
 exec swayidle -w \
          timeout 600 'swaylock -f -c 000000' \

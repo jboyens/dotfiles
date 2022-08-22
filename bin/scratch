@@ -6,13 +6,18 @@
 SCRID=scratch
 CMD=${1:-'tmux new-session -A -s scratch -n scratch'}
 focused=$(xdotool getactivewindow)
-scratch=$(xdotool search --onlyvisible --classname $SCRID)
+# scratch=$(xdotool search --onlyvisible --classname $SCRID)
+scratch=$(swaywindow -sa $SCRID)
 if [[ -n $scratch ]]; then
     if [[ $focused == $scratch ]]; then
-        xdotool windowkill $scratch
+        # xdotool windowkill $scratch
+        swaywindow -k $scratch
     else
-        xdotool windowactivate $scratch
+        # xdotool windowactivate $scratch
+        swaywindow -a $scratch
     fi
+elif command -v foot >/dev/null; then
+    foot --app-id $SCRID $CMD
 elif command -v urxvt >/dev/null; then
     urxvt -name $SCRID \
           -e $SHELL -c "$CMD"

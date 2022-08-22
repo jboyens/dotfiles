@@ -2,13 +2,13 @@
 
 let
   pname = "bitwarden";
-  version = "2022.5.1";
+  version = "2022.8.1";
 in appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://github.com/bitwarden/desktop/releases/download/v${version}/Bitwarden-${version}-x86_64.AppImage";
-    sha256 = "sha256-aluOMUDB+03TPjVPnUJDCst1bYAvrXh/KkuybBrk+X4=";
+    sha256 = lib.fakeHash;
   };
 
   extraPkgs = pkgs: with pkgs; [ libsecret ];

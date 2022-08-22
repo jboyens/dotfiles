@@ -20,12 +20,7 @@ in {
       fi
     '';
 
-    environment.systemPackages = with pkgs; [ ];
-
     services = {
-      # redshift.enable = true;
-      # redshift.package = pkgs.redshift-wlr;
-
       xserver.enable = false;
     };
 
@@ -50,6 +45,7 @@ in {
         export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"
         export XCURSOR_THEME="Paper"
       '';
+
       wrapperFeatures = {
         gtk = true;
         base = true;
@@ -98,6 +94,8 @@ in {
         sirula
 
         i3status-rust
+
+        my.swaywindow
       ];
     };
 
@@ -160,11 +158,6 @@ in {
         source = "${config.dotfiles.configDir}/sway";
         recursive = true;
       };
-
-      # "mako" = {
-      #   source = "${configDir}/mako";
-      #   recursive = true;
-      # };
     };
   };
 }

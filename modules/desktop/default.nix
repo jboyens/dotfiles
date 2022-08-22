@@ -24,7 +24,7 @@ in {
     ];
 
     user.packages = with pkgs; [
-      feh       # image viewer
+      #feh       # image viewer
       # xclip
       # xdotool
       # xorg.xwininfo
