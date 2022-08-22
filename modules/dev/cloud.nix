@@ -30,15 +30,15 @@ in {
           unstable.minikube
           unstable.k9s
           unstable.kubernetes-helm
-          my.krew
+          krew
           unstable.open-policy-agent
           istioctl
           unstable.kind
           my.kustomize
-          my.go-jsonnet
+          go-jsonnet
           hadolint
           kube3d
-          my.tilt
+          tilt
           stern
           my.sloth
           my.google-cloud-sdk-gke-gcloud-auth-plugin

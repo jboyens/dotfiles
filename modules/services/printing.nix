@@ -13,7 +13,6 @@ in {
 
     services.printing = {
       enable = true;
-      drivers = with pkgs; [ my.hll2350dw-cups ];
     };
 
     hardware.printers = {

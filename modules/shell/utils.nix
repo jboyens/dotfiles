@@ -69,7 +69,7 @@ in {
       # notify-send
       libnotify
 
-      my.wl-clipboard-x11
+      wl-clipboard-x11
 
       envsubst
     ];
