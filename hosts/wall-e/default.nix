@@ -3,7 +3,6 @@
   imports = [
     ../home.nix
     ./hardware-configuration.nix
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   ## Modules
@@ -139,7 +138,7 @@
 
   systemd.network.wait-online.extraArgs = [ "--any" ];
 
-  # networking.wireless.iwd.enable = true;
+  networking.wireless.iwd.enable = true;
 
   networking.domain = "fooninja.org";
 
