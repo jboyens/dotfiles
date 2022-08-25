@@ -7,6 +7,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
+  boot.initrd.kernelModules = [ "dm-snapshot" "dm-cache-default" ];
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
@@ -18,6 +19,8 @@
     "aesni_intel"
     "cryptd"
   ];
+
+  services.lvm.boot.thin.enable = true;
 
   boot.blacklistedKernelModules = [ "iTCO_wdt" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -66,14 +69,19 @@
       options = [ "noatime" ];
     };
     "/boot" = {
-      device = "/dev/disk/by-label/boot";
+      device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
     "/home" = {
-      device = "/dev/disk/by-label/home";
+      device = "/dev/disk/by-label/homes";
+      fsType = "ext4";
+      options = [ "noatime" ];
+    };
+    "/nix" = {
+      device = "/dev/disk/by-label/nix_store";
       fsType = "ext4";
       options = [ "noatime" ];
     };
   };
-  swapDevices = [ "/dev/disk/by-label/swap" ];
+  swapDevices = [{ device = "/swapfile"; size = 8192; }];
 }
