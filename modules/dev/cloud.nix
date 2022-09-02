@@ -15,7 +15,13 @@ in {
 
   config = mkMerge [
     (mkIf cfg.google.enable {
-      user.packages = with pkgs; [ google-cloud-sdk cloud-sql-proxy ];
+      user.packages = with pkgs; [
+        (google-cloud-sdk.withExtraComponents([
+          google-cloud-sdk.components.gke-gcloud-auth-plugin
+          google-cloud-sdk.components.config-connector
+        ]))
+        cloud-sql-proxy
+      ];
     })
 
     (mkIf cfg.amazon.enable { user.packages = with pkgs; [ awscli ]; })

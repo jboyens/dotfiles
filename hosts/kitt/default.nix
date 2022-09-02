@@ -136,11 +136,19 @@
       Domains = "fooninja.org";
     };
   in {
-    "40-wireless" = {
+    "90-wireless" = {
       enable = true;
       name = "wl*";
       inherit networkConfig;
     };
+    # "90-wired" = {
+    #   enable = true;
+    #   name = "enp*";
+    #   networkConfig = {
+    #     inherit (networkConfig) Domains;
+    #     DHCP = "yes";
+    #   };
+    # };
   };
 
   systemd.network.wait-online.extraArgs = [ "--any" ];
