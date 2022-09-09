@@ -7,7 +7,7 @@ SCRID=scratch
 CMD=${1:-'tmux new-session -A -s scratch -n scratch'}
 focused=$(xdotool getactivewindow)
 # scratch=$(xdotool search --onlyvisible --classname $SCRID)
-scratch=$(swaywindow -sa $SCRID)
+scratch=$(swaywindow -q $SCRID)
 if [[ -n $scratch ]]; then
     if [[ $focused == $scratch ]]; then
         # xdotool windowkill $scratch

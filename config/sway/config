@@ -91,6 +91,14 @@ input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {
     tap_button_map lrm
 }
 
+input "1739:31251:SYNA2393:00_06CB:7A13_Mouse" {
+    click_method clickfinger
+    drag enabled
+    dwt enabled
+    tap enabled
+    tap_button_map lrm
+}
+
 ### Key bindings
 #
 # Basics:
