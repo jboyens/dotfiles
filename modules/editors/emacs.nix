@@ -15,7 +15,7 @@ in {
     doom = rec {
       enable = mkBoolOpt false;
       forgeUrl = mkOpt types.str "https://github.com";
-      repoUrl = mkOpt types.str "${forgeUrl}/hlissner/doom-emacs";
+      repoUrl = mkOpt types.str "${forgeUrl}/doomemacs/doomemacs";
       configRepoUrl = mkOpt types.str "${forgeUrl}/hlissner/doom-emacs-private";
     };
   };
@@ -44,9 +44,7 @@ in {
 
       ## Module dependencies
       # :checkers spell
-      (aspellWithDicts (ds: with ds; [
-        en en-computers en-science
-      ]))
+      (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
       # :tools editorconfig
       editorconfig-core-c # per-project style config
       # :tools lookup & :lang org +roam

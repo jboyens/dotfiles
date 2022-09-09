@@ -1,20 +1,24 @@
 { config, lib, ... }:
 
-with lib; {
-  networking.hosts = let
-    hostConfig = {
-      "192.168.86.76" = [ "kitt" ];
-      "192.168.86.100" = [ "irongiant" ];
-      "192.168.86.161" = [ "avocado" ];
-      "192.168.86.188" = [ "wall-e" ];
-      "192.168.86.34" = [ "mediaserver" "nas" "backup-host" ];
-      "192.168.49.2" = [ "dev" "dev.fooninja.org" ];
-      "127.0.0.1" = [ "api.local.flexe.com" ];
-      "172.19.0.3" = [ "hydra.localhost" "hydra-admin.localhost" "api.local.flexe.com" ];
-    };
-    hosts = flatten (attrValues hostConfig);
-    hostName = config.networking.hostName;
-  in mkIf (builtins.elem hostName hosts) hostConfig;
+with lib;
+let blocklist = fetchurl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts;
+in {
+  networking.extraHosts = ''
+    192.168.86.1  router.home
+
+    # Hosts
+    192.168.86.76	  kitt
+    192.168.86.100	irongiant
+    192.168.86.161	avocado
+    192.168.86.188	wall-e
+    192.168.86.34	  mediaserver nas backup-host
+    192.168.49.2	  dev dev.fooninja.org
+    127.0.0.1	      api.local.flexe.com
+    172.19.0.3	    hydra.localhost hydra-admin.localhost api.local.flexe.com
+
+    # Block garbage
+    ${readFile blocklist}
+  '';
 
   ## Location config -- since Seattle is my 127.0.0.1
   time.timeZone = mkDefault "America/Los_Angeles";
@@ -29,8 +33,6 @@ with lib; {
   # So the vaultwarden CLI knows where to find my server.
   modules.shell.vaultwarden.config.server = "bw.fooninja.org";
 
-
-  ## Not using syncthing atm
   services.syncthing = {
     # Purge folders not declaratively configured!
     overrideFolders = true;
@@ -58,12 +60,6 @@ with lib; {
         secrets = mkShare [ "mediaserver" "kitt" "irongiant" ] "sendreceive" "${config.user.home}/.secrets"
           { watch = true;
             rescanInterval = 3600; }; # every hour
-        # serverBackup = mkShare [ "ao" "kiiro" ] "sendonly" "/run/backups"
-        # mainBackup = mkShare [ "kuro" "kiiro" ] "sendreceive" #         "/usr/store"
-        #   { versioning = {
-        #       type = "staggered";
-        #       params.maxAge = "356";
-        #     }; };
       };
   };
 }
