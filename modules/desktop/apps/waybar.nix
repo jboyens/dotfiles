@@ -4,7 +4,8 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.desktop.apps.waybar;
-  colorscheme = config.modules.theme.colorscheme;
+  colorscheme = config.lib.stylix;
+  fonts = config.stylix.fonts;
 in {
   options.modules.desktop.apps.waybar = {
     enable = mkBoolOpt false;
@@ -159,6 +160,7 @@ in {
           };
         };
       };
+
       waybar.style = ''
         @keyframes blink-warning {
             70% {color: #${colorscheme.colors.base0A};}
@@ -181,7 +183,7 @@ in {
         #waybar {
             background: #${colorscheme.colors.base00};
             color: #${colorscheme.colors.base05};
-            font-family: "Fira Code", "Font Awesome 5 Free";
+            font-family: "${fonts.sansSerif.name}", "Font Awesome 5 Free";
             font-size: 13px;
         }
 

@@ -104,14 +104,10 @@
         };
       };
       syncthing.enable = true;
-      wireguard = {
-        enable = false;
-        client.enable = false;
-      };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
-    theme.active = "nord";
+    theme.active = "base16";
   };
 
   ## Local config

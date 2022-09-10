@@ -1,5 +1,0 @@
-#+TITLE:  Focus
-#+AUTHOR: berkutkarlibai (impl. jboyens)
-#+DATE:   May 5, 2021
-
-Shamelessly swiped from: https://old.reddit.com/r/unixporn/comments/msol11/sway_focus/

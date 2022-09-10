@@ -4,6 +4,8 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.desktop.swaywm;
+  colorscheme = config.lib.stylix;
+  fonts = config.stylix.fonts;
 in {
   options.modules.desktop.swaywm = {
     enable = mkBoolOpt false;
@@ -90,7 +92,7 @@ in {
         my.remontoire
         # my.swaycons
         swayr
-        fuzzel
+        my.fuzzel
         sirula
 
         i3status-rust
@@ -100,6 +102,33 @@ in {
     };
 
     programs.waybar.enable = true;
+
+    home-manager.users.${config.user.name}.programs = {
+      mako = {
+        enable = true;
+        actions = true;
+        anchor = "top-right";
+        backgroundColor = "#${colorscheme.colors.base00}";
+        borderColor = "#${colorscheme.colors.base0D}";
+        borderRadius = 2;
+        borderSize = 1;
+        defaultTimeout = 14000;
+        font = fonts.sansSerif.name;
+        height = 1000;
+        icons = true;
+        ignoreTimeout = true;
+        margin = "4,26";
+        markup = true;
+        maxVisible = -1;
+        padding = "20,16";
+        textColor = "#${colorscheme.colors.base05}";
+        width = 440;
+        extraConfig = ''
+          [app-name="Slack"]
+          group-by=summary
+        '';
+      };
+    };
 
     systemd.user.services.autotiling = {
       description = "Sway autotiling";

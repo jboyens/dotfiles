@@ -6,7 +6,8 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.desktop.term.foot;
-  colorscheme = config.modules.theme.colorscheme;
+  colorscheme = config.lib.stylix;
+  fonts = config.stylix.fonts;
 in {
   options.modules.desktop.term.foot = {
     enable = mkBoolOpt false;
@@ -22,10 +23,10 @@ in {
 
     home-manager.users.${config.user.name}.programs = {
       foot.enable = true;
-	  foot.package = pkgs.foot;
+      foot.package = pkgs.foot;
       foot.settings = {
         main = {
-          font="Iosevka Term";
+          font=fonts.monospace.name;
           pad="10x10";
         };
         cursor.color = "${colorscheme.colors.base00} ${colorscheme.colors.base05}";

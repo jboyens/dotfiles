@@ -39,7 +39,7 @@ font pango:FuraCode Nerd Font 11
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/.local/share/wallpaper fill
+# output * bg ~/.local/share/wallpaper fill
 # until wlroots damage is fixed; solves mouse tracking / rendering issues
 # output * bg #000000 solid_color
 

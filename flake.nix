@@ -31,8 +31,14 @@
       nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
       nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-      nix-colors.url = "github:misterio77/nix-colors";
-      nixgl.url = "github:guibou/nixGL";
+      stylix.url = "github:danth/stylix";
+      stylix.inputs.nixpkgs.follows = "nixpkgs";
+      stylix.inputs.home-manager.follows = "home-manager";
+
+      base16-schemes = {
+        url = github:base16-project/base16-schemes;
+        flake = false;
+      };
 
       # jboyens.url = "github:jboyens/nixpkgs?rev=39c8f7fb882f642cbf11429f5dff210e08f6b205";
     };

@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 
 fuzzel \
-    -P ' ' \
-    -b 2e3440ff \
-    -t e5e9f0ff \
-    -s 4c566aff \
-    -S e5e9f0ff \
-    -C 2e3440ff \
-    -m bf616aff \
+    -p ' ' \
+    -I \
     -w 60 \
-    --show-actions \
-    -f "Iosevka:size=16" \
-    -I #-i Paper
+    --show-actions
