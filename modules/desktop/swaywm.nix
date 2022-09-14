@@ -7,9 +7,7 @@ let
   colorscheme = config.lib.stylix;
   fonts = config.stylix.fonts;
 in {
-  options.modules.desktop.swaywm = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.desktop.swaywm = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
@@ -22,9 +20,7 @@ in {
       fi
     '';
 
-    services = {
-      xserver.enable = false;
-    };
+    services = { xserver.enable = false; };
 
     programs.sway = {
       enable = true;
@@ -151,12 +147,12 @@ in {
       script = "${pkgs.mako}/bin/mako";
     };
 
-    systemd.user.services.kanshi = {
-      description = "Kanshi display configuration";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      script = "${pkgs.kanshi}/bin/kanshi";
-    };
+    # systemd.user.services.kanshi = {
+    #   description = "Kanshi display configuration";
+    #   wantedBy = [ "graphical-session.target" ];
+    #   partOf = [ "graphical-session.target" ];
+    #   script = "${pkgs.kanshi}/bin/kanshi";
+    # };
 
     systemd.user.services.mpris-proxy = {
       description = "mpris-proxy";

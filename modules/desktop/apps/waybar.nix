@@ -176,6 +176,7 @@ in {
             border: none;
             border-radius: 0;
             min-height: 0;
+            min-width: 0;
             margin: 0;
             padding: 0;
         }
