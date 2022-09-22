@@ -18,8 +18,8 @@ in {
     172.19.0.3	    hydra.localhost hydra-admin.localhost api.local.flexe.com
 
     # Block garbage
-    ${readFile blocklist}
   '';
+    # ${readFile blocklist}
 
   ## Location config -- since Seattle is my 127.0.0.1
   time.timeZone = mkDefault "America/Los_Angeles";
