@@ -9,6 +9,7 @@ with lib.my;
 let cfg = config.modules.editors.emacs;
     configDir = config.dotfiles.configDir;
     myEmacs = pkgs.emacsPgtkNativeComp;
+    # myEmacs = (pkgs.emacs.override { nativeComp = true; withPgtk = true; });
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -27,7 +28,7 @@ in {
       # 29 + pgtk + native-comp
       ((emacsPackagesFor myEmacs).emacsWithPackages (epkgs: [
         epkgs.vterm
-      ]))   # 28 + pgtk + native-comp
+      ]))
 
       ## Doom dependencies
       git
