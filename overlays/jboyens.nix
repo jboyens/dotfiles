@@ -17,6 +17,21 @@ final: prev:
     doCheck = false;
   });
 
+  isync-oauth2 = final.buildEnv {
+    name = "isync-oauth2";
+    paths = [ final.isync ];
+    pathsToLink = [ "/bin" ];
+    nativeBuildInputs = [ final.makeWrapper ];
+    postBuild = ''
+      wrapProgram "$out/bin/mbsync" \
+        --prefix SASL_PATH : "${final.cyrus_sasl.out.outPath}/lib/sasl2:${prev.my.cyrus-sasl-xoauth2}/lib/sasl2"
+    '';
+  };
+
+  xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs(oa: rec {
+    patches = [ ../patches/0001-xdg-desktop-wlr-zoomfix.patch ];
+  });
+
   # mu = prev.mu.overrideAttrs(oa: rec {
   #   version = "1c95d28cdeebd58f8fddbdf055fbc5a7408e4e88";
   #

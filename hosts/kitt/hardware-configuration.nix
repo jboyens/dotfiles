@@ -1,5 +1,9 @@
 { config, lib, pkgs, modulesPath, inputs, ... }:
 
+let
+  # kernel = pkgs.linuxPackages_latest;
+  kernel = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.linuxPackages_6_0;
+in
 {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
@@ -22,9 +26,9 @@
     ];
     initrd.kernelModules = [ "i915" ];
     blacklistedKernelModules = [ "iTCO_wdt" "nouveau" ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = kernel;
     # kernelPackages = pkgs.linuxPackages_zen;
-    extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback acpi_call ];
+    extraModulePackages = with kernel; [ v4l2loopback acpi_call ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU

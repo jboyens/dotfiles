@@ -34,6 +34,7 @@
       stylix.url = "github:danth/stylix";
       stylix.inputs.nixpkgs.follows = "nixpkgs";
       stylix.inputs.home-manager.follows = "home-manager";
+      stylix.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
       base16-schemes = {
         url = github:base16-project/base16-schemes;

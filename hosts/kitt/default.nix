@@ -165,6 +165,7 @@
   services.lorri.enable = false;
   services.blueman.enable = true;
   services.fwupd.enable = true;
+  services.fwupd.extraRemotes = [ "lvfs" "dell-esrt" ];
   services.pipewire.enable = true;
 
   services.atd.enable = true;
@@ -184,6 +185,8 @@
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;
   services.earlyoom.enableDebugInfo = false;
+
+  services.udisks2.enable = true;
 
   services.nfs.idmapd.settings = {
     General = {

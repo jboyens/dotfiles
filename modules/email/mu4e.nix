@@ -20,13 +20,33 @@ in {
       # don't install mu4e here
       mu
       imapfilter
-      unstable.isync
+      isync-oauth2
       msmtp
+      my.pizauth
     ];
 
     home-manager.users.${config.user.name}.systemd.user = {
-      startServices = "suggest";
+      startServices = "sd-switch";
       services = {
+        "pizauth" = {
+          Unit = {
+            Description = "OAuth2 Service Daemon";
+            ConditionPathExists="%h/.config/pizauth.conf";
+            After="network.target";
+          };
+
+          Service = {
+            Environment = "PATH=${pkgs.libnotify}/bin:$PATH";
+            ExecStart = "${pkgs.my.pizauth}/bin/pizauth server -dvc %h/.config/pizauth.conf";
+            Restart = "always";
+            RestartSec = "30";
+          };
+
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
+        };
+
         "goimapnotify@flexe" = {
           Unit = {
             Description = "IMAP notifier using IDLE, golang version.";
@@ -35,7 +55,7 @@ in {
           };
 
           Service = {
-            Environment="PATH=${pkgs.isync}/bin:${pkgs.mu}/bin:$PATH";
+            Environment="PATH=${pkgs.isync-oauth2}/bin:${pkgs.mu}/bin:${pkgs.my.pizauth}/bin:$PATH";
             ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
             Restart = "always";
             RestartSec = "30";
@@ -58,7 +78,7 @@ in {
           };
 
           Service = {
-            Environment="PATH=${pkgs.isync}/bin:${pkgs.mu}/bin:$PATH";
+            Environment="PATH=${pkgs.isync-oauth2}/bin:${pkgs.mu}/bin:${pkgs.my.pizauth}/bin:$PATH";
             ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
             Restart = "always";
             RestartSec = "30";
@@ -85,8 +105,9 @@ in {
           # };
 
           Service = {
+            Environment="PATH=${pkgs.my.pizauth}/bin:$PATH";
             Type = "oneshot";
-            ExecStart = "${pkgs.isync}/bin/mbsync -c %h/.mbsyncrc --all";
+            ExecStart = "${pkgs.isync-oauth2}/bin/mbsync -c %h/.mbsyncrc --all";
           };
         };
       };
