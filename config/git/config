@@ -11,7 +11,11 @@
 [github]
 	user = jboyens
 [gitlab]
-    user = jr.boyens@flexe.com
+    user = jr.boyens
+[gitlab "gitlab.com/api"]
+    user = jr.boyens
+[gitlab "gitlab.com/api/v4"]
+    user = jr.boyens
 [rebase]
 	autoSquash = true
     autoStash = true
@@ -67,3 +71,5 @@
 [credential "https://gist.github.com"]
 	helper =
 	helper = !gh auth git-credential
+[rerere]
+	enabled = true

@@ -2,8 +2,6 @@
 
 with pkgs;
 {
-  adl = (callPackage ./adl.nix { });
-  anime-downloader = (callPackage ./anime-downloader.nix { });
   autoname-workspaces = (callPackage ./autoname-workspaces.nix {});
   beeper = (callPackage ./beeper.nix {});
   godoc = (callPackage ./godoc.nix { });
@@ -14,9 +12,7 @@ with pkgs;
   kustomize = (callPackage ./kustomize.nix { });
   remontoire = (callPackage ./remontoire.nix { });
   sloth = (callPackage ./sloth.nix { });
-  starsector = (callPackage ./starsector.nix { });
   swaycons = (callPackage ./swaycons {  });
   testkube = (callPackage ./testkube.nix {});
   thermald = (callPackage ./thermald {});
-  trackma = (callPackage ./trackma.nix { });
 }

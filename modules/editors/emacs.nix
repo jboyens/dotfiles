@@ -8,8 +8,9 @@ with lib;
 with lib.my;
 let cfg = config.modules.editors.emacs;
     configDir = config.dotfiles.configDir;
-    myEmacs = pkgs.emacsPgtkNativeComp;
+    # myEmacs = pkgs.emacsPgtkNativeComp;
     # myEmacs = (pkgs.emacs.override { nativeComp = true; withPgtk = true; });
+    myEmacs = pkgs.emacs;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
