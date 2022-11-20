@@ -13,6 +13,7 @@
         ferdium.enable = true;
         slack.enable = true;
         zoom.enable = true;
+        # 2022-10-26 - Broken again on Python 3.10 dbus-next
         maestral.enable = true;
         waybar.enable = true;
       };
@@ -39,7 +40,7 @@
         default = "foot";
         foot.enable = true;
       };
-      vm = { qemu.enable = false; };
+      vm = { qemu.enable = true; };
     };
     dev = {
       android.enable = false;
@@ -137,14 +138,18 @@
       name = "wl*";
       inherit networkConfig;
     };
-    # "90-wired" = {
-    #   enable = true;
-    #   name = "enp*";
-    #   networkConfig = {
-    #     inherit (networkConfig) Domains;
-    #     DHCP = "yes";
-    #   };
-    # };
+
+    "70-wired" = {
+      enable = true;
+      name = "en*";
+      networkConfig = {
+        inherit (networkConfig) Domains;
+        DHCP = "yes";
+      };
+
+      dhcpV4Config.RouteMetric = 10;
+      ipv6AcceptRAConfig.RouteMetric = 10;
+    };
   };
 
   systemd.network.wait-online.extraArgs = [ "--any" ];
@@ -180,7 +185,7 @@
   # powerManagement.powertop.enable = true;
 
   services.ananicy.enable = true;
-  services.ananicy.package = pkgs.ananicy-cpp;
+  # services.ananicy.package = pkgs.ananicy-cpp;
 
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;

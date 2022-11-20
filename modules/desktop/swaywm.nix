@@ -147,12 +147,12 @@ in {
       script = "${pkgs.mako}/bin/mako";
     };
 
-    # systemd.user.services.kanshi = {
-    #   description = "Kanshi display configuration";
-    #   wantedBy = [ "graphical-session.target" ];
-    #   partOf = [ "graphical-session.target" ];
-    #   script = "${pkgs.kanshi}/bin/kanshi";
-    # };
+    systemd.user.services.kanshi = {
+      description = "Kanshi display configuration";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      script = "${pkgs.kanshi}/bin/kanshi";
+    };
 
     systemd.user.services.mpris-proxy = {
       description = "mpris-proxy";

@@ -1,6 +1,6 @@
-{ lib, buildGo117Module, fetchFromGitHub, installShellFiles }:
+{ lib, buildGo119Module, fetchFromGitHub, installShellFiles }:
 
-buildGo117Module rec {
+buildGo119Module rec {
   pname = "kustomize";
   version = "4.5.7";
 
@@ -17,6 +17,8 @@ buildGo117Module rec {
     rev = "kustomize/v${version}";
     sha256 = "sha256-AHDUwXcYkI04nOBY8jScf+OE6k9Z5OqzhtWExK1rrKg=";
   };
+
+  GOWORK="off";
 
   # avoid finding test and development commands
   modRoot = "kustomize";

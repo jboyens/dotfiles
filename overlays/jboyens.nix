@@ -1,17 +1,17 @@
 final: prev:
 {
-  pgcenter = prev.pgcenter.overrideAttrs(oa: rec {
-    version = "0.9.2";
-
-    src = prev.fetchFromGitHub {
-      owner  = "lesovsky";
-      repo   = "pgcenter";
-      rev    = "v${version}";
-      sha256 = "xaY01T12/5Peww9scRgfc5yHj7QA8BEwOK5l6OedziY=";
-    };
-
-    vendorSha256 = final.lib.fakeHash;
-  });
+  # pgcenter = prev.pgcenter.overrideAttrs(oa: rec {
+  #   version = "0.9.2";
+  #
+  #   src = prev.fetchFromGitHub {
+  #     owner  = "lesovsky";
+  #     repo   = "pgcenter";
+  #     rev    = "v${version}";
+  #     sha256 = "xaY01T12/5Peww9scRgfc5yHj7QA8BEwOK5l6OedziY=";
+  #   };
+  #
+  #   vendorSha256 = final.lib.fakeHash;
+  # });
 
   open-policy-agent = prev.open-policy-agent.overrideAttrs(oa: rec {
     doCheck = false;
@@ -32,20 +32,15 @@ final: prev:
     patches = [ ../patches/0001-xdg-desktop-wlr-zoomfix.patch ];
   });
 
-  # mu = prev.mu.overrideAttrs(oa: rec {
-  #   version = "1c95d28cdeebd58f8fddbdf055fbc5a7408e4e88";
   #
-  #   src = prev.fetchFromGitHub {
-  #     owner  = "djcb";
-  #     repo   = "mu";
-  #     rev    = version;
-  #     sha256 = "sha256-ZEjKrbccXdZ6Rc/YfOjbLdZDBpgKsC7b6MF/tU1e/nY=";
+  # ananicy-cpp = prev.ananicy-cpp.overrideAttrs(old: rec {
+  #   version = "unstable-2022-10-25";
+  #
+  #   src = prev.fetchFromGitLab {
+  #     owner = "ananicy-cpp";
+  #     repo = "ananicy-cpp";
+  #     rev = "9a6987ea0ec4c5c5242f41ccac95294b31370603";
+  #     sha256 = "sha256-ZTM+owVFfEq9P2SMOPVbqtrCT3DEG3W2zHadFGBJDTs=";
   #   };
-  #
-  #   nativeBuildInputs = [ prev.meson prev.pkg-config prev.cmake ];
-  #
-  #   buildInputs = with prev; [
-  #     sqlite xapian glib gmime3 texinfo emacs libsoup icu guile
-  #   ];
   # });
 }

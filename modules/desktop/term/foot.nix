@@ -23,7 +23,7 @@ in {
 
     home-manager.users.${config.user.name}.programs = {
       foot.enable = true;
-      foot.package = pkgs.foot;
+      foot.package = inputs.nixpkgs.legacyPackages.x86_64-linux.foot;
       foot.settings = {
         main = {
           font=fonts.monospace.name;

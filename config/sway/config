@@ -45,6 +45,7 @@ font pango:FuraCode Nerd Font 11
 
 output eDP-1 mode 1920x1080@60Hz position 6940,2160
 output "LG Electronics LG Ultra HD 0x00001B21" mode 3840x2160@60Hz position 0,0 scale 1.0
+# output "Goldstar Company Ltd LG Ultra HD 0x00001B21" mode 3840x2160@60Hz position 0,0 scale 1.0
 output "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E" mode 3840x2160@60Hz position 3840,0 scale 1.0
 
 exec swayidle -w \
