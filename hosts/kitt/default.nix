@@ -5,12 +5,10 @@
   ## Modules
   modules = {
     desktop = {
-      bspwm.enable = false;
       swaywm.enable = true;
       i3.enable = false;
       apps = {
         bitwarden.enable = true;
-        ferdium.enable = true;
         slack.enable = true;
         zoom.enable = true;
         # 2022-10-26 - Broken again on Python 3.10 dbus-next
@@ -25,15 +23,7 @@
       media = {
         documents.enable = true;
         documents.pdf.enable = true;
-        graphics = {
-          enable = true;
-          tools.enable = true;
-          raster.enable = false;
-          vector.enable = false;
-          sprites.enable = false;
-        };
         mpv.enable = true;
-        recording.enable = false;
         spotify.enable = true;
       };
       term = {
