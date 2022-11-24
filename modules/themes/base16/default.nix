@@ -94,6 +94,7 @@ in {
       };
       stylix.base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
       stylix.polarity = "dark";
+      stylix.targets.plymouth.enable = true;
       stylix.fonts = {
         serif = {
           package = (pkgs.iosevka-bin.override { variant = "etoile"; });

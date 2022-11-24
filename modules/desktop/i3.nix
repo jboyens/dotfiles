@@ -31,12 +31,5 @@ in {
         };
       };
     };
-
-    # home.configFile = {
-    #   "sway" = {
-    #     source = "${config.dotfiles.configDir}/sway";
-    #     recursive = true;
-    #   };
-    # };
   };
 }

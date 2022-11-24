@@ -1,5 +1,4 @@
-{ pkgs, stdenv, lib, inputs, ... }:
-{
+{ pkgs, stdenv, lib, inputs, ... }: {
   imports = [ ../home.nix ./hardware-configuration.nix ];
 
   ## Modules
@@ -56,6 +55,7 @@
       ergodox.enable = true;
       nvidia.enable = false;
       sony-1000Xm3.enable = true;
+      firmware.enable = true;
       fs = {
         enable = true;
         # zfs.enable = true;
@@ -157,68 +157,23 @@
   # routing setups.
   networking.firewall.checkReversePath = "loose";
 
-  services.lorri.enable = false;
-  services.blueman.enable = true;
-  services.fwupd.enable = true;
-  services.fwupd.extraRemotes = [ "lvfs" "dell-esrt" ];
   services.pipewire.enable = true;
 
   services.atd.enable = true;
   services.tailscale.enable = true;
-  services.thermald.enable = true;
-  services.thermald.package = pkgs.my.thermald;
-  services.irqbalance.enable = true;
-  services.fstrim.enable = true;
-  services.upower.enable = true;
   services.pcscd.enable = true;
-  powerManagement.enable = true;
-  # powerManagement.powertop.enable = true;
-
-  services.ananicy.enable = true;
-  # services.ananicy.package = pkgs.ananicy-cpp;
-
-  services.earlyoom.enable = true;
-  services.earlyoom.enableNotifications = true;
-  services.earlyoom.enableDebugInfo = false;
-
-  services.udisks2.enable = true;
 
   services.nfs.idmapd.settings = {
-    General = {
-      Domain = "fooninja.org";
-    };
+    General = { Domain = "fooninja.org"; };
 
-    Translation = {
-      GSS-Methods="static,nsswitch";
-    };
+    Translation = { GSS-Methods = "static,nsswitch"; };
 
-    Static = {
-      "jboyens@fooninja.org" = "jboyens";
-    };
+    Static = { "jboyens@fooninja.org" = "jboyens"; };
   };
 
-  programs.light.enable = true;
   programs.iftop.enable = true;
   programs.iotop.enable = true;
   programs.dconf.enable = true;
 
   gtk.iconCache.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    wlr.settings = {
-      screencast = {
-        output_name = "DP-4";
-        max_fps = 30;
-        chooser_type = "simple";
-        chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-      };
-    };
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-    ];
-    # gtkUsePortal = true;
-  };
 }

@@ -22,6 +22,8 @@ in {
         ]))
         cloud-sql-proxy
       ];
+
+      env.USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
     })
 
     (mkIf cfg.amazon.enable { user.packages = with pkgs; [ awscli ]; })

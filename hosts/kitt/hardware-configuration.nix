@@ -1,10 +1,9 @@
 { config, lib, pkgs, modulesPath, inputs, ... }:
 
 let
-  # kernel = pkgs.linuxPackages_latest;
-  kernel = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.linuxPackages_6_0;
-in
-{
+  kernel = pkgs.linuxPackages_latest;
+  # kernel = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.linuxPackages_6_0;
+in {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
     inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -56,7 +55,7 @@ in
     kernel.sysctl = { "fs.inotify.max_user_instances" = 1024; };
 
     # cool, but sort of worthless with LUKS and Sway
-    # plymouth.enable = true;
+    plymouth.enable = true;
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
@@ -70,7 +69,12 @@ in
       driSupport = true;
       driSupport32Bit = true;
       # extraPackages = with pkgs; [ (lib.hiPrio nvidia-vaapi-driver) ];
-      extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver ];
+      extraPackages = with pkgs; [
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-media-driver
+      ];
       extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
     };
     # pulseaudio.support32Bit = false;
@@ -78,9 +82,7 @@ in
     bluetooth = {
       enable = true;
       package = pkgs.bluez;
-      settings = {
-        General.Enable = "Source,Sink,Media,Socket";
-      };
+      settings = { General.Enable = "Source,Sink,Media,Socket"; };
     };
 
     video.hidpi.enable = true;
@@ -95,7 +97,34 @@ in
       };
     };
   };
+
+  # thunderbolt
   services.hardware.bolt.enable = true;
+
+  # thermal monitoring
+  services.thermald.enable = true;
+  services.thermald.package = pkgs.my.thermald;
+
+  # irq balancing
+  services.irqbalance.enable = true;
+
+  # battery management
+  services.upower.enable = true;
+
+  # save some electricy
+  powerManagement.enable = true;
+
+  # improve cpu balancing a bit
+  services.ananicy.enable = true;
+  # services.ananicy.package = pkgs.ananicy-cpp;
+
+  services.earlyoom.enable = true;
+  services.earlyoom.enableNotifications = true;
+  services.earlyoom.enableDebugInfo = false;
+
+  services.udisks2.enable = true;
+
+  programs.light.enable = true;
 
   # CPU
   nix.settings.max-jobs = lib.mkDefault 12;
@@ -110,7 +139,7 @@ in
     options = [ "noatime" ];
   };
 
-  boot.initrd.luks.devices."cryptroot"= {
+  boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
     allowDiscards = true;
   };
@@ -123,25 +152,45 @@ in
   fileSystems."/mnt/nas/homes" = {
     device = "192.168.86.34:/volume1/homes";
     fsType = "nfs";
-    options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    options = [
+      "nfsvers=4.1"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   fileSystems."/mnt/nas/backup" = {
     device = "192.168.86.34:/volume1/backup";
     fsType = "nfs";
-    options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    options = [
+      "nfsvers=4.1"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   fileSystems."/mnt/nas/music" = {
     device = "192.168.86.34:/volume1/music";
     fsType = "nfs";
-    options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    options = [
+      "nfsvers=4.1"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   fileSystems."/mnt/nas/movies" = {
     device = "192.168.86.34:/volume1/movies";
     fsType = "nfs";
-    options = [ "nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    options = [
+      "nfsvers=4.1"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   swapDevices = [{

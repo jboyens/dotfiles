@@ -22,6 +22,25 @@ in {
 
     services = { xserver.enable = false; };
 
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      wlr.settings = {
+        screencast = {
+          output_name = "DP-4";
+          max_fps = 30;
+          chooser_type = "simple";
+          chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+        };
+      };
+      extraPortals = with pkgs;
+        [
+          xdg-desktop-portal-wlr
+          # xdg-desktop-portal-gtk
+        ];
+      # gtkUsePortal = true;
+    };
+
     programs.sway = {
       enable = true;
       extraSessionCommands = ''
@@ -94,6 +113,12 @@ in {
         i3status-rust
 
         my.swaywindow
+
+        (pkgs.writeShellScriptBin "run-sway" ''
+          /run/current-system/systemd/bin/systemctl --user start graphical-session.target
+          LIBVA_DRIVER_NAME=iHD WLR_DRM_NO_MODIFIERS=1 dbus-run-session sway
+          /run/current-system/systemd/bin/systemctl --user stop graphical-session.target
+        '')
       ];
     };
 
