@@ -4,6 +4,6 @@ rec {
   repo = "fuzzel";
   repo_git = "https://${domain}/${owner}/${repo}";
   branch = "master";
-  rev = "6a8551925cb6f50138bc3719487120e0efe8c77d";
-  sha256 = "sha256-eMRoJjj7XlQCl5eqX4k/EnddMcHvZdFSoxaD5+89AWU=";
+  rev = "6122f620db4f5bdb40d05d0052247a3831b89d8d";
+  sha256 = "sha256-9mB8by0gPRvyOt+Q1gIwHUgTGBvjqrsz5mO3W4J/ae4=";
 }
