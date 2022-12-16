@@ -1,14 +1,10 @@
-{ pkgs, config, lib, ... }:
-{
-  imports = [
-    ../home.nix
-    ./hardware-configuration.nix
-  ];
+{ pkgs, config, lib, ... }: {
+  imports = [ ../home.nix ./hardware-configuration.nix ];
 
   ## Modules
   modules = {
     desktop = {
-      bspwm.enable = true;
+      swaywm.enable = true;
       apps = {
         rofi.enable = true;
         # godot.enable = true;
@@ -25,20 +21,15 @@
         # emulators.psx.enable = true;
       };
       media = {
-        daw.enable = true;
         documents.enable = true;
-        graphics.enable = true;
         mpv.enable = true;
-        recording.enable = true;
         spotify.enable = true;
       };
       term = {
         default = "xst";
         st.enable = true;
       };
-      vm = {
-        qemu.enable = true;
-      };
+      vm = { qemu.enable = true; };
     };
     dev = {
       node.enable = true;
@@ -54,10 +45,10 @@
       adl.enable = true;
       vaultwarden.enable = true;
       direnv.enable = true;
-      git.enable    = true;
-      gnupg.enable  = true;
-      tmux.enable   = true;
-      zsh.enable    = true;
+      git.enable = true;
+      gnupg.enable = true;
+      tmux.enable = true;
+      zsh.enable = true;
     };
     services = {
       ssh.enable = true;
@@ -67,7 +58,6 @@
     };
     theme.active = "alucard";
   };
-
 
   ## Local config
   programs.ssh.startAgent = true;

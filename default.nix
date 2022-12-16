@@ -18,16 +18,16 @@ with lib.my; {
 
   # Configure nix and nixpkgs
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
-  nix =
-    let filteredInputs = filterAttrs (n: _: n != "self") inputs;
+  nix = let
+    filteredInputs = filterAttrs (n: _: n != "self") inputs;
     nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
     registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
   in {
     package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
     nixPath = nixPathInputs ++ [
-        "nixpkgs-overlays=${config.dotfiles.dir}/overlays"
-        "dotfiles=${config.dotfiles.dir}"
+      "nixpkgs-overlays=${config.dotfiles.dir}/overlays"
+      "dotfiles=${config.dotfiles.dir}"
     ];
     registry = registryInputs // { dotfiles.flake = inputs.self; };
     settings = {
@@ -81,4 +81,10 @@ with lib.my; {
 
     unstable.cacert
   ];
+
+  stylix.image = mkDefault (pkgs.fetchurl {
+    url =
+      "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
+    sha256 = "12rkqy81l1q9q8kr59m1fx100p74d18gkc5cpwr6y0i66czbxmh9";
+  });
 }

@@ -45,10 +45,6 @@
       printing.enable = true;
       fail2ban.enable = true;
       syncthing.enable = true;
-      wireguard = {
-        enable = false;
-        server.enable = false;
-      };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
@@ -73,6 +69,10 @@
   services.lorri.enable = true;
   services.thermald.enable = true;
   services.irqbalance.enable = true;
+
+  # Strict reverse path filtering breaks Tailscale exit node use and some subnet
+  # routing setups.
+  networking.firewall.checkReversePath = "loose";
   services.tailscale.enable = true;
 
   services.earlyoom.enable = true;
@@ -89,25 +89,17 @@
 
   services.prometheus = {
     enable = true;
-    alertmanagers = [
-      {
-        static_configs = [{ targets = [ "192.168.86.100:9093" ]; }];
-      }
-    ];
+    alertmanagers =
+      [{ static_configs = [{ targets = [ "192.168.86.100:9093" ]; }]; }];
     alertmanager = {
       enable = true;
       openFirewall = true;
       configuration = {
-        global = {};
-        receivers = [
-          {
-            name = "jr-phone";
-            pushover_configs = [
-              {
-              }
-            ];
-          }
-        ];
+        global = { };
+        receivers = [{
+          name = "jr-phone";
+          pushover_configs = [ { } ];
+        }];
         route = {
           group_wait = "10s";
           group_interval = "30s";
@@ -120,10 +112,7 @@
     exporters.node.enabledCollectors = [ "systemd" ];
     exporters.snmp.enable = true;
     exporters.snmp.configurationPath = ./files/snmp.yml;
-    ruleFiles = [
-      ./files/alerts.yml
-      ./files/recording_rules.yml
-    ];
+    ruleFiles = [ ./files/alerts.yml ./files/recording_rules.yml ];
     scrapeConfigs = [
       {
         job_name = "prometheus";
@@ -209,11 +198,14 @@
   };
   services.grafana = {
     enable = true;
-    addr = "0.0.0.0";
-    domain = "grafana.fooninja.org";
-    extraOptions = {
-      PANELS_DISABLE_SANITIZE_HTML = "true";
+    settings = {
+      server = {
+        domain = "grafana.fooninja.org";
+        http_addr = "0.0.0.0";
+      };
     };
+    # FIXME disabled, use services.grafana.settings
+    # extraOptions = { PANELS_DISABLE_SANITIZE_HTML = "true"; };
   };
 
   services.loki = {
@@ -274,22 +266,18 @@
 
       clients = [{ url = "http://127.0.0.1:3100/loki/api/v1/push"; }];
 
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "12h";
-            labels = { job = "systemd-journal"; };
-          };
+      scrape_configs = [{
+        job_name = "journal";
+        journal = {
+          max_age = "12h";
+          labels = { job = "systemd-journal"; };
+        };
 
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
-        }
-      ];
+        relabel_configs = [{
+          source_labels = [ "__journal__systemd_unit" ];
+          target_label = "unit";
+        }];
+      }];
     };
   };
 

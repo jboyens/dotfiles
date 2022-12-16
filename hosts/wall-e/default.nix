@@ -1,19 +1,13 @@
-{ modulesPath, pkgs, config, lib, ... }:
-{
-  imports = [
-    ../home.nix
-    ./hardware-configuration.nix
-  ];
+{ modulesPath, pkgs, config, lib, ... }: {
+  imports = [ ../home.nix ./hardware-configuration.nix ];
 
   ## Modules
   modules = {
     desktop = {
-      bspwm.enable = false;
       swaywm.enable = true;
       i3.enable = false;
       apps = {
         bitwarden.enable = true;
-        ferdium.enable = true;
         slack.enable = true;
         zoom.enable = true;
         maestral.enable = true;
@@ -27,15 +21,7 @@
       media = {
         documents.enable = true;
         documents.pdf.enable = true;
-        graphics = {
-          enable = true;
-          tools.enable = true;
-          raster.enable = false;
-          vector.enable = false;
-          sprites.enable = false;
-        };
         mpv.enable = true;
-        recording.enable = false;
         spotify.enable = true;
       };
       term = {
@@ -107,10 +93,6 @@
         };
       };
       syncthing.enable = true;
-      wireguard = {
-        enable = false;
-        client.enable = false;
-      };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
@@ -191,9 +173,6 @@
         chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
       };
     };
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
   };
 }

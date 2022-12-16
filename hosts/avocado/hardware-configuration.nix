@@ -20,7 +20,7 @@
       "aesni_intel"
       "cryptd"
     ];
-    initrd.kernelModules = [];
+    initrd.kernelModules = [ ];
     blacklistedKernelModules = [ ];
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
@@ -47,7 +47,12 @@
     opengl = {
       enable = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver ];
+      extraPackages = with pkgs; [
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-media-driver
+      ];
       extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
     };
     pulseaudio.support32Bit = true;
@@ -62,7 +67,7 @@
   };
 
   # CPU
-  nix.maxJobs = lib.mkDefault 4;
+  nix.settings.max-jobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -78,7 +83,6 @@
     fsType = "vfat";
   };
 
-  swapDevices = [{
-    device = "/dev/disk/by-uuid/449742dc-6c34-42d8-98fb-1f6f6ce5dfd0";
-  }];
+  swapDevices =
+    [{ device = "/dev/disk/by-uuid/449742dc-6c34-42d8-98fb-1f6f6ce5dfd0"; }];
 }

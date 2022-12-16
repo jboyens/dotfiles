@@ -1,14 +1,9 @@
-{ pkgs, stdenv, lib, ... }:
-{
-  imports = [
-    ../home.nix
-    ./hardware-configuration.nix
-  ];
+{ pkgs, stdenv, lib, ... }: {
+  imports = [ ../home.nix ./hardware-configuration.nix ];
 
   ## Modules
   modules = {
     desktop = {
-      bspwm.enable = false;
       swaywm.enable = true;
       apps = {
         slack.enable = true;
@@ -27,18 +22,9 @@
         # emulators.psx.enable = true;
       };
       media = {
-        daw.enable = false;
         documents.enable = true;
         documents.pdf.enable = true;
-        graphics = {
-          enable = true;
-          tools.enable = true;
-          raster.enable = false;
-          vector.enable = false;
-          sprites.enable = false;
-        };
         mpv.enable = true;
-        recording.enable = false;
         spotify.enable = true;
       };
       term = {
@@ -46,9 +32,7 @@
         st.enable = false;
         alacritty.enable = true;
       };
-      vm = {
-        qemu.enable = true;
-      };
+      vm = { qemu.enable = true; };
     };
     dev = {
       cc.enable = true;
@@ -58,9 +42,7 @@
         # currently broken
         amazon.enable = false;
       };
-      db = {
-        postgres.enable = true;
-      };
+      db = { postgres.enable = true; };
     };
     editors = {
       default = "nvim";
@@ -80,7 +62,7 @@
     };
     email = {
       mu4e.enable = true;
-      mu4e.package = (pkgs.unstable.offlineimap.overrideAttrs(oa: {
+      mu4e.package = (pkgs.unstable.offlineimap.overrideAttrs (oa: {
         src = pkgs.fetchFromGitHub {
           owner = "OfflineIMAP";
           repo = "offlineimap";
@@ -91,27 +73,22 @@
     };
     shell = {
       direnv.enable = true;
-      git.enable    = true;
-      gnupg.enable  = true;
-      pass.enable   = true;
-      tmux.enable   = true;
-      zsh.enable    = true;
-      utils.enable  = true;
+      git.enable = true;
+      gnupg.enable = true;
+      pass.enable = true;
+      tmux.enable = true;
+      zsh.enable = true;
+      utils.enable = true;
     };
     services = {
       ssh.enable = true;
       docker.enable = true;
       printing.enable = true;
-      wireguard = {
-        enable = true;
-        client.enable = false;
-      };
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
     theme.active = "alucard";
   };
-
 
   ## Local config
   programs.ssh.startAgent = true;

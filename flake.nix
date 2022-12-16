@@ -75,12 +75,7 @@
         };
       });
     in {
-      lib = lib.my;
-
-      # overlay = final: prev: {
-      #   unstable = pkgs';
-      #   my = self.packages."${system}";
-      # };
+      # lib = lib.my;
 
       overlays = (mapModules ./overlays import) // {
         default = final: prev: {
@@ -97,28 +92,30 @@
 
       nixosConfigurations = mapHosts ./hosts { };
 
-      devShell."${system}" = import ./shell.nix { inherit pkgs; };
+      devShells."${system}".default = import ./shell.nix { inherit pkgs; };
 
       templates = {
         full = {
           path = ./.;
           description = "A grossly incandescent nixos config";
         };
-      } // import ./templates;
-      defaultTemplate = self.templates.full;
-
-      defaultApp."${system}" = {
-        type = "app";
-        program = ./bin/hey;
+      } // import ./templates // {
+        default = self.templates.full;
       };
 
-      apps."${system}".repl = flake-utils.lib.mkApp {
-        drv = pkgs.writeShellScriptBin "repl" ''
-          confnix=$(mktemp)
-          echo "builtins.getFlake (toString $(git rev-parse --show-toplevel))" >$confnix
-          trap "rm $confnix" EXIT
-          nix repl $confnix
-        '';
+      apps."${system}" = {
+        default = {
+          type = "app";
+          program = ./bin/hey;
+        };
+        repl = flake-utils.lib.mkApp {
+          drv = pkgs.writeShellScriptBin "repl" ''
+            confnix=$(mktemp)
+            echo "builtins.getFlake (toString $(git rev-parse --show-toplevel))" >$confnix
+            trap "rm $confnix" EXIT
+            nix repl $confnix
+          '';
+        };
       };
     };
 }

@@ -27,7 +27,7 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   # CPU
-  nix.maxJobs = lib.mkDefault 4;
+  nix.settings.max-jobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = "performance";
 
   # Storage
