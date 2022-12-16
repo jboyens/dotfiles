@@ -6,11 +6,17 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.editors.emacs;
-    configDir = config.dotfiles.configDir;
-    # myEmacs = pkgs.emacsPgtkNativeComp;
-    # myEmacs = (pkgs.emacs.override { nativeComp = true; withPgtk = true; });
-    myEmacs = pkgs.emacs;
+let
+  cfg = config.modules.editors.emacs;
+  configDir = config.dotfiles.configDir;
+  myEmacs = pkgs.emacsPgtk;
+  # myEmacs = (pkgs.emacsGit.override {
+  #   withSQLite3 = true;
+  #   withWebP = true;
+  #   withPgtk = true;
+  # });
+  # myEmacs = (pkgs.emacs.override { nativeComp = true; withPgtk = true; });
+  # myEmacs = pkgs.emacs;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -25,28 +31,29 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       ## Emacs itself
-      binutils       # native-comp needs 'as', provided by this
+      binutils # native-comp needs 'as', provided by this
       # 29 + pgtk + native-comp
-      ((emacsPackagesFor myEmacs).emacsWithPackages (epkgs: [
-        epkgs.vterm
-      ]))
+      ((emacsPackagesFor myEmacs).emacsWithPackages
+        (epkgs: [ epkgs.vterm epkgs.parinfer-rust-mode ]))
 
       ## Doom dependencies
       git
-      (ripgrep.override {withPCRE2 = true;})
-      gnutls              # for TLS connectivity
+      (ripgrep.override { withPCRE2 = true; })
+      gnutls # for TLS connectivity
 
       ## Optional dependencies
-      fd                  # faster projectile indexing
-      imagemagick         # for image-dired
+      fd # faster projectile indexing
+      imagemagick # for image-dired
       # (mkIf (config.programs.gnupg.agent.enable)
       #   pinentry_emacs)   # in-emacs gnupg prompts
-      zstd                # for undo-fu-session/undo-tree compression
-      python3             # for treemacs
+      zstd # for undo-fu-session/undo-tree compression
+      python3 # for treemacs
 
       ## Module dependencies
       # :checkers spell
       (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
+      # :checkers grammar
+      languagetool
       # :tools editorconfig
       editorconfig-core-c # per-project style config
       # :tools lookup & :lang org +roam
@@ -60,13 +67,13 @@ in {
       rustfmt
       unstable.rust-analyzer
       (makeDesktopItem {
-          name = "org-protocol";
-          desktopName = "org-protocol";
-          exec = "${myEmacs}/bin/emacsclient -n %u";
-          type = "Application";
-          categories = ["System"];
-          mimeTypes = ["x-scheme-handler/org-protocol"];
-        })
+        name = "org-protocol";
+        desktopName = "org-protocol";
+        exec = "${myEmacs}/bin/emacsclient -n %u";
+        type = "Application";
+        categories = [ "System" ];
+        mimeTypes = [ "x-scheme-handler/org-protocol" ];
+      })
       # :lang nix
       nixfmt
       # :lang sh
@@ -92,6 +99,8 @@ in {
 
       # :lang web
       html-tidy
+
+      pandoc
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];

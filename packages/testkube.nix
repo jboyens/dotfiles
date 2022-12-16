@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "testkube";
-  version = "1.7.0";
+  version = "1.7.17";
 
   src = fetchFromGitHub {
     owner = "kubeshop";
     repo = "testkube";
     rev = "v${version}";
-    sha256 = "sha256-CSIzja0ou4JPASIpIFW0Pbw/J+aD8TJ5LFzJQFXTRa8=";
+    sha256 = "sha256-tUfeRjZjQWYroiHUKKpEl1PLyujCvu+Ylg1sHHZ5kUg=";
   };
 
-  vendorSha256 = "sha256-ttrkV6WtDbhxmx94usHF5ffDC5uZ/uf1vmS2XWdAmog=";
+  vendorSha256 = "sha256-tMwH0EgVzu8FzOaNrUmC1noyTQEIjZdGgjPlADpNFRk=";
 
   meta = with lib; {
     description = "Kubernetes-native framework for test definition and execution";
@@ -20,9 +20,4 @@ buildGoModule rec {
     maintainers = [ maintainers.jboyens ];
     platforms = platforms.unix;
   };
-
-  # postInstall = ''
-  #   mv $out/bin/bosh-cli $out/bin/bosh
-  #   rm $out/bin/docs
-  # '';
 }

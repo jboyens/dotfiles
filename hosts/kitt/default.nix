@@ -12,6 +12,7 @@
         zoom.enable = true;
         # 2022-10-26 - Broken again on Python 3.10 dbus-next
         maestral.enable = true;
+        signal-desktop.enable = true;
         waybar.enable = true;
       };
       browsers = {
@@ -162,6 +163,9 @@
   services.atd.enable = true;
   services.tailscale.enable = true;
   services.pcscd.enable = true;
+
+  # https://github.com/NixOS/nixpkgs/issues/135888
+  services.nscd.enableNsncd = true;
 
   services.nfs.idmapd.settings = {
     General = { Domain = "fooninja.org"; };

@@ -10,87 +10,94 @@
 {
   description = "A grossly incandescent nixos config.";
 
-  inputs =
-    {
-      # Core dependencies.
-      nixpkgs.url = "nixpkgs/nixos-unstable";     # primary nixpkgs
-      nixpkgs-unstable.url = "nixpkgs/master";    # for packages on the edge
+  inputs = {
+    # Core dependencies.
+    nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
+    nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
 
-      home-manager.url = "github:nix-community/home-manager/master";
-      home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-      agenix.url = "github:ryantm/agenix";
-      agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-      # Extras
-      emacs-overlay.url  = "github:nix-community/emacs-overlay";
-      emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    # Extras
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
-      nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
-      nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-      nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-      stylix.url = "github:danth/stylix";
-      stylix.inputs.nixpkgs.follows = "nixpkgs";
-      stylix.inputs.home-manager.follows = "home-manager";
-      stylix.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.home-manager.follows = "home-manager";
+    stylix.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-      base16-schemes = {
-        url = github:base16-project/base16-schemes;
-        flake = false;
-      };
-
-      # jboyens.url = "github:jboyens/nixpkgs?rev=39c8f7fb882f642cbf11429f5dff210e08f6b205";
+    base16-schemes = {
+      url = "github:base16-project/base16-schemes";
+      flake = false;
     };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:
+    flake-utils = { url = "github:numtide/flake-utils"; };
+
+    # jboyens.url = "github:jboyens/nixpkgs?rev=39c8f7fb882f642cbf11429f5dff210e08f6b205";
+  };
+
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
 
       system = "x86_64-linux";
 
-      mkPkgs = pkgs: extraOverlays: import pkgs {
-        inherit system;
-        config.allowUnfree = true;  # forgive me Stallman senpai
-        overlays = extraOverlays ++ (lib.attrValues self.overlays);
-      };
-      pkgs  = mkPkgs nixpkgs [
-        self.overlay
+      mkPkgs = pkgs: extraOverlays:
+        import pkgs {
+          inherit system;
+          config.allowUnfree = true; # forgive me Stallman senpai
+          overlays = extraOverlays ++ (lib.attrValues self.overlays);
+        };
+      pkgs = mkPkgs nixpkgs [
+        self.overlays.default
         inputs.emacs-overlay.overlay
         inputs.nixpkgs-wayland.overlay
       ];
       pkgs' = mkPkgs nixpkgs-unstable [
-        self.overlay
+        self.overlays.default
         inputs.emacs-overlay.overlay
         inputs.nixpkgs-wayland.overlay
       ];
 
-      lib = nixpkgs.lib.extend
-        (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+      lib = nixpkgs.lib.extend (self: super: {
+        my = import ./lib {
+          inherit pkgs inputs;
+          lib = self;
+        };
+      });
     in {
       lib = lib.my;
 
-      overlay =
-        final: prev: {
+      # overlay = final: prev: {
+      #   unstable = pkgs';
+      #   my = self.packages."${system}";
+      # };
+
+      overlays = (mapModules ./overlays import) // {
+        default = final: prev: {
           unstable = pkgs';
           my = self.packages."${system}";
         };
+      };
 
-      overlays =
-        (mapModules ./overlays import);
+      packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
 
-      packages."${system}" =
-        mapModules ./packages (p: pkgs.callPackage p {});
+      nixosModules = {
+        dotfiles = import ./.;
+      } // mapModulesRec ./modules import;
 
-      nixosModules =
-        { dotfiles = import ./.; } // mapModulesRec ./modules import;
+      nixosConfigurations = mapHosts ./hosts { };
 
-      nixosConfigurations =
-        mapHosts ./hosts {};
-
-      devShell."${system}" =
-        import ./shell.nix { inherit pkgs; };
+      devShell."${system}" = import ./shell.nix { inherit pkgs; };
 
       templates = {
         full = {
@@ -103,6 +110,15 @@
       defaultApp."${system}" = {
         type = "app";
         program = ./bin/hey;
+      };
+
+      apps."${system}".repl = flake-utils.lib.mkApp {
+        drv = pkgs.writeShellScriptBin "repl" ''
+          confnix=$(mktemp)
+          echo "builtins.getFlake (toString $(git rev-parse --show-toplevel))" >$confnix
+          trap "rm $confnix" EXIT
+          nix repl $confnix
+        '';
       };
     };
 }

@@ -14,10 +14,10 @@ in {
       modules = {
         shell.zsh.rcFiles = [ ./config/zsh/prompt.zsh ];
         shell.tmux.rcFiles = [ ./config/tmux.conf ];
-        desktop.browsers = {
-          firefox.userChrome = concatMapStringsSep "\n" readFile
-            [ ./config/firefox/userChrome.css ];
-        };
+        # desktop.browsers = {
+        #   firefox.userChrome = concatMapStringsSep "\n" readFile
+        #     [ ./config/firefox/userChrome.css ];
+        # };
       };
     }
     {
@@ -64,25 +64,25 @@ in {
           client.urgent           $base08 $base08 $base00 $base08 $base08
         '';
 
-        "fuzzel/fuzzel.ini".text = lib.generators.toINIWithGlobalSection{} {
-            globalSection = {
-                font="${fonts.monospace.name}:size=16";
-                icons-enabled = "no";
-                show-actions = "yes";
-                width=60;
-                prompt=" ";
-            };
+        "fuzzel/fuzzel.ini".text = lib.generators.toINIWithGlobalSection { } {
+          globalSection = {
+            font = "${fonts.monospace.name}:size=16";
+            icons-enabled = "no";
+            show-actions = "yes";
+            width = 60;
+            prompt = " ";
+          };
 
-            sections = {
-                colors = {
-                    background="${colors.base00}ff";
-                    text="${colors.base05}ff";
-                    match="${colors.base0B}ff";
-                    selection="${colors.base02}ff";
-                    selection-text="${colors.base05}ff";
-                    border="${colors.base00}ff";
-                };
+          sections = {
+            colors = {
+              background = "${colors.base00}ff";
+              text = "${colors.base05}ff";
+              match = "${colors.base0B}ff";
+              selection = "${colors.base02}ff";
+              selection-text = "${colors.base05}ff";
+              border = "${colors.base00}ff";
             };
+          };
         };
       }];
     }
@@ -92,7 +92,8 @@ in {
           "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
         sha256 = "12rkqy81l1q9q8kr59m1fx100p74d18gkc5cpwr6y0i66czbxmh9";
       };
-      stylix.base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
+      # stylix.base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
+      stylix.base16Scheme = "${inputs.base16-schemes}/dracula.yaml";
       stylix.polarity = "dark";
       stylix.targets.plymouth.enable = true;
       stylix.fonts = {

@@ -36,7 +36,7 @@ in {
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
       "i915.mitigations=off"
-      "i915.enable_fbc=0"
+      "i915.enable_fbc=1"
       "i915.enable_guc=3"
       "i915.modeset=1"
       "mem_sleep_default=deep"
@@ -89,6 +89,7 @@ in {
 
     nvidia = lib.mkIf config.modules.hardware.nvidia.enable {
       modesetting.enable = true;
+      open = true;
       prime = {
         offload.enable = true;
 
@@ -115,8 +116,15 @@ in {
   powerManagement.enable = true;
 
   # improve cpu balancing a bit
-  services.ananicy.enable = true;
-  # services.ananicy.package = pkgs.ananicy-cpp;
+  services.ananicy.enable = false;
+  services.ananicy.package = pkgs.ananicy-cpp;
+
+  systemd.oomd.enableRootSlice = true;
+  systemd.oomd.enableSystemSlice = true;
+  systemd.oomd.enableUserServices = true;
+
+  systemd.enableCgroupAccounting = true;
+  systemd.enableUnifiedCgroupHierarchy = true;
 
   services.earlyoom.enable = true;
   services.earlyoom.enableNotifications = true;

@@ -9,7 +9,7 @@ function window_props() {
     class=$(echo "${xprops[0]}" | tr -d \")
     title=$(echo "${xprops[1]}" | tr -d \")
 
-    if [ "$class" == "null" ] || [ "$title" == "null" ]
+    if [ "$class" == "" ] || [ "$title" == "" ]
     then
         class=$(swaywindow -n "$window_id" 2>/dev/null)
         title=$(swaywindow -t "$window_id" 2>/dev/null)
@@ -17,10 +17,10 @@ function window_props() {
 
     case $value in
         "WM_CLASS")
-            echo "$class"
+            echo "WM_CLASS = \"$class\", \"$class\""
             ;;
         "_NET_WM_NAME")
-            echo "$title"
+            echo "_NET_WM_NAME = \"$title\""
             ;;
         *)
             echo "Not implemented"

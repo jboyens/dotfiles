@@ -408,6 +408,14 @@ for_window [window_type="popup_menu"] floating enable
 for_window [window_type="tooltip"] floating enable
 for_window [window_type="notification"] floating enable
 
+# Fix for capturing all keys
+for_window [app_id="^chrome-.*"] shortcuts_inhibitor disable
+
+for_window [title="^Emacs Everywhere.*"] floating enable
+for_window [title="^Emacs Everywhere.*"] move to position center
+for_window [title="^Emacs Everywhere.*"] resize set 800 600
+for_window [title="^Emacs Everywhere.*"] border pixel 3
+
 # for_window [class=URxvt instance=scratch] floating true
 # for_window [class=URxvt instance=scratch] resize set width 1200 height 560
 # for_window [class=URxvt instance=scratch] border pixel 2

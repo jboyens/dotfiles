@@ -16,7 +16,7 @@ in {
         desktopName = "Slack (Wayland)";
         genericName = "Open Slack as a Wayland app";
         icon = "slack";
-        exec = "${slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        exec = "${slack}/bin/slack --ozone-platform-hint=auto";
         categories = ["Network"];
       })
     ];
