@@ -1,5 +1,4 @@
-final: prev:
-{
+final: prev: {
   # pgcenter = prev.pgcenter.overrideAttrs(oa: rec {
   #   version = "0.9.2";
   #
@@ -13,9 +12,11 @@ final: prev:
   #   vendorSha256 = final.lib.fakeHash;
   # });
 
-  open-policy-agent = prev.open-policy-agent.overrideAttrs(oa: rec {
-    doCheck = false;
-  });
+  open-policy-agent =
+    prev.open-policy-agent.overrideAttrs (oa: rec { doCheck = false; });
+
+  # fix for https://github.com/NixOS/nixpkgs/issues/206958
+  clisp = prev.clisp.override { readline = prev.readline6; };
 
   isync-oauth2 = final.buildEnv {
     name = "isync-oauth2";
@@ -28,9 +29,8 @@ final: prev:
     '';
   };
 
-  xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs(oa: rec {
-    patches = [ ../patches/0001-xdg-desktop-wlr-zoomfix.patch ];
-  });
+  xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs
+    (oa: rec { patches = [ ../patches/0001-xdg-desktop-wlr-zoomfix.patch ]; });
 
   #
   # ananicy-cpp = prev.ananicy-cpp.overrideAttrs(old: rec {
