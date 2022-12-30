@@ -87,13 +87,15 @@ in {
       }];
     }
     {
-      stylix.image = pkgs.fetchurl {
-        url =
-          "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
-        sha256 = "12rkqy81l1q9q8kr59m1fx100p74d18gkc5cpwr6y0i66czbxmh9";
-      };
+      stylix.image = /home/jboyens/Downloads/vhs.png;
+
+      # pkgs.fetchurl {
+      #   url =
+      #     "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
+      #   sha256 = "12rkqy81l1q9q8kr59m1fx100p74d18gkc5cpwr6y0i66czbxmh9";
+      # };
       # stylix.base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
-      stylix.base16Scheme = "${inputs.base16-schemes}/dracula.yaml";
+      stylix.base16Scheme = "${inputs.base16-schemes}/tomorrow-night.yaml";
       stylix.polarity = "dark";
       stylix.targets.plymouth.enable = true;
       stylix.fonts = {

@@ -9,6 +9,7 @@
 #
 # Usage: scrrec somefile.mp4
 #        scrrec another.gif
+set -x
 
 is_script=
 geom=
@@ -33,7 +34,7 @@ select-region() {
   if [[ $geom ]]; then
     echo "${geom//[x+]/ }"
   else
-    slop -nof "%w %h %x %y"
+    slurp -f "%w %h %x %y"
   fi
 }
 
@@ -55,7 +56,7 @@ countdown() {
 }
 
 recording-start() {
-  local ffmpeg_opts="-y -f x11grab -show_region 1 -ss $delay -s ${4}x${5} -i :0.0+${2},${3} -framerate ${fps}"
+  local ffmpeg_opts="-y -f kmsgrab -show_region 1 -ss $delay -s ${4}x${5} -i :0.0+${2},${3} -framerate ${fps}"
   local dest=${1:-./rec.mp4}
   local mp4dest=
   [[ $dest == *.gif ]] && mp4dest="${dest%.*}.mp4"

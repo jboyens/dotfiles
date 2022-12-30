@@ -18,6 +18,32 @@ final: prev: {
   # fix for https://github.com/NixOS/nixpkgs/issues/206958
   clisp = prev.clisp.override { readline = prev.readline6; };
 
+  cyrus-sasl-xoauth2 = final.stdenv.mkDerivation rec {
+    pname = "cyrus-sasl-xoauth2";
+    version = "0.2";
+
+    src = final.fetchFromGitHub {
+      owner = "moriyoshi";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "sha256-lI8uKtVxrziQ8q/Ss+QTgg1xTObZUTAzjL3MYmtwyd8=";
+    };
+
+    nativeBuildInputs = with final; [ autoconf automake libtool cyrus_sasl ];
+    buildInputs = [];
+
+    preConfigure = "./autogen.sh";
+    makeFlags = [ "CYRUS_SASL_PREFIX=${placeholder "out"}" ];
+
+    meta = with final.lib; {
+      homepage = "https://github.com/moriyoshi/cyrus-sasl-xoauth2";
+      description = "This is a plugin implementation of XOAUTH2.";
+      maintainers = with maintainers; [ ];
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
   isync-oauth2 = final.buildEnv {
     name = "isync-oauth2";
     paths = [ final.isync ];
@@ -25,7 +51,7 @@ final: prev: {
     nativeBuildInputs = [ final.makeWrapper ];
     postBuild = ''
       wrapProgram "$out/bin/mbsync" \
-        --prefix SASL_PATH : "${final.cyrus_sasl.out.outPath}/lib/sasl2:${prev.my.cyrus-sasl-xoauth2}/lib/sasl2"
+        --prefix SASL_PATH : "${final.cyrus_sasl.out.outPath}/lib/sasl2:${final.cyrus-sasl-xoauth2}/lib/sasl2"
     '';
   };
 

@@ -5,27 +5,7 @@
 
 SCRID=scratch
 CMD=${1:-'tmux new-session -A -s scratch -n scratch'}
-focused=$(xdotool getactivewindow)
-# scratch=$(xdotool search --onlyvisible --classname $SCRID)
-scratch=$(swaywindow -q $SCRID)
-if [[ -n $scratch ]]; then
-    if [[ $focused == $scratch ]]; then
-        # xdotool windowkill $scratch
-        swaywindow -k $scratch
-    else
-        # xdotool windowactivate $scratch
-        swaywindow -a $scratch
-    fi
-elif command -v foot >/dev/null; then
-    foot --app-id $SCRID $CMD
-elif command -v urxvt >/dev/null; then
-    urxvt -name $SCRID \
-          -e $SHELL -c "$CMD"
-elif command -v xst >/dev/null; then
-    xst -t $SCRID -n $SCRID -c $SCRID \
-        -f "$(xrdb -query | grep 'scratch\.font' | cut -f2)" \
-        -e $SHELL -c "$CMD"
-else
-    >&2 echo "No shell to launch the scratch terminal with"
-    exit 1
-fi
+
+swaymsg "[app_id=$SCRID con_id=__focused__] kill" || \
+    swaymsg "[app_id=$SCRID]" focus || \
+    foot --app-id=$SCRID $CMD

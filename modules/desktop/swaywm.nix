@@ -57,6 +57,7 @@ in {
         export XDG_SESSION_TYPE=wayland
         export XDG_CURRENT_DESKTOP=sway
         export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+        export NIXOS_OZONE_WL=1
         # xrdb -merge "$XDG_CONFIG_HOME"/xtheme/*
 
         export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"

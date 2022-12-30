@@ -42,6 +42,9 @@
 
     flake-utils = { url = "github:numtide/flake-utils"; };
 
+    comma = { url = "github:nix-community/comma"; };
+    comma.inputs.nixpkgs.follows = "nixpkgs";
+
     # jboyens.url = "github:jboyens/nixpkgs?rev=39c8f7fb882f642cbf11429f5dff210e08f6b205";
   };
 
