@@ -19,6 +19,7 @@ in {
         (google-cloud-sdk.withExtraComponents([
           google-cloud-sdk.components.gke-gcloud-auth-plugin
           google-cloud-sdk.components.config-connector
+          google-cloud-sdk.components.terraform-tools
         ]))
         cloud-sql-proxy
       ];
@@ -49,7 +50,7 @@ in {
           tilt
           stern
           my.sloth
-          my.google-cloud-sdk-gke-gcloud-auth-plugin
+          # my.google-cloud-sdk-gke-gcloud-auth-plugin
         ];
       };
 

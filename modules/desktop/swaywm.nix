@@ -97,7 +97,7 @@ in {
         gsettings-desktop-schemas
         gnome.adwaita-icon-theme
         hicolor-icon-theme
-        flashfocus
+        my.flashfocus
         polkit_gnome
         # i3status-rust
         gammastep
@@ -191,7 +191,7 @@ in {
       description = "flashfocus";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      script = "${pkgs.flashfocus}/bin/flashfocus";
+      script = "${pkgs.my.flashfocus}/bin/flashfocus";
       path = with pkgs; [ procps ];
     };
 

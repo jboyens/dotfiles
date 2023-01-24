@@ -16,7 +16,7 @@ final: prev: {
     prev.open-policy-agent.overrideAttrs (oa: rec { doCheck = false; });
 
   # fix for https://github.com/NixOS/nixpkgs/issues/206958
-  clisp = prev.clisp.override { readline = prev.readline6; };
+  clisp = prev.clisp.override { readline = prev.readline63; };
 
   cyrus-sasl-xoauth2 = final.stdenv.mkDerivation rec {
     pname = "cyrus-sasl-xoauth2";
@@ -55,8 +55,8 @@ final: prev: {
     '';
   };
 
-  xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs
-    (oa: rec { patches = [ ../patches/0001-xdg-desktop-wlr-zoomfix.patch ]; });
+  # xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs
+  #   (oa: rec { patches = [ ../patches/0001-xdg-desktop-wlr-zoomfix.patch ]; });
 
   #
   # ananicy-cpp = prev.ananicy-cpp.overrideAttrs(old: rec {

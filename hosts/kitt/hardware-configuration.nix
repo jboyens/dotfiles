@@ -23,10 +23,9 @@ in {
       "aesni_intel"
       "cryptd"
     ];
-    initrd.kernelModules = [ "i915" ];
+    initrd.kernelModules = [ "i915" ] ++ (if config.modules.hardware.nvidia.enable then [ "nvidia" ] else []);
     blacklistedKernelModules = [ "iTCO_wdt" "nouveau" ];
     kernelPackages = kernel;
-    # kernelPackages = pkgs.linuxPackages_zen;
     extraModulePackages = with kernel; [ v4l2loopback acpi_call ];
     kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
     kernelParams = [
@@ -68,14 +67,18 @@ in {
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      # extraPackages = with pkgs; [ (lib.hiPrio nvidia-vaapi-driver) ];
-      extraPackages = with pkgs; [
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
-        intel-media-driver
+      extraPackages = if config.modules.hardware.nvidia.enable then [
+        (lib.hiPrio pkgs.nvidia-vaapi-driver)
+      ] else [
+        pkgs.vaapiIntel
+        pkgs.vaapiVdpau
+        pkgs.libvdpau-va-gl
+        pkgs.intel-media-driver
       ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [ libva vaapiIntel ];
+      extraPackages32 = if config.modules.hardware.nvidia.enable then [
+      ] else with pkgs.pkgsi686Linux; [
+        libva vaapiIntel
+      ];
     };
     # pulseaudio.support32Bit = false;
     steam-hardware.enable = true;

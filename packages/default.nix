@@ -6,6 +6,7 @@ with pkgs;
   autoname-workspaces = (callPackage ./autoname-workspaces.nix {});
   beeper = (callPackage ./beeper.nix {});
   cyrus-sasl-xoauth2 = (callPackage ./cyrus-sasl-xoauth2.nix {});
+  flashfocus = (callPackage ./flashfocus.nix {});
   fuzzel = (callPackage ./fuzzel {});
   godoc = (callPackage ./godoc.nix { });
   google-cloud-sdk-gke-gclound-auth-plugin = (callPackage ./google-cloud-sdk-gke-gclound-auth-plugin.nix { });

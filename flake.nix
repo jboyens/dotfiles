@@ -15,8 +15,11 @@
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
     nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
 
+    flake-utils = { url = "github:numtide/flake-utils"; };
+
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.utils.follows = "flake-utils";
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +27,7 @@
     # Extras
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    emacs-overlay.inputs.flake-utils.follows = "flake-utils";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -35,15 +39,12 @@
     stylix.inputs.home-manager.follows = "home-manager";
     stylix.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    base16-schemes = {
-      url = "github:base16-project/base16-schemes";
-      flake = false;
-    };
-
-    flake-utils = { url = "github:numtide/flake-utils"; };
+    base16-schemes.url = "github:tinted-theming/base16-schemes";
+    base16-schemes.flake = false;
 
     comma = { url = "github:nix-community/comma"; };
     comma.inputs.nixpkgs.follows = "nixpkgs";
+    comma.inputs.utils.follows = "flake-utils";
 
     # jboyens.url = "github:jboyens/nixpkgs?rev=39c8f7fb882f642cbf11429f5dff210e08f6b205";
   };
