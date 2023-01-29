@@ -111,10 +111,21 @@
       Domains = "fooninja.org";
     };
   in {
+    "39-wired" = {
+      enable = true;
+      name = "en*";
+      inherit networkConfig;
+      dhcpV4Config = {
+        RouteMetric = 10;
+      };
+    };
     "40-wireless" = {
       enable = true;
       name = "wl*";
       inherit networkConfig;
+      dhcpV4Config = {
+        RouteMetric = 20;
+      };
     };
   };
 

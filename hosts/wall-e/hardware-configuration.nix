@@ -24,6 +24,7 @@
 
   boot.blacklistedKernelModules = [ "iTCO_wdt" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModulePackages = with config.boot.kernelPackages; [ ];
 
   boot.kernelParams = [
     # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
