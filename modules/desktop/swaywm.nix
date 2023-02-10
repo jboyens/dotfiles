@@ -97,7 +97,7 @@ in {
         gsettings-desktop-schemas
         gnome.adwaita-icon-theme
         hicolor-icon-theme
-        my.flashfocus
+        # my.flashfocus
         polkit_gnome
         # i3status-rust
         gammastep
@@ -187,13 +187,13 @@ in {
       script = "${pkgs.bluez}/bin/mpris-proxy";
     };
 
-    systemd.user.services.flashfocus = {
-      description = "flashfocus";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      script = "${pkgs.my.flashfocus}/bin/flashfocus";
-      path = with pkgs; [ procps ];
-    };
+    # systemd.user.services.flashfocus = {
+    #   description = "flashfocus";
+    #   wantedBy = [ "graphical-session.target" ];
+    #   partOf = [ "graphical-session.target" ];
+    #   script = "${pkgs.my.flashfocus}/bin/flashfocus";
+    #   path = with pkgs; [ procps ];
+    # };
 
     systemd.user.services.swayrd = {
       description = "swayrd";

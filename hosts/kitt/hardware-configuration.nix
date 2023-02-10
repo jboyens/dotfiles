@@ -153,6 +153,7 @@ in {
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
     allowDiscards = true;
+    bypassWorkqueues = true;
   };
 
   fileSystems."/boot" = {

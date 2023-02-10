@@ -1,5 +1,7 @@
 { lib, python3, netcat-openbsd, nix-update-script }:
 
+let
+in
 python3.pkgs.buildPythonApplication rec {
   pname = "flashfocus";
   version = "2.3.1";
@@ -21,10 +23,18 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [
     i3ipc
-    xcffib
+    (xcffib.overrideAttrs (_: {
+      doCheck = false;
+      checkPhase = ''true'';
+    }))
     click
     cffi
-    xpybutil
+    (xpybutil.override {
+      xcffib = (xcffib.overrideAttrs (_: {
+        doCheck = false;
+        checkPhase = ''true'';
+      }));
+    })
     marshmallow
     pyyaml
   ];

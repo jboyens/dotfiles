@@ -55,6 +55,7 @@
       bluetooth.enable = true;
       ergodox.enable = true;
       nvidia.enable = false;
+      solokeys.enable = true;
       sony-1000Xm3.enable = true;
       firmware.enable = true;
       fs = {
@@ -88,7 +89,7 @@
       geoclue2.enable = true;
       tlp.enable = true;
       restic = {
-        enable = true;
+        enable = false;
         backups = {
           workspace.enable = true;
           home.enable = true;
@@ -180,4 +181,9 @@
   programs.dconf.enable = true;
 
   gtk.iconCache.enable = true;
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
 }
