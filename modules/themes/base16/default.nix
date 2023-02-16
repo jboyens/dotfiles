@@ -110,8 +110,8 @@ in {
         };
 
         monospace = {
-          package = pkgs.iosevka-bin;
-          name = "Iosevka Term";
+          package = pkgs.my.pragmasevka;
+          name = "Pragmasevka";
         };
 
         emoji = {

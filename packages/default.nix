@@ -16,6 +16,7 @@ with pkgs;
   kustomize = (callPackage ./kustomize.nix { });
   min = (callPackage ./min.nix {});
   pizauth = (callPackage ./pizauth.nix { });
+  pragmasevka = (callPackage ./pragmasevka.nix { });
   powerctl = (callPackage ./powerctl.nix {});
   remontoire = (callPackage ./remontoire.nix { });
   sloth = (callPackage ./sloth.nix { });
