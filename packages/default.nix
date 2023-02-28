@@ -21,6 +21,7 @@ with pkgs;
   remontoire = (callPackage ./remontoire.nix { });
   sloth = (callPackage ./sloth.nix { });
   swaycons = (callPackage ./swaycons { });
+  termshot = (callPackage ./termshot.nix {});
   testkube = (callPackage ./testkube.nix {});
   tilt = (callPackage ./tilt.nix {});
   thermald = (callPackage ./thermald {});

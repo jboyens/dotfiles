@@ -3,17 +3,18 @@
 with lib;
 with lib.my;
 let
-  cfg = config.modules.desktop.apps.waybar;
+  cfg = config.modules.desktop.services.waybar;
   colorscheme = config.lib.stylix;
   fonts = config.stylix.fonts;
 in {
-  options.modules.desktop.apps.waybar = {
+  options.modules.desktop.services.waybar = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    home-manager.users.${config.user.name}.programs = {
+    home.programs = {
       waybar.enable = true;
+      waybar.systemd.enable = true;
       waybar.settings = {
         mainBar = {
           layer = "top";

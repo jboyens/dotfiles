@@ -33,12 +33,7 @@ in {
           chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
         };
       };
-      extraPortals = with pkgs;
-        [
-          xdg-desktop-portal-wlr
-          # xdg-desktop-portal-gtk
-        ];
-      # gtkUsePortal = true;
+      extraPortals = with pkgs; [xdg-desktop-portal-wlr];
     };
 
     programs.sway = {
@@ -123,34 +118,32 @@ in {
       ];
     };
 
-    programs.waybar.enable = true;
-
-    home-manager.users.${config.user.name}.programs = {
-      mako = {
-        enable = true;
-        actions = true;
-        anchor = "top-right";
-        backgroundColor = "#${colorscheme.colors.base00}";
-        borderColor = "#${colorscheme.colors.base0D}";
-        borderRadius = 2;
-        borderSize = 1;
-        defaultTimeout = 14000;
-        font = fonts.sansSerif.name;
-        height = 1000;
-        icons = true;
-        ignoreTimeout = true;
-        margin = "4,26";
-        markup = true;
-        maxVisible = -1;
-        padding = "20,16";
-        textColor = "#${colorscheme.colors.base05}";
-        width = 440;
-        extraConfig = ''
-          [app-name="Slack"]
-          group-by=summary
-        '';
-      };
+    home.programs.mako = {
+      enable = true;
+      actions = true;
+      anchor = "top-right";
+      backgroundColor = "#${colorscheme.colors.base00}";
+      borderColor = "#${colorscheme.colors.base0D}";
+      borderRadius = 2;
+      borderSize = 1;
+      defaultTimeout = 14000;
+      font = fonts.sansSerif.name;
+      height = 1000;
+      icons = true;
+      ignoreTimeout = true;
+      margin = "4,26";
+      markup = true;
+      maxVisible = -1;
+      padding = "20,16";
+      textColor = "#${colorscheme.colors.base05}";
+      width = 440;
+      extraConfig = ''
+        [app-name="Slack"]
+        group-by=summary
+      '';
     };
+
+    home.services.mpris-proxy.enable = true;
 
     systemd.user.services.autotiling = {
       description = "Sway autotiling";
@@ -159,32 +152,11 @@ in {
       script = "${pkgs.autotiling}/bin/autotiling";
     };
 
-    systemd.user.services.gammastep = {
-      description = "Screen color temperature manager";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      script = "${pkgs.gammastep}/bin/gammastep -l 47.553341:-122.370537";
-    };
-
     systemd.user.services.mako = {
       description = "Mako notifications";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       script = "${pkgs.mako}/bin/mako";
-    };
-
-    systemd.user.services.kanshi = {
-      description = "Kanshi display configuration";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      script = "${pkgs.kanshi}/bin/kanshi";
-    };
-
-    systemd.user.services.mpris-proxy = {
-      description = "mpris-proxy";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      script = "${pkgs.bluez}/bin/mpris-proxy";
     };
 
     # systemd.user.services.flashfocus = {

@@ -8,12 +8,10 @@
       i3.enable = false;
       apps = {
         bitwarden.enable = true;
-        slack.enable = true;
-        zoom.enable = true;
-        # 2022-10-26 - Broken again on Python 3.10 dbus-next
         maestral.enable = true;
         signal-desktop.enable = true;
-        waybar.enable = true;
+        slack.enable = true;
+        zoom.enable = true;
       };
       browsers = {
         default = "firefox";
@@ -25,6 +23,11 @@
         documents.pdf.enable = true;
         mpv.enable = true;
         spotify.enable = true;
+      };
+      services = {
+        gammastep.enable = true;
+        kanshi.enable = true;
+        waybar.enable = true;
       };
       term = {
         default = "foot";

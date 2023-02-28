@@ -55,6 +55,22 @@ final: prev: {
     '';
   };
 
+  jira-cli-go = let
+    version = "2023-02-24";
+    src = final.fetchFromGitHub {
+      owner = "ankitpokhrel";
+      repo = "jira-cli";
+      rev = "626e8c2eae9bcc65cda224593d00109f76ffe78e";
+      sha256 = "sha256-J5saduSkCQpDSVfbANwlIY4lrD2BCc69WFzyjGya7Ms=";
+    };
+  in
+  (prev.jira-cli-go.override rec {
+    buildGoModule = args: final.buildGoModule (args // {
+      inherit src version;
+      vendorSha256 = "sha256-Ndo6EQp/k9BLvIHf+NiBj6a73Th1liEnd5+ZGelV8VM=";
+    });
+  });
+
   # xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs
   #   (oa: rec { patches = [ ../patches/0001-xdg-desktop-wlr-zoomfix.patch ]; });
 
