@@ -7,13 +7,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "autoname-workspaces";
-  version = "1.8";
+  version = "1.8.1";
 
   src = fetchFromGitHub rec {
     owner = "swaywm";
     repo = "sway";
     rev = version;
-    sha256 = "sha256-r5qf50YK0Wl0gFiFdSE/J6ZU+D/Cz32u1mKzOqnIuJ0=";
+    sha256 = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
   };
 
   buildInputs = [ pythonWithPackages ];

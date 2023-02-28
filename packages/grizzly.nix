@@ -2,16 +2,16 @@
 
 buildGo119Module rec {
   pname = "grizzly";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "grafana";
     repo = "grizzly";
     rev = "v${version}";
-    sha256 = "sha256-6z/6QZlCm4mRMKAVzLnOokv8ib7Y/7a17ojjMfeoJ4w=";
+    sha256 = "sha256-FqbgIF/6i00kZIIQni3UjyeK6M8xAFHH6s0AcTgdigc=";
   };
 
-  vendorSha256 = "sha256-DDYhdRPcD5hfSW9nRmCWpsrVmIEU1sBoVvFz5Begx8w=";
+  vendorSha256 = "sha256-OV6biQpxj+fZcM8RyPr7SAjtk4Iseymxb7bJeCnSwmk=";
 
   CGO_ENABLED = 0;
 
