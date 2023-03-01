@@ -20,7 +20,7 @@ in {
       fi
     '';
 
-    services = { xserver.enable = false; };
+    services = { xserver.enable = lib.mkDefault false; };
 
     xdg.portal = {
       enable = true;

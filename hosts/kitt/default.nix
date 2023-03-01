@@ -116,40 +116,40 @@
     enabledCollectors = [ "systemd" ];
   };
 
-  # networking.networkmanager.enable = true;
-  # networking.networkmanager.wifi.powersave = false;
+  networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
   # networking.networkmanager.wifi.backend = "iwd";
 
-  networking.useNetworkd = true;
+  networking.useNetworkd = false;
 
-  systemd.network.networks = let
-    networkConfig = {
-      DHCP = "yes";
-      Domains = "fooninja.org";
-    };
-  in {
-    "90-wireless" = {
-      enable = true;
-      name = "wl*";
-      inherit networkConfig;
-    };
+  # systemd.network.networks = let
+  #   networkConfig = {
+  #     DHCP = "yes";
+  #     Domains = "fooninja.org";
+  #   };
+  # in {
+  #   "90-wireless" = {
+  #     enable = true;
+  #     name = "wl*";
+  #     inherit networkConfig;
+  #   };
+  #
+  #   "70-wired" = {
+  #     enable = true;
+  #     name = "en*";
+  #     networkConfig = {
+  #       inherit (networkConfig) Domains;
+  #       DHCP = "yes";
+  #     };
+  #
+  #     dhcpV4Config.RouteMetric = 10;
+  #     ipv6AcceptRAConfig.RouteMetric = 10;
+  #   };
+  # };
 
-    "70-wired" = {
-      enable = true;
-      name = "en*";
-      networkConfig = {
-        inherit (networkConfig) Domains;
-        DHCP = "yes";
-      };
+  # systemd.network.wait-online.extraArgs = [ "--any" ];
 
-      dhcpV4Config.RouteMetric = 10;
-      ipv6AcceptRAConfig.RouteMetric = 10;
-    };
-  };
-
-  systemd.network.wait-online.extraArgs = [ "--any" ];
-
-  networking.wireless.iwd.enable = true;
+  # networking.wireless.iwd.enable = false;
 
   networking.domain = "fooninja.org";
 
@@ -189,4 +189,14 @@
     login.u2fAuth = true;
     sudo.u2fAuth = true;
   };
+
+  # specialisation = {
+  #   gnome.configuration = {
+  #     services.xserver.enable = true;
+  #     services.xserver.desktopManager.gnome.enable = true;
+  #     services.xserver.displayManager.gdm.enable = true;
+  #     services.xserver.displayManager.gdm.wayland = true;
+  #     hardware.pulseaudio.enable = false;
+  #   };
+  # };
 }

@@ -13,7 +13,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ tmux ];
 
-    modules.theme.onReload.tmux = "${pkgs.tmux}/bin/tmux source-file $TMUX_HOME/extraInit";
+    modules.theme.onReload.tmux = "if [ -f /tmp/tmux-1000/default ]; then ${pkgs.tmux}/bin/tmux source-file $TMUX_HOME/extraInit; fi";
 
     modules.shell.zsh = {
       rcInit = "_cache tmuxifier init -";
