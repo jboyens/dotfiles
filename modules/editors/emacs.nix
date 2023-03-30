@@ -9,6 +9,7 @@ with lib.my;
 let
   cfg = config.modules.editors.emacs;
   configDir = config.dotfiles.configDir;
+  # myEmacs = (pkgs.emacs.override { nativeComp = true; withPgtk = true; });
   myEmacs = pkgs.emacsPgtk;
   # myEmacs = (pkgs.emacsGit.override {
   #   withSQLite3 = true;
@@ -78,8 +79,10 @@ in {
       nixfmt
       # :lang sh
       shellcheck
+      shfmt
       # :lang org
       graphviz
+      maim
 
       # (mu.override { emacs = myEmacs; })
 
@@ -96,6 +99,7 @@ in {
 
       # :lang markdown
       discount
+      python311Packages.grip
 
       # :lang web
       html-tidy

@@ -88,13 +88,12 @@ in {
       settings = { General.Enable = "Source,Sink,Media,Socket"; };
     };
 
-    video.hidpi.enable = true;
-
     nvidia = lib.mkIf config.modules.hardware.nvidia.enable {
       modesetting.enable = true;
-      open = true;
+      open = false;
       prime = {
         offload.enable = true;
+        offload.enableOffloadCmd = true;
 
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";

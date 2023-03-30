@@ -12,7 +12,8 @@
 
   inputs = {
     # Core dependencies.
-    nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
+    # nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
+    nixpkgs.url = "/home/jboyens/Workspace/nixpkgs"; # primary nixpkgs
     nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
 
     flake-utils = { url = "github:numtide/flake-utils"; };

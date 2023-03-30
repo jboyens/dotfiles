@@ -103,6 +103,7 @@ in {
         my.remontoire
         # my.swaycons
         swayr
+        sov
         my.fuzzel
         sirula
 
@@ -127,7 +128,7 @@ in {
       borderRadius = 2;
       borderSize = 1;
       defaultTimeout = 14000;
-      font = fonts.sansSerif.name;
+      font = "${fonts.sansSerif.name} 10";
       height = 1000;
       icons = true;
       ignoreTimeout = true;

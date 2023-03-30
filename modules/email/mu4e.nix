@@ -23,6 +23,13 @@ in {
       isync-oauth2
       msmtp
       my.pizauth
+      (writeScriptBin "mu-reindex" ''
+        if [ -f /tmp/mu4e_lock ]; then
+          ${coreutils-full}/bin/touch /tmp/mu_reindex_now
+        else
+          ${mu}/bin/mu index --lazy-check
+        fi
+        '')
     ];
 
     home-manager.users.${config.user.name}.systemd.user = {
@@ -61,13 +68,9 @@ in {
             RestartSec = "30";
           };
 
-          # path = with pkgs; [ isync mu ];
-
           Install = {
             WantedBy = [ "default.target" ];
           };
-          # wantedBy = [ "multi-user.target" ];
-          # partOf = [ "multi-user.target" ];
         };
 
         "goimapnotify@fooninja" = {
@@ -84,13 +87,9 @@ in {
             RestartSec = "30";
           };
 
-          # path = with pkgs; [ isync mu ];
-
           Install = {
             WantedBy = [ "default.target" ];
           };
-          # wantedBy = [ "multi-user.target" ];
-          # partOf = [ "multi-user.target" ];
         };
 
         mbsync = {
@@ -99,10 +98,6 @@ in {
             ConditionPathExists="%h/.mbsyncrc";
             Documentation="man:mbsync(1)";
           };
-
-          # Install = {
-          #   WantedBy = [ "default.target" ];
-          # };
 
           Service = {
             Environment="PATH=${pkgs.my.pizauth}/bin:$PATH";

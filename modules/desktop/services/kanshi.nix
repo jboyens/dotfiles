@@ -20,7 +20,7 @@ in {
               status = "enable";
             }
             {
-              criteria = "LG Electronics LG Ultra HD 0x00001B21";
+              criteria = "LG Electronics LG Ultra HD 0x00011A21";
               mode = "3840x2160@60Hz";
               position = "0,0";
               scale = 1.0;

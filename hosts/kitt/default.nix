@@ -190,6 +190,10 @@
     sudo.u2fAuth = true;
   };
 
+  # NetworkManager suuuuuuuuuuuuuuuucks
+  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
+
   # specialisation = {
   #   gnome.configuration = {
   #     services.xserver.enable = true;

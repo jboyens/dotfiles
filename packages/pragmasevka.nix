@@ -2,12 +2,12 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "pragmasevka";
-  version = "1.6.3";
+  version = "1.6.4";
 
   src = fetchzip {
     url = "https://github.com/shytikov/pragmasevka/releases/download/v${version}/Pragmasevka.zip";
     stripRoot = false;
-    hash = "sha256-qUowAvLBpI3EaRoQkxbjKsjiJHwqFFmnTpmynSppQCo=";
+    hash = "sha256-9ZBozMYjNy/9IO+2Rl6SQC9h+aLBYfG7K4q6GKIOKeo=";
   };
 
   installPhase = ''

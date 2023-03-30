@@ -1,5 +1,5 @@
 #!/usr/bin/env cached-nix-shell
-#! nix-shell -p ruby_2_7 -i "ruby -S" --quiet
+#! nix-shell -p nvd -p ruby_2_7 -i "ruby -S" --quiet
 
 DESC = <<~DESC
   Nix's CLI has a poor user story, in my opinion. It could be better; Guix is a
@@ -317,7 +317,8 @@ module Hey
         end
         from = from ? "#{profile}-#{from}-link" : profile
         to   = to   ? "#{profile}-#{to}-link"   : profile
-        puts `nix store diff-closures #{from} #{to}`
+        puts `nvd --color always diff #{from} #{to}`
+        #puts `nix store diff-closures #{from} #{to}`
         #fromDevs = `nix-store -q --references #{from}`.split
         #toDevs   = `nix-store -q --references #{to}`.split
         #puts (fromDevs - toDevs).map { |d| "\e[31m-#{d}\e[0m" }
