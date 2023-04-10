@@ -162,7 +162,7 @@ in {
         };
       };
 
-      waybar.style = ''
+      waybar.style = lib.mkForce ''
         @keyframes blink-warning {
             70% {color: #${colorscheme.colors.base0A};}
             to {color: #${colorscheme.colors.base05}; background-color: #${colorscheme.colors.base0A};}

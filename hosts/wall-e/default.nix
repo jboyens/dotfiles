@@ -11,6 +11,8 @@
         slack.enable = true;
         zoom.enable = true;
         maestral.enable = true;
+      };
+      services = {
         waybar.enable = true;
       };
       browsers = {

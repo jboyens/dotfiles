@@ -66,7 +66,7 @@ in {
 
         "fuzzel/fuzzel.ini".text = lib.generators.toINIWithGlobalSection { } {
           globalSection = {
-            font = "${fonts.monospace.name}:size=16";
+            font = fonts.monospace.name;
             icons-enabled = "no";
             show-actions = "yes";
             width = 60;
@@ -101,6 +101,10 @@ in {
       stylix.targets.plymouth.enable = true;
       home-manager.users.jboyens = {
         stylix.targets.waybar.enable = false;
+        stylix.targets.k9s.enable = true;
+        stylix.fonts.sizes = {
+          terminal = 8;
+        };
       };
       stylix.fonts = {
         serif = {

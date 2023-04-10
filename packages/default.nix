@@ -13,6 +13,7 @@ with pkgs;
   gorename = (callPackage ./gorename.nix { });
   grizzly = (callPackage ./grizzly.nix { });
   guru = (callPackage ./guru.nix { });
+  istioctl_1_17_2 = (callPackage ./istioctl_1_17_2.nix {  });
   kustomize = (callPackage ./kustomize.nix { });
   min = (callPackage ./min.nix {});
   pizauth = (callPackage ./pizauth.nix { });

@@ -37,6 +37,7 @@ in {
 
       # for monitoring
       unstable.bottom
+      unstable.btop
 
       # for json parsing
       unstable.jq
@@ -72,6 +73,8 @@ in {
       wl-clipboard-x11
 
       envsubst
+
+      age
     ];
   };
 }

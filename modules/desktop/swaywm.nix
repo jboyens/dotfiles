@@ -119,7 +119,7 @@ in {
       ];
     };
 
-    home.programs.mako = {
+    home.services.mako = {
       enable = true;
       actions = true;
       anchor = "top-right";

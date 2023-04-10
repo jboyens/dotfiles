@@ -26,8 +26,8 @@ in {
       foot.package = inputs.nixpkgs.legacyPackages.x86_64-linux.foot;
       foot.settings = {
         main = {
-          font="${fonts.monospace.name}:size=12";
           pad="10x10";
+          dpi-aware = lib.mkForce "yes";
         };
         cursor.color = "${colorscheme.colors.base00} ${colorscheme.colors.base05}";
         colors = {

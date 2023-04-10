@@ -43,7 +43,7 @@ in {
           };
 
           Service = {
-            Environment = "PATH=${pkgs.libnotify}/bin:$PATH";
+            Environment = "PATH=${pkgs.libnotify}/bin:${pkgs.age}/bin:$PATH";
             ExecStart = "${pkgs.my.pizauth}/bin/pizauth server -dvc %h/.config/pizauth.conf";
             Restart = "always";
             RestartSec = "30";

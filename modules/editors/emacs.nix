@@ -9,14 +9,13 @@ with lib.my;
 let
   cfg = config.modules.editors.emacs;
   configDir = config.dotfiles.configDir;
-  # myEmacs = (pkgs.emacs.override { nativeComp = true; withPgtk = true; });
-  myEmacs = pkgs.emacsPgtk;
+  myEmacs = (pkgs.emacsUnstable.override { withPgtk = true; });
+  # myEmacs = pkgs.emacsPgtk;
   # myEmacs = (pkgs.emacsGit.override {
   #   withSQLite3 = true;
   #   withWebP = true;
   #   withPgtk = true;
   # });
-  # myEmacs = (pkgs.emacs.override { nativeComp = true; withPgtk = true; });
   # myEmacs = pkgs.emacs;
 in {
   options.modules.editors.emacs = {

@@ -37,7 +37,6 @@ in {
           unstable.terraform
           unstable.kubectl
           unstable.minikube
-          unstable.k9s
           unstable.kubernetes-helm
           krew
           unstable.open-policy-agent
@@ -52,6 +51,11 @@ in {
           my.sloth
           # my.google-cloud-sdk-gke-gcloud-auth-plugin
         ];
+      };
+
+
+      home.programs.k9s = {
+        enable = true;
       };
 
       modules.shell.zsh.aliases.k = "kubectl";

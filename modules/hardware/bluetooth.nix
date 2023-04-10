@@ -9,7 +9,15 @@ in {
   options.modules.hardware.bluetooth = { enable = mkBoolOpt false; };
 
   config = mkMerge [
-    (mkIf cfg.enable { hardware.bluetooth.enable = true; })
+    (mkIf cfg.enable {
+      hardware.bluetooth = {
+        enable = true;
+        package = pkgs.bluez;
+        settings = {
+          General.Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    })
 
     (mkIf (cfg.enable && (config.services.xserver.enable
       || config.modules.desktop.swaywm.enable)) {

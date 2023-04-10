@@ -39,13 +39,19 @@ in {
         categories = ["Development"];
       })
       xfce.thunar
-      xfce.thunar-volman
-      xfce.tumbler
       qgnomeplatform        # QPlatformTheme for a better Qt application inclusion in GNOME
       libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
       xdg-utils
       paper-icon-theme
     ];
+
+    programs.thunar.plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+
+    services.gvfs.enable = true;
+    services.tumbler.enable = true;
 
     fonts = {
       fontDir.enable = true;

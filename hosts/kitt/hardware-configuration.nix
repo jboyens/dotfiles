@@ -57,10 +57,6 @@ in {
     plymouth.enable = true;
   };
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-
   hardware = {
     enableRedistributableFirmware = true;
     opengl = {
@@ -79,25 +75,6 @@ in {
       ] else with pkgs.pkgsi686Linux; [
         libva vaapiIntel
       ];
-    };
-    # pulseaudio.support32Bit = false;
-    steam-hardware.enable = true;
-    bluetooth = {
-      enable = true;
-      package = pkgs.bluez;
-      settings = { General.Enable = "Source,Sink,Media,Socket"; };
-    };
-
-    nvidia = lib.mkIf config.modules.hardware.nvidia.enable {
-      modesetting.enable = true;
-      open = false;
-      prime = {
-        offload.enable = true;
-        offload.enableOffloadCmd = true;
-
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
     };
   };
 
