@@ -56,12 +56,12 @@ final: prev: {
   };
 
   jira-cli-go = let
-    version = "2023-03-18";
+    version = "2023-04-14";
     src = final.fetchFromGitHub {
       owner = "ankitpokhrel";
       repo = "jira-cli";
-      rev = "eef7ae96c20a26f16b26f178c07ebe7df11511ab";
-      sha256 = "sha256-E/pKVVQxSmUoX/oPXjdUt8NPTNn22zrlbGMK7yMlqjg=";
+      rev = "60e883a82a62eed5feed05450f83db4c0c052a47";
+      sha256 = "sha256-/SC72VmhHny9qdm4Eomvturrs2x+yo9oypcCqhGYokE=";
     };
   in
   (prev.jira-cli-go.override rec {

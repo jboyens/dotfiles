@@ -9,7 +9,6 @@ in {
   config = mkIf cfg.enable {
     home.services.kanshi = {
       enable = true;
-      systemdTarget = "graphical-session.target";
       profiles = {
         Home = {
           outputs = [

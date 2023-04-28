@@ -75,6 +75,14 @@ in {
       envsubst
 
       age
+
+      glab
+
+      jira-cli-go
+
+      my.testkube
+
+      nvd
     ];
   };
 }

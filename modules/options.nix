@@ -25,6 +25,7 @@ with lib.my; {
       dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
       programs = mkOpt' attrs { } "Apps to configure";
       services = mkOpt' attrs { } "Services to configure";
+      wayland = mkOpt' attrs { } "Wayland config";
     };
 
     env = mkOption {
@@ -79,6 +80,7 @@ with lib.my; {
         };
         programs = mkAliasDefinitions options.home.programs;
         services = mkAliasDefinitions options.home.services;
+        wayland = mkAliasDefinitions options.home.wayland;
       };
     };
 

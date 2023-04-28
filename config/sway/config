@@ -37,51 +37,16 @@ smart_gaps on
 font pango:FuraCode Nerd Font 11
 
 ### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg ~/.local/share/wallpaper fill
-# until wlroots damage is fixed; solves mouse tracking / rendering issues
-# output * bg #000000 solid_color
 
 output eDP-1 mode 1920x1080@60Hz position 6940,2160
 output "LG Electronics LG Ultra HD 0x00011A21" mode 3840x2160@60Hz position 0,0 scale 1.0
-# output "Goldstar Company Ltd LG Ultra HD 0x00001B21" mode 3840x2160@60Hz position 0,0 scale 1.0
 output "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E" mode 3840x2160@60Hz position 3840,0 scale 1.0
-
-exec swayidle -w \
-         timeout 600 'swaylock -f -c 000000' \
-         timeout 1200 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
-
-input "0:0:Apple_SPI_Keyboard" {
-    xkb_model apple_laptop
-    xkb_layout us
-    xkb_variant dvorak
-    xkb_options caps:ctrl_modifier
-}
 
 input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_model dell
     xkb_layout us
     xkb_variant dvorak
     xkb_options caps:ctrl_modifier,altwin:swap_lalt_lwin
-}
-
-input "1133:49948:Logitech_USB_Keyboard" {
-    xkb_model dell
-    xkb_layout us
-    xkb_variant dvorak
-    xkb_options caps:ctrl_modifier,altwin:swap_lalt_lwin
-}
-
-input "1149:8257:Kensington_Kensington_Slimblade_Trackball" {
-    scroll_factor 4
-}
-
-input "1739:1751:Apple_SPI_Touchpad" {
-    scroll_factor 6
-    pointer_accel .8
 }
 
 input "1739:31251:SYNA2393:00_06CB:7A13_Touchpad" {

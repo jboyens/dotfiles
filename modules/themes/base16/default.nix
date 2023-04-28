@@ -99,9 +99,12 @@ in {
       # stylix.base16Scheme = "${inputs.base16-schemes}/tokyo-night-dark.yaml";
       stylix.polarity = "dark";
       stylix.targets.plymouth.enable = true;
+      stylix.targets.console.enable = false;
+      stylix.targets.chromium.enable = true;
       home-manager.users.jboyens = {
         stylix.targets.waybar.enable = false;
-        stylix.targets.k9s.enable = true;
+        stylix.targets.k9s.enable = false;
+        stylix.targets.swaylock.enable = true;
         stylix.fonts.sizes = {
           terminal = 8;
         };
