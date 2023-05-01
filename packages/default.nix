@@ -15,6 +15,7 @@ with pkgs;
   guru = (callPackage ./guru.nix { });
   istioctl_1_17_2 = (callPackage ./istioctl_1_17_2.nix {  });
   kustomize = (callPackage ./kustomize.nix { });
+  markdown-to-confluence = (callPackage ./markdown-to-confluence.nix { });
   min = (callPackage ./min.nix {});
   pizauth = (callPackage ./pizauth.nix { });
   pragmasevka = (callPackage ./pragmasevka.nix { });

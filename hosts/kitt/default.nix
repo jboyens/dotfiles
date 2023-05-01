@@ -1,4 +1,4 @@
-{ pkgs, stdenv, lib, inputs, ... }: {
+{ pkgs, stdenv, lib, inputs, config, ... }: {
   imports = [ ../home.nix ./hardware-configuration.nix ./networking.nix ];
 
   ## Modules
@@ -119,6 +119,8 @@
     login.u2fAuth = true;
     sudo.u2fAuth = true;
   };
+
+  nix.settings.netrc-file = config.age.secrets.netrc.path;
 
   # specialisation = {
   #   gnome.configuration = {
