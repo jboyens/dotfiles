@@ -1,9 +1,8 @@
-{
-  stdenv,
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
+{ lib
+, buildGoModule
+, fetchFromGitHub
 }:
+
 buildGoModule rec {
   pname = "tilt";
   /*
@@ -11,25 +10,26 @@ buildGoModule rec {
   running in development environment and try to serve assets from the
   source tree, which is not there once build completes.
   */
-  version = "0.31.2";
+  version = "0.32.3";
 
   src = fetchFromGitHub {
     owner = "tilt-dev";
-    repo = pname;
+    repo = "tilt";
     rev = "v${version}";
-    sha256 = "sha256-Wn7e2g1KPnFgFuRPUh3g0FW/m0qRHV5reO+AZbhbaC8=";
+    hash = "sha256-5QTZUapHhSSI+UZu77IUZdflCIm+oCu4kPQVhLHCsUQ=";
   };
-  vendorSha256 = null;
+
+  vendorHash = null;
+
+  ldflags = [ "-s" "-w" "-X main.version=${version}"];
 
   subPackages = ["cmd/tilt"];
-
-  ldflags = ["-X main.version=${version}"];
 
   doCheck = false;
 
   meta = with lib; {
-    description = "Local development tool to manage your developer instance when your team deploys to Kubernetes in production";
-    homepage = "https://tilt.dev/";
+    description = "Define your dev environment as code. For microservice apps on Kubernetes";
+    homepage = "https://github.com/tilt-dev/tilt";
     license = licenses.asl20;
     maintainers = with maintainers; [anton-dessiatov];
   };

@@ -6,16 +6,16 @@
 }:
 buildGoModule rec {
   pname = "testkube";
-  version = "1.11.18";
+  version = "1.11.22";
 
   src = fetchFromGitHub {
     owner = "kubeshop";
     repo = "testkube";
     rev = "v${version}";
-    sha256 = "sha256-3QmTTwhT7NtjyppJTATW7k7Yo6il6gClb8cDg0VleeY=";
+    sha256 = "sha256-9ohm2ILZE5Q3xIzAVxQBSHQtP0zjc8ZlcW9xsDF4Zuk=";
   };
 
-  vendorSha256 = "sha256-iyR9H5T1eRjEx3vUgxUkXK6fgvJfLb7ux7MdIM3vPOY=";
+  vendorSha256 = "sha256-0lTfohJHakZynWgXqevZnyppkZ2Th6PLq+7DITHZXP8=";
 
   doCheck = false;
   subPackages = ["cmd/kubectl-testkube"];
