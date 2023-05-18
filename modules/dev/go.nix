@@ -1,10 +1,15 @@
 # modules/dev/go.nix
-
-{ config, options, lib, pkgs, my, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  my,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.dev.go;
+with lib.my; let
+  cfg = config.modules.dev.go;
 in {
   options.modules.dev.go = {
     enable = mkBoolOpt false;

@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.services.restic;
   # baseRepo = "sftp://jboyens@192.168.86.34:2223//backup";
   baseRepo = "rest:http://192.168.86.34:8899";
@@ -14,21 +18,21 @@ in {
         enable = mkEnableOption false;
         paths = mkOption {
           type = types.listOf types.path;
-          default = [ "${config.user.home}/Workspace" ];
+          default = ["${config.user.home}/Workspace"];
         };
       };
       home = {
         enable = mkEnableOption false;
         paths = mkOption {
           type = types.listOf types.path;
-          default = [ "${config.user.home}" ];
+          default = ["${config.user.home}"];
         };
       };
       mail = {
         enable = mkEnableOption false;
         paths = mkOption {
           type = types.listOf types.path;
-          default = [ "${config.user.home}/.mail" ];
+          default = ["${config.user.home}/.mail"];
         };
       };
     };
@@ -58,7 +62,7 @@ in {
             "-e /home/jboyens/Workspace/warehouser/log"
             "-e /home/jboyens/Workspace/warehouser/tmp"
           ];
-          timerConfig = { OnCalendar = "hourly"; };
+          timerConfig = {OnCalendar = "hourly";};
           passwordFile = "/home/jboyens/.secrets/backup.secret";
         };
       })
@@ -68,7 +72,7 @@ in {
           paths = cfg.backups.mail.paths;
           repository = "${baseRepo}/Mail-restic";
           pruneOpts = cfg.pruneOpts;
-          timerConfig = { OnCalendar = "hourly"; };
+          timerConfig = {OnCalendar = "hourly";};
           passwordFile = "/home/jboyens/.secrets/backup.secret";
         };
       })
@@ -78,16 +82,15 @@ in {
           paths = cfg.backups.home.paths;
           repository = "${baseRepo}/home-restic";
           pruneOpts = cfg.pruneOpts;
-          extraBackupArgs =
-            [ "--exclude-file /home/jboyens/restic-exclude.txt" "-x" ];
-          timerConfig = { OnCalendar = "hourly"; };
+          extraBackupArgs = ["--exclude-file /home/jboyens/restic-exclude.txt" "-x"];
+          timerConfig = {OnCalendar = "hourly";};
           passwordFile = "/home/jboyens/.secrets/backup.secret";
         };
       })
     ];
 
-    systemd.services.restic-backups-Home.serviceConfig.CPUQuota="200%";
-    systemd.services.restic-backups-Mail.serviceConfig.CPUQuota="200%";
-    systemd.services.restic-backups-Workspace.serviceConfig.CPUQuota="200%";
+    systemd.services.restic-backups-Home.serviceConfig.CPUQuota = "200%";
+    systemd.services.restic-backups-Mail.serviceConfig.CPUQuota = "200%";
+    systemd.services.restic-backups-Workspace.serviceConfig.CPUQuota = "200%";
   };
 }

@@ -1,10 +1,15 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.hardware.audio;
+with lib.my; let
+  cfg = config.modules.hardware.audio;
 in {
-  options.modules.hardware.audio = { enable = mkBoolOpt false; };
+  options.modules.hardware.audio = {enable = mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     services.pipewire = {
@@ -37,6 +42,6 @@ in {
     #   };
     # };
 
-    user.extraGroups = [ "audio" ];
+    user.extraGroups = ["audio"];
   };
 }

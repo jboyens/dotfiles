@@ -1,5 +1,8 @@
-{ lib, stdenvNoCC, fetchzip }:
-
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "pragmasevka";
   version = "1.6.4";
@@ -22,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "PragmataPro meets Iosevka";
     homepage = "https://github.com/shytikov/pragmasevka";
     license = licenses.ofl;
-    maintainers = [ maintainers.jboyens ];
+    maintainers = [maintainers.jboyens];
     platforms = platforms.all;
   };
 }

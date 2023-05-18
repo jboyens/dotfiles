@@ -1,25 +1,30 @@
-{ options, config, lib, pkgs, inputs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.desktop.swaywm;
   swayConfig = config.home.wayland.windowManager.sway.config;
 in {
   config = mkIf cfg.enable {
-    home.wayland.windowManager.sway = {
-      config = let
-        super = "Mod4";
-        alt = "Mod1";
-        control = "Ctrl";
-        shift = "Shift";
-        hyper = "${control}+${alt}+${super}+${shift}";
-        meh = "${control}+${alt}+${shift}";
-        left = "h";
-        down = "j";
-        up = "k";
-        right = "l";
-      in {
+    home.wayland.windowManager.sway = let
+      super = "Mod4";
+      alt = "Mod1";
+      control = "Ctrl";
+      shift = "Shift";
+      hyper = "${control}+${alt}+${super}+${shift}";
+      meh = "${control}+${alt}+${shift}";
+      left = "h";
+      down = "j";
+      up = "k";
+      right = "l";
+    in {
+      config = {
         modifier = "Mod4";
         keybindings = lib.mkOptionDefault {
           "${super}+Bracketleft" = "workspace prev";
@@ -34,34 +39,22 @@ in {
           "${super}+Shift+c" = "reload";
           "${super}+${control}+${shift}+Escape" = "reload";
           "${super}+question" = "exec $DOTFILES/bin/remontoire-toggle";
-          "${super}+${alt}+Escape" =
-            "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
+          "${super}+${alt}+Escape" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
           "${super}+Slash" = "exec $DOTFILES/bin/rofi/filemenu -x";
           "${super}+Backslash" = "exec $DOTFILES/bin/rofi/bwmenu";
           "${super}+Grave" = "exec $DOTFILES/bin/scratch";
-          "${super}+${shift}+Grave" =
-            "exec emacsclient -e '(doom/open-scratch-buffer)'";
+          "${super}+${shift}+Grave" = "exec emacsclient -e '(doom/open-scratch-buffer)'";
           "${super}+e" = "exec emacsclient -e '(emacs-everywhere)'";
-          "${super}+t" =
-            "exec emacsclient -n ~/Documents/org-mode/todo.org && $DOTFILES/bin/activate emacs";
-          "${super}+n" =
-            "exec emacsclient -n ~/Documents/org-mode/notes.org && $DOTFILES/bin/activate emacs";
-          "${super}+d" =
-            "exec emacsclient -ne '(org-roam-dailies-goto-today)' && $DOTFILES/bin/activate emacs";
-          "${super}+${control}+t" =
-            "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k t";
-          "${super}+${control}+n" =
-            "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k n";
-          "${super}+m" =
-            "exec emacsclient -ne '(=mu4e)' && $DOTFILES/bin/activate emacs";
+          "${super}+t" = "exec emacsclient -n ~/Documents/org-mode/todo.org && $DOTFILES/bin/activate emacs";
+          "${super}+n" = "exec emacsclient -n ~/Documents/org-mode/notes.org && $DOTFILES/bin/activate emacs";
+          "${super}+d" = "exec emacsclient -ne '(org-roam-dailies-goto-today)' && $DOTFILES/bin/activate emacs";
+          "${super}+${control}+t" = "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k t";
+          "${super}+${control}+n" = "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k n";
+          "${super}+m" = "exec emacsclient -ne '(=mu4e)' && $DOTFILES/bin/activate emacs";
           "${hyper}+e" = "$DOTFILES/bin/activate emacs";
           "${hyper}+f" = "$DOTFILES/bin/activate firefox";
           "${hyper}+s" = "$DOTFILES/bin/activate slack";
           "${hyper}+z" = "$DOTFILES/bin/activate zoom zoom-us";
-
-          #     ## Navigate // Toggle Mute Zoom // <Hyper>m ##
-          #     bindsym --no-repeat --release $hyper+m exec $DOTFILES/bin/mute-zoom
-          "${hyper}+m" = "exec $DOTFILES/bin/mute-zoom";
 
           "${super}+${left}" = "focus left";
           "${super}+${down}" = "focus down";
@@ -112,19 +105,16 @@ in {
           "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
           "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
 
-          "XF86MonBrightnessUp" =
-            "exec ${pkgs.brightnessctl}/bin/brightness_ctl set +10% && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
-          "XF86MonBrightnessDown" =
-            "exec ${pkgs.brightnessctl}/bin/brightness_ctl set 10%- && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
+          "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightness_ctl set +10% && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
+          "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightness_ctl set 10%- && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
 
-          "XF86AudioRaiseVolume" =
-            "exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob";
-          "XF86AudioLowerVolume" =
-            "exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob";
-          "XF86AudioMute" =
-            "exec pamixer -t && if [ $(pamixer --get-mute) == true ]; then; echo 0; else; pamixer --get-volume; fi > $SWAYSOCK.wob";
+          "XF86AudioRaiseVolume" = "exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob";
+          "XF86AudioLowerVolume" = "exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob";
+          "XF86AudioMute" = "exec pamixer -t && if [ $(pamixer --get-mute) == true ]; then; echo 0; else; pamixer --get-volume; fi > $SWAYSOCK.wob";
 
           "${super}+r" = ''mode "resize"'';
+
+          "--no-repeat --release ${hyper}+m" = "exec $DOTFILES/bin/mute-huddle";
 
           #     floating_modifier $super normal
         };

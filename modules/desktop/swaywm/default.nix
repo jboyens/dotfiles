@@ -1,19 +1,24 @@
-{ options, config, lib, pkgs, inputs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.desktop.swaywm;
   colorscheme = config.lib.stylix;
   fonts = config.stylix.fonts;
   swayConfig =
     config.home-manager.users.${config.user.name}.wayland.windowManager.sway.config;
 in {
-  imports = [ ./keybindings.nix ];
-  options.modules.desktop.swaywm = { enable = mkBoolOpt false; };
+  imports = [./keybindings.nix];
+  options.modules.desktop.swaywm = {enable = mkBoolOpt false;};
 
   config = mkIf cfg.enable {
-    services = { xserver.enable = lib.mkDefault false; };
+    services = {xserver.enable = lib.mkDefault false;};
 
     xdg.portal = {
       enable = true;
@@ -26,7 +31,7 @@ in {
           chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
         };
       };
-      extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+      extraPortals = with pkgs; [xdg-desktop-portal-wlr];
     };
 
     programs.sway = {
@@ -166,13 +171,12 @@ in {
             workspace = "2";
           }
           {
-            output =
-              "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
+            output = "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
             workspace = "3";
           }
         ];
 
-        bars = [ ];
+        bars = [];
 
         startup = [
           {
@@ -180,24 +184,45 @@ in {
             always = true;
           }
           {
-            command =
-              "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${pkgs.wob}/bin/wob";
+            command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${pkgs.wob}/bin/wob";
             always = false;
           }
         ];
       };
     };
 
-    home.services.mako = {
+    home.services.mako = let
+      iconPath = let
+        basePaths = [
+          "/run/current-system/sw"
+          config.home-manager.users.${config.user.name}.home.profileDirectory
+        ];
+        themes = [
+          "Paper"
+          "Paper-Mono-Dark"
+          "Adwaita"
+          "hicolor"
+        ];
+        mkPath = {
+          basePath,
+          theme,
+        }: "${basePath}/share/icons/${theme}";
+      in
+        concatMapStringsSep ":" mkPath (cartesianProductOfSets {
+          basePath = basePaths;
+          theme = themes;
+        });
+    in {
       enable = true;
       actions = true;
       anchor = "top-right";
       borderRadius = 2;
       borderSize = 1;
-      defaultTimeout = 14000;
+      defaultTimeout = 0;
       height = 1000;
       icons = true;
-      ignoreTimeout = true;
+      iconPath = iconPath;
+      ignoreTimeout = false;
       margin = "4,26";
       markup = true;
       maxVisible = -1;
@@ -226,25 +251,41 @@ in {
         }
       ];
 
-      events = [{
-        event = "before-sleep";
-        command = "${pkgs.swaylock}/bin/swaylock -f";
-      }];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${pkgs.swaylock}/bin/swaylock -f";
+        }
+      ];
     };
 
     systemd.user.services.autotiling = {
       description = "Sway autotiling";
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "sway-session.target" ];
+      wantedBy = ["sway-session.target"];
+      partOf = ["sway-session.target"];
       script = "${pkgs.autotiling}/bin/autotiling";
     };
 
     systemd.user.services.swayrd = {
       description = "swayrd";
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "sway-session.target" ];
+      wantedBy = ["sway-session.target"];
+      partOf = ["sway-session.target"];
       script = "${pkgs.swayr}/bin/swayrd";
-      path = with pkgs; [ wofi ];
+      path = with pkgs; [wofi];
+    };
+
+    services.udev.extraRules = ''
+      KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
+    '';
+
+    systemd.user.services.ydotoold = {
+      description = "ydotool";
+      serviceConfig = {
+        RemainAfterExit = false;
+        ExecStart = "${pkgs.unstable.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
+      };
+      wantedBy = ["sway-session.target"];
+      partOf = ["sway-session.target"];
     };
 
     # link recursively so other modules can link files in their folders

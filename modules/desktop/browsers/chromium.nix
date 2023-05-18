@@ -1,14 +1,17 @@
 # modules/browser/chromium.nix
-
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.desktop.browsers.chromium;
-  mychromium = (pkgs.chromium.override {
+  mychromium = pkgs.chromium.override {
     enableWideVine = true;
-  });
+  };
 in {
   options.modules.desktop.browsers.chromium = with types; {
     enable = mkBoolOpt false;

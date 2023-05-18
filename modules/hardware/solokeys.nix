@@ -1,17 +1,22 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.hardware.solokeys;
+with lib.my; let
+  cfg = config.modules.hardware.solokeys;
 in {
   options.modules.hardware.solokeys = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    user.packages = [ pkgs.solo2-cli ];
+    user.packages = [pkgs.solo2-cli];
 
-    user.extraGroups = [ "plugdev" ];
+    user.extraGroups = ["plugdev"];
 
     services.udev.extraRules = ''
       # NXP LPC55 ROM bootloader (unmodified)
@@ -22,6 +27,6 @@ in {
       SUBSYSTEM=="tty", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="beee", TAG+="uaccess"
       # Solo 2
       SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="beee", TAG+="uaccess"
-      '';
+    '';
   };
 }

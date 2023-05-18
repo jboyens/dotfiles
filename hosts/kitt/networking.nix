@@ -1,5 +1,10 @@
-{ pkgs, stdenv, lib, inputs, ... }: {
-
+{
+  pkgs,
+  stdenv,
+  lib,
+  inputs,
+  ...
+}: {
   ## Local config
   networking.networkmanager.enable = false;
   networking.networkmanager.wifi.powersave = false;
@@ -54,11 +59,11 @@
   services.nscd.enableNsncd = true;
 
   services.nfs.idmapd.settings = {
-    General = { Domain = "fooninja.org"; };
+    General = {Domain = "fooninja.org";};
 
-    Translation = { GSS-Methods = "static,nsswitch"; };
+    Translation = {GSS-Methods = "static,nsswitch";};
 
-    Static = { "jboyens@fooninja.org" = "jboyens"; };
+    Static = {"jboyens@fooninja.org" = "jboyens";};
   };
 
   programs.ssh.startAgent = true;

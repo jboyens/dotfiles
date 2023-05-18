@@ -1,31 +1,36 @@
-{ lib, buildGo119Module, fetchFromGitHub, installShellFiles }:
-
+{
+  lib,
+  buildGo119Module,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 buildGo119Module rec {
   pname = "kustomize";
-  version = "5.0.1";
+  version = "5.0.2";
 
-  ldflags = let t = "sigs.k8s.io/kustomize/api/provenance"; in
-    [
-      "-s"
-      "-X ${t}.version=${version}"
-      "-X ${t}.gitCommit=${src.rev}"
-    ];
+  ldflags = let
+    t = "sigs.k8s.io/kustomize/api/provenance";
+  in [
+    "-s"
+    "-X ${t}.version=${version}"
+    "-X ${t}.gitCommit=${src.rev}"
+  ];
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";
     repo = pname;
     rev = "kustomize/v${version}";
-    sha256 = "sha256-wVdB9fTLYg7Ma0dRgDt7X7ncN0+04DyT8kp2+/aQ018=";
+    sha256 = "sha256-tsri90wvEZ6/UQpFz4fn7FgBQhji1IW1nPcx3jBaa3M=";
   };
 
-  GOWORK="off";
+  GOWORK = "off";
 
   # avoid finding test and development commands
   modRoot = "kustomize";
 
-  vendorSha256 = "sha256-bY3TxRErkUEaBCSk0w7LhvLC10YDCJhPV73fKwlWuFI=";
+  vendorSha256 = "sha256-4sA8FKZX8wERxsoOmnhtYK7nhywsk8sL1fHB6mesdQY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd kustomize \
@@ -43,6 +48,6 @@ buildGo119Module rec {
     '';
     homepage = "https://github.com/kubernetes-sigs/kustomize";
     license = licenses.asl20;
-    maintainers = with maintainers; [ carlosdagos vdemeester periklis zaninime Chili-Man saschagrunert ];
+    maintainers = with maintainers; [carlosdagos vdemeester periklis zaninime Chili-Man saschagrunert];
   };
 }

@@ -1,5 +1,10 @@
-{ lib, stdenv, fetchurl, file, zlib }:
-
+{
+  lib,
+  stdenv,
+  fetchurl,
+  file,
+  zlib,
+}:
 stdenv.mkDerivation rec {
   pname = "file";
   version = "5.37";
@@ -13,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) file;
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   doCheck = true;
 
@@ -22,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://darwinsys.com/file";
     description = "A program that shows the type of files";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.bsd2;
     platforms = platforms.all;
   };

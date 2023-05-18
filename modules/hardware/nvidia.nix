@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.hardware.nvidia;
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -12,7 +16,7 @@ let
     exec -a "$0" "$@"
   '';
 in {
-  options.modules.hardware.nvidia = { enable = mkBoolOpt false; };
+  options.modules.hardware.nvidia = {enable = mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     hardware = {
@@ -34,7 +38,7 @@ in {
       };
     };
 
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = ["nvidia"];
 
     environment.systemPackages = with pkgs; [
       nvidia-offload

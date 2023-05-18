@@ -1,5 +1,9 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
-
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 buildGoModule rec {
   pname = "sloth";
   version = "0.11.0";
@@ -22,7 +26,7 @@ buildGoModule rec {
 
     homepage = https://sloth.dev;
     license = licenses.asl20;
-    maintainers = [ maintainers.jboyens ];
+    maintainers = [maintainers.jboyens];
     platforms = platforms.unix;
   };
 }

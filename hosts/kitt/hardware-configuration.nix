@@ -1,6 +1,11 @@
-{ config, lib, pkgs, modulesPath, inputs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  inputs,
+  ...
+}: let
   kernel = pkgs.linuxPackages_latest;
   # kernel = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.linuxPackages_6_0;
 in {
@@ -23,11 +28,17 @@ in {
       "aesni_intel"
       "cryptd"
     ];
-    initrd.kernelModules = [ "i915" ] ++ (if config.modules.hardware.nvidia.enable then [ "nvidia" ] else []);
-    blacklistedKernelModules = [ "iTCO_wdt" "nouveau" ];
+    initrd.kernelModules =
+      ["i915"]
+      ++ (
+        if config.modules.hardware.nvidia.enable
+        then ["nvidia"]
+        else []
+      );
+    blacklistedKernelModules = ["iTCO_wdt" "nouveau"];
     kernelPackages = kernel;
-    extraModulePackages = with kernel; [ v4l2loopback acpi_call ];
-    kernelModules = [ "kvm-intel" "v4l2loopback" "akvcam" ];
+    extraModulePackages = with kernel; [v4l2loopback acpi_call];
+    kernelModules = ["kvm-intel" "v4l2loopback" "akvcam"];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
       #      vulnerabilities. This is not a good idea for mission critical or
@@ -51,14 +62,14 @@ in {
     # I guess to stop NVRAM wearout?
     loader.efi.canTouchEfiVariables = false;
 
-    kernel.sysctl = { "fs.inotify.max_user_instances" = 1024; };
+    kernel.sysctl = {"fs.inotify.max_user_instances" = 1024;};
 
     # cool, but sort of worthless with LUKS and Sway
     plymouth.enable = true;
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
   };
 
   hardware = {
@@ -67,18 +78,26 @@ in {
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = if config.modules.hardware.nvidia.enable then [
-        (lib.hiPrio pkgs.nvidia-vaapi-driver)
-      ] else [
-        pkgs.vaapiIntel
-        pkgs.vaapiVdpau
-        pkgs.libvdpau-va-gl
-        pkgs.intel-media-driver
-      ];
-      extraPackages32 = if config.modules.hardware.nvidia.enable then [
-      ] else with pkgs.pkgsi686Linux; [
-        libva vaapiIntel
-      ];
+      extraPackages =
+        if config.modules.hardware.nvidia.enable
+        then [
+          (lib.hiPrio pkgs.nvidia-vaapi-driver)
+        ]
+        else [
+          pkgs.vaapiIntel
+          pkgs.vaapiVdpau
+          pkgs.libvdpau-va-gl
+          pkgs.intel-media-driver
+        ];
+      extraPackages32 =
+        if config.modules.hardware.nvidia.enable
+        then [
+        ]
+        else
+          with pkgs.pkgsi686Linux; [
+            libva
+            vaapiIntel
+          ];
     };
   };
 
@@ -127,7 +146,7 @@ in {
     # device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
     device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
-    options = [ "noatime" ];
+    options = ["noatime"];
   };
 
   boot.initrd.luks.devices."cryptroot" = {
@@ -185,10 +204,12 @@ in {
     ];
   };
 
-  swapDevices = [{
-    device = "/swapfile";
-    size = 10240;
-  }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 10240;
+    }
+  ];
 
   # services.udev.extraRules = ''
   #   ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789B]?", ENV{ID_MM_DEVICE_IGNORE}="1"

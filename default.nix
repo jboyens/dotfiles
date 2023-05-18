@@ -1,5 +1,10 @@
-{ inputs, config, lib, pkgs, ... }:
-
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.my; {
   imports =
@@ -21,15 +26,17 @@ with lib.my; {
   nix = let
     filteredInputs = filterAttrs (n: _: n != "self") inputs;
     nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
-    registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
+    registryInputs = mapAttrs (_: v: {flake = v;}) filteredInputs;
   in {
     package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
-    nixPath = nixPathInputs ++ [
-      "nixpkgs-overlays=${config.dotfiles.dir}/overlays"
-      "dotfiles=${config.dotfiles.dir}"
-    ];
-    registry = registryInputs // { dotfiles.flake = inputs.self; };
+    nixPath =
+      nixPathInputs
+      ++ [
+        "nixpkgs-overlays=${config.dotfiles.dir}/overlays"
+        "dotfiles=${config.dotfiles.dir}"
+      ];
+    registry = registryInputs // {dotfiles.flake = inputs.self;};
     settings = {
       substituters = [
         "https://nix-community.cachix.org"
@@ -81,8 +88,7 @@ with lib.my; {
   ];
 
   stylix.image = mkDefault (pkgs.fetchurl {
-    url =
-      "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
+    url = "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
     sha256 = "12rkqy81l1q9q8kr59m1fx100p74d18gkc5cpwr6y0i66czbxmh9";
   });
 }

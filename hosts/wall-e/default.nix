@@ -1,5 +1,11 @@
-{ modulesPath, pkgs, config, lib, ... }: {
-  imports = [ ../home.nix ./hardware-configuration.nix ];
+{
+  modulesPath,
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
+  imports = [../home.nix ./hardware-configuration.nix];
 
   ## Modules
   modules = {
@@ -30,7 +36,7 @@
         default = "foot";
         foot.enable = true;
       };
-      vm = { qemu.enable = false; };
+      vm = {qemu.enable = false;};
     };
     dev = {
       android.enable = false;
@@ -42,7 +48,7 @@
         enable = true;
         google.enable = true;
       };
-      db = { postgres.enable = true; };
+      db = {postgres.enable = true;};
       ruby.enable = true;
     };
     editors = {
@@ -131,7 +137,7 @@
     };
   };
 
-  systemd.network.wait-online.extraArgs = [ "--any" ];
+  systemd.network.wait-online.extraArgs = ["--any"];
 
   networking.wireless.iwd.enable = true;
 
@@ -186,6 +192,6 @@
         chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
       };
     };
-    extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-gtk];
   };
 }

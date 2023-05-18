@@ -13,10 +13,10 @@ final: prev: {
   # });
 
   open-policy-agent =
-    prev.open-policy-agent.overrideAttrs (oa: rec { doCheck = false; });
+    prev.open-policy-agent.overrideAttrs (oa: rec {doCheck = false;});
 
   # fix for https://github.com/NixOS/nixpkgs/issues/206958
-  clisp = prev.clisp.override { readline = prev.readline63; };
+  clisp = prev.clisp.override {readline = prev.readline63;};
 
   cyrus-sasl-xoauth2 = final.stdenv.mkDerivation rec {
     pname = "cyrus-sasl-xoauth2";
@@ -29,16 +29,16 @@ final: prev: {
       sha256 = "sha256-lI8uKtVxrziQ8q/Ss+QTgg1xTObZUTAzjL3MYmtwyd8=";
     };
 
-    nativeBuildInputs = with final; [ autoconf automake libtool cyrus_sasl ];
+    nativeBuildInputs = with final; [autoconf automake libtool cyrus_sasl];
     buildInputs = [];
 
     preConfigure = "./autogen.sh";
-    makeFlags = [ "CYRUS_SASL_PREFIX=${placeholder "out"}" ];
+    makeFlags = ["CYRUS_SASL_PREFIX=${placeholder "out"}"];
 
     meta = with final.lib; {
       homepage = "https://github.com/moriyoshi/cyrus-sasl-xoauth2";
       description = "This is a plugin implementation of XOAUTH2.";
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       license = licenses.mit;
       platforms = platforms.all;
     };
@@ -46,9 +46,9 @@ final: prev: {
 
   isync-oauth2 = final.buildEnv {
     name = "isync-oauth2";
-    paths = [ final.isync ];
-    pathsToLink = [ "/bin" ];
-    nativeBuildInputs = [ final.makeWrapper ];
+    paths = [final.isync];
+    pathsToLink = ["/bin"];
+    nativeBuildInputs = [final.makeWrapper];
     postBuild = ''
       wrapProgram "$out/bin/mbsync" \
         --prefix SASL_PATH : "${final.cyrus_sasl.out.outPath}/lib/sasl2:${final.cyrus-sasl-xoauth2}/lib/sasl2"
@@ -63,12 +63,13 @@ final: prev: {
       rev = "60e883a82a62eed5feed05450f83db4c0c052a47";
       sha256 = "sha256-/SC72VmhHny9qdm4Eomvturrs2x+yo9oypcCqhGYokE=";
     };
-  in
-  (prev.jira-cli-go.override rec {
-    buildGoModule = args: final.buildGoModule (args // {
-      inherit src version;
-      vendorSha256 = "sha256-Ndo6EQp/k9BLvIHf+NiBj6a73Th1liEnd5+ZGelV8VM=";
-    });
+  in (prev.jira-cli-go.override rec {
+    buildGoModule = args:
+      final.buildGoModule (args
+        // {
+          inherit src version;
+          vendorSha256 = "sha256-Ndo6EQp/k9BLvIHf+NiBj6a73Th1liEnd5+ZGelV8VM=";
+        });
   });
 
   # xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs

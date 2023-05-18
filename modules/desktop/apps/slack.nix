@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.desktop.apps.slack;
+with lib.my; let
+  cfg = config.modules.desktop.apps.slack;
 in {
   options.modules.desktop.apps.slack = {
     enable = mkBoolOpt false;

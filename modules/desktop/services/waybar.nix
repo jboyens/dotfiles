@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.desktop.services.waybar;
   colorscheme = config.lib.stylix;
   fonts = config.stylix.fonts;
@@ -34,7 +38,7 @@ in {
             format = "  {icon}  {capacity}%";
             format-discharging = "{icon}  {capacity}%";
             format-full = "";
-            format-icons = [ "" "" "" "" "" ];
+            format-icons = ["" "" "" "" ""];
             tooltip = true;
           };
 
@@ -143,7 +147,7 @@ in {
             critical-threshold = 80;
             interval = 5;
             format = "{icon}  {temperatureC}°C";
-            format-icons = [ "" "" "" "" "" ];
+            format-icons = ["" "" "" "" ""];
             tooltip = true;
           };
 

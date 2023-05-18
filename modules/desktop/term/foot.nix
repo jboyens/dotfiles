@@ -1,10 +1,14 @@
 # modules/desktop/term/foot.nix
-
-{ options, config, lib, pkgs, inputs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.desktop.term.foot;
   colorscheme = config.lib.stylix;
   fonts = config.stylix.fonts;
@@ -26,7 +30,7 @@ in {
       foot.package = inputs.nixpkgs.legacyPackages.x86_64-linux.foot;
       foot.settings = {
         main = {
-          pad="10x10";
+          pad = "10x10";
           dpi-aware = lib.mkForce "yes";
         };
         cursor.color = "${colorscheme.colors.base00} ${colorscheme.colors.base05}";
@@ -57,7 +61,6 @@ in {
         };
       };
     };
-
 
     user.packages = with pkgs; [
       foot

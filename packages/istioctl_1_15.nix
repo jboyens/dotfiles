@@ -1,5 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
-
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 buildGoModule rec {
   pname = "istioctl";
   version = "1.15.2";
@@ -12,7 +16,7 @@ buildGoModule rec {
   };
   vendorSha256 = "sha256-RgxGPPNBYXe1/gFNKeM+huPCD6EGBPea5EtciSA9o58=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Bundle release metadata
   ldflags = let
@@ -24,7 +28,7 @@ buildGoModule rec {
     ];
   in ["-s" "-w" "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"];
 
-  subPackages = [ "istioctl/cmd/istioctl" ];
+  subPackages = ["istioctl/cmd/istioctl"];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -42,7 +46,7 @@ buildGoModule rec {
     description = "Istio configuration command line utility for service operators to debug and diagnose their Istio mesh";
     homepage = "https://istio.io/latest/docs/reference/commands/istioctl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ superherointj bryanasdev000 veehaitch ];
+    maintainers = with maintainers; [superherointj bryanasdev000 veehaitch];
     platforms = platforms.unix;
   };
 }

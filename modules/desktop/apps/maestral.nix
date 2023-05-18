@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.desktop.apps.maestral;
+with lib.my; let
+  cfg = config.modules.desktop.apps.maestral;
 in {
   options.modules.desktop.apps.maestral = {
     enable = mkBoolOpt false;
@@ -27,7 +32,7 @@ in {
       };
 
       Install = {
-        WantedBy = [ "default.target" ];
+        WantedBy = ["default.target"];
       };
     };
 

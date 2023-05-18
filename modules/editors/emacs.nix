@@ -1,15 +1,22 @@
 # Emacs is my main driver. I'm the author of Doom Emacs
 # https://github.com/hlissner/doom-emacs. This module sets it up to meet my
 # particular Doomy needs.
-
-{ config, lib, pkgs, inputs, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.editors.emacs;
   configDir = config.dotfiles.configDir;
-  myEmacs = (pkgs.emacsUnstable.override { withPgtk = true; });
+
+  # https://github.com/nix-community/emacs-overlay/issues/312
+  myEmacs = pkgs.emacsUnstablePgtk.overrideAttrs (prev: {
+    postFixup = builtins.replaceStrings ["/bin/emacs"] ["/bin/.emacs-*-wrapped"] prev.postFixup;
+  });
   # myEmacs = pkgs.emacsPgtk;
   # myEmacs = (pkgs.emacsGit.override {
   #   withSQLite3 = true;
@@ -34,11 +41,11 @@ in {
       binutils # native-comp needs 'as', provided by this
       # 29 + pgtk + native-comp
       ((emacsPackagesFor myEmacs).emacsWithPackages
-        (epkgs: [ epkgs.vterm epkgs.parinfer-rust-mode ]))
+        (epkgs: [epkgs.vterm epkgs.parinfer-rust-mode]))
 
       ## Doom dependencies
       git
-      (ripgrep.override { withPCRE2 = true; })
+      (ripgrep.override {withPCRE2 = true;})
       gnutls # for TLS connectivity
 
       ## Optional dependencies
@@ -51,7 +58,7 @@ in {
 
       ## Module dependencies
       # :checkers spell
-      (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
+      (aspellWithDicts (ds: with ds; [en en-computers en-science]))
       # :checkers grammar
       languagetool
       # :tools editorconfig
@@ -71,8 +78,8 @@ in {
         desktopName = "org-protocol";
         exec = "${myEmacs}/bin/emacsclient -n %u";
         type = "Application";
-        categories = [ "System" ];
-        mimeTypes = [ "x-scheme-handler/org-protocol" ];
+        categories = ["System"];
+        mimeTypes = ["x-scheme-handler/org-protocol"];
       })
       # :lang nix
       nixfmt
@@ -106,11 +113,11 @@ in {
       pandoc
     ];
 
-    env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
+    env.PATH = ["$XDG_CONFIG_HOME/emacs/bin"];
 
-    modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
+    modules.shell.zsh.rcFiles = ["${configDir}/emacs/aliases.zsh"];
 
-    fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+    fonts.fonts = [pkgs.emacs-all-the-icons-fonts];
 
     system.userActivationScripts = mkIf cfg.doom.enable {
       installDoomEmacs = ''

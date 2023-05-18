@@ -1,9 +1,14 @@
-{ config, options, pkgs, lib, ... }:
-
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.shell.weechat;
-    configDir = config.dotfiles.configDir;
+with lib.my; let
+  cfg = config.modules.shell.weechat;
+  configDir = config.dotfiles.configDir;
 in {
   options.modules.shell.weechat = with types; {
     enable = mkBoolOpt false;
@@ -12,7 +17,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       (weechat.override {
-        configure = { availablePlugins, ... }: {
+        configure = {availablePlugins, ...}: {
           scripts = with pkgs.weechatScripts; [
             wee-slack
           ];

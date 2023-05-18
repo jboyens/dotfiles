@@ -1,27 +1,35 @@
 # Theme modules are a special beast. They're the only modules that are deeply
 # intertwined with others, and are solely responsible for aesthetics. Disabling
 # a theme module should never leave a system non-functional.
-
-{ options, config, lib, pkgs, inputs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.theme;
+with lib.my; let
+  cfg = config.modules.theme;
 in {
   options.modules.theme = with types; {
     active = mkOption {
       type = nullOr str;
       default = null;
-      apply = v:
-        let theme = builtins.getEnv "THEME";
-        in if theme != "" then theme else v;
+      apply = v: let
+        theme = builtins.getEnv "THEME";
+      in
+        if theme != ""
+        then theme
+        else v;
       description = ''
         Name of the theme to enable. Can be overridden by the THEME environment
         variable. Themes can also be hot-swapped with 'hey theme $THEME'.
       '';
     };
 
-    onReload = mkOpt (attrsOf lines) { };
+    onReload = mkOpt (attrsOf lines) {};
   };
 
   config = mkIf (cfg.active != null) (mkMerge [
@@ -45,18 +53,18 @@ in {
         };
       };
     }
-    (mkIf (cfg.onReload != { }) (let
-      reloadTheme = with pkgs;
-        (writeScriptBin "reloadTheme" ''
-          #!${stdenv.shell}
-          echo "Reloading current theme: ${cfg.active}"
-          ${concatStringsSep "\n" (mapAttrsToList (name: script: ''
+    (mkIf (cfg.onReload != {}) (let
+      reloadTheme = with pkgs; (writeScriptBin "reloadTheme" ''
+        #!${stdenv.shell}
+        echo "Reloading current theme: ${cfg.active}"
+        ${concatStringsSep "\n" (mapAttrsToList (name: script: ''
             echo "[${name}]"
             ${script}
-          '') cfg.onReload)}
-        '');
+          '')
+          cfg.onReload)}
+      '');
     in {
-      user.packages = [ reloadTheme ];
+      user.packages = [reloadTheme];
       system.userActivationScripts.reloadTheme = ''
         [ -z "$NORELOAD" ] && ${reloadTheme}/bin/reloadTheme
       '';

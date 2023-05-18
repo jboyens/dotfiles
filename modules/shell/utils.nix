@@ -1,6 +1,12 @@
-{ config, options, pkgs, lib, ... }:
-with lib;
-let cfg = config.modules.shell.utils;
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.shell.utils;
 in {
   options.modules.shell.utils = {
     enable = mkOption {
@@ -83,6 +89,8 @@ in {
       my.testkube
 
       nvd
+
+      markdown-to-confluence
     ];
   };
 }

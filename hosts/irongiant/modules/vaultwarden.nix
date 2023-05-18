@@ -1,6 +1,8 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   modules.services.vaultwarden.enable = true;
 
   services.vaultwarden.config = {
@@ -14,7 +16,7 @@
 
   # Inject secrets at runtime
   systemd.services.vaultwarden.serviceConfig = {
-    EnvironmentFile = [ config.age.secrets.vaultwarden-smtp-env.path ];
+    EnvironmentFile = [config.age.secrets.vaultwarden-smtp-env.path];
     Restart = "on-failure";
     RestartSec = "2s";
   };

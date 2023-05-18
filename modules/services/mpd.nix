@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.services.mpd;
+with lib.my; let
+  cfg = config.modules.services.mpd;
 in {
   options.modules.services.mpd = {
     enable = mkBoolOpt false;

@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.desktop.services.gammastep;
 in {
   options.modules.desktop.services.gammastep = {

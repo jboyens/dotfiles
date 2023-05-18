@@ -1,13 +1,18 @@
-{ config, lib, pkgs, modulesPath, inputs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  inputs,
+  ...
+}: {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  boot.initrd.kernelModules = [ "dm-snapshot" "dm-cache-default" ];
+  boot.initrd.kernelModules = ["dm-snapshot" "dm-cache-default"];
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
@@ -22,9 +27,9 @@
 
   services.lvm.boot.thin.enable = true;
 
-  boot.blacklistedKernelModules = [ "iTCO_wdt" ];
+  boot.blacklistedKernelModules = ["iTCO_wdt"];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [];
 
   boot.kernelParams = [
     # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -67,7 +72,7 @@
     "/" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
-      options = [ "noatime" ];
+      options = ["noatime"];
     };
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";
@@ -76,13 +81,18 @@
     "/home" = {
       device = "/dev/disk/by-label/homes";
       fsType = "ext4";
-      options = [ "noatime" ];
+      options = ["noatime"];
     };
     "/nix" = {
       device = "/dev/disk/by-label/nix_store";
       fsType = "ext4";
-      options = [ "noatime" ];
+      options = ["noatime"];
     };
   };
-  swapDevices = [{ device = "/swapfile"; size = 8192; }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 8192;
+    }
+  ];
 }

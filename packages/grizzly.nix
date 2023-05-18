@@ -1,5 +1,9 @@
-{ stdenv, lib, buildGo119Module, fetchFromGitHub }:
-
+{
+  stdenv,
+  lib,
+  buildGo119Module,
+  fetchFromGitHub,
+}:
 buildGo119Module rec {
   pname = "grizzly";
   version = "0.2.1";
@@ -21,7 +25,7 @@ buildGo119Module rec {
     description = "A utility for managing various observability resources with Jsonnet";
     homepage = https://github.com/grafana/grizzly;
     license = licenses.asl20;
-    maintainers = [ maintainers.jboyens ];
+    maintainers = [maintainers.jboyens];
     platforms = platforms.unix;
   };
 }

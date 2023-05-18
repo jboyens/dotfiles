@@ -1,23 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, meson
-, ninja
-, vala
-, vala-lint
-, gettext
-, appstream-glib
-, desktop-file-utils
-, json-glib
-, wrapGAppsHook
-, cairo
-, glib
-, gtk3
-, libgee
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  vala-lint,
+  gettext,
+  appstream-glib,
+  desktop-file-utils,
+  json-glib,
+  wrapGAppsHook,
+  cairo,
+  glib,
+  gtk3,
+  libgee,
+  python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "remontoire";
   version = "r2_2";
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
   # mesonFlags = [ "-Dprofile=default" ];
 
-   postPatch = ''
+  postPatch = ''
     chmod +x build-aux/meson/postinstall.py
     patchShebangs build-aux/meson/postinstall.py
   '';
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/regolith-linux/remontoire";
     description = "Keybinding Hints";
     license = lib.licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = [];
   };
 }

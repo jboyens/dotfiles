@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, python3 }:
-
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+}:
 python3.pkgs.buildPythonPackage rec {
   pname = "markdown-to-confluence";
   version = "20230118";
@@ -15,7 +18,7 @@ python3.pkgs.buildPythonPackage rec {
 
   checkPhase = ''
     $out/bin/markdown-to-confluence --help >/dev/null
-    '';
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -26,14 +29,14 @@ python3.pkgs.buildPythonPackage rec {
     cp -r $src/markdown_to_confluence $out/${python3.sitePackages}
 
     runHook postInstall
-    '';
+  '';
 
-  propagatedBuildInputs = with python3.pkgs; [ GitPython mistune pyyaml requests ];
+  propagatedBuildInputs = with python3.pkgs; [GitPython mistune pyyaml requests];
 
   meta = with lib; {
     description = "markdown-to-confluence";
     homepage = "https://github.com/vmware-tanzu-labs/markdown-to-confluence";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jboyens ];
+    maintainers = with maintainers; [jboyens];
   };
 }

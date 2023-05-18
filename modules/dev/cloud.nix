@@ -1,10 +1,16 @@
 # modules/dev/cloud.nix
 #
 # Packages for various cloud services
-{ config, options, lib, pkgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.dev.cloud;
+with lib.my; let
+  cfg = config.modules.dev.cloud;
 in {
   options.modules.dev.cloud = {
     enable = mkBoolOpt false;
@@ -16,20 +22,20 @@ in {
   config = mkMerge [
     (mkIf cfg.google.enable {
       user.packages = with pkgs; [
-        (google-cloud-sdk.withExtraComponents([
+        (google-cloud-sdk.withExtraComponents [
           google-cloud-sdk.components.gke-gcloud-auth-plugin
           google-cloud-sdk.components.config-connector
           google-cloud-sdk.components.terraform-tools
-        ]))
+        ])
         cloud-sql-proxy
       ];
 
       env.USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
     })
 
-    (mkIf cfg.amazon.enable { user.packages = with pkgs; [ awscli ]; })
+    (mkIf cfg.amazon.enable {user.packages = with pkgs; [awscli];})
 
-    (mkIf cfg.microsoft.enable { user.packages = with pkgs; [ azure-cli ]; })
+    (mkIf cfg.microsoft.enable {user.packages = with pkgs; [azure-cli];})
 
     (mkIf cfg.enable {
       user = {
@@ -53,13 +59,12 @@ in {
         ];
       };
 
-
       home.programs.k9s = {
         enable = true;
       };
 
       modules.shell.zsh.aliases.k = "kubectl";
-      env.PATH = [ "$HOME/.krew/bin" ];
+      env.PATH = ["$HOME/.krew/bin"];
     })
   ];
 }

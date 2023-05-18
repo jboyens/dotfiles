@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.desktop.apps.bitwarden;
+with lib.my; let
+  cfg = config.modules.desktop.apps.bitwarden;
 in {
   options.modules.desktop.apps.bitwarden = {
     enable = mkBoolOpt false;

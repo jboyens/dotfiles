@@ -1,12 +1,16 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let
+with lib.my; let
   cfg = config.modules.shell.git;
   configDir = config.dotfiles.configDir;
 in {
-  options.modules.shell.git = { enable = mkBoolOpt false; };
+  options.modules.shell.git = {enable = mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
@@ -105,8 +109,7 @@ in {
         credential."https://gist.github.com".helper = "!gh auth git-credential";
 
         diff.algorithm = "histogram";
-        diff.lisp.xfuncname =
-          "^(((;;;+ )|\\(|([ 	]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
+        diff.lisp.xfuncname = "^(((;;;+ )|\\(|([ 	]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
         diff.org.xfuncname = "^(\\*+ +.*)$";
 
         github.user = "jboyens";
@@ -146,6 +149,6 @@ in {
       };
     };
 
-    modules.shell.zsh.rcFiles = [ "${configDir}/git/aliases.zsh" ];
+    modules.shell.zsh.rcFiles = ["${configDir}/git/aliases.zsh"];
   };
 }

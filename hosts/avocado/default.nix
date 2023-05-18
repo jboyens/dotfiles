@@ -1,5 +1,10 @@
-{ pkgs, stdenv, lib, ... }: {
-  imports = [ ../home.nix ./hardware-configuration.nix ];
+{
+  pkgs,
+  stdenv,
+  lib,
+  ...
+}: {
+  imports = [../home.nix ./hardware-configuration.nix];
 
   ## Modules
   modules = {
@@ -32,7 +37,7 @@
         st.enable = false;
         alacritty.enable = true;
       };
-      vm = { qemu.enable = true; };
+      vm = {qemu.enable = true;};
     };
     dev = {
       cc.enable = true;
@@ -42,7 +47,7 @@
         # currently broken
         amazon.enable = false;
       };
-      db = { postgres.enable = true; };
+      db = {postgres.enable = true;};
     };
     editors = {
       default = "nvim";
@@ -62,14 +67,14 @@
     };
     email = {
       mu4e.enable = true;
-      mu4e.package = (pkgs.unstable.offlineimap.overrideAttrs (oa: {
+      mu4e.package = pkgs.unstable.offlineimap.overrideAttrs (oa: {
         src = pkgs.fetchFromGitHub {
           owner = "OfflineIMAP";
           repo = "offlineimap";
           rev = "2d0d07cd6a0560e5845ac09a0b3fbada3a034ba6";
           sha256 = "NU/kqsBUPR+0EnEDIXMQaBU6gm2Y+KExH5XWKMFJ2x0=";
         };
-      }));
+      });
     };
     shell = {
       direnv.enable = true;

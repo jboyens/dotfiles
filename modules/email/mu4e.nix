@@ -1,12 +1,17 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.email.mu4e;
+with lib.my; let
+  cfg = config.modules.email.mu4e;
 in {
   options.modules.email.mu4e = {
     enable = mkBoolOpt false;
-    package = mkOption  {
+    package = mkOption {
       type = types.package;
       default = pkgs.offlineimap;
       defaultText = "pkgs.offlineimap";
@@ -29,7 +34,7 @@ in {
         else
           ${mu}/bin/mu index --lazy-check
         fi
-        '')
+      '')
     ];
 
     home-manager.users.${config.user.name}.systemd.user = {
@@ -38,8 +43,8 @@ in {
         "pizauth" = {
           Unit = {
             Description = "OAuth2 Service Daemon";
-            ConditionPathExists="%h/.config/pizauth.conf";
-            After="network.target";
+            ConditionPathExists = "%h/.config/pizauth.conf";
+            After = "network.target";
           };
 
           Service = {
@@ -50,57 +55,57 @@ in {
           };
 
           Install = {
-            WantedBy = [ "default.target" ];
+            WantedBy = ["default.target"];
           };
         };
 
         "goimapnotify@flexe" = {
           Unit = {
             Description = "IMAP notifier using IDLE, golang version.";
-            ConditionPathExists="%h/.config/imapnotify/%I/notify.conf";
-            After="network.target";
+            ConditionPathExists = "%h/.config/imapnotify/%I/notify.conf";
+            After = "network.target";
           };
 
           Service = {
-            Environment="PATH=${pkgs.isync-oauth2}/bin:${pkgs.mu}/bin:${pkgs.my.pizauth}/bin:$PATH";
+            Environment = "PATH=${pkgs.isync-oauth2}/bin:${pkgs.mu}/bin:${pkgs.my.pizauth}/bin:$PATH";
             ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
             Restart = "always";
             RestartSec = "30";
           };
 
           Install = {
-            WantedBy = [ "default.target" ];
+            WantedBy = ["default.target"];
           };
         };
 
         "goimapnotify@fooninja" = {
           Unit = {
             Description = "IMAP notifier using IDLE, golang version.";
-            ConditionPathExists="%h/.config/imapnotify/%I/notify.conf";
-            After="network.target";
+            ConditionPathExists = "%h/.config/imapnotify/%I/notify.conf";
+            After = "network.target";
           };
 
           Service = {
-            Environment="PATH=${pkgs.isync-oauth2}/bin:${pkgs.mu}/bin:${pkgs.my.pizauth}/bin:$PATH";
+            Environment = "PATH=${pkgs.isync-oauth2}/bin:${pkgs.mu}/bin:${pkgs.my.pizauth}/bin:$PATH";
             ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
             Restart = "always";
             RestartSec = "30";
           };
 
           Install = {
-            WantedBy = [ "default.target" ];
+            WantedBy = ["default.target"];
           };
         };
 
         mbsync = {
           Unit = {
             Description = "mbsync service, sync all mail";
-            ConditionPathExists="%h/.mbsyncrc";
-            Documentation="man:mbsync(1)";
+            ConditionPathExists = "%h/.mbsyncrc";
+            Documentation = "man:mbsync(1)";
           };
 
           Service = {
-            Environment="PATH=${pkgs.my.pizauth}/bin:$PATH";
+            Environment = "PATH=${pkgs.my.pizauth}/bin:$PATH";
             Type = "oneshot";
             ExecStart = "${pkgs.isync-oauth2}/bin/mbsync -c %h/.mbsyncrc --all";
           };
@@ -111,7 +116,7 @@ in {
         mbsync = {
           Unit = {
             Description = "call mbsync on all accounts every 15 m";
-            ConditionPathExists="%h/.mbsyncrc";
+            ConditionPathExists = "%h/.mbsyncrc";
           };
 
           Timer = {
@@ -121,7 +126,7 @@ in {
           };
 
           Install = {
-            WantedBy = [ "default.target" ];
+            WantedBy = ["default.target"];
           };
         };
       };

@@ -1,9 +1,14 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.services.docker;
-    configDir = config.dotfiles.configDir;
+with lib.my; let
+  cfg = config.modules.services.docker;
+  configDir = config.dotfiles.configDir;
 in {
   options.modules.services.docker = {
     enable = mkBoolOpt false;
@@ -20,9 +25,9 @@ in {
     env.MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
     env.DOCKER_BUILDKIT = "1";
 
-    user.extraGroups = [ "docker" ];
+    user.extraGroups = ["docker"];
 
-    modules.shell.zsh.rcFiles = [ "${configDir}/docker/aliases.zsh" ];
+    modules.shell.zsh.rcFiles = ["${configDir}/docker/aliases.zsh"];
 
     virtualisation = {
       docker = {

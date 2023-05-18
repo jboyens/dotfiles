@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
-
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "swaycons";
   version = "0.2.0";
@@ -31,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     description = "Window Icons in Sway with Nerd Fonts!";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jboyens ];
+    maintainers = with maintainers; [jboyens];
   };
 }

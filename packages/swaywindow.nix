@@ -1,5 +1,9 @@
-{ stdenv, lib, buildGoModule, fetchgit }:
-
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchgit,
+}:
 buildGoModule rec {
   pname = "swaywindow";
   version = "0.0.1";
@@ -16,7 +20,7 @@ buildGoModule rec {
     description = "A hacky thing that does some aspects of xprop, xdotool, etc. for SwayWM";
     homepage = https://sr.ht/~jboyens/swaywindow;
     license = licenses.mit;
-    maintainers = [ maintainers.jboyens ];
+    maintainers = [maintainers.jboyens];
     platforms = platforms.unix;
   };
 }

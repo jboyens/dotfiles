@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ../home.nix
     ./hardware-configuration.nix
@@ -15,7 +15,7 @@
         amazon.enable = false;
         enable = true;
       };
-      db = { postgres.enable = true; };
+      db = {postgres.enable = true;};
     };
     editors = {
       default = "nvim";
@@ -89,17 +89,18 @@
 
   services.prometheus = {
     enable = true;
-    alertmanagers =
-      [{ static_configs = [{ targets = [ "192.168.86.100:9093" ]; }]; }];
+    alertmanagers = [{static_configs = [{targets = ["192.168.86.100:9093"];}];}];
     alertmanager = {
       enable = true;
       openFirewall = true;
       configuration = {
-        global = { };
-        receivers = [{
-          name = "jr-phone";
-          pushover_configs = [ { } ];
-        }];
+        global = {};
+        receivers = [
+          {
+            name = "jr-phone";
+            pushover_configs = [{}];
+          }
+        ];
         route = {
           group_wait = "10s";
           group_interval = "30s";
@@ -109,40 +110,40 @@
       };
     };
     exporters.node.enable = true;
-    exporters.node.enabledCollectors = [ "systemd" ];
+    exporters.node.enabledCollectors = ["systemd"];
     exporters.snmp.enable = true;
     exporters.snmp.configurationPath = ./files/snmp.yml;
-    ruleFiles = [ ./files/alerts.yml ./files/recording_rules.yml ];
+    ruleFiles = [./files/alerts.yml ./files/recording_rules.yml];
     scrapeConfigs = [
       {
         job_name = "prometheus";
         scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.100:9090" ]; }];
+        static_configs = [{targets = ["192.168.86.100:9090"];}];
       }
       {
         job_name = "restserver";
         scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.34:8899" ]; }];
+        static_configs = [{targets = ["192.168.86.34:8899"];}];
       }
       {
         job_name = "node_exporter";
         scrape_interval = "10s";
         static_configs = [
           # { targets = [ "192.168.86.176:9100" ]; }
-          { targets = [ "192.168.86.34:9100" ]; }
-          { targets = [ "192.168.86.100:9100" ]; }
-          { targets = [ "192.168.86.1:9100" ]; }
+          {targets = ["192.168.86.34:9100"];}
+          {targets = ["192.168.86.100:9100"];}
+          {targets = ["192.168.86.1:9100"];}
         ];
       }
       {
         job_name = "traefik";
         scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.100:8080" ]; }];
+        static_configs = [{targets = ["192.168.86.100:8080"];}];
       }
       {
         job_name = "grafana";
         scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.100:3000" ]; }];
+        static_configs = [{targets = ["192.168.86.100:3000"];}];
       }
       # {
       #   job_name = "pihole";
@@ -157,17 +158,17 @@
       {
         job_name = "docker";
         scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.34:9323" ]; }];
+        static_configs = [{targets = ["192.168.86.34:9323"];}];
       }
       {
         job_name = "dex";
         scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.34:8386" ]; }];
+        static_configs = [{targets = ["192.168.86.34:8386"];}];
       }
       {
         job_name = "blocky";
         scrape_interval = "10s";
-        static_configs = [{ targets = [ "192.168.86.34:4000" ]; }];
+        static_configs = [{targets = ["192.168.86.34:4000"];}];
       }
       # {
       #   job_name = "snmp";
@@ -219,7 +220,7 @@
         lifecycler = {
           address = "127.0.0.1";
           ring = {
-            kvstore = { store = "inmemory"; };
+            kvstore = {store = "inmemory";};
             replication_factor = 1;
           };
           final_sleep = "0s";
@@ -229,16 +230,18 @@
       };
 
       schema_config = {
-        configs = [{
-          from = "2020-05-15";
-          store = "boltdb";
-          object_store = "filesystem";
-          schema = "v11";
-          index = {
-            prefix = "index_";
-            period = "168h";
-          };
-        }];
+        configs = [
+          {
+            from = "2020-05-15";
+            store = "boltdb";
+            object_store = "filesystem";
+            schema = "v11";
+            index = {
+              prefix = "index_";
+              period = "168h";
+            };
+          }
+        ];
       };
 
       storage_config = {
@@ -262,26 +265,30 @@
         grpc_listen_port = 0;
       };
 
-      positions = { filename = "/tmp/positions.yaml"; };
+      positions = {filename = "/tmp/positions.yaml";};
 
-      clients = [{ url = "http://127.0.0.1:3100/loki/api/v1/push"; }];
+      clients = [{url = "http://127.0.0.1:3100/loki/api/v1/push";}];
 
-      scrape_configs = [{
-        job_name = "journal";
-        journal = {
-          max_age = "12h";
-          labels = { job = "systemd-journal"; };
-        };
+      scrape_configs = [
+        {
+          job_name = "journal";
+          journal = {
+            max_age = "12h";
+            labels = {job = "systemd-journal";};
+          };
 
-        relabel_configs = [{
-          source_labels = [ "__journal__systemd_unit" ];
-          target_label = "unit";
-        }];
-      }];
+          relabel_configs = [
+            {
+              source_labels = ["__journal__systemd_unit"];
+              target_label = "unit";
+            }
+          ];
+        }
+      ];
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 9116 6443 8384 ];
+  networking.firewall.allowedTCPPorts = [80 443 8080 3000 9116 6443 8384];
 
   services.minecraft-server = {
     enable = true;
@@ -296,7 +303,7 @@
     api.dashboard = true;
     api.insecure = true;
 
-    metrics.prometheus = { };
+    metrics.prometheus = {};
 
     entryPoints.http.address = "0.0.0.0:80";
     entryPoints.https.address = "0.0.0.0:443";
@@ -350,22 +357,14 @@
       };
     };
 
-    http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto =
-      "https";
+    http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto = "https";
 
-    http.services.ha.loadBalancer.servers =
-      [{ url = "http://192.168.86.34:8123"; }];
-    http.services.sonarr.loadBalancer.servers =
-      [{ url = "http://192.168.86.34:8989"; }];
-    http.services.grafana.loadBalancer.servers =
-      [{ url = "http://localhost:3000"; }];
-    http.services.prometheus.loadBalancer.servers =
-      [{ url = "http://localhost:9090"; }];
-    http.services.bitwarden.loadBalancer.servers =
-      [{ url = "http://localhost:8000"; }];
-    http.services.bot.loadBalancer.servers =
-      [{ url = "http://192.168.86.76:3000"; }];
-    http.services.bitwarden-wss.loadBalancer.servers =
-      [{ url = "http://localhost:8001"; }];
+    http.services.ha.loadBalancer.servers = [{url = "http://192.168.86.34:8123";}];
+    http.services.sonarr.loadBalancer.servers = [{url = "http://192.168.86.34:8989";}];
+    http.services.grafana.loadBalancer.servers = [{url = "http://localhost:3000";}];
+    http.services.prometheus.loadBalancer.servers = [{url = "http://localhost:9090";}];
+    http.services.bitwarden.loadBalancer.servers = [{url = "http://localhost:8000";}];
+    http.services.bot.loadBalancer.servers = [{url = "http://192.168.86.76:3000";}];
+    http.services.bitwarden-wss.loadBalancer.servers = [{url = "http://localhost:8001";}];
   };
 }

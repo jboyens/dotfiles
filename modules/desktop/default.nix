@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.desktop;
+with lib.my; let
+  cfg = config.modules.desktop;
 in {
   config = mkIf (config.services.xserver.enable || cfg.swaywm.enable) {
     assertions = [
@@ -11,14 +16,16 @@ in {
         message = "Can't have more than one desktop environment enabled at a time";
       }
       {
-        assertion =
-          let srv = config.services;
-          in srv.xserver.enable ||
-             cfg.swaywm.enable ||
-             !(anyAttrs
-               (n: v: isAttrs v &&
-                      anyAttrs (n: v: isAttrs v && v.enable))
-               cfg);
+        assertion = let
+          srv = config.services;
+        in
+          srv.xserver.enable
+          || cfg.swaywm.enable
+          || !(anyAttrs
+            (n: v:
+              isAttrs v
+              && anyAttrs (n: v: isAttrs v && v.enable))
+            cfg);
         message = "Can't enable a desktop app without a desktop environment";
       }
     ];
@@ -30,7 +37,7 @@ in {
       # xorg.xwininfo
       # my.ydotool
       unstable.ydotool
-      libqalculate  # calculator cli w/ currency conversion
+      libqalculate # calculator cli w/ currency conversion
       (makeDesktopItem {
         name = "scratch-calc";
         desktopName = "Calculator";
@@ -39,9 +46,12 @@ in {
         categories = ["Development"];
       })
       xfce.thunar
-      qgnomeplatform        # QPlatformTheme for a better Qt application inclusion in GNOME
+      qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
       libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
       xdg-utils
+    ];
+
+    environment.systemPackages = with pkgs; [
       paper-icon-theme
     ];
 
@@ -74,13 +84,13 @@ in {
         fira-code
         fira-mono
         iosevka-bin
-        (iosevka-bin.override { variant = "sgr-iosevka-term"; })
+        (iosevka-bin.override {variant = "sgr-iosevka-term";})
         _3270font
         jetbrains-mono
         hack-font
         ibm-plex
         oxygenfonts
-        (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; })
+        (nerdfonts.override {fonts = ["FiraCode" "FiraMono"];})
       ];
     };
 
@@ -137,7 +147,7 @@ in {
     };
 
     # Try really hard to get QT to respect my GTK theme.
-    env.GTK_DATA_PREFIX = [ "${config.system.path}" ];
+    env.GTK_DATA_PREFIX = ["${config.system.path}"];
     env.QT_QPA_PLATFORMTHEME = "gnome";
     env.QT_STYLE_OVERRIDE = "kvantum";
 

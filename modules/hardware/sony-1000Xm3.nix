@@ -1,8 +1,13 @@
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.hardware.sony-1000Xm3;
+with lib.my; let
+  cfg = config.modules.hardware.sony-1000Xm3;
 in {
   options.modules.hardware.sony-1000Xm3 = {
     enable = mkBoolOpt false;

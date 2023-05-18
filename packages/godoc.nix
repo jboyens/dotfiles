@@ -1,5 +1,8 @@
-{ lib, buildGoModule, fetchgit }:
-
+{
+  lib,
+  buildGoModule,
+  fetchgit,
+}:
 buildGoModule rec {
   pname = "godoc-unstable";
   version = "2021-08-19";
@@ -16,12 +19,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/godoc" ];
+  subPackages = ["cmd/godoc"];
 
   meta = with lib; {
     description = "godoc";
     homepage = "https://go.googlesource.com/tools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jboyens ];
+    maintainers = with maintainers; [jboyens];
   };
 }

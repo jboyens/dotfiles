@@ -1,5 +1,8 @@
-{ lib, buildGoModule, fetchgit }:
-
+{
+  lib,
+  buildGoModule,
+  fetchgit,
+}:
 buildGoModule rec {
   pname = "gorename-unstable";
   version = "2021-08-19";
@@ -16,12 +19,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/gorename" ];
+  subPackages = ["cmd/gorename"];
 
   meta = with lib; {
     description = "gorename";
     homepage = "https://go.googlesource.com/tools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jboyens ];
+    maintainers = with maintainers; [jboyens];
   };
 }

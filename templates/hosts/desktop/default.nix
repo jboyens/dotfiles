@@ -1,5 +1,10 @@
-{ pkgs, config, lib, ... }: {
-  imports = [ ../home.nix ./hardware-configuration.nix ];
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
+  imports = [../home.nix ./hardware-configuration.nix];
 
   ## Modules
   modules = {
@@ -29,7 +34,7 @@
         default = "xst";
         st.enable = true;
       };
-      vm = { qemu.enable = true; };
+      vm = {qemu.enable = true;};
     };
     dev = {
       node.enable = true;

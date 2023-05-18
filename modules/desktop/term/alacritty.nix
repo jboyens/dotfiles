@@ -1,12 +1,16 @@
 # modules/desktop/term/alacritty.nix
-
-{ options, config, lib, pkgs, ... }:
-
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.desktop.term.alacritty;
+with lib.my; let
+  cfg = config.modules.desktop.term.alacritty;
 in {
-  options.modules.desktop.term.alacritty = { enable = mkBoolOpt false; };
+  options.modules.desktop.term.alacritty = {enable = mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     # xst-256color isn't supported over ssh, so revert to a known one
@@ -35,12 +39,15 @@ in {
       };
 
       mouse_bindings = [
-        { mouse = "Middle"; action = "PasteSelection"; }
+        {
+          mouse = "Middle";
+          action = "PasteSelection";
+        }
       ];
 
       mouse = {
-        double_click = { threshold = 300; };
-        triple_click = { threshold = 300; };
+        double_click = {threshold = 300;};
+        triple_click = {threshold = 300;};
 
         hide_when_typing = false;
       };
@@ -66,6 +73,6 @@ in {
       working_directory = "None";
     };
 
-    user.packages = with pkgs; [ alacritty ];
+    user.packages = with pkgs; [alacritty];
   };
 }

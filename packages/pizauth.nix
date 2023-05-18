@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
-
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "pizauth";
   version = "0.2.2";
@@ -17,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     description = "pizauth is a simple program for requesting, showing, and refreshing OAuth2 access tokens";
     homepage = "https://github.com/ltratt/pizauth";
     license = licenses.mit;
-    maintainers = [ maintainers.jboyens ];
+    maintainers = [maintainers.jboyens];
   };
 }

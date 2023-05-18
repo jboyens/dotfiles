@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.services.geoclue2;
+with lib.my; let
+  cfg = config.modules.services.geoclue2;
 in {
   options.modules.services.geoclue2 = {
     enable = mkBoolOpt false;

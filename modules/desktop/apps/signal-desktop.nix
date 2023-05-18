@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.desktop.apps.signal-desktop;
+with lib.my; let
+  cfg = config.modules.desktop.apps.signal-desktop;
 in {
   options.modules.desktop.apps.signal-desktop = {
     enable = mkBoolOpt false;

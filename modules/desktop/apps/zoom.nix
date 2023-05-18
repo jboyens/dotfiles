@@ -1,8 +1,13 @@
-{ config, options, lib, pkgs, ... }:
-
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.my;
-let cfg = config.modules.desktop.apps.zoom;
+with lib.my; let
+  cfg = config.modules.desktop.apps.zoom;
 in {
   options.modules.desktop.apps.zoom = {
     enable = mkBoolOpt false;

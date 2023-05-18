@@ -1,5 +1,12 @@
-{ pkgs, stdenv, lib, inputs, config, ... }: {
-  imports = [ ../home.nix ./hardware-configuration.nix ./networking.nix ];
+{
+  pkgs,
+  stdenv,
+  lib,
+  inputs,
+  config,
+  ...
+}: {
+  imports = [../home.nix ./hardware-configuration.nix ./networking.nix];
 
   ## Modules
   modules = {
@@ -34,7 +41,7 @@
         foot.enable = true;
         alacritty.enable = true;
       };
-      vm = { qemu.enable = true; };
+      vm = {qemu.enable = true;};
     };
     dev = {
       android.enable = false;
@@ -46,7 +53,7 @@
         enable = true;
         google.enable = true;
       };
-      db = { postgres.enable = true; };
+      db = {postgres.enable = true;};
       ruby.enable = true;
     };
     editors = {
@@ -93,7 +100,7 @@
       geoclue2.enable = true;
       tlp.enable = true;
       restic = {
-        enable = false;
+        enable = true;
         backups = {
           workspace.enable = true;
           home.enable = true;
@@ -121,6 +128,15 @@
   };
 
   nix.settings.netrc-file = config.age.secrets.netrc.path;
+
+  time.timeZone = null;
+
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
+    persistent = true;
+  };
 
   # specialisation = {
   #   gnome.configuration = {

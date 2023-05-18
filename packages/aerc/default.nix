@@ -1,23 +1,23 @@
-{ lib
-, buildGo118Module
-, fetchFromSourcehut
-, ncurses
-, notmuch
-, scdoc
-, python3
-, w3m
-, dante
+{
+  lib,
+  buildGo118Module,
+  fetchFromSourcehut,
+  ncurses,
+  notmuch,
+  scdoc,
+  python3,
+  w3m,
+  dante,
 }:
-
 buildGo118Module rec {
   pname = "aerc";
-  version = "0.15.0";
+  version = "0.15.1";
 
   src = fetchFromSourcehut {
     owner = "~rjarry";
     repo = pname;
     rev = version;
-    sha256 = "sha256-nvKApz6KFDu7WaNoSZmnZmXrSEorqkL7mSeNtEdq7Bk=";
+    sha256 = "sha256-EibtdHNpEUaojHvsF/PBczFL6rrzsOKxISd2rc+tKQU=";
   };
 
   proxyVendor = true;
@@ -40,13 +40,13 @@ buildGo118Module rec {
     substituteAllInPlace doc/aerc-config.5.scd
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   pythonPath = [
     python3.pkgs.colorama
   ];
 
-  buildInputs = [ python3 notmuch ];
+  buildInputs = [python3 notmuch];
 
   installPhase = ''
     runHook preInstall
@@ -58,15 +58,15 @@ buildGo118Module rec {
 
   postFixup = ''
     wrapProgram $out/bin/aerc --prefix PATH ":" \
-      "$out/share/aerc/filters:${lib.makeBinPath [ ncurses ]}"
+      "$out/share/aerc/filters:${lib.makeBinPath [ncurses]}"
     wrapProgram $out/share/aerc/filters/html --prefix PATH ":" \
-      ${lib.makeBinPath [ w3m dante ]}
+      ${lib.makeBinPath [w3m dante]}
   '';
 
   meta = with lib; {
     description = "An email client for your terminal";
     homepage = "https://aerc-mail.org/";
-    maintainers = with maintainers; [ tadeokondrak ];
+    maintainers = with maintainers; [tadeokondrak];
     license = licenses.mit;
     platforms = platforms.unix;
   };
