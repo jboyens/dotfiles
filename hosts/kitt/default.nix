@@ -122,9 +122,20 @@
   programs.dconf.enable = true;
   gtk.iconCache.enable = true;
 
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
+  security.pam = {
+    loginLimits = [
+      {
+        domain = "*";
+        type = "soft";
+        item = "nofile";
+        value = "8192";
+      }
+    ];
+
+    services = {
+      login.u2fAuth = true;
+      sudo.u2fAuth = true;
+    };
   };
 
   nix.settings.netrc-file = config.age.secrets.netrc.path;

@@ -25,6 +25,7 @@
     # Extras
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    emacs-overlay.inputs.nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     emacs-overlay.inputs.flake-utils.follows = "flake-utils";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";

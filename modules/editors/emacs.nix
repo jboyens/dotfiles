@@ -10,20 +10,21 @@
 }:
 with lib;
 with lib.my; let
+  inherit (config.dotfiles) configDir;
+
   cfg = config.modules.editors.emacs;
-  configDir = config.dotfiles.configDir;
 
   # https://github.com/nix-community/emacs-overlay/issues/312
-  myEmacs = pkgs.emacsUnstablePgtk.overrideAttrs (prev: {
-    postFixup = builtins.replaceStrings ["/bin/emacs"] ["/bin/.emacs-*-wrapped"] prev.postFixup;
-  });
-  # myEmacs = pkgs.emacsPgtk;
+  # myEmacs = pkgs.emacsUnstablePgtk.overrideAttrs (prev: {
+  #   postFixup = builtins.replaceStrings ["/bin/emacs"] ["/bin/.emacs-*-wrapped"] prev.postFixup;
+  # });
+  # myEmacs = pkgs.emacsUnstablePgtk;
   # myEmacs = (pkgs.emacsGit.override {
   #   withSQLite3 = true;
   #   withWebP = true;
   #   withPgtk = true;
   # });
-  # myEmacs = pkgs.emacs;
+  myEmacs = pkgs.emacs-unstable-pgtk;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -41,7 +42,7 @@ in {
       binutils # native-comp needs 'as', provided by this
       # 29 + pgtk + native-comp
       ((emacsPackagesFor myEmacs).emacsWithPackages
-        (epkgs: [epkgs.vterm epkgs.parinfer-rust-mode]))
+        (epkgs: [epkgs.vterm epkgs.parinfer-rust-mode epkgs.treesit-grammars.with-all-grammars]))
 
       ## Doom dependencies
       git

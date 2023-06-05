@@ -21,7 +21,7 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      ruby_2_7
+      ruby_3_2
       solargraph
     ];
 

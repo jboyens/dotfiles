@@ -47,39 +47,37 @@ in {
     # Purge folders not declaratively configured!
     overrideFolders = true;
     overrideDevices = true;
-    settings = {
-      devices = {
-        mediaserver.id = "L5ZEYSY-NVT73GS-NAD36HV-AO3YJZQ-H53QRJ7-3XVXO5X-PXA2QWN-3J6DQAC";
-        kitt.id = "Z6KVBYP-VAKL7WV-GQECKAS-FU23XXB-Q5G2RR3-3JQHCHY-BLGK4UM-B3OETA2";
-        pixel6pro.id = "PIANTRI-R5C7T2F-LSNXDFX-U6TDRJT-TU4P3PU-N7C7WV7-KAPFNPG-62WLNQT";
-        irongiant.id = "FEEF2M2-B3JYJJX-IHFFP5A-2ZTIGFD-YISKNNB-5G3RML6-ASOG6DB-HSXYKQR";
-      };
-      folders = let
-        mkShare = devices: type: paths: attrs: (rec {
-            inherit devices type;
-            path =
-              if lib.isAttrs paths
-              then paths."${config.networking.hostName}"
-              else paths;
-            watch = false;
-            rescanInterval = 3600; # every hour
-            enable = lib.elem config.networking.hostName devices;
-          }
-          // attrs);
-      in {
-        documents =
-          mkShare ["mediaserver" "kitt" "pixel6pro" "irongiant"] "sendreceive"
-          "${config.user.home}/Documents" {
-            watch = true;
-            rescanInterval = 300;
-          }; # every 5 minutes
-        secrets =
-          mkShare ["mediaserver" "kitt" "irongiant"] "sendreceive"
-          "${config.user.home}/.secrets" {
-            watch = true;
-            rescanInterval = 3600;
-          }; # every hour
-      };
+    devices = {
+      mediaserver.id = "L5ZEYSY-NVT73GS-NAD36HV-AO3YJZQ-H53QRJ7-3XVXO5X-PXA2QWN-3J6DQAC";
+      kitt.id = "Z6KVBYP-VAKL7WV-GQECKAS-FU23XXB-Q5G2RR3-3JQHCHY-BLGK4UM-B3OETA2";
+      pixel6pro.id = "PIANTRI-R5C7T2F-LSNXDFX-U6TDRJT-TU4P3PU-N7C7WV7-KAPFNPG-62WLNQT";
+      irongiant.id = "FEEF2M2-B3JYJJX-IHFFP5A-2ZTIGFD-YISKNNB-5G3RML6-ASOG6DB-HSXYKQR";
+    };
+    folders = let
+      mkShare = devices: type: paths: attrs: (rec {
+          inherit devices type;
+          path =
+            if lib.isAttrs paths
+            then paths."${config.networking.hostName}"
+            else paths;
+          watch = false;
+          rescanInterval = 3600; # every hour
+          enable = lib.elem config.networking.hostName devices;
+        }
+        // attrs);
+    in {
+      documents =
+        mkShare ["mediaserver" "kitt" "pixel6pro" "irongiant"] "sendreceive"
+        "${config.user.home}/Documents" {
+          watch = true;
+          rescanInterval = 300;
+        }; # every 5 minutes
+      secrets =
+        mkShare ["mediaserver" "kitt" "irongiant"] "sendreceive"
+        "${config.user.home}/.secrets" {
+          watch = true;
+          rescanInterval = 3600;
+        }; # every hour
     };
   };
 }

@@ -43,14 +43,14 @@ in {
           "${super}+Slash" = "exec $DOTFILES/bin/rofi/filemenu -x";
           "${super}+Backslash" = "exec $DOTFILES/bin/rofi/bwmenu";
           "${super}+Grave" = "exec $DOTFILES/bin/scratch";
-          "${super}+${shift}+Grave" = "exec emacsclient -e '(doom/open-scratch-buffer)'";
+          "${super}+${shift}+Grave" = "exec emacsclient -n -c -e '(doom/open-scratch-buffer)'";
           "${super}+e" = "exec emacsclient -e '(emacs-everywhere)'";
-          "${super}+t" = "exec emacsclient -n ~/Documents/org-mode/todo.org && $DOTFILES/bin/activate emacs";
-          "${super}+n" = "exec emacsclient -n ~/Documents/org-mode/notes.org && $DOTFILES/bin/activate emacs";
-          "${super}+d" = "exec emacsclient -ne '(org-roam-dailies-goto-today)' && $DOTFILES/bin/activate emacs";
+          "${super}+t" = "exec emacsclient -n -c ~/Documents/org-mode/todo.org && $DOTFILES/bin/activate emacs";
+          "${super}+n" = "exec emacsclient -n -c ~/Documents/org-mode/notes.org && $DOTFILES/bin/activate emacs";
+          "${super}+d" = "exec emacsclient -n -c -e '(org-roam-dailies-goto-today)' && $DOTFILES/bin/activate emacs";
           "${super}+${control}+t" = "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k t";
           "${super}+${control}+n" = "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k n";
-          "${super}+m" = "exec emacsclient -ne '(=mu4e)' && $DOTFILES/bin/activate emacs";
+          "${super}+m" = "exec emacsclient -c -n -e '(=mu4e)' && $DOTFILES/bin/activate emacs";
           "${hyper}+e" = "$DOTFILES/bin/activate emacs";
           "${hyper}+f" = "$DOTFILES/bin/activate firefox";
           "${hyper}+s" = "$DOTFILES/bin/activate slack";
@@ -81,7 +81,7 @@ in {
           "${meh}+${up}" = "move workspace to output up";
           "${meh}+${right}" = "move workspace to output right";
 
-          "${super}+w" = "layout toggle all";
+          "${super}+w" = "exec swayr toggle-tab-shuffle-tile-workspace include-floating";
           #"${super}+e" = "layout toggle split";
 
           "${super}+f" = "floating toggle";
