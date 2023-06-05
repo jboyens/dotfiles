@@ -1,5 +1,5 @@
 #!/usr/bin/env cached-nix-shell
-#! nix-shell -p nvd -p ruby_2_7 -i "ruby -S" --quiet
+#! nix-shell -p nvd -p ruby_3_2 -i "ruby -S" --quiet
 
 DESC = <<~DESC
   Nix's CLI has a poor user story, in my opinion. It could be better; Guix is a
@@ -239,7 +239,7 @@ module Hey
         sh %w{nix-store --optimise}, sudo: true
         # Clear out left-over secrets. The switch-to-configuration call below will
         # regenerate them.
-        if File.exists?("/run/secrets/*")
+        if File.exist?("/run/secrets/*")
           sh %w{rm -rf /run/secrets/*}, sudo: true
         end
         # nix-collect-garbage is a Nix tool, not a NixOS tool. It won't delete old
@@ -310,7 +310,7 @@ module Hey
           puts "Comparing the same profile! Aborting..."
           exit 1
         elsif [from, to].compact.select do |gen|
-                File.exists? "#{profile}-#{gen}-link" or
+                File.exist? "#{profile}-#{gen}-link" or
                   puts "Generation #{gen} does not exist!"
               end.length != [from, to].compact.length
           exit 2
