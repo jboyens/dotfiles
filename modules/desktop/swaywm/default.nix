@@ -9,7 +9,8 @@ let
 
   swayConfig =
     config.home-manager.users.${config.user.name}.wayland.windowManager.sway.config;
-in {
+in
+{
   imports = [ ./keybindings.nix ];
   options.modules.desktop.swaywm = { enable = mkBoolOpt false; };
 
@@ -102,6 +103,8 @@ in {
       config = {
         terminal = "${pkgs.foot}/bin/foot";
 
+        window.titlebar = false;
+
         focus = {
           followMouse = true;
           mouseWarping = "container";
@@ -189,40 +192,44 @@ in {
       };
     };
 
-    home.services.mako = let
-      iconPath = let
-        basePaths = [
-          "/run/current-system/sw"
-          config.home-manager.users.${config.user.name}.home.profileDirectory
-        ];
-        themes = [ "Paper" "Paper-Mono-Dark" "Adwaita" "hicolor" ];
-        mkPath = { basePath, theme, }: "${basePath}/share/icons/${theme}";
-      in concatMapStringsSep ":" mkPath (cartesianProductOfSets {
-        basePath = basePaths;
-        theme = themes;
-      });
-    in {
-      inherit iconPath;
+    home.services.mako =
+      let
+        iconPath =
+          let
+            basePaths = [
+              "/run/current-system/sw"
+              config.home-manager.users.${config.user.name}.home.profileDirectory
+            ];
+            themes = [ "Paper" "Paper-Mono-Dark" "Adwaita" "hicolor" ];
+            mkPath = { basePath, theme, }: "${basePath}/share/icons/${theme}";
+          in
+          concatMapStringsSep ":" mkPath (cartesianProductOfSets {
+            basePath = basePaths;
+            theme = themes;
+          });
+      in
+      {
+        inherit iconPath;
 
-      enable = true;
-      actions = true;
-      anchor = "top-right";
-      borderRadius = 2;
-      borderSize = 1;
-      defaultTimeout = 0;
-      height = 1000;
-      icons = true;
-      ignoreTimeout = false;
-      margin = "4,26";
-      markup = true;
-      maxVisible = -1;
-      padding = "20,16";
-      width = 440;
-      extraConfig = ''
-        [app-name="Slack"]
-        group-by=summary
-      '';
-    };
+        enable = true;
+        actions = true;
+        anchor = "top-right";
+        borderRadius = 2;
+        borderSize = 1;
+        defaultTimeout = 0;
+        height = 1000;
+        icons = true;
+        ignoreTimeout = false;
+        margin = "4,26";
+        markup = true;
+        maxVisible = -1;
+        padding = "20,16";
+        width = 440;
+        extraConfig = ''
+          [app-name="Slack"]
+          group-by=summary
+        '';
+      };
 
     home.services.mpris-proxy.enable = true;
 

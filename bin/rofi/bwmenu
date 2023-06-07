@@ -1,5 +1,5 @@
 #!/usr/bin/env cached-nix-shell
-#! nix-shell -p ruby_2_7 -i "ruby -S"
+#! nix-shell -p ruby_3_2 -i "ruby -S"
 
 # A rofi client for vaultwarden. Similar to passmenu, but uses rofi. (Badly)
 # written in ruby because data persistence and frontend logic would be a pain to
@@ -17,7 +17,7 @@ PersistentData = Struct.new(:path, :ttl, :pid, :data) do
 
   def self.load name, ttl: nil
     path = "#{DATADIR}/#{name}"
-    data = JSON::load(Base64.decode64(File.read(path))) if File.exists?(path)
+    data = JSON::load(Base64.decode64(File.read(path))) if File.exist?(path)
     d = PersistentData.new *(data || {}).values
     d.path = path
     d.ttl  = ttl
@@ -25,7 +25,7 @@ PersistentData = Struct.new(:path, :ttl, :pid, :data) do
   end
 
   def expire
-    File.delete(self.path) if File.exists?(self.path)
+    File.delete(self.path) if File.exist?(self.path)
   end
 
   def save data = nil, onfinish = nil

@@ -13,6 +13,7 @@
     desktop = {
       swaywm.enable = true;
       i3.enable = false;
+      hyprland.enable = false;
       apps = {
         bitwarden.enable = true;
         maestral.enable = true;
