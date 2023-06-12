@@ -2,6 +2,7 @@
 with pkgs; {
   aerc = callPackage ./aerc { };
   autoname-workspaces = callPackage ./autoname-workspaces.nix { };
+  bash-language-server = callPackage ./bash-language-server { };
   beeper = callPackage ./beeper.nix { };
   cyrus-sasl-xoauth2 = callPackage ./cyrus-sasl-xoauth2.nix { };
   flashfocus = callPackage ./flashfocus.nix { };

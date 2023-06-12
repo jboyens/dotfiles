@@ -9,8 +9,7 @@ let
 
   swayConfig =
     config.home-manager.users.${config.user.name}.wayland.windowManager.sway.config;
-in
-{
+in {
   imports = [ ./keybindings.nix ];
   options.modules.desktop.swaywm = { enable = mkBoolOpt false; };
 
@@ -28,78 +27,62 @@ in
           chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
         };
       };
-      extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     };
 
     programs.sway = {
       enable = true;
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland
-        # needs qt5.qtwayland in systemPackages
         export QT_QPA_PLATFORM=wayland
-        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-        # Fix for some Java AWT applications (e.g. Android Studio),
-        # use this if they aren't displayed properly:
+        export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
         export _JAVA_AWT_WM_NONREPARENTING=1
         export MOZ_WEBRENDER=1
         export MOZ_ENABLE_WAYLAND=1
         export MOZ_DBUS_REMOTE=1
         export XDG_SESSION_TYPE=wayland
         export XDG_CURRENT_DESKTOP=sway
-        export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+        export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
         export NIXOS_OZONE_WL=1
-        export XCURSOR_PATH="${pkgs.paper-icon-theme}/share/icons"
-        export XCURSOR_THEME="Paper"
+        export XCURSOR_PATH=${pkgs.paper-icon-theme}/share/icons
+        export XCURSOR_THEME=Paper
         export LIBVA_DRIVER_NAME=iHD
         export WLR_DRM_NO_MODIFIERS=1
       '';
-
       wrapperFeatures = {
         gtk = true;
         base = true;
       };
-
-      extraPackages = with pkgs; [
-        autotiling
-        brightnessctl
-        gammastep
-        gnome.adwaita-icon-theme
-        grim
-        gsettings-desktop-schemas
-        gtk-engine-murrine
-        gtk-layer-shell
-        gtk_engines
-        hicolor-icon-theme
-        my.fuzzel
-        my.remontoire
-        playerctl
-        polkit_gnome
-        polkit_gnome
-        qt5.qtwayland
-        sirula
-        slurp
-        sov
-        sway-contrib.grimshot
-        swaybg
-        swayidle
-        swaylock
-        swayr
-        wayvnc
-        wev
-        wl-clipboard
-        wlr-randr
-        wob
-        wofi
-        xdg-desktop-portal-wlr
-
-        my.swaywindow
-      ];
     };
 
+    environment.systemPackages = with pkgs; [
+      autotiling
+      gammastep
+      grim
+      my.fuzzel
+      qt5.qtwayland
+      sirula
+      slurp
+      sov
+      sway-contrib.grimshot
+      swaybg
+      swayidle
+      swaylock
+      swayr
+      wayvnc
+      wev
+      wl-clipboard
+      wlr-randr
+      wob
+      wofi
+      my.swaywindow
+    ];
+
+    home.programs.swaylock.enable = true;
     home.wayland.windowManager.sway = {
       enable = true;
       package = null;
-      systemdIntegration = true;
+      systemd.enable = true;
       config = {
         terminal = "${pkgs.foot}/bin/foot";
 
@@ -188,50 +171,60 @@ in
               "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${pkgs.wob}/bin/wob";
             always = false;
           }
+          {
+            command = "${pkgs.autotiling}/bin/autotiling";
+            always = false;
+          }
+          {
+            command = "${pkgs.swayr}/bin/swayrd";
+            always = false;
+          }
+          {
+            command =
+              "${pkgs.unstable.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
+            always = false;
+          }
         ];
       };
     };
 
-    home.services.mako =
-      let
-        iconPath =
-          let
-            basePaths = [
-              "/run/current-system/sw"
-              config.home-manager.users.${config.user.name}.home.profileDirectory
-            ];
-            themes = [ "Paper" "Paper-Mono-Dark" "Adwaita" "hicolor" ];
-            mkPath = { basePath, theme, }: "${basePath}/share/icons/${theme}";
-          in
-          concatMapStringsSep ":" mkPath (cartesianProductOfSets {
-            basePath = basePaths;
-            theme = themes;
-          });
-      in
-      {
-        inherit iconPath;
+    home.services.mako = let
+      iconPath = let
+        basePaths = [
+          "/run/current-system/sw"
+          config.home-manager.users.${config.user.name}.home.profileDirectory
+        ];
+        themes = [ "Paper" "Paper-Mono-Dark" "Adwaita" "hicolor" ];
+        mkPath = { basePath, theme, }: "${basePath}/share/icons/${theme}";
+      in concatMapStringsSep ":" mkPath (cartesianProductOfSets {
+        basePath = basePaths;
+        theme = themes;
+      });
+    in {
+      inherit iconPath;
 
-        enable = true;
-        actions = true;
-        anchor = "top-right";
-        borderRadius = 2;
-        borderSize = 1;
-        defaultTimeout = 0;
-        height = 1000;
-        icons = true;
-        ignoreTimeout = false;
-        margin = "4,26";
-        markup = true;
-        maxVisible = -1;
-        padding = "20,16";
-        width = 440;
-        extraConfig = ''
-          [app-name="Slack"]
-          group-by=summary
-        '';
-      };
+      enable = true;
+      actions = true;
+      anchor = "top-right";
+      borderRadius = 2;
+      borderSize = 1;
+      defaultTimeout = 0;
+      height = 1000;
+      icons = true;
+      ignoreTimeout = false;
+      margin = "4,26";
+      markup = true;
+      maxVisible = -1;
+      padding = "20,16";
+      width = 440;
+      extraConfig = ''
+        [app-name="Slack"]
+        group-by=summary
+      '';
+    };
 
     home.services.mpris-proxy.enable = true;
+    home.wayland.windowManager.sway.swaynag.enable = true;
 
     home.services.swayidle = {
       enable = true;
@@ -254,42 +247,8 @@ in
       }];
     };
 
-    systemd.user.services.autotiling = {
-      description = "Sway autotiling";
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "sway-session.target" ];
-      script = "${pkgs.autotiling}/bin/autotiling";
-    };
-
-    systemd.user.services.swayrd = {
-      description = "swayrd";
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "sway-session.target" ];
-      script = "${pkgs.swayr}/bin/swayrd";
-      path = with pkgs; [ wofi ];
-    };
-
     services.udev.extraRules = ''
       KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
     '';
-
-    systemd.user.services.ydotoold = {
-      description = "ydotool";
-      serviceConfig = {
-        RemainAfterExit = false;
-        ExecStart =
-          "${pkgs.unstable.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
-      };
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "sway-session.target" ];
-    };
-
-    # link recursively so other modules can link files in their folders
-    # home.configFile = {
-    #   "sway" = {
-    #     source = "${config.dotfiles.configDir}/sway";
-    #     recursive = true;
-    #   };
-    # };
   };
 }

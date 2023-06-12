@@ -1,12 +1,11 @@
-{
-  pkgs,
-  stdenv,
-  lib,
-  inputs,
-  config,
-  ...
+{ pkgs
+, stdenv
+, lib
+, inputs
+, config
+, ...
 }: {
-  imports = [../home.nix ./hardware-configuration.nix ./networking.nix];
+  imports = [ ../home.nix ./hardware-configuration.nix ./networking.nix ];
 
   ## Modules
   modules = {
@@ -42,7 +41,7 @@
         foot.enable = true;
         alacritty.enable = true;
       };
-      vm = {qemu.enable = true;};
+      vm = { qemu.enable = true; };
     };
     dev = {
       android.enable = false;
@@ -54,7 +53,7 @@
         enable = true;
         google.enable = true;
       };
-      db = {postgres.enable = true;};
+      db = { postgres.enable = true; };
       ruby.enable = true;
     };
     editors = {
@@ -151,6 +150,15 @@
   };
 
   # specialisation = {
+  #   kde.configuration = {
+  #     services.xserver.enable = true;
+  #     services.xserver.displayManager.sddm.enable = true;
+  #     services.xserver.desktopManager.plasma5.enable = true;
+  #
+  #     environment.systemPackages = [
+  #       pkgs.plasma5Packages.bismuth
+  #     ];
+  #   };
   #   gnome.configuration = {
   #     services.xserver.enable = true;
   #     services.xserver.desktopManager.gnome.enable = true;
