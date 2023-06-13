@@ -1,10 +1,4 @@
-{ pkgs
-, stdenv
-, lib
-, inputs
-, config
-, ...
-}: {
+{ pkgs, stdenv, lib, inputs, config, ... }: {
   imports = [ ../home.nix ./hardware-configuration.nix ./networking.nix ];
 
   ## Modules
@@ -12,10 +6,10 @@
     desktop = {
       swaywm.enable = true;
       i3.enable = false;
-      hyprland.enable = false;
       apps = {
         bitwarden.enable = true;
         maestral.enable = true;
+        rofi.enable = true;
         signal-desktop.enable = true;
         slack.enable = true;
         zoom.enable = true;
@@ -123,14 +117,12 @@
   gtk.iconCache.enable = true;
 
   security.pam = {
-    loginLimits = [
-      {
-        domain = "*";
-        type = "soft";
-        item = "nofile";
-        value = "8192";
-      }
-    ];
+    loginLimits = [{
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "8192";
+    }];
 
     services = {
       login.u2fAuth = true;

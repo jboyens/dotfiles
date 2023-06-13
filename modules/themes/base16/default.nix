@@ -1,24 +1,18 @@
 # modules/themes/base16/default.nix --- a theme for those who cannot choose
-{
-  options,
-  config,
-  lib,
-  pkgs,
-  home-manager,
-  inputs,
-  ...
-}:
+{ options, config, lib, pkgs, home-manager, inputs, ... }:
 with lib;
-with lib.my; let
+with lib.my;
+let
   cfg = config.modules.theme;
-  colors = config.lib.stylix.colors;
-  fonts = config.stylix.fonts;
-in {
+  inherit (config.lib.stylix) colors;
+  inherit (config.stylix) fonts;
+in
+{
   config = mkIf (cfg.active == "base16") (mkMerge [
     {
       modules = {
-        shell.zsh.rcFiles = [./config/zsh/prompt.zsh];
-        shell.tmux.rcFiles = [./config/tmux.conf];
+        shell.zsh.rcFiles = [ ./config/zsh/prompt.zsh ];
+        shell.tmux.rcFiles = [ ./config/tmux.conf ];
         # desktop.browsers = {
         #   firefox.userChrome = concatMapStringsSep "\n" readFile
         #     [ ./config/firefox/userChrome.css ];
@@ -27,6 +21,12 @@ in {
     }
     {
       home.configFile = mkMerge [
+        (mkIf config.modules.desktop.apps.rofi.enable {
+          "rofi/theme" = {
+            source = ./config/rofi;
+            recursive = true;
+          };
+        })
         {
           "sway/theme".text = ''
             output * bg ${config.stylix.image} fill
@@ -70,7 +70,7 @@ in {
             client.urgent           $base08 $base08 $base00 $base08 $base08
           '';
 
-          "fuzzel/fuzzel.ini".text = lib.generators.toINIWithGlobalSection {} {
+          "fuzzel/fuzzel.ini".text = lib.generators.toINIWithGlobalSection { } {
             globalSection = {
               font = fonts.monospace.name;
               icons-enabled = "no";
@@ -113,18 +113,16 @@ in {
         stylix.targets.waybar.enable = false;
         stylix.targets.k9s.enable = false;
         stylix.targets.swaylock.enable = true;
-        stylix.fonts.sizes = {
-          terminal = 8;
-        };
+        stylix.fonts.sizes = { terminal = 8; };
       };
       stylix.fonts = {
         serif = {
-          package = pkgs.iosevka-bin.override {variant = "etoile";};
+          package = pkgs.iosevka-bin.override { variant = "etoile"; };
           name = "Iosevka Etoile";
         };
 
         sansSerif = {
-          package = pkgs.iosevka-bin.override {variant = "aile";};
+          package = pkgs.iosevka-bin.override { variant = "aile"; };
           name = "Iosevka Aile";
         };
 

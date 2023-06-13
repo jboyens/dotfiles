@@ -1,10 +1,3 @@
 #!/usr/bin/env sh
 
-if [ -z "$WAYLAND_DISPLAY" ];
-then
-    rofi -show window \
-        -show-icons \
-        -theme theme/windowmenu.rasi
-else
-    swaywindow -a "$(swaywindow -w | wofi --dmenu -c ~/.config/wofi/config -s ~/.config/wofi/styles.css | sed -e 's|\(.*\)\t.*$|\1|')"
-fi
+swaywindow -a "$(swaywindow -w | rofi -dmenu -theme theme/windowmenu.rasi -show-icons | sed -e 's|\(.*\)\t.*$|\1|')"

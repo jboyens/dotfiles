@@ -87,6 +87,7 @@ in {
         terminal = "${pkgs.foot}/bin/foot";
 
         window.titlebar = false;
+        floating.titlebar = false;
 
         focus = {
           followMouse = true;

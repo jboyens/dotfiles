@@ -13,6 +13,7 @@
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
     nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
+    nixpkgs-stable.url = "nixpkgs/nixos-22.11";
 
     flake-utils = { url = "github:numtide/flake-utils"; };
 
@@ -52,21 +53,10 @@
     # flexe-flakes.url = "gitlab:flexe/flakes";
     flexe-flakes.url = "/home/jboyens/Workspace/flexe-flakes";
     flexe-flakes.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    # jboyens.url = "github:jboyens/nixpkgs?rev=39c8f7fb882f642cbf11429f5dff210e08f6b205";
   };
 
   outputs =
-    inputs@{ self
-    , nixpkgs
-    , nixpkgs-unstable
-    , flexe-flakes
-    , flake-utils
-    , hyprland
-    , ...
-    }:
+    inputs@{ self, nixpkgs, nixpkgs-unstable, flexe-flakes, flake-utils, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
 
@@ -83,13 +73,11 @@
         inputs.emacs-overlay.overlay
         inputs.nixpkgs-wayland.overlay
         inputs.flexe-flakes.overlays.default
-        inputs.hyprland.overlays.default
       ];
       pkgs' = mkPkgs nixpkgs-unstable [
         self.overlays.default
         inputs.emacs-overlay.overlay
         inputs.nixpkgs-wayland.overlay
-        inputs.hyprland.overlays.default
       ];
 
       lib = nixpkgs.lib.extend (self: super: {
@@ -98,8 +86,7 @@
           lib = self;
         };
       });
-    in
-    {
+    in {
       # lib = lib.my;
 
       overlays = (mapModules ./overlays import) // {
