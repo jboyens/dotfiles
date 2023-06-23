@@ -1,18 +1,16 @@
 {
   config,
-  options,
   pkgs,
   lib,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.shell.tmux;
   configDir = config.dotfiles.configDir;
 in {
   options.modules.shell.tmux = with types; {
-    enable = mkBoolOpt false;
-    rcFiles = mkOpt (listOf (either str path)) [];
+    enable = lib.my.mkBoolOpt false;
+    rcFiles = lib.my.mkOpt (listOf (either str path)) [];
   };
 
   config = mkIf cfg.enable {

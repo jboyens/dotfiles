@@ -5,13 +5,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.services.fail2ban;
 in {
-  options.modules.services.fail2ban = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.services.fail2ban = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     services.fail2ban = {

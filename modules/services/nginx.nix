@@ -6,13 +6,12 @@
   ...
 }:
 with builtins;
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.services.nginx;
 in {
   options.modules.services.nginx = {
-    enable = mkBoolOpt false;
-    enableCloudflareSupport = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
+    enableCloudflareSupport = lib.my.mkBoolOpt false;
   };
 
   config = mkMerge [

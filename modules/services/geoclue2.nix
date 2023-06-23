@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.services.geoclue2;
 in {
   options.modules.services.geoclue2 = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

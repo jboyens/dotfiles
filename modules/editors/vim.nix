@@ -7,13 +7,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.editors.vim;
 in {
-  options.modules.editors.vim = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.editors.vim = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [

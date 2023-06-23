@@ -1,19 +1,28 @@
-{ config, options, lib, pkgs, ... }:
-with lib;
-with lib.my;
-let cfg = config.modules.desktop;
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.desktop;
 in {
   config = mkIf (config.services.xserver.enable || cfg.swaywm.enable) {
     assertions = [
       {
-        assertion = (countAttrs (n: v: n == "enable" && value) cfg) < 2;
-        message =
-          "Can't have more than one desktop environment enabled at a time";
+        assertion = (lib.my.countAttrs (n: v: n == "enable" && value) cfg) < 2;
+        message = "Can't have more than one desktop environment enabled at a time";
       }
       {
-        assertion = let srv = config.services;
-        in srv.xserver.enable || cfg.swaywm.enable || !(anyAttrs
-          (n: v: isAttrs v && anyAttrs (n: v: isAttrs v && v.enable)) cfg);
+        assertion = let
+          srv = config.services;
+        in
+          srv.xserver.enable
+          || cfg.swaywm.enable
+          || !(anyAttrs
+            (n: v: isAttrs v && anyAttrs (n: v: isAttrs v && v.enable))
+            cfg);
         message = "Can't enable a desktop app without a desktop environment";
       }
     ];
@@ -29,7 +38,7 @@ in {
         desktopName = "Calculator";
         icon = "calc";
         exec = ''scratch "${tmux}/bin/tmux new-session -s calc -n calc qalc"'';
-        categories = [ "Development" ];
+        categories = ["Development"];
       })
       xfce.thunar
       qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
@@ -37,7 +46,7 @@ in {
       xdg-utils
     ];
 
-    environment.systemPackages = with pkgs; [ paper-icon-theme ];
+    environment.systemPackages = with pkgs; [paper-icon-theme];
 
     programs.thunar.plugins = with pkgs.xfce; [
       thunar-archive-plugin
@@ -68,18 +77,18 @@ in {
         fira-code
         fira-mono
         iosevka-bin
-        (iosevka-bin.override { variant = "sgr-iosevka-term"; })
+        (iosevka-bin.override {variant = "sgr-iosevka-term";})
         _3270font
         jetbrains-mono
         hack-font
         ibm-plex
         oxygenfonts
-        (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; })
+        (nerdfonts.override {fonts = ["FiraCode" "FiraMono"];})
       ];
     };
 
     # Try really hard to get QT to respect my GTK theme.
-    env.GTK_DATA_PREFIX = [ "${config.system.path}" ];
+    env.GTK_DATA_PREFIX = ["${config.system.path}"];
     env.QT_QPA_PLATFORMTHEME = "gnome";
     env.QT_STYLE_OVERRIDE = "kvantum";
 

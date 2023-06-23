@@ -4,8 +4,7 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   sys = "x86_64-linux";
 in {
   mkHost = path: attrs @ {system ? sys, ...}:

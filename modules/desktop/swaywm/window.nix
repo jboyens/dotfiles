@@ -1,15 +1,10 @@
 {
-  options,
   config,
   lib,
-  pkgs,
-  inputs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.swaywm;
-  swayConfig = config.home.wayland.windowManager.sway.config;
 in {
   config = mkIf cfg.enable {
     home.wayland.windowManager.sway = {

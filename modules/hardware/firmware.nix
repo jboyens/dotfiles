@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   hwCfg = config.modules.hardware;
   cfg = hwCfg.firmware;
 in {
-  options.modules.hardware.firmware = {enable = mkBoolOpt false;};
+  options.modules.hardware.firmware = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     services.fwupd.enable = true;

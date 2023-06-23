@@ -5,13 +5,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.hardware.sony-1000Xm3;
 in {
-  options.modules.hardware.sony-1000Xm3 = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.hardware.sony-1000Xm3 = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = [

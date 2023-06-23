@@ -2,21 +2,14 @@
 {
   options,
   config,
-  inputs,
   lib,
-  pkgs,
   ...
 }:
 with builtins;
-with lib;
-with lib.my; let
-  inherit (inputs) agenix;
+with lib; let
   secretsDir = "${toString ../hosts}/${config.networking.hostName}/secrets";
   secretsFile = "${secretsDir}/secrets.nix";
 in {
-  imports = [agenix.nixosModules.age];
-  environment.systemPackages = [agenix.packages.x86_64-linux.default];
-
   age = {
     secrets =
       if pathExists secretsFile

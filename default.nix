@@ -1,6 +1,11 @@
-{ inputs, config, lib, pkgs, ... }:
-with lib;
-with lib.my; {
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   imports =
     # I use home-manager to deploy files to $HOME; little else
     [
@@ -17,32 +22,32 @@ with lib.my; {
 
   # Configure nix and nixpkgs
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
-  nix =
-    let
-      filteredInputs = filterAttrs (n: _: n != "self") inputs;
-      nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
-      registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
-    in
-    {
-      package = pkgs.nixVersions.nix_2_16;
-      extraOptions = "experimental-features = nix-command flakes";
-      nixPath = nixPathInputs ++ [
+  nix = let
+    filteredInputs = filterAttrs (n: _: n != "self") inputs;
+    nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
+    registryInputs = mapAttrs (_: v: {flake = v;}) filteredInputs;
+  in {
+    package = pkgs.nixVersions.nix_2_16;
+    extraOptions = "experimental-features = nix-command flakes";
+    nixPath =
+      nixPathInputs
+      ++ [
         "nixpkgs-overlays=${config.dotfiles.dir}/overlays"
         "dotfiles=${config.dotfiles.dir}"
       ];
-      registry = registryInputs // { dotfiles.flake = inputs.self; };
-      settings = {
-        substituters = [
-          "https://nix-community.cachix.org"
-          "https://nixpkgs-wayland.cachix.org"
-        ];
-        trusted-public-keys = [
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-        ];
-        auto-optimise-store = true;
-      };
+    registry = registryInputs // {dotfiles.flake = inputs.self;};
+    settings = {
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://nixpkgs-wayland.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      ];
+      auto-optimise-store = true;
     };
+  };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
   system.stateVersion = "23.05";
 
@@ -82,8 +87,7 @@ with lib.my; {
   ];
 
   stylix.image = mkDefault (pkgs.fetchurl {
-    url =
-      "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
+    url = "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
     sha256 = "12rkqy81l1q9q8kr59m1fx100p74d18gkc5cpwr6y0i66czbxmh9";
   });
 }

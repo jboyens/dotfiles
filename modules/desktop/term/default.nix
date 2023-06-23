@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.term;
 in {
   options.modules.desktop.term = {
-    default = mkOpt types.str "xterm";
+    default = lib.my.mkOpt types.str "xterm";
   };
 
   config = {

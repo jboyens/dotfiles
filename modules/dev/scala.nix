@@ -6,14 +6,13 @@
   my,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   devCfg = config.modules.dev;
   cfg = devCfg.scala;
 in {
   options.modules.dev.scala = {
-    enable = mkBoolOpt false;
-    xdg.enable = mkBoolOpt devCfg.xdg.enable;
+    enable = lib.my.mkBoolOpt false;
+    xdg.enable = lib.my.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = mkMerge [

@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.apps.maestral;
 in {
   options.modules.desktop.apps.maestral = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

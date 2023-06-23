@@ -1,17 +1,14 @@
 {
   config,
-  options,
   pkgs,
   lib,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.shell.weechat;
-  configDir = config.dotfiles.configDir;
 in {
   options.modules.shell.weechat = with types; {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

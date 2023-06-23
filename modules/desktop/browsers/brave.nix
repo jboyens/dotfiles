@@ -8,12 +8,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.browsers.brave;
 in {
   options.modules.desktop.browsers.brave = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

@@ -6,12 +6,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.services.jellyfin;
 in {
   options.modules.services.jellyfin = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

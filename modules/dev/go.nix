@@ -7,13 +7,10 @@
   my,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.dev.go;
 in {
-  options.modules.dev.go = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.dev.go = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [

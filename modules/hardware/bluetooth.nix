@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   hwCfg = config.modules.hardware;
   cfg = hwCfg.bluetooth;
 in {
-  options.modules.hardware.bluetooth = {enable = mkBoolOpt false;};
+  options.modules.hardware.bluetooth = {enable = lib.my.mkBoolOpt false;};
 
   config = mkMerge [
     (mkIf cfg.enable {

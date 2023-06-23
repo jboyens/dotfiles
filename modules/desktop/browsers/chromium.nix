@@ -6,15 +6,14 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.browsers.chromium;
   mychromium = pkgs.chromium.override {
     enableWideVine = true;
   };
 in {
   options.modules.desktop.browsers.chromium = with types; {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

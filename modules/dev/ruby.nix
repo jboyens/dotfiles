@@ -11,12 +11,11 @@
   my,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.dev.ruby;
 in {
   options.modules.dev.ruby = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

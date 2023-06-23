@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.editors;
 in {
   options.modules.editors = {
-    default = mkOpt types.str "vim";
+    default = lib.my.mkOpt types.str "vim";
   };
 
   config = mkIf (cfg.default != null) {

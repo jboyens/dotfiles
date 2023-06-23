@@ -9,14 +9,13 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   devCfg = config.modules.dev;
   cfg = devCfg.node;
 in {
   options.modules.dev.node = {
-    enable = mkBoolOpt false;
-    xdg.enable = mkBoolOpt devCfg.xdg.enable;
+    enable = lib.my.mkBoolOpt false;
+    xdg.enable = lib.my.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = mkMerge [

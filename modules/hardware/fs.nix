@@ -5,15 +5,14 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.hardware.fs;
 in {
   options.modules.hardware.fs = {
-    enable = mkBoolOpt false;
-    zfs.enable = mkBoolOpt false;
-    ssd.enable = mkBoolOpt false;
-    # TODO automount.enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
+    zfs.enable = lib.my.mkBoolOpt false;
+    ssd.enable = lib.my.mkBoolOpt false;
+    # TODO automount.enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable (mkMerge [

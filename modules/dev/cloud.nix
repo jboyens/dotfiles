@@ -8,15 +8,14 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.dev.cloud;
 in {
   options.modules.dev.cloud = {
-    enable = mkBoolOpt false;
-    google.enable = mkBoolOpt false;
-    amazon.enable = mkBoolOpt false;
-    microsoft.enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
+    google.enable = lib.my.mkBoolOpt false;
+    amazon.enable = lib.my.mkBoolOpt false;
+    microsoft.enable = lib.my.mkBoolOpt false;
   };
 
   config = mkMerge [

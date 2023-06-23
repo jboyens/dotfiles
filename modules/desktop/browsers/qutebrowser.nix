@@ -9,17 +9,16 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.browsers.qutebrowser;
   pkg = pkgs.unstable.qutebrowser;
   configDir = config.dotfiles.configDir;
 in {
   options.modules.desktop.browsers.qutebrowser = with types; {
-    enable = mkBoolOpt false;
-    userStyles = mkOpt lines "";
-    extraConfig = mkOpt lines "";
-    dicts = mkOpt (listOf str) ["en-US"];
+    enable = lib.my.mkBoolOpt false;
+    userStyles = lib.my.mkOpt lines "";
+    extraConfig = lib.my.mkOpt lines "";
+    dicts = lib.my.mkOpt (listOf str) ["en-US"];
   };
 
   config = mkIf cfg.enable {

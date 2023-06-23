@@ -1,13 +1,10 @@
 {
   config,
-  options,
   pkgs,
   lib,
-  inputs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.shell.pass;
   package = pkgs.pass-wayland.overrideAttrs (oa: {
     x11Support = false;
@@ -15,12 +12,12 @@ with lib.my; let
   });
 in {
   options.modules.shell.pass = with types; {
-    enable = mkBoolOpt false;
-    passwordStoreDir = mkOpt str "$HOME/.secrets/password-store";
+    enable = lib.my.mkBoolOpt false;
+    passwordStoreDir = lib.my.mkOpt str "$HOME/.secrets/password-store";
   };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [
+    user.packages = [
       (package.withExtensions (exts:
         [exts.pass-otp exts.pass-genphrase exts.pass-update exts.pass-audit]
         ++ (

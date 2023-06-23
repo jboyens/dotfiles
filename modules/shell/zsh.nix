@@ -1,31 +1,29 @@
 {
   config,
-  options,
   pkgs,
   lib,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.shell.zsh;
-  configDir = config.dotfiles.configDir;
+  inherit (config.dotfiles) configDir;
 in {
   options.modules.shell.zsh = with types; {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
 
-    aliases = mkOpt (attrsOf (either str path)) {};
+    aliases = lib.my.mkOpt (attrsOf (either str path)) {};
 
-    rcInit = mkOpt' lines "" ''
+    rcInit = lib.my.mkOpt' lines "" ''
       Zsh lines to be written to $XDG_CONFIG_HOME/zsh/extra.zshrc and sourced by
       $XDG_CONFIG_HOME/zsh/.zshrc
     '';
-    envInit = mkOpt' lines "" ''
+    envInit = lib.my.mkOpt' lines "" ''
       Zsh lines to be written to $XDG_CONFIG_HOME/zsh/extra.zshenv and sourced
       by $XDG_CONFIG_HOME/zsh/.zshenv
     '';
 
-    rcFiles = mkOpt (listOf (either str path)) [];
-    envFiles = mkOpt (listOf (either str path)) [];
+    rcFiles = lib.my.mkOpt (listOf (either str path)) [];
+    envFiles = lib.my.mkOpt (listOf (either str path)) [];
   };
 
   config = mkIf cfg.enable {

@@ -5,11 +5,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.services.kanshi;
 in {
-  options.modules.desktop.services.kanshi = {enable = mkBoolOpt false;};
+  options.modules.desktop.services.kanshi = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     home.services.kanshi = {

@@ -5,11 +5,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.hardware.audio;
 in {
-  options.modules.hardware.audio = {enable = mkBoolOpt false;};
+  options.modules.hardware.audio = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     services.pipewire = {

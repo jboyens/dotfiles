@@ -1,21 +1,15 @@
 # modules/desktop/term/foot.nix
 {
-  options,
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.term.foot;
   colorscheme = config.lib.stylix;
-  fonts = config.stylix.fonts;
 in {
-  options.modules.desktop.term.foot = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.desktop.term.foot = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
@@ -27,7 +21,7 @@ in {
 
     home-manager.users.${config.user.name}.programs = {
       foot.enable = true;
-      foot.package = inputs.nixpkgs.legacyPackages.x86_64-linux.foot;
+      foot.package = pkgs.foot;
       foot.settings = {
         main = {
           pad = "10x10";
@@ -62,8 +56,6 @@ in {
       };
     };
 
-    user.packages = with pkgs; [
-      foot
-    ];
+    user.packages = with pkgs; [foot];
   };
 }

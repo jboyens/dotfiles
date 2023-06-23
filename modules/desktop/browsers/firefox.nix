@@ -10,26 +10,25 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.browsers.firefox;
   wrappedFF = pkgs.unstable.firefox-bin.override {
     extraNativeMessagingHosts = with pkgs; [passff-host tridactyl-native];
   };
 in {
   options.modules.desktop.browsers.firefox = with types; {
-    enable = mkBoolOpt false;
-    profileName = mkOpt types.str config.user.name;
+    enable = lib.my.mkBoolOpt false;
+    profileName = lib.my.mkOpt types.str config.user.name;
 
-    settings = mkOpt' (attrsOf (oneOf [bool int str])) {} ''
+    settings = lib.my.mkOpt' (attrsOf (oneOf [bool int str])) {} ''
       Firefox preferences to set in <filename>user.js</filename>
     '';
-    extraConfig = mkOpt' lines "" ''
+    extraConfig = lib.my.mkOpt' lines "" ''
       Extra lines to add to <filename>user.js</filename>
     '';
 
-    userChrome = mkOpt' lines "" "CSS Styles for Firefox's interface";
-    userContent = mkOpt' lines "" "Global CSS Styles for websites";
+    userChrome = lib.my.mkOpt' lines "" "CSS Styles for Firefox's interface";
+    userContent = lib.my.mkOpt' lines "" "Global CSS Styles for websites";
   };
 
   config = mkIf cfg.enable (mkMerge [

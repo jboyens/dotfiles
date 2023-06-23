@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.dev;
 in {
   options.modules.dev = {
-    xdg.enable = mkBoolOpt true;
+    xdg.enable = lib.my.mkBoolOpt true;
   };
 
   config = mkIf cfg.xdg.enable {

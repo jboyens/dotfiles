@@ -5,8 +5,7 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.services.cgit;
   cgitrc = pkgs.writeText "cgitrc" ''
     css=/static/cgit.css
@@ -33,7 +32,7 @@ with lib.my; let
   '';
 in {
   options.modules.services.cgit = with types; {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
     package = mkOption {
       default = pkgs.cgit-pink;
       type = package;
@@ -45,11 +44,11 @@ in {
       default = config.user.openssh.authorizedKeys.keys;
       type = listOf str;
     };
-    user = mkOpt str "git";
-    directory = mkOpt str "/srv/${cfg.user}";
-    reposDirectory = mkOpt str "${cfg.directory}/public";
-    domain = mkOpt str "git.example.com";
-    extraConfig = mkOpt str "";
+    user = lib.my.mkOpt str "git";
+    directory = lib.my.mkOpt str "/srv/${cfg.user}";
+    reposDirectory = lib.my.mkOpt str "${cfg.directory}/public";
+    domain = lib.my.mkOpt str "git.example.com";
+    extraConfig = lib.my.mkOpt str "";
   };
 
   config = mkIf cfg.enable {

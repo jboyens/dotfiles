@@ -5,14 +5,13 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.services.restic;
   # baseRepo = "sftp://jboyens@192.168.86.34:2223//backup";
   baseRepo = "rest:http://192.168.86.34:8899";
 in {
   options.modules.services.restic = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
     backups = {
       workspace = {
         enable = mkEnableOption false;

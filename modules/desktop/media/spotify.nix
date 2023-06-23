@@ -7,13 +7,12 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.media.spotify;
 in {
   options.modules.desktop.media.spotify = {
-    enable = mkBoolOpt false;
-    tui.enable = mkBoolOpt false; # TODO
+    enable = lib.my.mkBoolOpt false;
+    tui.enable = lib.my.mkBoolOpt false; # TODO
   };
 
   config = mkIf cfg.enable {

@@ -5,11 +5,9 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   inherit (config.dotfiles) configDir;
 
   cfg = config.modules.editors.emacs;
@@ -27,9 +25,9 @@ with lib.my; let
   myEmacs = pkgs.emacs-unstable-pgtk;
 in {
   options.modules.editors.emacs = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
     doom = rec {
-      enable = mkBoolOpt false;
+      enable = lib.my.mkBoolOpt false;
       forgeUrl = mkOpt types.str "https://github.com";
       repoUrl = mkOpt types.str "${forgeUrl}/doomemacs/doomemacs";
       configRepoUrl = mkOpt types.str "${forgeUrl}/hlissner/doom-emacs-private";
@@ -41,8 +39,11 @@ in {
       ## Emacs itself
       binutils # native-comp needs 'as', provided by this
       # 29 + pgtk + native-comp
-      ((emacsPackagesFor myEmacs).emacsWithPackages
-        (epkgs: [epkgs.vterm epkgs.parinfer-rust-mode epkgs.treesit-grammars.with-all-grammars]))
+      ((emacsPackagesFor myEmacs).emacsWithPackages (epkgs: [
+        epkgs.vterm
+        epkgs.parinfer-rust-mode
+        epkgs.treesit-grammars.with-all-grammars
+      ]))
 
       ## Doom dependencies
       git

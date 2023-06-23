@@ -1,8 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tilt";
   /*
@@ -21,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}"];
+  ldflags = ["-s" "-w" "-X main.version=${version}"];
 
   subPackages = ["cmd/tilt"];
 

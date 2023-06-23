@@ -1,18 +1,16 @@
 {
-  options,
   config,
   lib,
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.services.waybar;
   colorscheme = config.lib.stylix;
   fonts = config.stylix.fonts;
 in {
   options.modules.desktop.services.waybar = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
@@ -69,7 +67,8 @@ in {
           };
 
           "custom/keyboard-layout" = {
-            exec = "swaymsg -t get_inputs | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4";
+            exec = ''
+              swaymsg -t get_inputs | grep -m1 'xkb_active_layout_name' | cut -d '"' -f4'';
             interval = 30;
             format = "  {}";
             signal = 1;
@@ -94,7 +93,7 @@ in {
           };
 
           "sway/mode" = {
-            format = "<span style=\"italic\">  {}</span>";
+            format = ''<span style="italic">  {}</span>'';
             tooltip = false;
           };
 

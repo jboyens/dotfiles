@@ -1,16 +1,14 @@
 {
   config,
-  options,
   lib,
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.shell.git;
   configDir = config.dotfiles.configDir;
 in {
-  options.modules.shell.git = {enable = mkBoolOpt false;};
+  options.modules.shell.git = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
@@ -30,8 +28,8 @@ in {
       aliases = {
         unadd = "reset HEAD";
         ranked-authors = "!git authors | sort | uniq -c | sort -n";
-        emails = "!git log --format=\"%aE\" | sort -u";
-        email-domains = "!git log --format=\"%aE\" | awk -F'@' '{print $2}' | sort -u";
+        emails = ''!git log --format="%aE" | sort -u'';
+        email-domains = ''!git log --format="%aE" | awk -F'@' '{print $2}' | sort -u'';
         st = "status";
 
         up = "push";

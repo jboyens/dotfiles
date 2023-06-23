@@ -5,13 +5,12 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.services.docker;
   configDir = config.dotfiles.configDir;
 in {
   options.modules.services.docker = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

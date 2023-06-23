@@ -5,11 +5,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.media.mpv;
 in {
-  options.modules.desktop.media.mpv = {enable = mkBoolOpt false;};
+  options.modules.desktop.media.mpv = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [

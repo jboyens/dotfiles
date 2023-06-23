@@ -2,43 +2,41 @@
   config,
   options,
   lib,
-  home-manager,
   ...
 }:
-with lib;
-with lib.my; {
+with lib; {
   options = with types; {
-    user = mkOpt attrs {};
+    user = lib.my.mkOpt attrs {};
 
     dotfiles = {
       dir =
-        mkOpt path
+        lib.my.mkOpt path
         (removePrefix "/mnt"
           (findFirst pathExists (toString ../.) [
             "/home/jboyens/.config/dotfiles"
             "/mnt/etc/dotfiles"
             "/etc/dotfiles"
           ]));
-      binDir = mkOpt path "${config.dotfiles.dir}/bin";
-      configDir = mkOpt path "${config.dotfiles.dir}/config";
-      modulesDir = mkOpt path "${config.dotfiles.dir}/modules";
-      themesDir = mkOpt path "${config.dotfiles.modulesDir}/themes";
+      binDir = lib.my.mkOpt path "${config.dotfiles.dir}/bin";
+      configDir = lib.my.mkOpt path "${config.dotfiles.dir}/config";
+      modulesDir = lib.my.mkOpt path "${config.dotfiles.dir}/modules";
+      themesDir = lib.my.mkOpt path "${config.dotfiles.modulesDir}/themes";
     };
 
     home = {
-      file = mkOpt' attrs {} "Files to place directly in $HOME";
-      configFile = mkOpt' attrs {} "Files to place in $XDG_CONFIG_HOME";
-      dataFile = mkOpt' attrs {} "Files to place in $XDG_DATA_HOME";
-      programs = mkOpt' attrs {} "Apps to configure";
-      services = mkOpt' attrs {} "Services to configure";
-      wayland = mkOpt' attrs {} "Wayland config";
+      file = lib.my.mkOpt' attrs {} "Files to place directly in $HOME";
+      configFile = lib.my.mkOpt' attrs {} "Files to place in $XDG_CONFIG_HOME";
+      dataFile = lib.my.mkOpt' attrs {} "Files to place in $XDG_DATA_HOME";
+      programs = lib.my.mkOpt' attrs {} "Apps to configure";
+      services = lib.my.mkOpt' attrs {} "Services to configure";
+      wayland = lib.my.mkOpt' attrs {} "Wayland config";
     };
 
     env = mkOption {
       type = attrsOf (oneOf [str path (listOf (either str path))]);
       apply = mapAttrs (n: v:
         if isList v
-        then concatMapStringsSep ":" (x: toString x) v
+        then concatMapStringsSep ":" toString v
         else (toString v));
       default = {};
       description = "TODO";
@@ -80,7 +78,7 @@ with lib.my; {
           file = mkAliasDefinitions options.home.file;
           # Necessary for home-manager to work with flakes, otherwise it will
           # look for a nixpkgs channel.
-          stateVersion = config.system.stateVersion;
+          inherit (config.system) stateVersion;
         };
         xdg = {
           configFile = mkAliasDefinitions options.home.configFile;

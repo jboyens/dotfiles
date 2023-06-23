@@ -5,8 +5,7 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.hardware.nvidia;
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -16,7 +15,7 @@ with lib.my; let
     exec -a "$0" "$@"
   '';
 in {
-  options.modules.hardware.nvidia = {enable = mkBoolOpt false;};
+  options.modules.hardware.nvidia = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     hardware = {

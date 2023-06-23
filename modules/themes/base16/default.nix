@@ -1,18 +1,20 @@
 # modules/themes/base16/default.nix --- a theme for those who cannot choose
-{ options, config, lib, pkgs, home-manager, inputs, ... }:
-with lib;
-with lib.my;
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.modules.theme;
   inherit (config.lib.stylix) colors;
   inherit (config.stylix) fonts;
-in
-{
+in {
   config = mkIf (cfg.active == "base16") (mkMerge [
     {
       modules = {
-        shell.zsh.rcFiles = [ ./config/zsh/prompt.zsh ];
-        shell.tmux.rcFiles = [ ./config/tmux.conf ];
+        shell.zsh.rcFiles = [./config/zsh/prompt.zsh];
+        shell.tmux.rcFiles = [./config/tmux.conf];
         # desktop.browsers = {
         #   firefox.userChrome = concatMapStringsSep "\n" readFile
         #     [ ./config/firefox/userChrome.css ];
@@ -70,7 +72,7 @@ in
             client.urgent           $base08 $base08 $base00 $base08 $base08
           '';
 
-          "fuzzel/fuzzel.ini".text = lib.generators.toINIWithGlobalSection { } {
+          "fuzzel/fuzzel.ini".text = lib.generators.toINIWithGlobalSection {} {
             globalSection = {
               font = fonts.monospace.name;
               icons-enabled = "no";
@@ -101,7 +103,7 @@ in
       #     "https://github.com/vctrblck/gruvbox-wallpapers/raw/main/forest-hut.png";
       #   sha256 = "12rkqy81l1q9q8kr59m1fx100p74d18gkc5cpwr6y0i66czbxmh9";
       # };
-      stylix.base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
+      # stylix.base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
       # stylix.base16Scheme = "${inputs.catppuccin}/base16/frappe.yaml";
       # stylix.base16Scheme = "${inputs.base16-schemes}/tomorrow-night.yaml";
       # stylix.base16Scheme = "${inputs.base16-schemes}/tokyo-night-dark.yaml";
@@ -113,16 +115,16 @@ in
         stylix.targets.waybar.enable = false;
         stylix.targets.k9s.enable = false;
         stylix.targets.swaylock.enable = true;
-        stylix.fonts.sizes = { terminal = 8; };
+        stylix.fonts.sizes = {terminal = 8;};
       };
       stylix.fonts = {
         serif = {
-          package = pkgs.iosevka-bin.override { variant = "etoile"; };
+          package = pkgs.iosevka-bin.override {variant = "etoile";};
           name = "Iosevka Etoile";
         };
 
         sansSerif = {
-          package = pkgs.iosevka-bin.override { variant = "aile"; };
+          package = pkgs.iosevka-bin.override {variant = "aile";};
           name = "Iosevka Aile";
         };
 

@@ -5,12 +5,11 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.email.mu4e;
 in {
   options.modules.email.mu4e = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
     package = mkOption {
       type = types.package;
       default = pkgs.offlineimap;
@@ -54,9 +53,7 @@ in {
             RestartSec = "30";
           };
 
-          Install = {
-            WantedBy = ["default.target"];
-          };
+          Install = {WantedBy = ["default.target"];};
         };
 
         "goimapnotify@flexe" = {
@@ -73,9 +70,7 @@ in {
             RestartSec = "30";
           };
 
-          Install = {
-            WantedBy = ["default.target"];
-          };
+          Install = {WantedBy = ["default.target"];};
         };
 
         "goimapnotify@fooninja" = {
@@ -92,9 +87,7 @@ in {
             RestartSec = "30";
           };
 
-          Install = {
-            WantedBy = ["default.target"];
-          };
+          Install = {WantedBy = ["default.target"];};
         };
 
         mbsync = {
@@ -125,9 +118,7 @@ in {
             Persistent = "true";
           };
 
-          Install = {
-            WantedBy = ["default.target"];
-          };
+          Install = {WantedBy = ["default.target"];};
         };
       };
     };

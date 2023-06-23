@@ -5,13 +5,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.shell.direnv;
 in {
-  options.modules.shell.direnv = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.shell.direnv = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = [pkgs.direnv];

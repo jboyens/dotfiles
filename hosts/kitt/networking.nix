@@ -1,10 +1,4 @@
-{
-  pkgs,
-  stdenv,
-  lib,
-  inputs,
-  ...
-}: {
+{lib, ...}: {
   ## Local config
   networking.networkmanager.enable = false;
   networking.networkmanager.wifi.powersave = false;

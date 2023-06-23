@@ -11,15 +11,14 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   devCfg = config.modules.dev;
   cfg = devCfg.lua;
 in {
   options.modules.dev.lua = {
-    enable = mkBoolOpt false;
-    xdg.enable = mkBoolOpt devCfg.enableXDG;
-    love2D.enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
+    xdg.enable = lib.my.mkBoolOpt devCfg.enableXDG;
+    love2D.enable = lib.my.mkBoolOpt false;
   };
 
   config = mkMerge [

@@ -2,15 +2,12 @@
 # intertwined with others, and are solely responsible for aesthetics. Disabling
 # a theme module should never leave a system non-functional.
 {
-  options,
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.theme;
 in {
   options.modules.theme = with types; {
@@ -29,7 +26,7 @@ in {
       '';
     };
 
-    onReload = mkOpt (attrsOf lines) {};
+    onReload = lib.my.mkOpt (attrsOf lines) {};
   };
 
   config = mkIf (cfg.active != null) (mkMerge [

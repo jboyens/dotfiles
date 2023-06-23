@@ -3,18 +3,15 @@
 # For testing or building software on other OSes. If I find out how to get macOS
 # on qemu/libvirt I'd be happy to leave virtualbox behind.
 {
-  options,
   config,
   lib,
-  pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.vm.virtualbox;
 in {
   options.modules.desktop.vm.virtualbox = {
-    enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

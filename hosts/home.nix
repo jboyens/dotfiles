@@ -41,7 +41,7 @@ in {
     else {};
 
   # So the vaultwarden CLI knows where to find my server.
-  modules.shell.vaultwarden.config.server = "bw.fooninja.org";
+  # modules.shell.vaultwarden.config.server = "bw.fooninja.org";
 
   services.syncthing = {
     # Purge folders not declaratively configured!

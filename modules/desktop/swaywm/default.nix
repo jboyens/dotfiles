@@ -1,20 +1,17 @@
-{ options, config, lib, pkgs, inputs, ... }:
-with lib;
-with lib.my;
-let
-  inherit (config.stylix) fonts;
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.modules.desktop.swaywm;
-  colorscheme = config.lib.stylix;
-
-  swayConfig =
-    config.home-manager.users.${config.user.name}.wayland.windowManager.sway.config;
 in {
-  imports = [ ./keybindings.nix ];
-  options.modules.desktop.swaywm = { enable = mkBoolOpt false; };
+  imports = [./keybindings.nix];
+  options.modules.desktop.swaywm = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
-    services = { xserver.enable = lib.mkDefault false; };
+    services = {xserver.enable = lib.mkDefault false;};
 
     xdg.portal = {
       enable = true;
@@ -27,7 +24,7 @@ in {
           chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
         };
       };
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+      extraPortals = with pkgs; [xdg-desktop-portal-gtk];
     };
 
     programs.sway = {
@@ -154,13 +151,12 @@ in {
             workspace = "2";
           }
           {
-            output =
-              "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
+            output = "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
             workspace = "3";
           }
         ];
 
-        bars = [ ];
+        bars = [];
 
         startup = [
           {
@@ -168,8 +164,7 @@ in {
             always = true;
           }
           {
-            command =
-              "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${pkgs.wob}/bin/wob";
+            command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${pkgs.wob}/bin/wob";
             always = false;
           }
           {
@@ -181,8 +176,7 @@ in {
             always = false;
           }
           {
-            command =
-              "${pkgs.unstable.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
+            command = "${pkgs.unstable.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
             always = false;
           }
         ];
@@ -195,12 +189,16 @@ in {
           "/run/current-system/sw"
           config.home-manager.users.${config.user.name}.home.profileDirectory
         ];
-        themes = [ "Paper" "Paper-Mono-Dark" "Adwaita" "hicolor" ];
-        mkPath = { basePath, theme, }: "${basePath}/share/icons/${theme}";
-      in concatMapStringsSep ":" mkPath (cartesianProductOfSets {
-        basePath = basePaths;
-        theme = themes;
-      });
+        themes = ["Paper" "Paper-Mono-Dark" "Adwaita" "hicolor"];
+        mkPath = {
+          basePath,
+          theme,
+        }: "${basePath}/share/icons/${theme}";
+      in
+        concatMapStringsSep ":" mkPath (cartesianProductOfSets {
+          basePath = basePaths;
+          theme = themes;
+        });
     in {
       inherit iconPath;
 
@@ -242,10 +240,12 @@ in {
         }
       ];
 
-      events = [{
-        event = "before-sleep";
-        command = "${pkgs.swaylock}/bin/swaylock -f";
-      }];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${pkgs.swaylock}/bin/swaylock -f";
+        }
+      ];
     };
 
     services.udev.extraRules = ''

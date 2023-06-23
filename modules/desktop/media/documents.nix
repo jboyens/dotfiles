@@ -6,14 +6,13 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.desktop.media.documents;
 in {
   options.modules.desktop.media.documents = {
-    enable = mkBoolOpt false;
-    pdf.enable = mkBoolOpt false;
-    ebook.enable = mkBoolOpt false;
+    enable = lib.my.mkBoolOpt false;
+    pdf.enable = lib.my.mkBoolOpt false;
+    ebook.enable = lib.my.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

@@ -5,13 +5,10 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.hardware.solokeys;
 in {
-  options.modules.hardware.solokeys = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.hardware.solokeys = {enable = lib.my.mkBoolOpt false;};
 
   config = mkIf cfg.enable {
     user.packages = [pkgs.solo2-cli];

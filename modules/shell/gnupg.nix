@@ -1,17 +1,15 @@
 {
   config,
-  options,
   lib,
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.shell.gnupg;
 in {
   options.modules.shell.gnupg = with types; {
-    enable = mkBoolOpt false;
-    cacheTTL = mkOpt int 3600; # 1hr
+    enable = lib.my.mkBoolOpt false;
+    cacheTTL = lib.my.mkOpt int 3600; # 1hr
   };
 
   config = mkIf cfg.enable {
@@ -19,7 +17,7 @@ in {
 
     programs.gnupg.agent.enable = true;
 
-    user.packages = [pkgs.tomb pkgs.pinentry.gtk2]; #pkgs.pinentry.curses ];
+    user.packages = [pkgs.tomb pkgs.pinentry.gtk2]; # pkgs.pinentry.curses ];
 
     # HACK Without this config file you get "No pinentry program" on 20.03.
     #      programs.gnupg.agent.pinentryFlavor doesn't appear to work, and this

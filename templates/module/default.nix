@@ -6,15 +6,10 @@
   ...
 }:
 with builtins;
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.X.Y;
 in {
-  options.modules.X.Y = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.X.Y = {enable = lib.my.mkBoolOpt false;};
 
-  config =
-    cfg.enable {
-    };
+  config = cfg.enable {};
 }

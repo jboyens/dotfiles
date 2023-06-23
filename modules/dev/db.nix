@@ -8,13 +8,12 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; let
+with lib; let
   cfg = config.modules.dev.db;
 in {
   options.modules.dev.db = {
-    postgres.enable = mkBoolOpt false;
-    mysql.enable = mkBoolOpt false;
+    postgres.enable = lib.my.mkBoolOpt false;
+    mysql.enable = lib.my.mkBoolOpt false;
   };
 
   config = mkMerge [
