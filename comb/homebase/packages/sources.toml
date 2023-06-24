@@ -1,0 +1,17 @@
+[pizauth]
+src.github_tag = "ltratt/pizauth"
+fetch.github = "ltratt/pizauth"
+cargo_locks = [ "Cargo.lock" ]
+
+[cyrus-sasl-xoauth2]
+src.github = "moriyoshi/cyrus-sasl-xoauth2"
+fetch.github = "moriyoshi/cyrus-sasl-xoauth2"
+
+[sloth]
+src.github = "slok/sloth"
+fetch.github = "slok/sloth"
+
+[kustomize]
+src.github = "kubernetes-sigs/kustomize"
+src.include_regex = "kustomize/v.*"
+fetch.github = "kubernetes-sigs/kustomize"

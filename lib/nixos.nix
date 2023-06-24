@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -13,7 +12,7 @@ in {
       specialArgs = {inherit lib inputs system;};
       modules = [
         {
-          nixpkgs.pkgs = pkgs;
+          nixpkgs.pkgs = inputs.nixpkgs;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
         (filterAttrs (n: v: !elem n ["system"]) attrs)

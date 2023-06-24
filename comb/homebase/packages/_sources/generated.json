@@ -1,0 +1,87 @@
+{
+    "cyrus-sasl-xoauth2": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cyrus-sasl-xoauth2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "moriyoshi",
+            "repo": "cyrus-sasl-xoauth2",
+            "rev": "v0.2",
+            "sha256": "sha256-lI8uKtVxrziQ8q/Ss+QTgg1xTObZUTAzjL3MYmtwyd8=",
+            "type": "github"
+        },
+        "version": "v0.2"
+    },
+    "kustomize": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "kustomize",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kubernetes-sigs",
+            "repo": "kustomize",
+            "rev": "kustomize/v5.1.0",
+            "sha256": "sha256-nYndDoaCMyIvMlhHawgcv8WCCa3HYgAcF+3QxyYxub4=",
+            "type": "github"
+        },
+        "version": "kustomize/v5.1.0"
+    },
+    "pizauth": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./pizauth-pizauth-0.3.0/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "pizauth",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ltratt",
+            "repo": "pizauth",
+            "rev": "pizauth-0.3.0",
+            "sha256": "sha256-jqfK926KrWevsP+Yif3PdMIZWeIIQaA5jP14acZehwc=",
+            "type": "github"
+        },
+        "version": "pizauth-0.3.0"
+    },
+    "sloth": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "sloth",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "slok",
+            "repo": "sloth",
+            "rev": "v0.11.0",
+            "sha256": "sha256-KMVD7uH3Yg9ThnwKKzo6jom0ctFywt2vu7kNdfjiMCs=",
+            "type": "github"
+        },
+        "version": "v0.11.0"
+    }
+}

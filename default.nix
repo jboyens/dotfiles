@@ -13,7 +13,7 @@ with lib; {
       inputs.stylix.nixosModules.stylix
     ]
     # All my personal modules
-    ++ (mapModulesRec' (toString ./modules) import);
+    ++ (lib.my.mapModulesRec' (toString ./modules) import);
 
   # Common config for all nixos machines; and to ensure the flake operates
   # soundly

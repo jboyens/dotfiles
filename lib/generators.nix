@@ -1,15 +1,17 @@
 {
   lib,
-  pkgs,
+  inputs,
   ...
 }:
 with builtins;
-with lib; {
+with lib; let
+  inherit (inputs.nixpkgs) runCommand sass imagemagick;
+in {
   toCSSFile = file: let
     fileName = removeSuffix ".scss" (baseNameOf file);
     compiledStyles =
-      pkgs.runCommand "compileScssFile"
-      {buildInputs = [pkgs.sass];} ''
+      runCommand "compileScssFile"
+      {buildInputs = [sass];} ''
         mkdir "$out"
         scss --sourcemap=none \
              --no-cache \
@@ -23,8 +25,8 @@ with lib; {
   toFilteredImage = imageFile: options: let
     result = "result.png";
     filteredImage =
-      pkgs.runCommand "filterWallpaper"
-      {buildInputs = [pkgs.imagemagick];} ''
+      runCommand "filterWallpaper"
+      {buildInputs = [imagemagick];} ''
         mkdir "$out"
         convert ${options} ${imageFile} $out/${result}
       '';
