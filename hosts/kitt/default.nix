@@ -1,5 +1,12 @@
-{ pkgs, stdenv, lib, inputs, config, ... }: {
-  imports = [ ../home.nix ./hardware-configuration.nix ./networking.nix ];
+{
+  pkgs,
+  stdenv,
+  lib,
+  inputs,
+  config,
+  ...
+}: {
+  imports = [../home.nix ./hardware-configuration.nix ./networking.nix];
 
   ## Modules
   modules = {
@@ -35,7 +42,7 @@
         foot.enable = true;
         alacritty.enable = true;
       };
-      vm = { qemu.enable = true; };
+      vm = {qemu.enable = true;};
     };
     dev = {
       android.enable = false;
@@ -47,7 +54,7 @@
         enable = true;
         google.enable = true;
       };
-      db = { postgres.enable = true; };
+      db = {postgres.enable = true;};
       ruby.enable = true;
     };
     editors = {
@@ -117,12 +124,14 @@
   gtk.iconCache.enable = true;
 
   security.pam = {
-    loginLimits = [{
-      domain = "*";
-      type = "soft";
-      item = "nofile";
-      value = "8192";
-    }];
+    loginLimits = [
+      {
+        domain = "*";
+        type = "soft";
+        item = "nofile";
+        value = "8192";
+      }
+    ];
 
     services = {
       login.u2fAuth = true;
@@ -132,7 +141,7 @@
 
   nix.settings.netrc-file = config.age.secrets.netrc.path;
 
-  time.timeZone = null;
+  time.timeZone = "America/Los_Angeles";
 
   nix.gc = {
     automatic = true;
