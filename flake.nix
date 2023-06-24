@@ -12,8 +12,8 @@
   inputs = {
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
-    nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
-    nixpkgs-stable.url = "nixpkgs/nixos-22.11";
+    # nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
+    # nixpkgs-stable.url = "nixpkgs/nixos-22.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -43,8 +43,6 @@
       nixos-generators.follows = "nixos-generators";
     };
 
-    flake-utils = {url = "github:numtide/flake-utils";};
-
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -55,7 +53,6 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.inputs.nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
-    emacs-overlay.inputs.flake-utils.follows = "flake-utils";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -73,13 +70,12 @@
     catppuccin.url = "github:catppuccin/base16";
     catppuccin.flake = false;
 
-    comma = {url = "github:nix-community/comma";};
-    comma.inputs.nixpkgs.follows = "nixpkgs";
-    comma.inputs.utils.follows = "flake-utils";
+    # comma = {url = "github:nix-community/comma";};
+    # comma.inputs.nixpkgs.follows = "nixpkgs";
 
     # flexe-flakes.url = "gitlab:flexe/flakes";
-    flexe-flakes.url = "/home/jboyens/Workspace/flexe-flakes";
-    flexe-flakes.inputs.nixpkgs.follows = "nixpkgs";
+    # flexe-flakes.url = "/home/jboyens/Workspace/flexe-flakes";
+    # flexe-flakes.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -124,10 +120,6 @@
 
         # devshells
         (devshells "devshells")
-
-        (nixago "configs")
-
-        (functions "microvms")
       ];
 
       nixpkgsConfig.allowUnfreePredicate = pkg:

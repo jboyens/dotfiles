@@ -14,6 +14,12 @@ in
         inherit (inputs) nixos-generators;
       in [
         {
+          category = "general commands";
+          name = "fmt";
+          help = "Format repository";
+          command = "alejandra $PRJ_ROOT";
+        }
+        {
           package = nixos-generators.packages.nixos-generators;
           category = "generate";
         }
