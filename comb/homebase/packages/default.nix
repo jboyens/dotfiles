@@ -14,6 +14,7 @@ in {
   isync-oauth2 = callPackage ./isync-oauth2.nix {inherit sources;};
   cyrus-sasl-xoauth2 = callPackage ./cyrus-sasl-xoauth2.nix {inherit sources;};
   pizauth = callPackage ./pizauth.nix {inherit sources;};
+  pragmasevka = callPackage ./pragmasevka.nix {inherit sources;};
   sloth = callPackage ./sloth.nix {inherit sources;};
   kustomize = callPackage ./kustomize.nix {inherit sources;};
 }

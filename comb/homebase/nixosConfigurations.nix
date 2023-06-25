@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  inherit (cell) nixosSuites nixosProfiles homeSuites homeProfiles;
+  inherit (cell) nixosSuites homeSuites;
 
   bee = {
     system = "x86_64-linux";
@@ -15,17 +15,14 @@ in
     kitt = {
       inherit bee time;
 
-      imports = with nixosSuites;
-      with nixosProfiles;
-        [
-        ]
-        ++ laptop;
+      imports = [] ++ nixosSuites.laptop;
 
       home-manager = {
         useUserPackages = true;
         useGlobalPkgs = true;
         users.jboyens = {
-          imports = with homeSuites; jboyens ++ laptop;
+          imports = with homeSuites;
+            jboyens ++ laptop ++ [];
 
           home.stateVersion = "23.11";
         };

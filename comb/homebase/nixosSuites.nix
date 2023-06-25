@@ -11,7 +11,7 @@ in rec {
 
   development = with p; [vm.qemu];
 
-  server = [p.server.prometheus];
+  server = [];
 
-  laptop = base ++ (with p; [audio keyboard styles]) ++ development ++ server;
+  laptop = base ++ (with p; [audio keyboard styles p.server.printing]) ++ development ++ server;
 }

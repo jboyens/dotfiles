@@ -21,9 +21,13 @@
     pciutils
     ripgrep
     unzip
-    vim
+    neovim
     wget
     whois
+
+    nixfmt
+    nixpkgs-fmt
+    alejandra
 
     lm_sensors
   ];

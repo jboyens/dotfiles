@@ -2,6 +2,7 @@
   inputs,
   cell,
 }: let
+  inherit (inputs) nixpkgs;
   inherit (cell) lib;
 in
   lib.mapAttrs (_: lib.std.lib.dev.mkShell) {
@@ -10,6 +11,8 @@ in
 
       imports = [inputs.std.std.devshellProfiles.default];
 
+      packages = with nixpkgs; [statix nil nixfmt nixpkgs-fmt alejandra];
+
       commands = let
         inherit (inputs) nixos-generators;
       in [
@@ -17,7 +20,7 @@ in
           category = "general commands";
           name = "fmt";
           help = "Format repository";
-          command = "alejandra $PRJ_ROOT";
+          command = "nix fmt $PRJ_ROOT";
         }
         {
           package = nixos-generators.packages.nixos-generators;

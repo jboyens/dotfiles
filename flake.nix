@@ -59,10 +59,7 @@
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-    stylix.url = "github:danth/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.inputs.home-manager.follows = "home-manager";
-    stylix.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    base16.url = "github:SenchoPens/base16.nix";
 
     base16-schemes.url = "github:tinted-theming/base16-schemes";
     base16-schemes.flake = false;
@@ -85,11 +82,13 @@
     ...
   } @ inputs: let
     lib = inputs.nixpkgs.lib // builtins;
+    collect = hive.collect // {renamer = cell: target: "${target}";};
   in
     hive.growOn {
       inherit inputs;
 
       cellsFrom = ./comb;
+
       cellBlocks = with std.blockTypes;
       with hive.blockTypes; [
         # library
@@ -134,15 +133,27 @@
     } {
       lib = std.pick self ["common" "lib"];
       devShells = std.harvest self ["common" "devshells"];
-      packages = std.harvest self [["common" "generators"] ["homebase" "packages"]];
+      packages = std.harvest self [
+        ["common" "generators"]
+        ["homebase" "packages"]
+      ];
       homeModules = std.harvest self ["homebase" "homeModules"];
     } {
-      nixosConfigurations = hive.collect self "nixosConfigurations";
-      homeConfigurations = hive.collect self "homeConfigurations";
+      nixosConfigurations = collect self "nixosConfigurations";
+      nixosProfiles = std.harvest self [
+        ["common" "nixosProfiles"]
+        ["homebase" "nixosProfiles"]
+      ];
+      homeConfigurations = collect self "homeConfigurations";
+      homeProfiles = std.harvest self [
+        ["common" "homeProfiles"]
+        ["homebase" "homeProfiles"]
+      ];
 
       configFiles = std.harvest self ["common" "configs"];
 
-      formatter."x86_64-linux" = inputs.nixpkgs.legacyPackages."x86_64-linux".alejandra;
+      formatter."x86_64-linux" =
+        inputs.nixpkgs.legacyPackages."x86_64-linux".alejandra;
     };
   # inputs@{ self, nixpkgs, nixpkgs-unstable, flexe-flakes, flake-utils, ... }:
   # inputs.flake-parts.lib.mkFlake { inherit inputs; }

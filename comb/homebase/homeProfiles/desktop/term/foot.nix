@@ -4,7 +4,12 @@
 }: let
   inherit (inputs) nixpkgs;
   inherit (nixpkgs) lib;
-  # colorscheme = inputs.stylix.config.lib.stylix;
+  inherit (inputs.nixpkgs-wayland.packages) foot;
+
+  nixosProfiles = inputs.cells.homebase.nixosProfiles;
+  styles = nixosProfiles.styles.config;
+
+  inherit (styles.styling) fonts fontSizes colors;
 in {
   # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 
@@ -13,42 +18,40 @@ in {
   #   [ "$TERM" = foot ] && export TERM=xterm-256color
   # '';
 
-  programs = {
-    foot.enable = true;
-    foot.package = nixpkgs.foot;
-    foot.settings = {
+  programs.foot = {
+    enable = true;
+    package = foot;
+    settings = {
       main = {
         pad = "10x10";
         dpi-aware = lib.mkForce "yes";
+        font = "${fonts.monospace.name}:size=${toString fontSizes.terminal}";
       };
-      # cursor.color = "${colorscheme.colors.base00} ${colorscheme.colors.base05}";
-      # colors = {
-      #   alpha = 1.0;
-      #   background = "${colorscheme.colors.base00}";
-      #   foreground = "${colorscheme.colors.base05}";
-      #   regular0 = "${colorscheme.colors.base00}";
-      #   regular1 = "${colorscheme.colors.base08}";
-      #   regular2 = "${colorscheme.colors.base0B}";
-      #   regular3 = "${colorscheme.colors.base0A}";
-      #   regular4 = "${colorscheme.colors.base0D}";
-      #   regular5 = "${colorscheme.colors.base0E}";
-      #   regular6 = "${colorscheme.colors.base0C}";
-      #   regular7 = "${colorscheme.colors.base05}";
-      #   bright0 = "${colorscheme.colors.base03}";
-      #   bright1 = "${colorscheme.colors.base08}";
-      #   bright2 = "${colorscheme.colors.base0B}";
-      #   bright3 = "${colorscheme.colors.base0A}";
-      #   bright4 = "${colorscheme.colors.base0D}";
-      #   bright5 = "${colorscheme.colors.base0E}";
-      #   bright6 = "${colorscheme.colors.base0C}";
-      #   bright7 = "${colorscheme.colors.base07}";
-      # };
+
+      colors = {
+        foreground = colors.base05-hex;
+        background = colors.base00-hex;
+        regular0 = colors.base00-hex;
+        regular1 = colors.base08-hex;
+        regular2 = colors.base0B-hex;
+        regular3 = colors.base0A-hex;
+        regular4 = colors.base0D-hex;
+        regular5 = colors.base0E-hex;
+        regular6 = colors.base0C-hex;
+        regular7 = colors.base05-hex;
+        bright0 = colors.base03-hex;
+        bright1 = colors.base08-hex;
+        bright2 = colors.base0B-hex;
+        bright3 = colors.base0A-hex;
+        bright4 = colors.base0D-hex;
+        bright5 = colors.base0E-hex;
+        bright6 = colors.base0C-hex;
+        bright7 = colors.base07-hex;
+      };
       key-bindings = {
         clipboard-copy = "Control+Shift+c";
         clipboard-paste = "Control+Shift+v";
       };
     };
   };
-
-  home.packages = with nixpkgs; [foot];
 }

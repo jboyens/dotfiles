@@ -8,30 +8,16 @@ in {
   imports = [
     (import ./__keybindings.nix {inherit inputs cell;})
     (import ./__window.nix {inherit inputs cell;})
+    (import ./__waybar.nix {inherit inputs cell;})
   ];
 
   # services = {xserver.enable = lib.mkDefault false;};
 
-  # TODO Move to nixosProfile
-  # xdg.portal = {
-  #   enable = true;
-  #   wlr.enable = true;
-  #   wlr.settings = {
-  #     screencast = {
-  #       output_name = "DP-4";
-  #       max_fps = 30;
-  #       chooser_type = "simple";
-  #       chooser_cmd = "${nixpkgs.slurp}/bin/slurp -f %o -or";
-  #     };
-  #   };
-  #   extraPortals = with nixpkgs; [xdg-desktop-portal-gtk];
-  # };
-
   home.packages = with nixpkgs; [
     autotiling
+    fuzzel
     gammastep
     grim
-    fuzzel
     qt5.qtwayland
     sirula
     slurp
@@ -51,12 +37,17 @@ in {
   ];
 
   programs.swaylock.enable = true;
+
   wayland.windowManager.sway = {
     enable = true;
+    systemd.enable = true;
+    swaynag.enable = true;
+
     wrapperFeatures = {
       gtk = true;
       base = true;
     };
+
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
       export QT_QPA_PLATFORM=wayland
@@ -74,7 +65,7 @@ in {
       export LIBVA_DRIVER_NAME=iHD
       export WLR_DRM_NO_MODIFIERS=1
     '';
-    systemd.enable = true;
+
     config = {
       terminal = "${nixpkgs.foot}/bin/foot";
 
@@ -220,7 +211,6 @@ in {
   };
 
   services.mpris-proxy.enable = true;
-  wayland.windowManager.sway.swaynag.enable = true;
 
   services.swayidle = {
     enable = true;
@@ -243,6 +233,15 @@ in {
         command = "${nixpkgs.swaylock}/bin/swaylock -f";
       }
     ];
+  };
+
+  gtk = {
+    enable = true;
+
+    theme = {
+      package = nixpkgs.adw-gtk3;
+      name = "adw-gtk3";
+    };
   };
 
   # services.udev.extraRules = ''
