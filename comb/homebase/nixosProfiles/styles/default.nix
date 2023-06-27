@@ -10,7 +10,7 @@
       pkgs = nixpkgs;
       lib = lib;
     })
-    .mkSchemeAttrs "${inputs.base16-schemes}/onedark.yaml";
+    .mkSchemeAttrs "${inputs.base16-schemes}/horizon-dark.yaml";
 
   fontOptions = {
     options = {

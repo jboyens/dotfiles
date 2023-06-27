@@ -43,5 +43,7 @@
     lm_sensors
 
     fasd
+
+    xdg-utils
   ];
 }
