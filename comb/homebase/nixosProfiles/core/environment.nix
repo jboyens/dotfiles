@@ -10,6 +10,8 @@
     ZGEN_DIR = "/home/jboyens/.local/share/zgenom";
 
     XDG_CONFIG_HOME = "/home/jboyens/.config";
+
+    GNUPGHOME = "$XDG_CONFIG_HOME/gnupg";
   };
 
   systemPackages = with inputs.nixpkgs; [

@@ -14,7 +14,7 @@ in
 
       imports = [inputs.std.std.devshellProfiles.default];
 
-      packages = with nixpkgs; [statix nil nixfmt nixpkgs-fmt alejandra];
+      packages = with nixpkgs; [statix rnix-lsp nixfmt nixpkgs-fmt alejandra];
 
       commands = let
         inherit (inputs) nixos-generators;
@@ -64,6 +64,12 @@ in
           name = "dry-build";
           help = "Dry-build the flake";
           command = "sudo nixos-rebuild dry-build --flake $PRJ_ROOT $@";
+        }
+        {
+          category = "nix";
+          name = "build";
+          help = "Build the flake";
+          command = "sudo nixos-rebuild build --flake $PRJ_ROOT $@";
         }
       ];
     };
