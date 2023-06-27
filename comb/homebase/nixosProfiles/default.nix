@@ -7,6 +7,7 @@ in {
   audio = load ./audio;
   cachix = load ./cachix;
   core = load ./core;
+  desktop = load ./desktop;
   dev = load ./dev;
   gaming = load ./gaming;
   keyboard = load ./keyboard;

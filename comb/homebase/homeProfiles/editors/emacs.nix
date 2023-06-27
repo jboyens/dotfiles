@@ -30,7 +30,7 @@ in {
     myEmacs
 
     ## Doom dependencies
-    git
+    # git
     (ripgrep.override {withPCRE2 = true;})
     gnutls # for TLS connectivity
 

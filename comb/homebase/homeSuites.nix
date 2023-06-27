@@ -4,7 +4,13 @@
 }: let
   inherit (cell) homeProfiles;
 in rec {
-  base = with homeProfiles; [];
+  base = with homeProfiles; [
+    shell.zsh
+    shell.git
+    shell.gnupg
+    keyboard
+    email
+  ];
 
   laptop = with homeProfiles; [];
 
@@ -51,7 +57,7 @@ in rec {
     # desktop.term.st
   ];
 
-  jboyens = with homeProfiles; [shell keyboard email] ++ music ++ graphical ++ base;
+  jboyens = music ++ graphical ++ base ++ (with homeProfiles; [editors.emacs dev.cloud.google dev.cloud.generic]);
 
   nixos = base;
 

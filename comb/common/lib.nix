@@ -67,5 +67,9 @@ in
       }) (lib.mapAttrs (_: lib.recursiveUpdate defaults) configurations);
 
     load = inputs: cell: src: inputs.hive.load {inherit inputs cell src;};
+
+    mkOpt = type: default: lib.mkOption {inherit type default;};
+    mkOpt' = type: default: description: lib.mkOption {inherit type default description;};
+    mkBoolOpt = default: mkOpt lib.types.bool default;
   }
   // lib

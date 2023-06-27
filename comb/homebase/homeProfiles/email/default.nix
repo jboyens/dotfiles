@@ -13,10 +13,10 @@ in {
     # don't install mu4e here
     mu
     imapfilter
-    # FIXME
-    # isync-oauth2
+    isync-oauth2
     msmtp
     pizauth
+    age
     (writeScriptBin "mu-reindex" ''
       if [ -f /tmp/mu4e_lock ]; then
         ${coreutils-full}/bin/touch /tmp/mu_reindex_now

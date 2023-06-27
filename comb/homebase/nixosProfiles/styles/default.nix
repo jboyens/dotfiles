@@ -33,6 +33,8 @@
 in {
   options = {
     styling = {
+      image = lib.mkOption {type = lib.types.oneOf [lib.types.str lib.types.path];};
+
       colors = lib.mkOption {type = lib.types.attrs;};
 
       fonts = {
@@ -53,6 +55,8 @@ in {
 
   config = {
     styling = {
+      image = /home/jboyens/Downloads/vhs.png;
+
       colors = scheme;
 
       fonts = {

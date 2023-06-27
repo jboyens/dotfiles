@@ -16,6 +16,30 @@
       sha256 = "sha256-lI8uKtVxrziQ8q/Ss+QTgg1xTObZUTAzjL3MYmtwyd8=";
     };
   };
+  fuzzel = {
+    pname = "fuzzel";
+    version = "d904bc05323cd2977c493531219ad6e4aefe45b5";
+    src = fetchgit {
+      url = "https://git.sr.ht/~dnkl/fuzzel";
+      rev = "d904bc05323cd2977c493531219ad6e4aefe45b5";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-2lTo3FfmREFgyoTF2p9Au9FzCSmxU6LOKfSHjV/3pZM=";
+    };
+    date = "2023-01-02";
+  };
+  grizzly = {
+    pname = "grizzly";
+    version = "v0.2.0";
+    src = fetchFromGitHub {
+      owner = "grafana";
+      repo = "grizzly";
+      rev = "v0.2.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-6z/6QZlCm4mRMKAVzLnOokv8ib7Y/7a17ojjMfeoJ4w=";
+    };
+  };
   kustomize = {
     pname = "kustomize";
     version = "kustomize/v5.1.0";
@@ -52,6 +76,28 @@
       rev = "v0.11.0";
       fetchSubmodules = false;
       sha256 = "sha256-KMVD7uH3Yg9ThnwKKzo6jom0ctFywt2vu7kNdfjiMCs=";
+    };
+  };
+  testkube = {
+    pname = "testkube";
+    version = "v1.12.9";
+    src = fetchFromGitHub {
+      owner = "kubeshop";
+      repo = "testkube";
+      rev = "v1.12.9";
+      fetchSubmodules = false;
+      sha256 = "sha256-WyhnS5yqst4qnkgWc2p5nR7MYR+nO1mxQMcQhBXuZMo=";
+    };
+  };
+  tilt = {
+    pname = "tilt";
+    version = "v0.32.4";
+    src = fetchFromGitHub {
+      owner = "tilt-dev";
+      repo = "tilt";
+      rev = "v0.32.4";
+      fetchSubmodules = false;
+      sha256 = "sha256-GZ9FgseJmaWiMSscLSqMutv5yQ/e8qCjoJEPPTH2Ix0=";
     };
   };
 }

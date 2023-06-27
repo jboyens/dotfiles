@@ -2,6 +2,16 @@
   inputs,
   cell,
 }: {
+  variables = {
+    DOTFILES = "/home/jboyens/.config/dotfiles";
+    DOTFILES_BIN = "/home/jboyens/.config/dotfiles/bin";
+    ZDOTDIR = "/home/jboyens/.config/zsh";
+    ZSH_CACHE = "/home/jboyens/.config/zsh";
+    ZGEN_DIR = "/home/jboyens/.local/share/zgenom";
+
+    XDG_CONFIG_HOME = "/home/jboyens/.config";
+  };
+
   systemPackages = with inputs.nixpkgs; [
     bind
     binutils
@@ -10,7 +20,6 @@
     cached-nix-shell
     coreutils
     curl
-    direnv
     dnsutils
     fd
     file
@@ -30,5 +39,7 @@
     alejandra
 
     lm_sensors
+
+    fasd
   ];
 }

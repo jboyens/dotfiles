@@ -13,5 +13,5 @@ in rec {
 
   server = [];
 
-  laptop = base ++ (with p; [audio keyboard styles p.server.printing]) ++ development ++ server;
+  laptop = base ++ (with p; [audio desktop keyboard styles p.server.printing]) ++ development ++ server;
 }

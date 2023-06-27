@@ -10,10 +10,14 @@
     home = inputs.home-manager;
   };
   time.timeZone = "America/Los_Angeles";
+  system.stateVersion = "23.11";
 in
+  # mkNixosConfigurations
+  # brings in hardwareProfiles.${host} and a default hostName
+  # otherwise unchanged
   cell.lib.mkNixosConfigurations cell {
     kitt = {
-      inherit bee time;
+      inherit bee time system;
 
       imports = [] ++ nixosSuites.laptop;
 
@@ -21,8 +25,7 @@ in
         useUserPackages = true;
         useGlobalPkgs = true;
         users.jboyens = {
-          imports = with homeSuites;
-            jboyens ++ laptop ++ [];
+          imports = with homeSuites; jboyens ++ laptop ++ [];
 
           home.stateVersion = "23.11";
         };
@@ -103,6 +106,6 @@ in
         }
       ];
 
-      system.stateVersion = "23.11";
+      # system.stateVersion = "23.11";
     };
   }

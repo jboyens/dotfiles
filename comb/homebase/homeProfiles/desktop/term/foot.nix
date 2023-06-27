@@ -5,10 +5,9 @@
   inherit (inputs) nixpkgs;
   inherit (nixpkgs) lib;
   inherit (inputs.nixpkgs-wayland.packages) foot;
+  inherit (inputs.cells.homebase) nixosProfiles;
 
-  nixosProfiles = inputs.cells.homebase.nixosProfiles;
   styles = nixosProfiles.styles.config;
-
   inherit (styles.styling) fonts fontSizes colors;
 in {
   # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];

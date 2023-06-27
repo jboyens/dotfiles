@@ -3,12 +3,20 @@
   cell,
 }: let
   inherit (inputs) nixpkgs;
-  inherit (nixpkgs) lib;
+  inherit (cell) lib;
+
+  inherit (inputs.cells.homebase) nixosProfiles;
+  styles = nixosProfiles.styles.config;
+
+  inherit (styles.styling) colors fonts fontSizes;
+
+  l = cell.lib // builtins;
 in {
   imports = [
     (import ./__keybindings.nix {inherit inputs cell;})
     (import ./__window.nix {inherit inputs cell;})
     (import ./__waybar.nix {inherit inputs cell;})
+    (import ./__colors.nix {inherit inputs cell;})
   ];
 
   # services = {xserver.enable = lib.mkDefault false;};
@@ -16,7 +24,6 @@ in {
   home.packages = with nixpkgs; [
     autotiling
     fuzzel
-    gammastep
     grim
     qt5.qtwayland
     sirula
@@ -36,10 +43,47 @@ in {
     # my.swaywindow
   ];
 
-  programs.swaylock.enable = true;
+  programs.swaylock = let
+    inside = colors.base01-hex;
+    outside = colors.base01-hex;
+    ring = colors.base05-hex;
+    text = colors.base05-hex;
+    positive = colors.base0B-hex;
+    negative = colors.base08-hex;
+  in {
+    enable = true;
+    settings = {
+      color = outside;
+      scaling = "fill";
+      inside-color = inside;
+      inside-clear-color = inside;
+      inside-caps-lock-color = inside;
+      inside-ver-color = inside;
+      inside-wrong-color = inside;
+      key-hl-color = positive;
+      layout-bg-color = inside;
+      layout-border-color = ring;
+      layout-text-color = text;
+      line-uses-inside = true;
+      ring-color = ring;
+      ring-clear-color = negative;
+      ring-caps-lock-color = ring;
+      ring-ver-color = positive;
+      ring-wrong-color = negative;
+      separator-color = "00000000";
+      text-color = text;
+      text-clear-color = text;
+      text-caps-lock-color = text;
+      text-ver-color = text;
+      text-wrong-color = text;
+
+      image = l.toString styles.styling.image;
+    };
+  };
 
   wayland.windowManager.sway = {
     enable = true;
+    package = null; # must be managed at the NixOS level
     systemd.enable = true;
     swaynag.enable = true;
 
@@ -67,7 +111,7 @@ in {
     '';
 
     config = {
-      terminal = "${nixpkgs.foot}/bin/foot";
+      terminal = "foot";
 
       window.titlebar = false;
       floating.titlebar = false;
@@ -109,6 +153,8 @@ in {
       };
 
       output = {
+        "*" = {bg = "/home/jboyens/Downloads/vhs.png fill";};
+
         eDP-1 = {
           mode = "1920x1080@60Hz";
           position = "6940,2160";
@@ -204,7 +250,24 @@ in {
     maxVisible = -1;
     padding = "20,16";
     width = 440;
+
+    backgroundColor = colors.withHashtag.base00;
+    borderColor = colors.withHashtag.base0D;
+    textColor = colors.withHashtag.base05;
+    progressColor = "over ${colors.withHashtag.base02}";
+    font = "${fonts.sansSerif.name} ${toString fontSizes.popups}";
+
     extraConfig = ''
+      [urgency=low]
+      background-color=${colors.withHashtag.base00}
+      border-color=${colors.withHashtag.base0D}
+      text-color=${colors.withHashtag.base0A}
+
+      [urgency=high]
+      background-color=${colors.withHashtag.base00}
+      border-color=${colors.withHashtag.base0D}
+      text-color=${colors.withHashtag.base08}
+
       [app-name="Slack"]
       group-by=summary
     '';
@@ -233,6 +296,50 @@ in {
         command = "${nixpkgs.swaylock}/bin/swaylock -f";
       }
     ];
+  };
+
+  services.kanshi = {
+    enable = true;
+    profiles = {
+      Home = {
+        outputs = [
+          {
+            criteria = "eDP-1";
+            mode = "1920x1080@60Hz";
+            position = "6940,2160";
+            scale = 1.0;
+          }
+          {
+            criteria = "LG Electronics LG Ultra HD 0x00001B21";
+            mode = "3840x2160@60Hz";
+            position = "0,0";
+            scale = 1.0;
+          }
+          {
+            criteria = "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
+            mode = "3840x2160@60Hz";
+            position = "3840,0";
+            scale = 1.0;
+          }
+        ];
+      };
+      Mobile = {
+        outputs = [
+          {
+            criteria = "eDP-1";
+            mode = "1920x1080@60Hz";
+            position = "6940,2160";
+            scale = 1.0;
+          }
+        ];
+      };
+    };
+  };
+
+  services.wlsunset = {
+    enable = true;
+    latitude = "47.6062";
+    longitude = "-122.3321";
   };
 
   gtk = {
