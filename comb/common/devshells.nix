@@ -14,11 +14,19 @@ in
 
       imports = [inputs.std.std.devshellProfiles.default];
 
-      packages = with nixpkgs; [statix rnix-lsp nixfmt nixpkgs-fmt alejandra];
+      packages = with nixpkgs; [
+        nixVersions.nix_2_16
+        statix
+        rnix-lsp
+        nixfmt
+        nixpkgs-fmt
+        alejandra
+      ];
 
       commands = let
         inherit (inputs) nixos-generators;
       in [
+        {package = inputs.namaka.packages.default;}
         {
           category = "general commands";
           name = "fmt";
@@ -43,7 +51,7 @@ in
         }
         {
           category = "nix";
-          name = "test";
+          name = "dotest";
           help = "Test configuration";
           command = "sudo nixos-rebuild test --flake $PRJ_ROOT $@";
         }

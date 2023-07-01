@@ -9,7 +9,7 @@ _hey_dispatch () {
 }
 
 _hey_command_list () {
-    hey | sed '1,/Available commands:/d' | awk '{ print $1 }'
+    hey | sed -e '1,/Available Commands:/d' -e '/Options:/,$d' | awk '{ print $1 }'
 }
 
 _hey () {

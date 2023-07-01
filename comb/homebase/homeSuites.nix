@@ -8,6 +8,8 @@ in rec {
     shell.zsh
     shell.git
     shell.gnupg
+    shell.docker
+    shell.tmux
     keyboard
     email
   ];
@@ -57,7 +59,7 @@ in rec {
     # desktop.term.st
   ];
 
-  jboyens = music ++ graphical ++ base ++ (with homeProfiles; [editors.emacs dev.cloud.google dev.cloud.generic]);
+  jboyens = music ++ graphical ++ base ++ (with homeProfiles; [editors.emacs editors.vim dev.cloud.google dev.cloud.generic]);
 
   nixos = base;
 

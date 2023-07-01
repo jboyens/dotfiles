@@ -46,4 +46,6 @@
 
     xdg-utils
   ];
+
+  pathsToLink = ["/share/zsh"];
 }

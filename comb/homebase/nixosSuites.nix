@@ -9,7 +9,7 @@
 in rec {
   base = with p; [core cachix];
 
-  development = with p; [vm.qemu];
+  development = with p; [vm.qemu vm.docker];
 
   server = [];
 

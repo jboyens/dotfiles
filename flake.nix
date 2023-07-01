@@ -1,13 +1,8 @@
-# flake.nix --- the heart of my dotfiles
-#
-# Author:  Henrik Lissner <contact@henrik.io>
-# URL:     https://github.com/hlissner/dotfiles
+# Author:  JR Boyens w/ original inspiration from Henrik Lissner <contact@henrik.io>
+# URL:     https://github.com/jboyens/dotfiles
 # License: MIT
-#
-# Welcome to ground zero. Where the whole flake gets set up and all its modules
-# are loaded.
 {
-  description = "A grossly incandescent nixos config.";
+  description = "An unexpectedly complicated nixos config.";
 
   inputs = {
     # Core dependencies.
@@ -48,6 +43,9 @@
       nixos-generators.follows = "nixos-generators";
       paisano.follows = "paisano";
     };
+
+    namaka.url = "github:nix-community/namaka";
+    namaka.inputs.haumea.follows = "haumea";
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -131,6 +129,9 @@
 
         # devshells
         (devshells "devshells")
+
+        # checks
+        (namaka "checks")
       ];
 
       nixpkgsConfig.allowUnfreePredicate = pkg:
@@ -142,6 +143,13 @@
           "chromium-unwrapped"
           "chrome-widevine-cdm"
         ];
+    } {
+      checks = inputs.namaka.lib.load {
+        src = ./tests;
+        inputs = {
+          inherit lib inputs;
+        };
+      };
     } {
       lib = std.pick self ["common" "lib"];
       devShells = std.harvest self ["common" "devshells"];

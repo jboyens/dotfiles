@@ -4,12 +4,12 @@ swap() { tmux swap-pane -s"$1" -t"$2"; }
 
 target=
 case $1 in
-  up) target="U" ;;
-  down) target="D" ;;
-  left) target="L" ;;
-  right) target="R" ;;
-  master) target="M" ;;
-  *) exit 1 ;;
+up) target="U" ;;
+down) target="D" ;;
+left) target="L" ;;
+right) target="R" ;;
+master) target="M" ;;
+*) exit 1 ;;
 esac
 
 src_pane=$(tmux display-message -p "#P")

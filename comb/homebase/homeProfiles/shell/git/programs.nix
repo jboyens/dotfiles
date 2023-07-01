@@ -4,6 +4,50 @@
 }: let
   inherit (inputs) nixpkgs;
 in {
+  zsh.initExtra = ''
+    ### git aliases
+    g() { [[ $# = 0 ]] && git status --short . || git $*; }
+
+    # fzf
+    if (( $+commands[fzf] )); then
+      __git_log () {
+        # format str implies:
+        #  --abbrev-commit
+        #  --decorate
+        git log \
+          --color=always \
+          --graph \
+          --all \
+          --date=short \
+          --format="%C(bold blue)%h%C(reset) %C(green)%ad%C(reset) | %C(white)%s %C(red)[%an] %C(bold yellow)%d"
+      }
+
+      _fzf_complete_git() {
+        ARGS="$@"
+
+        # these are commands I commonly call on commit hashes.
+        # cp->cherry-pick, co->checkout
+
+        if [[ $ARGS == 'git cp'* || \
+              $ARGS == 'git cherry-pick'* || \
+              $ARGS == 'git co'* || \
+              $ARGS == 'git checkout'* || \
+              $ARGS == 'git reset'* || \
+              $ARGS == 'git show'* || \
+              $ARGS == 'git log'* ]]; then
+          _fzf_complete "--reverse --multi" "$@" < <(__git_log)
+        else
+          eval "zle ''${fzf_default_completion:-expand-or-complete}"
+        fi
+      }
+
+      _fzf_complete_git_post() {
+        sed -e 's/^[^a-z0-9]*//' | awk '{print $1}'
+      }
+    fi
+    ### end aliases
+  '';
+
   git = {
     enable = true;
     package = nixpkgs.gitAndTools.gitFull;
@@ -16,6 +60,33 @@ in {
 
       up = "push";
       down = "pull";
+
+      cdg = "cd `git rev-parse --show-toplevel`";
+      git = "noglob git";
+      ga = "git add";
+      gap = "git add --patch";
+      gb = "git branch -av";
+      gop = "git open";
+      gbl = "git blame";
+      gc = "git commit";
+      gcm = "git commit -m";
+      gca = "git commit --amend";
+      gcf = "git commit --fixup";
+      gcl = "git clone";
+      gco = "git checkout";
+      gcoo = "git checkout --";
+      gf = "git fetch";
+      gi = "git init";
+      gl = ''git log --graph --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'';
+      gll = ''git log --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'';
+      gL = "gl --stat";
+      gp = "git push";
+      gpl = "git pull --rebase --autostash";
+      gs = "git status --short .";
+      gss = "git status";
+      gst = "git stash";
+      gr = "git reset HEAD";
+      gv = "git rev-parse";
     };
 
     attributes = [
