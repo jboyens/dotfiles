@@ -270,6 +270,7 @@ in {
 
       [app-name="Slack"]
       group-by=summary
+      default-timeout=15000
     '';
   };
 

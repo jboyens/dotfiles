@@ -15,7 +15,9 @@
   #   withWebP = true;
   #   withPgtk = true;
   # });
-  myEmacsPkg = emacs-overlay.packages.emacs-unstable-pgtk;
+  myEmacsPkg = emacs-overlay.packages.emacs-unstable-pgtk.overrideAttrs (prev: {
+    passthru = prev.passthru // {treeSitter = true;};
+  });
 
   myEmacs = (nixpkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
     epkgs.vterm

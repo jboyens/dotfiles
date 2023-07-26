@@ -31,4 +31,12 @@ in {
       export WLR_DRM_NO_MODIFIERS=1
     '';
   };
+
+  thunar = {
+    enable = true;
+    plugins = with nixpkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
 }

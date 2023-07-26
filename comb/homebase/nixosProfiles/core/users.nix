@@ -20,6 +20,7 @@ in {
       "vboxusers"
       "docker"
       "adbusers"
+      "wireshark"
     ];
     group = "users";
     shell = nixpkgs.zsh;

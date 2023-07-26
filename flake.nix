@@ -139,9 +139,12 @@
           "slack"
           "spotify"
           "zoom"
+          "google-chrome"
           "chromium"
           "chromium-unwrapped"
           "chrome-widevine-cdm"
+          "symbola"
+          "ttf-envy-code-r"
         ];
     } {
       checks = inputs.namaka.lib.load {

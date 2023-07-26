@@ -8,6 +8,7 @@ in {
   environment.systemPackages = with nixpkgs; [docker docker-compose];
 
   environment.variables = {
+    XDG_CONFIG_HOME = "/home/jboyens/.config";
     DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
     MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
     DOCKER_BUILDKIT = "1";

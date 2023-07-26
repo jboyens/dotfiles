@@ -67,6 +67,14 @@
       };
     };
   };
+  slack = {
+    pname = "slack";
+    version = "4.33.73";
+    src = fetchurl {
+      url = "https://downloads.slack-edge.com/releases/linux/4.33.73/prod/x64/slack-desktop-4.33.73-amd64.deb";
+      sha256 = "sha256-dXSNzOSEEynYvk6TDCZfKe1qidTRGv52lzOGaqVG8QA=";
+    };
+  };
   sloth = {
     pname = "sloth";
     version = "v0.11.0";
@@ -80,24 +88,24 @@
   };
   testkube = {
     pname = "testkube";
-    version = "v1.12.9";
+    version = "v1.13.2";
     src = fetchFromGitHub {
       owner = "kubeshop";
       repo = "testkube";
-      rev = "v1.12.9";
+      rev = "v1.13.2";
       fetchSubmodules = false;
-      sha256 = "sha256-WyhnS5yqst4qnkgWc2p5nR7MYR+nO1mxQMcQhBXuZMo=";
+      sha256 = "sha256-S/IXPz5/38Ofi9umEE8SPNN46Z/0XFqdCpaKNg9YZMk=";
     };
   };
   tilt = {
     pname = "tilt";
-    version = "v0.32.4";
+    version = "v0.33.1";
     src = fetchFromGitHub {
       owner = "tilt-dev";
       repo = "tilt";
-      rev = "v0.32.4";
+      rev = "v0.33.1";
       fetchSubmodules = false;
-      sha256 = "sha256-GZ9FgseJmaWiMSscLSqMutv5yQ/e8qCjoJEPPTH2Ix0=";
+      sha256 = "sha256-3CRE+gpifV3MHyKdiiHmGwGre0ne3IjheYH0r6NMKY8=";
     };
   };
 }

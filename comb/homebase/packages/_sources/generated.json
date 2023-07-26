@@ -103,6 +103,21 @@
         },
         "version": "pizauth-0.3.0"
     },
+    "slack": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "slack",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-dXSNzOSEEynYvk6TDCZfKe1qidTRGv52lzOGaqVG8QA=",
+            "type": "url",
+            "url": "https://downloads.slack-edge.com/releases/linux/4.33.73/prod/x64/slack-desktop-4.33.73-amd64.deb"
+        },
+        "version": "4.33.73"
+    },
     "sloth": {
         "cargoLocks": null,
         "date": null,
@@ -137,11 +152,11 @@
             "name": null,
             "owner": "kubeshop",
             "repo": "testkube",
-            "rev": "v1.12.9",
-            "sha256": "sha256-WyhnS5yqst4qnkgWc2p5nR7MYR+nO1mxQMcQhBXuZMo=",
+            "rev": "v1.13.2",
+            "sha256": "sha256-S/IXPz5/38Ofi9umEE8SPNN46Z/0XFqdCpaKNg9YZMk=",
             "type": "github"
         },
-        "version": "v1.12.9"
+        "version": "v1.13.2"
     },
     "tilt": {
         "cargoLocks": null,
@@ -157,10 +172,10 @@
             "name": null,
             "owner": "tilt-dev",
             "repo": "tilt",
-            "rev": "v0.32.4",
-            "sha256": "sha256-GZ9FgseJmaWiMSscLSqMutv5yQ/e8qCjoJEPPTH2Ix0=",
+            "rev": "v0.33.1",
+            "sha256": "sha256-3CRE+gpifV3MHyKdiiHmGwGre0ne3IjheYH0r6NMKY8=",
             "type": "github"
         },
-        "version": "v0.32.4"
+        "version": "v0.33.1"
     }
 }

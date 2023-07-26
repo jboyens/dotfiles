@@ -3,4 +3,4 @@
   cell,
 }: let
   inherit (inputs) nixpkgs;
-in {packages = [nixpkgs.gnupg];}
+in {packages = [cell.packages.gnupg];}

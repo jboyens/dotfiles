@@ -219,10 +219,55 @@ in {
       Version=2
     '';
 
-    # ".config/tridactyl" = {
-    #   source = "/home/jboyens/.config/dotfiles/config/tridactyl";
-    #   recursive = true;
-    # };
+    ".config/tridactyl/tridactylrc".text = ''
+      " Comment toggler for Reddit, Hacker News, and Lobste.rs
+      bind ;c hint -c [class*="expand"],[class="togg"],[class="comment_folder"]
+
+      " GitHub pull request checkout command to clipboard (only works if you're a collaborator or above)
+      bind yp composite js document.getElementById("clone-help-step-1").textContent.replace("git checkout -b", "git checkout -B").replace("git pull ", "git fetch ") + "git reset --hard " + document.getElementById("clone-help-step-1").textContent.split(" ")[3].replace("-","/") | yank
+
+      " Git{Hub,Lab} git clone via SSH yank
+      bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+
+      " Handy multiwindow/multitasking binds
+      bind gd tabdetach
+      bind gD composite tabduplicate | tabdetach
+
+      " Add helper commands that Mozillians think make Firefox irredeemably insecure
+      command fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
+      command fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
+
+      " Make Tridactyl work on more sites at the expense of some security
+      set csp clobber
+      fixamo_quiet
+
+      set newtab about:blank
+
+      " Allow Ctrl-a to select all in the commandline
+      unbind --mode=ex <C-a>
+
+      " Allow Ctrl-c to copy in the commandline
+      unbind --mode=ex <C-c>
+
+      " Sane hinting mode
+      set hintfiltermode vimperator-reflow
+      " set hintnames numeric
+
+      bind ^https://duckduckgo.com f hint -Jc[data-testid=result]
+      bind ^https://duckduckgo.com F hint -Jbc[data-testid=result]
+
+      set theme dark
+
+      " Defaults to 300ms but I'm a 'move fast and close the wrong tabs' kinda chap
+      set hintdelay 100
+
+      bind J tabnext
+      bind K tabprev
+
+      bind O fillcmdline tabopen
+
+      bind zp js window.location.href = 'org-protocol://roam-ref?template=r&ref=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title)
+    '';
 
     "${cfgPath}/${profileName}.default/user.js" = {
       text = ''

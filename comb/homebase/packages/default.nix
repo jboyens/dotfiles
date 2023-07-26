@@ -21,6 +21,7 @@ in
       "cyrus-sasl-xoauth2"
       "pizauth"
       "pragmasevka"
+      "slack"
       "sloth"
       "kustomize"
       "grizzly"
@@ -28,3 +29,4 @@ in
       "testkube"
     ]
     ++ cell.lib.optional (!stdenv.isDarwin) "fuzzel")
+  // {gnupg = callPackage ./gnupg {};}

@@ -10,6 +10,7 @@ in rec {
     shell.gnupg
     shell.docker
     shell.tmux
+    shell.utils
     keyboard
     email
   ];
@@ -39,14 +40,16 @@ in rec {
   text = with homeProfiles; [editors.vim editors.emacs];
 
   graphical = with homeProfiles; [
+    desktop.core
     desktop.apps.bitwarden
+    desktop.apps.element-desktop
     desktop.apps.maestral
     desktop.apps.rofi
     desktop.apps.signal-desktop
     desktop.apps.slack
     desktop.apps.zoom
-    # desktop.browsers.brave
-    desktop.browsers.chromium
+    desktop.browsers.brave
+    desktop.browsers.chrome
     desktop.browsers.firefox
     # desktop.browsers.qutebrowser
     # desktop.i3
