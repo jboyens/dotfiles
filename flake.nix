@@ -15,11 +15,13 @@
     std.url = "github:divnix/std";
     std.inputs = {
       nixpkgs.follows = "nixpkgs";
-      devshell.url = "github:numtide/devshell";
-      devshell.inputs.nixpkgs.follows = "nixpkgs";
+      devshell.follows = "devshell";
       nixago.follows = "nixago";
       paisano.follows = "paisano";
     };
+
+    devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
 
     haumea.url = "github:nix-community/haumea/v0.2.2";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
@@ -63,6 +65,13 @@
 
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+
+    persway.url = "github:johnae/persway";
+    persway.inputs.nixpkgs.follows = "nixpkgs";
+    persway.inputs.devshell.follows = "devshell";
+    persway.inputs.dream2nix.url = "github:nix-community/dream2nix/legacy";
+    persway.inputs.dream2nix.inputs.nixpkgs.follows = "nixpkgs";
+    persway.inputs.dream2nix.inputs.nixpkgsV1.follows = "nixpkgs";
 
     base16.url = "github:SenchoPens/base16.nix";
 
@@ -145,6 +154,9 @@
           "chrome-widevine-cdm"
           "symbola"
           "ttf-envy-code-r"
+          "nvidia-x11"
+          "nvidia-settings"
+          "nvidia-persistenced"
         ];
     } {
       checks = inputs.namaka.lib.load {
