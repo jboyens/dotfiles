@@ -27,7 +27,7 @@ in {
     useUserPackages = true;
     useGlobalPkgs = true;
     users.jboyens = {
-      imports = [homeSuites];
+      imports = homeSuites.jboyens;
 
       home.stateVersion = "23.11";
     };

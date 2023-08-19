@@ -86,6 +86,17 @@
       sha256 = "sha256-KMVD7uH3Yg9ThnwKKzo6jom0ctFywt2vu7kNdfjiMCs=";
     };
   };
+  swaync = {
+    pname = "swaync";
+    version = "v0.9.0";
+    src = fetchFromGitHub {
+      owner = "ErikReider";
+      repo = "SwayNotificationCenter";
+      rev = "v0.9.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-mwwSTs4d9jUXUy33nSYJCRFlpH6naCmbRUSpfVacMBE=";
+    };
+  };
   testkube = {
     pname = "testkube";
     version = "v1.13.12";

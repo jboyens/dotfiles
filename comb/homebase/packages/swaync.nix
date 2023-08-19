@@ -19,17 +19,10 @@
   gtk3,
   gobject-introspection,
   python3,
+  sources,
 }:
 stdenv.mkDerivation rec {
-  pname = "sway-notification-center";
-  version = "2023-05-07";
-
-  src = fetchFromGitHub {
-    owner = "ErikReider";
-    repo = "SwayNotificationCenter";
-    rev = "310024964c5fb09bc87df5dcdb16b19159568ebd";
-    hash = "sha256-FfektgOE0PJUjjulnYnNGDHcKdT2hQBfvHB6MBiSNfY=";
-  };
+  inherit (sources.swaync) src pname version;
 
   nativeBuildInputs = [
     gobject-introspection

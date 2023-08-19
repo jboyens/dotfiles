@@ -138,6 +138,26 @@
         },
         "version": "v0.11.0"
     },
+    "swaync": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "swaync",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ErikReider",
+            "repo": "SwayNotificationCenter",
+            "rev": "v0.9.0",
+            "sha256": "sha256-mwwSTs4d9jUXUy33nSYJCRFlpH6naCmbRUSpfVacMBE=",
+            "type": "github"
+        },
+        "version": "v0.9.0"
+    },
     "testkube": {
         "cargoLocks": null,
         "date": null,

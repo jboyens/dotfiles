@@ -3,5 +3,10 @@
   cell,
 }: let
   inherit (cell) homeProfiles;
-in
-  homeProfiles
+in {
+  jboyens = [
+    homeProfiles.everything
+    homeProfiles.swaywm
+    homeProfiles.firefox
+  ];
+}

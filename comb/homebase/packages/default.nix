@@ -27,6 +27,7 @@ in
       "grizzly"
       "tilt"
       "testkube"
+      "swaync"
     ]
     ++ cell.lib.optional (!stdenv.isDarwin) "fuzzel")
   // {gnupg = callPackage ./gnupg {};}

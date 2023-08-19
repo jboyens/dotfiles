@@ -36,3 +36,7 @@ fetch.github = "tilt-dev/tilt"
 [slack]
 src.aur = "slack-desktop"
 fetch.url = "https://downloads.slack-edge.com/releases/linux/$ver/prod/x64/slack-desktop-$ver-amd64.deb"
+
+[swaync]
+src.github = "ErikReider/SwayNotificationCenter"
+fetch.github = "ErikReider/SwayNotificationCenter"
