@@ -79,6 +79,12 @@ in
           help = "Build the flake";
           command = "sudo nixos-rebuild build --flake $PRJ_ROOT $@";
         }
+        {
+          category = "nix";
+          name = "clean";
+          help = "Clean result/ dirs";
+          command = "(cd $PRJ_ROOT && fd --type symlink -u result -X rm {})";
+        }
       ];
     };
   }

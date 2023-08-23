@@ -1,17 +1,17 @@
 {config, ...}: let
-  cfg = config.styling;
+  inherit (config.styling) colors fonts;
 
-  background = cfg.colors.withHashtag.base00;
-  indicator = cfg.colors.withHashtag.base0B;
+  background = colors.withHashtag.base00;
+  indicator = colors.withHashtag.base0B;
 
-  text = cfg.colors.withHashtag.base05;
-  urgent = cfg.colors.withHashtag.base08;
-  focused = cfg.colors.withHashtag.base0A;
-  unfocused = cfg.colors.withHashtag.base03;
+  text = colors.withHashtag.base05;
+  urgent = colors.withHashtag.base08;
+  focused = colors.withHashtag.base0A;
+  unfocused = colors.withHashtag.base03;
 in {
-  wayland.windowManager.sway.config = {
+  windowManager.sway.config = {
     fonts = {
-      names = [cfg.fonts.sansSerif.name "Font Awesome 5 Pro"];
+      names = [fonts.sansSerif.name "Font Awesome 5 Pro"];
       size = 12.0;
     };
 

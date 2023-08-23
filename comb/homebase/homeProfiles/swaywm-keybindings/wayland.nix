@@ -21,7 +21,7 @@
 
   terminal = "foot";
 in {
-  wayland.windowManager.sway.config = {
+  windowManager.sway.config = {
     modifier = "Mod4";
 
     modes = {

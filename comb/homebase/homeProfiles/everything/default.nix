@@ -275,8 +275,8 @@ in {
       sov
       sway-contrib.grimshot
       swaybg
-      swayidle
-      swaylock
+      # swayidle
+      # swaylock
       swayr
       wayvnc
       wev
@@ -288,8 +288,8 @@ in {
     ]
     ++ [
       inputs.persway.packages.persway
-      inputs.nixpkgs-wayland.packages.i3status-rust
-      inputs.nixpkgs-wayland.packages.foot
+      # i3status-rust
+      # foot
     ]
     ++ work-cloud
     ++ google-cloud

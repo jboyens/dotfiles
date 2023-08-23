@@ -1,15 +1,9 @@
 {
   inputs,
-  config,
-  ...
-}: let
-  cfg = config.styling;
-
-  inherit (cfg) colors fonts;
-in {
-  programs.i3status-rust = {
+  cell,
+}: {
+  i3status-rust = {
     enable = true;
-    package = inputs.nixpkgs-wayland.packages.i3status-rust;
 
     bars = {
       bottom = {
@@ -93,40 +87,4 @@ in {
       };
     };
   };
-
-  wayland.windowManager.sway.config.bars = [
-    {
-      fonts = {
-        names = [fonts.sansSerif.name "Font Awesome 5 Pro"];
-        size = 12.0;
-      };
-      position = "bottom";
-      statusCommand = "i3status-rs config-bottom.toml";
-      colors = {
-        background = colors.withHashtag.base00;
-        statusline = colors.withHashtag.base05;
-
-        focusedWorkspace = {
-          border = colors.withHashtag.base02;
-          background = colors.withHashtag.base02;
-          text = colors.withHashtag.base05;
-        };
-        activeWorkspace = {
-          border = colors.withHashtag.base02;
-          background = colors.withHashtag.base02;
-          text = colors.withHashtag.base05;
-        };
-        inactiveWorkspace = {
-          border = colors.withHashtag.base00;
-          background = colors.withHashtag.base00;
-          text = colors.withHashtag.base05;
-        };
-        urgentWorkspace = {
-          border = colors.withHashtag.base08;
-          background = colors.withHashtag.base08;
-          text = colors.withHashtag.base05;
-        };
-      };
-    }
-  ];
 }

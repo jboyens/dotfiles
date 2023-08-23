@@ -3,6 +3,8 @@
   cell,
 }: let
   pkgs = import inputs.nixpkgs {
+    system = "x86_64-linux";
+
     overlays = [
       inputs.nixpkgs-wayland.overlay
       inputs.emacs-overlay.overlay

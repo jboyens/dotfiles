@@ -3,21 +3,13 @@
   cell,
   config,
   ...
-} @ args: let
+}: let
   inherit (inputs) nixpkgs;
 
   lib = builtins // nixpkgs.lib // cell.lib;
 
   inherit (config.styling) colors fonts fontSizes;
 in {
-  imports = [
-    (import ./_swaylock.nix args)
-    (import ./_bars.nix args)
-    (import ./_keybindings.nix args)
-    (import ./_colors.nix args)
-    (import ./_window-commands.nix args)
-  ];
-
   wayland.windowManager.sway = {
     enable = true;
     package = null; # must be managed at the NixOS level
@@ -88,29 +80,6 @@ in {
         };
       };
 
-      output = {
-        "*" = {
-          bg = "/home/jboyens/wallpaper/second-collection/illustrations/galaxy/dracula-galaxy-282a36.png fill";
-        };
-
-        eDP-1 = {
-          mode = "1920x1080@60Hz";
-          position = "6940,2160";
-        };
-
-        "LG Electronics LG Ultra HD 0x00011A21" = {
-          mode = "3840x2160@60Hz";
-          position = "0,0";
-          scale = "1.0";
-        };
-
-        "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E" = {
-          mode = "3840x2160@60Hz";
-          position = "3840,0";
-          scale = "1.0";
-        };
-      };
-
       workspaceOutputAssign = [];
 
       startup = [
@@ -138,126 +107,6 @@ in {
     };
   };
 
-  services.mako = let
-    iconPath = let
-      basePaths = [
-        "/run/current-system/sw"
-        # inputs.home-manager.config.home.profileDirectory
-        "/home/jboyens/.nix-profile"
-        "/etc/profiles/per-user/jboyens"
-      ];
-      themes = ["Dracula" "Adwaita" "hicolor"];
-      mkPath = {
-        basePath,
-        theme,
-      }: "${basePath}/share/icons/${theme}";
-    in
-      lib.concatMapStringsSep ":" mkPath (lib.cartesianProductOfSets {
-        basePath = basePaths;
-        theme = themes;
-      });
-  in {
-    inherit iconPath;
-
-    enable = true;
-    actions = true;
-    anchor = "top-right";
-    borderRadius = 2;
-    borderSize = 1;
-    defaultTimeout = 0;
-    height = 1000;
-    icons = true;
-    ignoreTimeout = false;
-    margin = "4,26";
-    markup = true;
-    maxVisible = -1;
-    padding = "20,16";
-    width = 440;
-
-    backgroundColor = colors.withHashtag.base00;
-    borderColor = colors.withHashtag.base0D;
-    textColor = colors.withHashtag.base05;
-    progressColor = "over ${colors.withHashtag.base02}";
-    font = "${fonts.sansSerif.name} ${toString fontSizes.popups}";
-
-    extraConfig = ''
-      [urgency=low]
-      background-color=${colors.withHashtag.base00}
-      border-color=${colors.withHashtag.base0D}
-      text-color=${colors.withHashtag.base0A}
-
-      [urgency=high]
-      background-color=${colors.withHashtag.base00}
-      border-color=${colors.withHashtag.base0D}
-      text-color=${colors.withHashtag.base08}
-
-      [app-name="Slack"]
-      group-by=summary
-      default-timeout=15000
-    '';
-  };
-
-  services.swayidle = {
-    enable = true;
-
-    timeouts = [
-      {
-        timeout = 600;
-        command = "${nixpkgs.swaylock}/bin/swaylock -f";
-      }
-      {
-        timeout = 1200;
-        command = "${nixpkgs.sway}/bin/swaymsg 'output * power off'";
-        resumeCommand = "${nixpkgs.sway}/bin/swaymsg 'output * power on'";
-      }
-    ];
-
-    events = [
-      {
-        event = "before-sleep";
-        command = "${nixpkgs.swaylock}/bin/swaylock -f";
-      }
-    ];
-  };
-
-  services.kanshi = {
-    enable = true;
-    profiles = {
-      Home = {
-        outputs = [
-          {
-            criteria = "eDP-1";
-            mode = "1920x1080@60Hz";
-            position = "6940,2160";
-            scale = 1.0;
-          }
-          {
-            criteria = "LG Electronics LG Ultra HD 0x00001B21";
-            mode = "3840x2160@60Hz";
-            position = "0,0";
-            scale = 1.0;
-          }
-          {
-            criteria = "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
-            mode = "3840x2160@60Hz";
-            position = "3840,0";
-            scale = 1.0;
-          }
-        ];
-      };
-      Mobile = {
-        outputs = [
-          {
-            criteria = "eDP-1";
-            mode = "1920x1080@60Hz";
-            position = "6940,2160";
-            scale = 1.0;
-          }
-        ];
-      };
-    };
-  };
-
   services.wlsunset = {
     enable = true;
     latitude = "47.6062";
@@ -277,7 +126,6 @@ in {
 
   programs.foot = {
     enable = true;
-    package = inputs.nixpkgs-wayland.packages.foot;
     settings = {
       main = {
         pad = "10x10";

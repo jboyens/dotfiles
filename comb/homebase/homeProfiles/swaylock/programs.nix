@@ -1,14 +1,14 @@
 {config, ...}: let
   inherit (config.styling) colors image;
+
+  inside = colors.base01-hex;
+  outside = colors.base01-hex;
+  ring = colors.base05-hex;
+  text = colors.base05-hex;
+  positive = colors.base0B-hex;
+  negative = colors.base08-hex;
 in {
-  programs.swaylock = let
-    inside = colors.base01-hex;
-    outside = colors.base01-hex;
-    ring = colors.base05-hex;
-    text = colors.base05-hex;
-    positive = colors.base0B-hex;
-    negative = colors.base08-hex;
-  in {
+  swaylock = {
     enable = true;
     settings = {
       color = outside;

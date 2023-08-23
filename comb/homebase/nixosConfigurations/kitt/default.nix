@@ -6,7 +6,7 @@
 
   bee = {
     system = "x86_64-linux";
-    pkgs = inputs.nixpkgs;
+    pkgs = inputs.cells.common.pkgs;
     home = inputs.home-manager;
   };
   time.timeZone = "America/Los_Angeles";

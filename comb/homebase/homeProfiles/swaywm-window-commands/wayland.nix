@@ -3,7 +3,7 @@
   cell,
   ...
 }: {
-  wayland.windowManager.sway.config.window = {
+  windowManager.sway.config.window = {
     commands = [
       {
         command = "floating true,,resize set width 1200 height 560,,border pixel 2";
