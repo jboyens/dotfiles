@@ -186,6 +186,7 @@
   };
 in {
   home.sessionVariables = {
+    XDG_DESKTOP_DIR = "${config.home.homeDirectory}/";
     BROWSER = "firefox";
   };
 

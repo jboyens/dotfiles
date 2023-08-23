@@ -21,7 +21,7 @@ in {
     [
       hardwareProfiles."${hostName}"
     ]
-    ++ [nixosSuites];
+    ++ nixosSuites.default;
 
   home-manager = {
     useUserPackages = true;

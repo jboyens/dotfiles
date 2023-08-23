@@ -1,10 +1,5 @@
-{
-  inputs,
-  cell,
-}: let
-  inherit (inputs.cells.homebase) nixosProfiles;
-  styles = nixosProfiles.config;
-  inherit (styles.styling) fonts colors;
+{config, ...}: let
+  inherit (config.styling) colors image;
 in {
   programs.swaylock = let
     inside = colors.base01-hex;
@@ -40,7 +35,7 @@ in {
       text-ver-color = text;
       text-wrong-color = text;
 
-      image = toString styles.styling.image;
+      image = toString image;
     };
   };
 }

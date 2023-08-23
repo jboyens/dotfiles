@@ -1,10 +1,11 @@
 {
   inputs,
-  cell,
+  config,
+  ...
 }: let
-  inherit (cell) nixosProfiles;
-  styles = nixosProfiles.config;
-  inherit (styles.styling) fonts colors;
+  cfg = config.styling;
+
+  inherit (cfg) colors fonts;
 in {
   programs.i3status-rust = {
     enable = true;

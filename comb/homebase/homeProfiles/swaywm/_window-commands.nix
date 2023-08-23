@@ -1,6 +1,7 @@
 {
   inputs,
   cell,
+  ...
 }: {
   wayland.windowManager.sway.config.window = {
     commands = [

@@ -1,6 +1,8 @@
 {
   inputs,
   cell,
+  config,
+  ...
 }: let
   inherit (inputs) nixpkgs;
 
@@ -65,8 +67,8 @@ in {
       "${super}+t" = "exec emacsclient -n -c ~/Documents/org-mode/todo.org && $DOTFILES/bin/activate emacs";
       "${super}+n" = "exec emacsclient -n -c ~/Documents/org-mode/notes.org && $DOTFILES/bin/activate emacs";
       "${super}+d" = "exec emacsclient -n -c -e '(org-roam-dailies-goto-today)' && $DOTFILES/bin/activate emacs";
-      "${super}+${control}+t" = "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k t";
-      "${super}+${control}+n" = "exec $XDG_CONFIG_HOME/emacs/bin/org-capture -k n";
+      "${super}+${control}+t" = "exec ${config.xdg.configHome}/emacs/bin/org-capture -k t";
+      "${super}+${control}+n" = "exec ${config.xdg.configHome}/emacs/bin/org-capture -k n";
       "${super}+m" = "exec emacsclient -c -n -e '(=mu4e)' && $DOTFILES/bin/activate emacs";
       "${hyper}+e" = "$DOTFILES/bin/activate emacs";
       "${hyper}+f" = "$DOTFILES/bin/activate firefox";

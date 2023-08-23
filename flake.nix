@@ -84,6 +84,9 @@
     catppuccin.url = "github:catppuccin/base16";
     catppuccin.flake = false;
 
+    flexe.url = "git+ssh://git@gitlab.com/flexe/nix-releases";
+    flexe.inputs.nixpkgs.follows = "nixpkgs";
+
     # comma = {url = "github:nix-community/comma";};
     # comma.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -172,6 +175,7 @@
         # ["common" "generators"]
         ["homebase" "packages"]
       ];
+      pkgs = std.harvest self ["common" "pkgs"];
       homeModules = std.harvest self ["homebase" "homeModules"];
     } {
       nixosConfigurations = collect self "nixosConfigurations";

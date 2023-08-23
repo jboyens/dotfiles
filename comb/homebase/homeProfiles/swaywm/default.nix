@@ -1,21 +1,21 @@
 {
   inputs,
   cell,
+  config,
+  ...
 }: let
   inherit (inputs) nixpkgs;
 
   lib = builtins // nixpkgs.lib // cell.lib;
 
-  inherit (cell) nixosProfiles;
-  styles = nixosProfiles.config;
-  inherit (styles.styling) fonts fontSizes colors;
+  inherit (config.styling) colors fonts;
 in {
   imports = [
-    (import ./_swaylock.nix {inherit inputs cell;})
-    (import ./_bars.nix {inherit inputs cell;})
-    (import ./_keybindings.nix {inherit inputs cell;})
-    (import ./_colors.nix {inherit inputs cell;})
-    (import ./_window-commands.nix {inherit inputs cell;})
+    (import ./_swaylock.nix {inherit inputs cell config options;})
+    (import ./_bars.nix {inherit inputs cell config options;})
+    (import ./_keybindings.nix {inherit inputs cell config options;})
+    (import ./_colors.nix {inherit inputs cell config options;})
+    (import ./_window-commands.nix {inherit inputs cell config options;})
   ];
 
   wayland.windowManager.sway = {
