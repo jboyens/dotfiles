@@ -107,7 +107,7 @@ in {
         desktopName = "Google Meet";
         genericName = "Open Google Meet";
         icon = "chrome-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
-        exec = "chromium \"--profile-directory=Default\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
+        exec = "chromium \"--profile-directory=Profile\ 1\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
         categories = ["Network"];
       })
 
@@ -430,6 +430,13 @@ in {
   # services = {xserver.enable = lib.mkDefault false;};
 
   services.mpris-proxy.enable = true;
+
+  programs.bat.enable = true;
+
+  programs.broot.enable = true;
+  programs.broot.enableZshIntegration = true;
+
+  programs.chromium.enable = true;
 
   # services.udev.extraRules = ''
   #   KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"

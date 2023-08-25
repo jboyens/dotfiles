@@ -21,5 +21,6 @@ in {
     homeProfiles.zsh
     homeProfiles.emacs
     homeProfiles.tmux
+    homeProfiles.hyprland
   ];
 }

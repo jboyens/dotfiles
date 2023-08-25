@@ -84,6 +84,9 @@
     catppuccin.url = "github:catppuccin/base16";
     catppuccin.flake = false;
 
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+
     flexe.url = "git+ssh://git@gitlab.com/flexe/nix-releases";
     flexe.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -146,21 +149,23 @@
         (namaka "checks")
       ];
 
-      nixpkgsConfig.allowUnfreePredicate = pkg:
-        lib.elem (lib.getName pkg) [
-          "slack"
-          "spotify"
-          "zoom"
-          "google-chrome"
-          "chromium"
-          "chromium-unwrapped"
-          "chrome-widevine-cdm"
-          "symbola"
-          "ttf-envy-code-r"
-          "nvidia-x11"
-          "nvidia-settings"
-          "nvidia-persistenced"
-        ];
+      nixpkgsConfig.allowUnfreePredicate = pkg: true;
+      nixpkgsConfig.allowUnfree = true;
+      # nixpkgsConfig.allowUnfreePredicate = pkg:
+      #   lib.elem (lib.getName pkg) [
+      #     "slack"
+      #     "spotify"
+      #     "zoom"
+      #     "google-chrome"
+      #     "chromium"
+      #     "chromium-unwrapped"
+      #     "chrome-widevine-cdm"
+      #     "symbola"
+      #     "ttf-envy-code-r"
+      #     "nvidia-x11"
+      #     "nvidia-settings"
+      #     "nvidia-persistenced"
+      #   ];
     } {
       checks = inputs.namaka.lib.load {
         src = ./tests;

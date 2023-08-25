@@ -53,26 +53,27 @@
   };
   pizauth = {
     pname = "pizauth";
-    version = "pizauth-0.3.0";
+    version = "9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f";
     src = fetchFromGitHub {
       owner = "ltratt";
       repo = "pizauth";
-      rev = "pizauth-0.3.0";
+      rev = "9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f";
       fetchSubmodules = false;
-      sha256 = "sha256-jqfK926KrWevsP+Yif3PdMIZWeIIQaA5jP14acZehwc=";
+      sha256 = "sha256-8wW9nf1YW9tfPuEE6JQTPeXdzrZCKP+1Zmo/B0dG38E=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./pizauth-pizauth-0.3.0/Cargo.lock;
+      lockFile = ./pizauth-9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f/Cargo.lock;
       outputHashes = {
       };
     };
+    date = "2023-08-19";
   };
   slack = {
     pname = "slack";
-    version = "4.33.84";
+    version = "4.33.90";
     src = fetchurl {
-      url = "https://downloads.slack-edge.com/releases/linux/4.33.84/prod/x64/slack-desktop-4.33.84-amd64.deb";
-      sha256 = "sha256-Df6UzG1oJOeLJPUx+Ndh/gZB51aBJoROqbPn+1IdVDI=";
+      url = "https://downloads.slack-edge.com/releases/linux/4.33.90/prod/x64/slack-desktop-4.33.90-amd64.deb";
+      sha256 = "sha256-VKc9H4XWXJALKXPn1zegAUnT2tN9mWD52t/wl6LoVNw=";
     };
   };
   sloth = {
@@ -99,24 +100,24 @@
   };
   testkube = {
     pname = "testkube";
-    version = "v1.13.12";
+    version = "v1.14.0";
     src = fetchFromGitHub {
       owner = "kubeshop";
       repo = "testkube";
-      rev = "v1.13.12";
+      rev = "v1.14.0";
       fetchSubmodules = false;
-      sha256 = "sha256-0bGIZUdWrodhoRXg7e1CiK0tHLVb2reltlyG3aorR0Q=";
+      sha256 = "sha256-PY7oCNV1keoZWg+95N8ZDfdBlv8v1X0yUasQwIlsVeI=";
     };
   };
   tilt = {
     pname = "tilt";
-    version = "v0.33.3";
+    version = "v0.33.4";
     src = fetchFromGitHub {
       owner = "tilt-dev";
       repo = "tilt";
-      rev = "v0.33.3";
+      rev = "v0.33.4";
       fetchSubmodules = false;
-      sha256 = "sha256-TNZE335tH50E96yJzD26U+JbVxjU746Wa/8YDGHFeto=";
+      sha256 = "sha256-rQ5g5QyGyuJAHmE8zGFzqtpqW2xEju5JV386y9Cn+cs=";
     };
   };
 }

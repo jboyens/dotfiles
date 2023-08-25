@@ -71,6 +71,22 @@ in {
           tap_button_map = "lrm";
         };
 
+        "10182:3936:VEN_27C6:00_27C6:0F60_Touchpad" = {
+          click_method = "clickfinger";
+          drag = "enabled";
+          dwt = "enabled";
+          tap = "enabled";
+          tap_button_map = "lrm";
+        };
+
+        "10182:3936:VEN_27C6:00_27C6:0F60_Mouse" = {
+          click_method = "clickfinger";
+          drag = "enabled";
+          dwt = "enabled";
+          tap = "enabled";
+          tap_button_map = "lrm";
+        };
+
         "1739:31251:SYNA2393:00_06CB:7A13_Mouse" = {
           click_method = "clickfinger";
           drag = "enabled";
@@ -103,6 +119,10 @@ in {
           command = "${nixpkgs.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
           always = false;
         }
+        {
+          command = "${nixpkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          always = false;
+        }
       ];
     };
   };
@@ -122,6 +142,32 @@ in {
       package = nixpkgs.dracula-theme;
       name = "Dracula";
     };
+
+    cursorTheme = {
+      package = nixpkgs.dracula-icon-theme;
+      name = "Dracula";
+      size = 16;
+    };
+
+    iconTheme = {
+      package = nixpkgs.dracula-icon-theme;
+      name = "Dracula";
+    };
+  };
+
+  programs.script-directory = {
+    enable = true;
+    settings = {
+      SD_ROOT = "${config.home.homeDirectory}/custom-script-directory";
+      SD_EDITOR = "vim";
+      SD_CAT = "bat";
+    };
+  };
+
+  programs.zsh = {
+    initExtra = ''
+      fpath+="${nixpkgs.script-directory}/share/zsh/site-functions"
+    '';
   };
 
   programs.foot = {
@@ -153,9 +199,12 @@ in {
         bright6 = colors.base0C-hex;
         bright7 = colors.base07-hex;
       };
+
       key-bindings = {
         clipboard-copy = "Control+Shift+c";
         clipboard-paste = "Control+Shift+v";
+        show-urls-launch = "Control+Shift+u";
+        unicode-input = "none";
       };
     };
   };

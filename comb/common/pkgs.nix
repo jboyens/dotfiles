@@ -9,6 +9,11 @@
       inputs.nixpkgs-wayland.overlay
       inputs.emacs-overlay.overlay
     ];
+
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = pkg: true;
+    };
   };
 in
   pkgs

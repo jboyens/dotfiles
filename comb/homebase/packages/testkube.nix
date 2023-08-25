@@ -1,16 +1,14 @@
 {
-  stdenv,
   lib,
   buildGoModule,
-  fetchFromGitHub,
   sources,
+  ...
 }:
-buildGoModule rec {
+buildGoModule {
   inherit (sources.testkube) pname src;
   version = lib.removePrefix "v" sources.testkube.version;
 
-  vendorSha256 = "sha256-hEuIbbm06Ud+TNfS3O45PmTgkBIkiiG+TkuIGloJl1o=";
-
+  vendorSha256 = "sha256-gHW70sUddlq9Y+D/E5YshTMONgxS7TYSr+Se/XsBJXc=";
   doCheck = false;
   subPackages = ["cmd/kubectl-testkube"];
 
