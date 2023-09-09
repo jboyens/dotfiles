@@ -57,7 +57,7 @@ in {
       sudo
       bottom
       fzf
-      exa
+      eza
 
       # clang
       (lib.hiPrio gcc)
@@ -188,8 +188,6 @@ in {
         exec = "\\$DOTFILES_BIN/zzz";
       })
 
-      cell.packages.gnupg
-
       # for calculations
       bc
 
@@ -301,24 +299,6 @@ in {
 
   home.sessionPath = ["$HOME/.krew/bin"];
 
-  # Use a stable profile name so we can target it in themes
-  home.file = {
-    ".config/rofi/themes/base16.rasi" = {
-      text = ''
-        @import "themes/base16-base.rasi"
-
-        ${builtins.readFile ./overrides.rasi}
-      '';
-    };
-    ".config/rofi/themes/base16-base.rasi" = {
-      text = builtins.readFile (colors inputs.base16-rofi);
-    };
-    ".config/rofi/theme" = {
-      source = ./_theme;
-      recursive = true;
-    };
-  };
-
   home.sessionVariables = {
     # Try really hard to get QT to respect my GTK theme.
     # sessionVariables.GTK_DATA_PREFIX = ["${config.system.path}"];
@@ -330,6 +310,8 @@ in {
     QT_QPA_PLATFORMTHEME = "gnome";
     QT_STYLE_OVERRIDE = "kvantum";
     USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
+
+    EDITOR = "nvim";
   };
 
   home.shellAliases = {
@@ -351,48 +333,6 @@ in {
     };
 
     Install = {WantedBy = ["default.target"];};
-  };
-
-  programs.rofi = {
-    enable = true;
-    cycle = true;
-    package = nixpkgs.rofi-wayland.override {
-      plugins = with nixpkgs; [
-        rofi-calc
-        rofi-emoji
-        rofi-file-browser
-        rofi-top
-      ];
-    };
-    extraConfig = {
-      icon-theme = "Dracula";
-      disable-history = false;
-
-      kb-accept-entry = "Return,Control+m,KP_Enter";
-      kb-row-down = "Down,Control+n,Control+j";
-      kb-row-up = "Up,Control+p,Control+k";
-      kb-remove-to-eol = "";
-    };
-    theme = "base16";
-    terminal = "foot";
-  };
-
-  programs.gpg = {
-    enable = true;
-    homedir = "${config.xdg.configHome}/gnupg";
-    package = cell.packages.gnupg;
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    enableExtraSocket = true;
-    defaultCacheTtl = 3600; # 1hr
-    enableZshIntegration = true;
-    extraConfig = ''
-      allow-loopback-pinentry
-    '';
-
-    pinentryFlavor = "gtk2";
   };
 
   # programs.zsh.rcInit = ''eval "$(direnv hook zsh)"'';
@@ -437,10 +377,6 @@ in {
   programs.broot.enableZshIntegration = true;
 
   programs.chromium.enable = true;
-
-  # services.udev.extraRules = ''
-  #   KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
-  # '';
 
   # xst-256color isn't supported over ssh, so revert to a known one
   # modules.shell.zsh.rcInit = ''

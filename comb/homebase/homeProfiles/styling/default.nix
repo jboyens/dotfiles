@@ -12,7 +12,7 @@
       pkgs = nixpkgs;
       inherit lib;
     })
-    .mkSchemeAttrs "${inputs.base16-schemes}/dracula.yaml";
+    .mkSchemeAttrs "${inputs.base16-schemes}/catppuccin-mocha.yaml";
 
   fontOptions = {
     options = {
@@ -73,8 +73,8 @@ in {
         };
 
         monospace = {
-          package = inputs.cells.homebase.packages.pragmasevka;
-          name = "Pragmasevka";
+          # package = inputs.cells.homebase.packages.pragmasevka;
+          name = "Iosevka";
         };
 
         emoji = {

@@ -4,6 +4,7 @@
 }: let
   inherit (inputs) nixpkgs;
 
+  # 2023-08-31 -- issues w/ 6.5.0
   kernel = nixpkgs.linuxPackages_latest;
   lib = nixpkgs.lib // builtins;
 
@@ -18,26 +19,25 @@ in {
     common-pc-laptop
     common-pc-laptop-ssd
     common-gpu-intel
-    common-gpu-nvidia
+    # common-gpu-nvidia
   ];
 
   boot = {
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
-      "ahci"
       "usb_storage"
-      "usbhid"
       "sd_mod"
-      "rtsx_usb_sdmmc"
+      "rtsx_pci_sdmmc"
       "aesni_intel"
       "cryptd"
+      "thunderbolt"
     ];
-    initrd.kernelModules = ["i915"];
+    initrd.kernelModules = ["i915" "dm-snapshot"];
 
-    blacklistedKernelModules = ["iTCO_wdt" "nouveau"];
-    extraModulePackages = with kernel; [v4l2loopback acpi_call];
-    kernelModules = ["kvm-intel" "v4l2loopback" "akvcam"];
+    blacklistedKernelModules = ["iTCO_wdt" "nouveau" "nvidia"];
+    extraModulePackages = with kernel; [acpi_call];
+    kernelModules = ["kvm-intel"];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -46,9 +46,6 @@ in {
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
       "i915.mitigations=off"
-      "i915.enable_fbc=1"
-      "i915.enable_guc=3"
-      "i915.modeset=1"
       "mem_sleep_default=deep"
       "nmi_watchdog=0"
     ];
@@ -59,6 +56,9 @@ in {
 
   #options iwlwifi 11n_disable=8 bt_coex_active=1 power_save=0
   #options iwlmvm power_scheme=1
+  # "i915.enable_fbc=1"
+  # "i915.enable_guc=3"
+  # "i915.modeset=1"
 
   # bluetooth
   hardware.bluetooth = {
@@ -69,9 +69,9 @@ in {
   };
 
   # a (failed -- 2023-08-23) attempt at using the internal camera
-  hardware.ipu6.enable = true;
-  hardware.ipu6.platform = "ipu6ep";
-  hardware.firmware = [nixpkgs.ipu6ep-camera-bin];
+  # hardware.ipu6.enable = true;
+  # hardware.ipu6.platform = "ipu6ep";
+  # hardware.firmware = [nixpkgs.ipu6ep-camera-bin];
 
   services.thermald.enable = true;
 
@@ -82,15 +82,18 @@ in {
     driSupport32Bit = true;
   };
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = true;
-    nvidiaSettings = true;
-    prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
+  # hardware.nvidia = {
+  #   modesetting.enable = true;
+  #   powerManagement.enable = true;
+  #   open = true;
+  #   nvidiaSettings = true;
+  #   prime = {
+  #     intelBusId = "PCI:0:2:0";
+  #     nvidiaBusId = "PCI:1:0:0";
+  #   };
+  # };
+
+  # services.xserver.videoDrivers = ["nvidia"];
 
   # thunderbolt
   services.hardware.bolt.enable = true;

@@ -58,7 +58,7 @@
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -89,6 +89,8 @@
 
     flexe.url = "git+ssh://git@gitlab.com/flexe/nix-releases";
     flexe.inputs.nixpkgs.follows = "nixpkgs";
+
+    devenv.url = "github:cachix/devenv";
 
     # comma = {url = "github:nix-community/comma";};
     # comma.inputs.nixpkgs.follows = "nixpkgs";

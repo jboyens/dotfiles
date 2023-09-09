@@ -40,3 +40,7 @@ fetch.url = "https://downloads.slack-edge.com/releases/linux/$ver/prod/x64/slack
 [swaync]
 src.github = "ErikReider/SwayNotificationCenter"
 fetch.github = "ErikReider/SwayNotificationCenter"
+
+[gnupg]
+src.manual = "gnupg-2.4.0"
+fetch.git = "https://dev.gnupg.org/source/gnupg.git"

@@ -20,10 +20,8 @@ in {
       Home = {
         outputs = [
           {
-            inherit (laptop) mode;
-
             criteria = laptop.name;
-            position = "6940,2160";
+            status = "disable";
           }
           {
             inherit (left) mode;
@@ -54,10 +52,6 @@ in {
   };
 
   wayland.windowManager.sway.config.output = {
-    "*" = {
-      bg = "${toString config.styling.image} fill";
-    };
-
     "${laptop.name}" = {
       inherit (laptop) mode;
 

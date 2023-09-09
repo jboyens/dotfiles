@@ -38,6 +38,25 @@
         },
         "version": "d904bc05323cd2977c493531219ad6e4aefe45b5"
     },
+    "gnupg": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gnupg",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "gnupg-2.4.0",
+            "sha256": "sha256-YoeGeAV3qaKPUrSuWm7RTFKb5ariQR4UGYo2Bkaj3rY=",
+            "type": "git",
+            "url": "https://dev.gnupg.org/source/gnupg.git"
+        },
+        "version": "gnupg-2.4.0"
+    },
     "grizzly": {
         "cargoLocks": null,
         "date": null,
@@ -112,11 +131,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VKc9H4XWXJALKXPn1zegAUnT2tN9mWD52t/wl6LoVNw=",
+            "sha256": "sha256-h2x8BX42HdiTQiQEWOs++fuxzCfjOQRGiSPYnbeX3j8=",
             "type": "url",
-            "url": "https://downloads.slack-edge.com/releases/linux/4.33.90/prod/x64/slack-desktop-4.33.90-amd64.deb"
+            "url": "https://downloads.slack-edge.com/releases/linux/4.34.115/prod/x64/slack-desktop-4.34.115-amd64.deb"
         },
-        "version": "4.33.90"
+        "version": "4.34.115"
     },
     "sloth": {
         "cargoLocks": null,
@@ -172,11 +191,11 @@
             "name": null,
             "owner": "kubeshop",
             "repo": "testkube",
-            "rev": "v1.14.0",
-            "sha256": "sha256-PY7oCNV1keoZWg+95N8ZDfdBlv8v1X0yUasQwIlsVeI=",
+            "rev": "v1.14.3",
+            "sha256": "sha256-tFHfjyOaeMwHUeV0vWyZr0fHaqhU30LAnmjz+OR/krA=",
             "type": "github"
         },
-        "version": "v1.14.0"
+        "version": "v1.14.3"
     },
     "tilt": {
         "cargoLocks": null,
@@ -192,10 +211,10 @@
             "name": null,
             "owner": "tilt-dev",
             "repo": "tilt",
-            "rev": "v0.33.4",
-            "sha256": "sha256-rQ5g5QyGyuJAHmE8zGFzqtpqW2xEju5JV386y9Cn+cs=",
+            "rev": "v0.33.5",
+            "sha256": "sha256-o78PoIKj+0FvZRpm0AqtUq3N9a9/LDYc7DIPZgSZe4s=",
             "type": "github"
         },
-        "version": "v0.33.4"
+        "version": "v0.33.5"
     }
 }

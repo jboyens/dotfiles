@@ -44,36 +44,45 @@ in {
     keybindings = lib.mkOptionDefault {
       "${super}+Bracketleft" = "workspace prev";
       "${super}+Bracketright" = "workspace next";
+
       "${super}+${control}+Return" = "exec ${terminal}";
       "${super}+Return" = ''
         exec ${terminal} bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+
       "${super}+${control}+Slash" = "exec firefox";
+
       "${super}+q" = "kill";
+
       # "${super}+space" = "exec $DOTFILES/bin/appmenu";
-      "${super}+space" = "exec $DOTFILES/bin/rofi/appmenu";
-      # "${super}+Tab" = "exec swayr switch-window";
-      # "${super}+Tab" = "exec $DOTFILES/bin/rofi/windowmenu";
-      "${super}+p" = "exec $DOTFILES/bin/rofi/bwmenu";
-      "${super}+Shift+p" = "exec $DOTFILES/bin/rofi/bwmenu -r";
+      "${super}+space" = "exec rofi -show drun";
+      "${super}+Tab" = "exec rofi -show window";
+      "${super}+Slash" = "exec rofi -show filebrowser";
+
+      # "${super}+p" = "exec $DOTFILES/bin/rofi/bwmenu";
+      # "${super}+Shift+p" = "exec $DOTFILES/bin/rofi/bwmenu -r";
+
       "${super}+Shift+c" = "reload";
       "${super}+${control}+${shift}+Escape" = "reload";
-      "${super}+question" = "exec $DOTFILES/bin/remontoire-toggle";
+
       "${super}+${alt}+Escape" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
-      "${super}+Slash" = "exec $DOTFILES/bin/rofi/filemenu -x";
-      "${super}+Backslash" = "exec $DOTFILES/bin/rofi/bwmenu";
+
       "${super}+Grave" = "exec $DOTFILES/bin/scratch";
       "${super}+${shift}+Grave" = "exec emacsclient -n -c -e '(doom/open-scratch-buffer)'";
+
       "${super}+e" = "exec emacsclient -e '(emacs-everywhere)'";
       "${super}+t" = "exec emacsclient -n -c ~/Documents/org-mode/todo.org && $DOTFILES/bin/activate emacs";
       "${super}+n" = "exec emacsclient -n -c ~/Documents/org-mode/notes.org && $DOTFILES/bin/activate emacs";
       "${super}+d" = "exec emacsclient -n -c -e '(org-roam-dailies-goto-today)' && $DOTFILES/bin/activate emacs";
+
       "${super}+${control}+t" = "exec ${config.xdg.configHome}/emacs/bin/org-capture -k t";
       "${super}+${control}+n" = "exec ${config.xdg.configHome}/emacs/bin/org-capture -k n";
+
       "${super}+m" = "exec emacsclient -c -n -e '(=mu4e)' && $DOTFILES/bin/activate emacs";
-      "${hyper}+e" = "$DOTFILES/bin/activate emacs";
-      "${hyper}+f" = "$DOTFILES/bin/activate firefox";
-      "${hyper}+s" = "$DOTFILES/bin/activate slack";
-      "${hyper}+z" = "$DOTFILES/bin/activate zoom zoom-us";
+
+      "${hyper}+e" = "exec $DOTFILES/bin/activate emacs";
+      "${hyper}+f" = "exec $DOTFILES/bin/activate firefox";
+      "${hyper}+s" = "exec $DOTFILES/bin/activate slack";
+      "${hyper}+z" = "exec $DOTFILES/bin/activate zoom zoom-us";
 
       "${super}+${left}" = "focus left";
       "${super}+${down}" = "focus down";
@@ -133,11 +142,11 @@ in {
 
       "${super}+r" = ''mode "resize"'';
 
-      "--no-repeat --release ${hyper}+m" = "exec $DOTFILES/bin/mute-huddle";
+      "--no-repeat --release ${hyper}+m" = "exec $HOME/sd/mute/slack";
 
       "${super}+Control+Shift+space" = "exec persway stack-main-rotate-next";
-      "${super}+Shift+Tab" = "exec persway stack-focus-prev";
-      "${super}+Tab" = "exec persway stack-focus-next";
+      # "${super}+Shift+Tab" = "exec persway stack-focus-prev";
+      # "${super}+Tab" = "exec persway stack-focus-next";
       "${super}+c" = "exec persway change-layout stack-main --size 70 --stack-layout tiled";
       "${super}+Control+space" = "exec persway stack-swap-main";
       # bindsym Mod4+v exec ${inputs.persway.persway} change-layout manual

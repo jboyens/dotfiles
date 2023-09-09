@@ -1,6 +1,8 @@
 {
   inputs,
   cell,
+  config,
+  ...
 }: let
   inherit (inputs) nixpkgs;
   inherit (nixpkgs) makeDesktopItem;
@@ -255,8 +257,8 @@ in {
       set hintfiltermode vimperator-reflow
       " set hintnames numeric
 
-      bind ^https://duckduckgo.com f hint -Jc[data-testid=result]
-      bind ^https://duckduckgo.com F hint -Jbc[data-testid=result]
+      bindurl ^https://duckduckgo.com f hint -Jc[data-testid=result]
+      bindurl ^https://duckduckgo.com F hint -Jbc[data-testid=result]
 
       set theme dark
 

@@ -80,7 +80,7 @@
           }
           {
             block = "custom";
-            command = "sed 's/  //' <(curl 'https://wttr.in/?format=1' -s)";
+            command = "sed 's/  //' <(curl 'https://wttr.in/~47.6038321,-122.3300623?format=1' -s)";
             interval = 600;
           }
         ];

@@ -27,11 +27,7 @@ in {
     useUserPackages = true;
     useGlobalPkgs = true;
     users.jboyens = {
-      imports =
-        [
-          inputs.hyprland.homeManagerModules.default
-        ]
-        ++ homeSuites.jboyens;
+      imports = homeSuites.jboyens;
 
       home.stateVersion = "23.11";
     };
@@ -44,14 +40,26 @@ in {
   };
 
   fileSystems."/" = {
-    # device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
-    device = "/dev/disk/by-label/nixos";
+    device = "/dev/mapper/cryptroot";
+    fsType = "btrfs";
+    options = ["noatime"];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/mapper/nixstore";
     fsType = "btrfs";
     options = ["noatime"];
   };
 
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-uuid/63ce633c-e5f2-4456-897a-5178d8fec6aa";
+    allowDiscards = true;
+    bypassWorkqueues = true;
+  };
+
+  boot.initrd.luks.devices."nixstore" = {
+    device = "/dev/pool/cryptnixstore";
+    preLVM = false;
     allowDiscards = true;
     bypassWorkqueues = true;
   };

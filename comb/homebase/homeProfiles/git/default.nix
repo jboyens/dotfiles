@@ -12,6 +12,7 @@ in {
     nixpkgs.gitAndTools.git-crypt
     nixpkgs.gitAndTools.git-sync
     nixpkgs.gitAndTools.git-delete-merged-branches
+    nixpkgs.git-imerge
   ];
 
   programs.zsh.initExtra = ''

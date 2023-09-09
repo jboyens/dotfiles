@@ -29,6 +29,18 @@
     };
     date = "2023-01-02";
   };
+  gnupg = {
+    pname = "gnupg";
+    version = "gnupg-2.4.0";
+    src = fetchgit {
+      url = "https://dev.gnupg.org/source/gnupg.git";
+      rev = "gnupg-2.4.0";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-YoeGeAV3qaKPUrSuWm7RTFKb5ariQR4UGYo2Bkaj3rY=";
+    };
+  };
   grizzly = {
     pname = "grizzly";
     version = "v0.2.0";
@@ -70,10 +82,10 @@
   };
   slack = {
     pname = "slack";
-    version = "4.33.90";
+    version = "4.34.115";
     src = fetchurl {
-      url = "https://downloads.slack-edge.com/releases/linux/4.33.90/prod/x64/slack-desktop-4.33.90-amd64.deb";
-      sha256 = "sha256-VKc9H4XWXJALKXPn1zegAUnT2tN9mWD52t/wl6LoVNw=";
+      url = "https://downloads.slack-edge.com/releases/linux/4.34.115/prod/x64/slack-desktop-4.34.115-amd64.deb";
+      sha256 = "sha256-h2x8BX42HdiTQiQEWOs++fuxzCfjOQRGiSPYnbeX3j8=";
     };
   };
   sloth = {
@@ -100,24 +112,24 @@
   };
   testkube = {
     pname = "testkube";
-    version = "v1.14.0";
+    version = "v1.14.3";
     src = fetchFromGitHub {
       owner = "kubeshop";
       repo = "testkube";
-      rev = "v1.14.0";
+      rev = "v1.14.3";
       fetchSubmodules = false;
-      sha256 = "sha256-PY7oCNV1keoZWg+95N8ZDfdBlv8v1X0yUasQwIlsVeI=";
+      sha256 = "sha256-tFHfjyOaeMwHUeV0vWyZr0fHaqhU30LAnmjz+OR/krA=";
     };
   };
   tilt = {
     pname = "tilt";
-    version = "v0.33.4";
+    version = "v0.33.5";
     src = fetchFromGitHub {
       owner = "tilt-dev";
       repo = "tilt";
-      rev = "v0.33.4";
+      rev = "v0.33.5";
       fetchSubmodules = false;
-      sha256 = "sha256-rQ5g5QyGyuJAHmE8zGFzqtpqW2xEju5JV386y9Cn+cs=";
+      sha256 = "sha256-o78PoIKj+0FvZRpm0AqtUq3N9a9/LDYc7DIPZgSZe4s=";
     };
   };
 }

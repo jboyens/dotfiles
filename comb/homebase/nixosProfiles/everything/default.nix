@@ -40,16 +40,18 @@ in {
     };
 
     nix.settings = {
-      substituters = ["https://cache.nixos.org/"];
+      substituters = ["https://cache.nixos.org"];
 
       trusted-substituters = [
         "https://nix-community.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
+        "https://devenv.cachix.org"
       ];
 
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
     };
 
@@ -122,6 +124,10 @@ in {
 
       DOCKER_BUILDKIT = "1";
     };
+
+    environment.extraInit = ''
+      export PATH=$DOTFILES_BIN:$PATH
+    '';
 
     environment.systemPackages = with inputs.nixpkgs; [
       bind
@@ -205,7 +211,7 @@ in {
       hack-font
       ibm-plex
       oxygenfonts
-      (nerdfonts.override {fonts = ["FiraCode" "FiraMono"];})
+      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     ];
 
     fonts.fontconfig.defaultFonts = {
@@ -495,5 +501,9 @@ in {
       enable = true;
       package = inputs.hyprland.packages.hyprland;
     };
+
+    services.udev.extraRules = ''
+      KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
+    '';
   };
 }

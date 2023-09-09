@@ -1,15 +1,29 @@
-{
-  inputs,
-  cell,
-  config,
-  ...
-}: let
+{inputs, ...}: let
   inherit (inputs) nixpkgs;
-
-  lib = builtins // nixpkgs.lib // cell.lib;
-
-  inherit (config.styling) colors fonts fontSizes;
 in {
+  home.packages = [
+    nixpkgs.dotool
+  ];
+
+  systemd.user.services.dotoold = {
+    Install = {
+      WantedBy = ["sway-session.target"];
+    };
+
+    Service = {
+      Environment = "PATH=${nixpkgs.coreutils}/bin:$PATH";
+      ExecStart = "${nixpkgs.dotool}/bin/dotoold";
+      Restart = "on-failure";
+    };
+
+    Unit = {
+      After = "graphical-session.target";
+      Description = "dotool reads commands from stdin and simulates keyboard and pointer events";
+      Documentation = "https://git.sr.ht/~geb/dotool";
+      PartOf = "graphical-session.target";
+    };
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     package = null; # must be managed at the NixOS level
@@ -36,6 +50,10 @@ in {
       export XCURSOR_PATH=${nixpkgs.dracula-icon-theme}/share/icons
       export XCURSOR_THEME=Dracula
       export WLR_DRM_NO_MODIFIERS=1
+    '';
+
+    extraConfig = ''
+      bindswitch --locked lid:toggle exec $DOTFILES/bin/laptop.sh
     '';
 
     config = {
@@ -100,10 +118,6 @@ in {
 
       startup = [
         {
-          command = "$DOTFILES/bin/laptop.sh";
-          always = true;
-        }
-        {
           command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${nixpkgs.wob}/bin/wob";
           always = false;
         }
@@ -124,88 +138,6 @@ in {
           always = false;
         }
       ];
-    };
-  };
-
-  services.wlsunset = {
-    enable = true;
-    latitude = "47.6062";
-    longitude = "-122.3321";
-  };
-
-  gtk = {
-    enable = true;
-
-    theme = {
-      # package = nixpkgs.adw-gtk3;
-      # name = "adw-gtk3";
-      package = nixpkgs.dracula-theme;
-      name = "Dracula";
-    };
-
-    cursorTheme = {
-      package = nixpkgs.dracula-icon-theme;
-      name = "Dracula";
-      size = 16;
-    };
-
-    iconTheme = {
-      package = nixpkgs.dracula-icon-theme;
-      name = "Dracula";
-    };
-  };
-
-  programs.script-directory = {
-    enable = true;
-    settings = {
-      SD_ROOT = "${config.home.homeDirectory}/custom-script-directory";
-      SD_EDITOR = "vim";
-      SD_CAT = "bat";
-    };
-  };
-
-  programs.zsh = {
-    initExtra = ''
-      fpath+="${nixpkgs.script-directory}/share/zsh/site-functions"
-    '';
-  };
-
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        pad = "10x10";
-        dpi-aware = lib.mkForce "yes";
-        font = "${fonts.monospace.name}:size=${toString fontSizes.terminal}";
-      };
-
-      colors = {
-        foreground = colors.base05-hex;
-        background = colors.base00-hex;
-        regular0 = colors.base00-hex;
-        regular1 = colors.base08-hex;
-        regular2 = colors.base0B-hex;
-        regular3 = colors.base0A-hex;
-        regular4 = colors.base0D-hex;
-        regular5 = colors.base0E-hex;
-        regular6 = colors.base0C-hex;
-        regular7 = colors.base05-hex;
-        bright0 = colors.base03-hex;
-        bright1 = colors.base08-hex;
-        bright2 = colors.base0B-hex;
-        bright3 = colors.base0A-hex;
-        bright4 = colors.base0D-hex;
-        bright5 = colors.base0E-hex;
-        bright6 = colors.base0C-hex;
-        bright7 = colors.base07-hex;
-      };
-
-      key-bindings = {
-        clipboard-copy = "Control+Shift+c";
-        clipboard-paste = "Control+Shift+v";
-        show-urls-launch = "Control+Shift+u";
-        unicode-input = "none";
-      };
     };
   };
 }

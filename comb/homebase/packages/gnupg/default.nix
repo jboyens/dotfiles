@@ -1,7 +1,12 @@
 {
   lib,
   gnupg,
+  callPackage,
   ...
-}: (gnupg.overrideAttrs (oa: {
-  patches = oa.patches ++ [./fix-2.4.1-emacs-breakage.patch];
-}))
+}: let
+  sources = callPackage ./../_sources/generated.nix {};
+in
+  gnupg.overrideAttrs (oa: {
+    inherit (sources.gnupg) src;
+    version = lib.removePrefix "gnupg-" sources.gnupg.version;
+  })

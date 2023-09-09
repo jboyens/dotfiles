@@ -22,5 +22,12 @@ in {
     homeProfiles.emacs
     homeProfiles.tmux
     homeProfiles.hyprland
+    homeProfiles.devenv
+    homeProfiles.foot
+    homeProfiles.gpg
+    homeProfiles.wlsunset
+    homeProfiles.rofi
+    homeProfiles.gtk
+    homeProfiles.script-directory
   ];
 }
