@@ -33,6 +33,7 @@ in {
     };
   };
 
+  boot.initrd.systemd.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot.configurationLimit = 10;
@@ -59,7 +60,7 @@ in {
 
   boot.initrd.luks.devices."nixstore" = {
     device = "/dev/pool/cryptnixstore";
-    preLVM = false;
+    keyFile = "/sysroot/nixstore_keyfile.bin";
     allowDiscards = true;
     bypassWorkqueues = true;
   };
