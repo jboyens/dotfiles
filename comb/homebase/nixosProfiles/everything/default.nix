@@ -31,6 +31,17 @@ let
 in {
   config = {
     security.rtkit.enable = true;
+    security.sudo.extraRules = [
+      {
+        users = ["jboyens"];
+        commands = [
+          {
+            command = "/run/current-system/sw/bin/loadkeys";
+            options = ["NOPASSWD"];
+          }
+        ];
+      }
+    ];
 
     services.pipewire = {
       enable = true;
