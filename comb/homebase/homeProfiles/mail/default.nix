@@ -2,10 +2,8 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-
-  pizauth = cell.packages.pizauth;
-  isync-oauth2 = cell.packages.isync-oauth2;
+  inherit (inputs) nixpkgs nixpkgs-unstable;
+  inherit (cell.packages) pizauth isync-oauth2;
 in {
   home.packages = [
     nixpkgs.mu
@@ -13,7 +11,7 @@ in {
     nixpkgs.age
 
     nixpkgs.imapfilter
-    nixpkgs.msmtp
+    nixpkgs-unstable.legacyPackages.x86_64-linux.msmtp
     (nixpkgs.writeScriptBin "mu-reindex" ''
       if [ -f /tmp/mu4e_lock ]; then
         ${nixpkgs.coreutils-full}/bin/touch /tmp/mu_reindex_now

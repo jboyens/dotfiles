@@ -37,7 +37,7 @@
       google-cloud-sdk.components.config-connector
       google-cloud-sdk.components.terraform-tools
     ])
-    cloud-sql-proxy
+    # cloud-sql-proxy
   ];
 
   postgres = with nixpkgs; [
@@ -92,6 +92,7 @@ in {
 
       element-desktop
       signal-desktop
+      beeper
       slack
       (makeDesktopItem {
         name = "Slack (Wayland)";

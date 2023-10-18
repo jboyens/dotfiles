@@ -12,7 +12,7 @@
   time.timeZone = "America/Los_Angeles";
   system.stateVersion = "23.11";
 
-  hostName = "chappie";
+  hostName = "tinman";
 in {
   inherit bee time system;
   networking = {inherit hostName;};
@@ -70,50 +70,6 @@ in {
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
-  };
-
-  fileSystems."/mnt/nas/homes" = {
-    device = "192.168.86.34:/volume1/homes";
-    fsType = "nfs";
-    options = [
-      "nfsvers=4.1"
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=600"
-    ];
-  };
-
-  fileSystems."/mnt/nas/backup" = {
-    device = "192.168.86.34:/volume1/backup";
-    fsType = "nfs";
-    options = [
-      "nfsvers=4.1"
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=600"
-    ];
-  };
-
-  fileSystems."/mnt/nas/music" = {
-    device = "192.168.86.34:/volume1/music";
-    fsType = "nfs";
-    options = [
-      "nfsvers=4.1"
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=600"
-    ];
-  };
-
-  fileSystems."/mnt/nas/movies" = {
-    device = "192.168.86.34:/volume1/movies";
-    fsType = "nfs";
-    options = [
-      "nfsvers=4.1"
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=600"
-    ];
   };
 
   swapDevices = [

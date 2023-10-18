@@ -4,7 +4,7 @@ src.branch = "master"
 fetch.git = "https://git.sr.ht/~dnkl/fuzzel"
 
 [pizauth]
-src.git = "https://github.com/ltratt/pizauth"
+src.github_tag = "ltratt/pizauth"
 fetch.github = "ltratt/pizauth"
 cargo_locks = [ "Cargo.lock" ]
 

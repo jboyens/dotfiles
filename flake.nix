@@ -7,7 +7,7 @@
   inputs = {
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
-    # nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
+    nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
     # nixpkgs-stable.url = "nixpkgs/nixos-22.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -37,12 +37,9 @@
     paisano.url = "github:divnix/paisano";
     paisano.inputs.nixpkgs.follows = "nixpkgs";
 
-    hive.url = "github:divnix/hive";
+    hive.url = "github:jboyens/hive";
     hive.inputs = {
-      haumea.follows = "haumea";
-      home-manager.follows = "home-manager";
       nixpkgs.follows = "nixpkgs";
-      nixos-generators.follows = "nixos-generators";
       paisano.follows = "paisano";
     };
 
@@ -66,12 +63,18 @@
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-    persway.url = "github:johnae/persway";
-    persway.inputs.nixpkgs.follows = "nixpkgs";
-    persway.inputs.devshell.follows = "devshell";
-    persway.inputs.dream2nix.url = "github:nix-community/dream2nix/legacy";
-    persway.inputs.dream2nix.inputs.nixpkgs.follows = "nixpkgs";
-    persway.inputs.dream2nix.inputs.nixpkgsV1.follows = "nixpkgs";
+    persway = {
+      url = "github:johnae/persway";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        devshell.follows = "devshell";
+        dream2nix = {
+          url = "github:nix-community/dream2nix/legacy";
+          inputs.nixpkgs.follows = "nixpkgs";
+          inputs.nixpkgsV1.follows = "nixpkgs";
+        };
+      };
+    };
 
     base16.url = "github:SenchoPens/base16.nix";
 
@@ -84,11 +87,11 @@
     catppuccin.url = "github:catppuccin/base16";
     catppuccin.flake = false;
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
-    flexe.url = "git+ssh://git@gitlab.com/flexe/nix-releases";
-    flexe.inputs.nixpkgs.follows = "nixpkgs";
+    # flexe.url = "git+ssh://git@gitlab.com/flexe/nix-releases";
+    # flexe.inputs.nixpkgs.follows = "nixpkgs";
 
     devenv.url = "github:cachix/devenv";
 

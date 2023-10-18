@@ -14,14 +14,16 @@
   #   withWebP = true;
   #   withPgtk = true;
   # });
-  myEmacsPkg = emacs-overlay.packages.emacs-unstable-pgtk.overrideAttrs (prev: {
-    passthru = prev.passthru // {treeSitter = true;};
-  });
+  # myEmacsPkg = emacs-overlay.packages.emacs-unstable-pgtk.overrideAttrs (prev: {
+  #   passthru = prev.passthru // {treeSitter = true;};
+  # });
+  myEmacsPkg = nixpkgs.emacs29-pgtk;
 
   myEmacs = (nixpkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
     epkgs.vterm
     epkgs.parinfer-rust-mode
     epkgs.treesit-grammars.with-all-grammars
+    epkgs.mu4e
   ]);
 in {
   home.sessionPath = [

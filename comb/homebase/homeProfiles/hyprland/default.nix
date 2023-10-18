@@ -372,7 +372,7 @@ in {
       # DECORATION {{{
       decoration = {
         rounding = 10;
-        multisample_edges = true;
+        # multisample_edges = true;
         drop_shadow = false;
 
         blur = {

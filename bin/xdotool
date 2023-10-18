@@ -9,7 +9,7 @@ case $1 in
         swaywindow -a "$3"
         ;;
     "key")
-        ydotool key "$3"
+        echo "$3" | dotoolc
         ;;
     *)
         echo "Not implemented"

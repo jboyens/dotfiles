@@ -45,6 +45,7 @@ in {
 
     services.pipewire = {
       enable = true;
+      audio.enable = true;
       alsa.enable = true;
       pulse.enable = true;
       wireplumber.enable = true;
@@ -388,6 +389,20 @@ in {
       '';
     };
 
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      wlr.settings = {
+        screencast = {
+          output_name = "DP-4";
+          max_fps = 30;
+          chooser_type = "simple";
+          chooser_cmd = "${nixpkgs.slurp}/bin/slurp -f %o -or";
+        };
+      };
+      extraPortals = with nixpkgs; [xdg-desktop-portal-gtk];
+    };
+
     programs.thunar = {
       enable = true;
       plugins = with nixpkgs.xfce; [
@@ -446,7 +461,10 @@ in {
           "-e /home/jboyens/Workspace/warehouser/log"
           "-e /home/jboyens/Workspace/warehouser/tmp"
         ];
-        timerConfig = {OnCalendar = "hourly";};
+        timerConfig = {
+          OnCalendar = "hourly";
+          RandomizedDelaySec = 900;
+        };
         passwordFile = "/home/jboyens/.secrets/backup.secret";
       };
       Mail = {
@@ -454,7 +472,10 @@ in {
         paths = ["/home/jboyens/.mail"];
         repository = "${baseRepo}/Mail-restic";
         inherit pruneOpts;
-        timerConfig = {OnCalendar = "hourly";};
+        timerConfig = {
+          OnCalendar = "hourly";
+          RandomizedDelaySec = 900;
+        };
         passwordFile = "/home/jboyens/.secrets/backup.secret";
       };
       Home = {
@@ -463,13 +484,21 @@ in {
         repository = "${baseRepo}/home-restic";
         inherit pruneOpts;
         extraBackupArgs = ["--exclude-file /home/jboyens/restic-exclude.txt" "-x"];
-        timerConfig = {OnCalendar = "hourly";};
+        timerConfig = {
+          OnCalendar = "hourly";
+          RandomizedDelaySec = 900;
+        };
         passwordFile = "/home/jboyens/.secrets/backup.secret";
       };
     };
-    # systemd.restic-backups-Home.serviceConfig.CPUQuota = "200%";
-    # systemd.restic-backups-Mail.serviceConfig.CPUQuota = "200%";
-    # systemd.restic-backups-Workspace.serviceConfig.CPUQuota = "200%";
+
+    systemd.services.restic-backups-Home.serviceConfig.CPUQuota = "200%";
+    systemd.services.restic-backups-Home.serviceConfig.IOWeight = "1";
+    systemd.services.restic-backups-Mail.serviceConfig.CPUQuota = "200%";
+    systemd.services.restic-backups-Mail.serviceConfig.IOWeight = "1";
+    systemd.services.restic-backups-Workspace.serviceConfig.CPUQuota = "200%";
+    systemd.services.restic-backups-Workspace.serviceConfig.IOWeight = "1";
+
     users.users.jboyens.openssh.authorizedKeys.keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDECXnI34NJU+L32GB7vwdTv4R9Uv53DElOZ5T/1or7X1VJxEb2+vNjxFQm1WNru1p23Wq8vGKasjIJt20L3B2E+9A2JHuL8MDpXU5Ednk3TgR1ghSdXzqmUTWmEMuqeU7nzYtnFeEyMSpW/FLy8YxO69C3QKsJGlk6+zEMYy17EhcT87K37/Odw326yXqEG2PAyQFQuSUSUIKixjLqYdRyVUTS43PY9kFwny4XqBof+vprkSfpQJi9qbSYPTOlfdadVE4wtb0TBdHRPS9owBk09ouj3okbT4TyEgedG6QrZn5j06nAYZqI4ggAI3sKgvLaec5jwqF+mX0Jo8naV4in jr@irongiant.local"];
     services.syncthing = {
       enable = true;
@@ -508,10 +537,10 @@ in {
       };
     };
 
-    programs.hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.hyprland;
-    };
+    # programs.hyprland = {
+    #   enable = true;
+    #   package = inputs.hyprland.packages.hyprland;
+    # };
 
     services.udev.extraRules = ''
       KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
