@@ -43,39 +43,19 @@ in {
   # boot.kernelParams = ["delayacct"];
 
   fileSystems."/" = {
-    device = "/dev/mapper/cryptroot";
-    fsType = "btrfs";
+    device = "/dev/disk/by-uuid/b9b37dbb-7c7e-48b6-b15f-a60ee099fde5";
+    fsType = "ext4";
     options = ["noatime"];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/mapper/nixstore";
-    fsType = "btrfs";
-    options = ["noatime"];
-  };
-
-  boot.initrd.luks.devices."cryptroot" = {
-    device = "/dev/disk/by-uuid/63ce633c-e5f2-4456-897a-5178d8fec6aa";
-    allowDiscards = true;
-    bypassWorkqueues = true;
-  };
-
-  boot.initrd.luks.devices."nixstore" = {
-    device = "/dev/pool/cryptnixstore";
-    keyFile = "/sysroot/nixstore_keyfile.bin";
-    allowDiscards = true;
-    bypassWorkqueues = true;
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/BOOT";
+    device = "/dev/disk/by-uuid/C880-9F28";
     fsType = "vfat";
   };
 
   swapDevices = [
     {
-      device = "/swapfile";
-      size = 10240;
+      device = "/dev/disk/by-uuid/80d0e1f2-6110-41f1-8d9f-7c49cc1e4644";
     }
   ];
 }

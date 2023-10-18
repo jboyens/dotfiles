@@ -26,6 +26,7 @@ in
       commands = let
         inherit (inputs) nixos-generators;
       in [
+        {package = inputs.colmena.packages.colmena;}
         {package = inputs.namaka.packages.default;}
         {
           category = "general commands";

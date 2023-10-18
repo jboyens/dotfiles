@@ -20,6 +20,9 @@
       paisano.follows = "paisano";
     };
 
+    colmena.url = "github:zhaofengli/colmena";
+    colmena.inputs.nixpkgs.follows = "nixpkgs";
+
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -41,6 +44,7 @@
     hive.inputs = {
       nixpkgs.follows = "nixpkgs";
       paisano.follows = "paisano";
+      colmena.follows = "colmena";
     };
 
     namaka.url = "github:nix-community/namaka";
@@ -87,8 +91,8 @@
     catppuccin.url = "github:catppuccin/base16";
     catppuccin.flake = false;
 
-    # hyprland.url = "github:hyprwm/Hyprland";
-    # hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # flexe.url = "git+ssh://git@gitlab.com/flexe/nix-releases";
     # flexe.inputs.nixpkgs.follows = "nixpkgs";
@@ -198,6 +202,7 @@
         ["common" "homeProfiles"]
         ["homebase" "homeProfiles"]
       ];
+      colmenaHive = collect self "colmenaConfigurations";
 
       configFiles = std.harvest self ["common" "configs"];
 

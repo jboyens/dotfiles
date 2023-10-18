@@ -9,7 +9,7 @@ in rec {
     pkgs = inputs.nixpkgs;
     modules =
       [{isoImage.isoName = cell.lib.mkForce "laptop.iso";}]
-      ++ inputs.cells.homebase.nixosSuites.laptop;
+      ++ inputs.cells.homebase.nixosSuites.default;
     format = "install-iso";
   };
 }
