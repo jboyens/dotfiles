@@ -69,12 +69,6 @@ in {
     };
   };
 
-  # a (failed -- 2023-08-23) attempt at using the internal camera
-  # tried again (failed -- 2023-09-25)
-  hardware.ipu6.enable = true;
-  hardware.ipu6.platform = "ipu6ep";
-  # hardware.firmware = [nixpkgs.ipu6ep-camera-bin];
-
   services.thermald.enable = true;
 
   # nvidia
@@ -83,19 +77,6 @@ in {
     driSupport = true;
     driSupport32Bit = true;
   };
-
-  # hardware.nvidia = {
-  #   modesetting.enable = true;
-  #   powerManagement.enable = true;
-  #   open = true;
-  #   nvidiaSettings = true;
-  #   prime = {
-  #     intelBusId = "PCI:0:2:0";
-  #     nvidiaBusId = "PCI:1:0:0";
-  #   };
-  # };
-
-  # services.xserver.videoDrivers = ["nvidia"];
 
   # thunderbolt
   services.hardware.bolt.enable = true;
@@ -109,19 +90,5 @@ in {
     ];
   };
 
-  # fingerprint sensor setup
-  services.fprintd = {
-    enable = true;
-  };
-
-  security.pam.services = {
-    sudo.fprintAuth = true;
-    login.fprintAuth = true;
-    swaylock.fprintAuth = true;
-    polkit-1.fprintAuth = true;
-  };
-
-  # chappie has 20 listed cores, but a bunch are e-cores, let's save those and
-  # utilize the HT cores.
-  nix.settings.max-jobs = lib.mkDefault 12;
+  nix.settings.max-jobs = lib.mkDefault 4;
 }

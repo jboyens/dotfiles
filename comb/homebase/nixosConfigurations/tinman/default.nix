@@ -33,6 +33,8 @@ in {
     };
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   boot.initrd.systemd.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
