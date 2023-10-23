@@ -8,7 +8,7 @@
 
   packages = with nixpkgs; [statix nil nixfmt nixpkgs-fmt alejandra];
 in
-  lib.mapAttrs (_: lib.std.lib.dev.mkShell) {
+  lib.mapAttrs (_: inputs.std.lib.dev.mkShell) {
     default = _: {
       name = "Steve";
 

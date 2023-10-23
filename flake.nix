@@ -180,7 +180,9 @@
       checks = inputs.namaka.lib.load {
         src = ./tests;
         inputs = {
-          inherit lib inputs;
+          inherit inputs;
+
+          lib = builtins // inputs.nixpkgs.lib // std.pick self ["common" "lib"];
         };
       };
     } {

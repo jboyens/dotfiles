@@ -10,9 +10,11 @@
       tags = ["all"];
     };
   };
-in
-  inputs.hive.findLoad {
-    inherit cell;
-    inputs = inputs // {inherit common;};
-    block = ./.;
-  }
+in {
+  chappie = {
+    imports = [cell.nixosConfigurations.chappie];
+    inherit (common) bee;
+
+    deployment = common.deployment // {tags = ["laptops"];};
+  };
+}
