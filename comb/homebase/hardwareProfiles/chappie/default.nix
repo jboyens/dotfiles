@@ -4,8 +4,12 @@
 }: let
   inherit (inputs) nixpkgs;
 
+  # nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
+
   # 2023-08-31 -- issues w/ 6.5.0
-  kernel = nixpkgs.linuxPackages_latest;
+  # 2023-10-23 -- issues w/ 6.6.0-rc7 -- fail to start decryption
+  # kernel = nixpkgs-unstable.linuxPackages_testing;
+  kernel = inputs.nixpkgs.linuxPackages_latest;
   lib = nixpkgs.lib // builtins;
 
   defaults = {
@@ -70,8 +74,8 @@ in {
 
   # a (failed -- 2023-08-23) attempt at using the internal camera
   # tried again (failed -- 2023-09-25)
-  hardware.ipu6.enable = true;
-  hardware.ipu6.platform = "ipu6ep";
+  # hardware.ipu6.enable = true;
+  # hardware.ipu6.platform = "ipu6ep";
   # hardware.firmware = [nixpkgs.ipu6ep-camera-bin];
 
   services.thermald.enable = true;

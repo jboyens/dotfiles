@@ -4,7 +4,7 @@
 }: let
   common = {
     bee.system = "x86_64-linux";
-    bee.pkgs = inputs.nixpkgs;
+    bee.pkgs = inputs.cells.common.pkgs;
     deployment = {
       allowLocalDeployment = true;
       tags = ["all"];

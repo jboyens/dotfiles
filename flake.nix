@@ -8,6 +8,7 @@
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
     nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
+    # nixpkgs-unstable.url = "path:/home/jboyens/Workspace/nixpkgs"; # for packages on the edge
     # nixpkgs-stable.url = "nixpkgs/nixos-22.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
