@@ -8,7 +8,7 @@
 
   lib = cell.lib // nixpkgs.lib // builtins;
 
-  my = cell.packages;
+  my = inputs.cells.common.packages;
 
   inherit (config.styling) colors;
 

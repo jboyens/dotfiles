@@ -2,17 +2,19 @@
   inputs,
   cell,
 }: let
-  inherit (cell) nixosSuites homeSuites hardwareProfiles;
+  inherit (inputs.cells.common) nixosSuites;
+  inherit (inputs.cells.common) homeSuites;
+  inherit (cell) hardwareProfiles;
 
   bee = {
     system = "x86_64-linux";
-    pkgs = inputs.cells.common.pkgs;
+    inherit (inputs.cells.common) pkgs;
     home = inputs.home-manager;
   };
   time.timeZone = "America/Los_Angeles";
   system.stateVersion = "23.11";
 
-  hostName = "kitt";
+  hostName = "chappie";
 in {
   inherit bee time system;
   networking = {inherit hostName;};
@@ -21,7 +23,7 @@ in {
     [
       hardwareProfiles."${hostName}"
     ]
-    ++ nixosSuites.default;
+    ++ nixosSuites.laptop;
 
   home-manager = {
     useUserPackages = true;
@@ -33,27 +35,42 @@ in {
     };
   };
 
+  boot.initrd.systemd.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot.configurationLimit = 10;
     systemd-boot.enable = true;
+    # systemd-boot.netbootxyz.enable = true;
   };
+  # boot.kernelParams = ["delayacct"];
 
   fileSystems."/" = {
-    # device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
+    device = "/dev/mapper/cryptroot";
+    fsType = "btrfs";
+    options = ["noatime"];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/mapper/nixstore";
+    fsType = "btrfs";
     options = ["noatime"];
   };
 
   boot.initrd.luks.devices."cryptroot" = {
-    device = "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
+    device = "/dev/disk/by-uuid/63ce633c-e5f2-4456-897a-5178d8fec6aa";
+    allowDiscards = true;
+    bypassWorkqueues = true;
+  };
+
+  boot.initrd.luks.devices."nixstore" = {
+    device = "/dev/pool/cryptnixstore";
+    keyFile = "/sysroot/nixstore_keyfile.bin";
     allowDiscards = true;
     bypassWorkqueues = true;
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/C04A-6D05";
+    device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
   };
 
@@ -107,6 +124,4 @@ in {
       size = 10240;
     }
   ];
-
-  # system.stateVersion = "23.11";
 }

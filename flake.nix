@@ -188,20 +188,24 @@
       devShells = std.harvest self ["common" "devshells"];
       packages = std.harvest self [
         # ["common" "generators"]
-        ["homebase" "packages"]
+        ["common" "packages"]
       ];
       pkgs = std.harvest self ["common" "pkgs"];
-      homeModules = std.harvest self ["homebase" "homeModules"];
+      # homeModules = std.harvest self ["homebase" "homeModules"];
     } {
       nixosConfigurations = collect self "nixosConfigurations";
       nixosProfiles = std.harvest self [
         ["common" "nixosProfiles"]
         ["homebase" "nixosProfiles"]
+        ["laptop" "nixosProfiles"]
+        ["server" "nixosProfiles"]
       ];
       homeConfigurations = collect self "homeConfigurations";
       homeProfiles = std.harvest self [
         ["common" "homeProfiles"]
         ["homebase" "homeProfiles"]
+        ["laptop" "homeProfiles"]
+        ["server" "homeProfiles"]
       ];
       colmenaHive = collect self "colmenaConfigurations";
 

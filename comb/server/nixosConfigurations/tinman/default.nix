@@ -2,7 +2,9 @@
   inputs,
   cell,
 }: let
-  inherit (cell) nixosSuites homeSuites hardwareProfiles;
+  inherit (inputs.cells.common) nixosSuites;
+  inherit (inputs.cells.common) homeSuites;
+  inherit (cell) hardwareProfiles;
 
   bee = {
     system = "x86_64-linux";
@@ -21,7 +23,7 @@ in {
     [
       hardwareProfiles."${hostName}"
     ]
-    ++ nixosSuites.default;
+    ++ nixosSuites.server;
 
   home-manager = {
     useUserPackages = true;

@@ -3,7 +3,7 @@
   cell,
 }: let
   inherit (inputs) nixpkgs nixpkgs-unstable;
-  inherit (cell.packages) pizauth isync-oauth2;
+  inherit (inputs.cells.common.packages) pizauth isync-oauth2;
 in {
   home.packages = [
     nixpkgs.mu
