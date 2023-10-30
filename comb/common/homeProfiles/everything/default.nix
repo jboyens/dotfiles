@@ -10,8 +10,6 @@
 
   my = inputs.cells.common.packages;
 
-  inherit (config.styling) colors;
-
   work-cloud = with nixpkgs; [
     go-jsonnet
     # broken 2023-08-18
@@ -24,7 +22,7 @@
     kubernetes-helm
     kustomize
     minikube
-    open-policy-agent
+    (open-policy-agent.overrideAttrs (_: {doCheck = false;}))
     stern
     terraform
     tilt
@@ -95,11 +93,11 @@ in {
       beeper
       slack
       (makeDesktopItem {
-        name = "Slack (Wayland)";
-        desktopName = "Slack (Wayland)";
-        genericName = "Open Slack in Wayland";
+        name = "Slack (WebRTC)";
+        desktopName = "Slack (WebRTC)";
+        genericName = "Open Slack w/ WebRTC";
         icon = "slack";
-        exec = "${nixpkgs.electron_24}/bin/electron ${nixpkgs.slack}/lib/slack/resources/app.asar --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-features=WebRTCPipeWireCapturer";
+        exec = "${nixpkgs.slack}/bin/slack --enable-features=WebRTCPipeWireCapturer %U";
         categories = ["Network"];
       })
       zoom-us
@@ -286,7 +284,7 @@ in {
       # my.swaywindow
     ]
     ++ [
-      inputs.persway.packages.persway
+      # inputs.persway.packages.persway
       # i3status-rust
       # foot
     ]
@@ -366,6 +364,9 @@ in {
     plugins = with nixpkgs.vimPlugins; [
       dracula-nvim
     ];
+    extraLuaConfig = ''
+      vim.cmd [[source ~/.config/nvim/init-custom.vim]]
+    '';
   };
 
   # services = {xserver.enable = lib.mkDefault false;};

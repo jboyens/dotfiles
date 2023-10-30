@@ -11,7 +11,7 @@
     # nixpkgs-unstable.url = "path:/home/jboyens/Workspace/nixpkgs"; # for packages on the edge
     # nixpkgs-stable.url = "nixpkgs/nixos-22.11";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    # flake-parts.url = "github:hercules-ci/flake-parts";
 
     std.url = "github:divnix/std";
     std.inputs = {
@@ -68,18 +68,18 @@
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-    persway = {
-      url = "github:johnae/persway";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        devshell.follows = "devshell";
-        dream2nix = {
-          url = "github:nix-community/dream2nix/legacy";
-          inputs.nixpkgs.follows = "nixpkgs";
-          inputs.nixpkgsV1.follows = "nixpkgs";
-        };
-      };
-    };
+    # persway = {
+    #   url = "github:johnae/persway";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     devshell.follows = "devshell";
+    #     dream2nix = {
+    #       url = "github:nix-community/dream2nix/legacy";
+    #       inputs.nixpkgs.follows = "nixpkgs";
+    #       inputs.nixpkgsV1.follows = "nixpkgs";
+    #     };
+    #   };
+    # };
 
     base16.url = "github:SenchoPens/base16.nix";
 
@@ -100,6 +100,13 @@
 
     devenv.url = "github:cachix/devenv";
 
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.base16.follows = "base16";
+    stylix.inputs.home-manager.follows = "home-manager";
+
+    ipu6-nix.url = "github:Mitame/ipu6-nix";
+
     # comma = {url = "github:nix-community/comma";};
     # comma.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -114,7 +121,7 @@
     std,
     ...
   } @ inputs: let
-    lib = inputs.nixpkgs.lib // builtins;
+    # lib = inputs.nixpkgs.lib // builtins;
     collect = hive.collect // {renamer = cell: target: "${target}";};
   in
     hive.growOn {

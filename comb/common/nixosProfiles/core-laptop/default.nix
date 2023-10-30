@@ -98,8 +98,8 @@ in {
         chooser_cmd = "${nixpkgs.slurp}/bin/slurp -f %o -or";
       };
     };
-    extraPortals = with nixpkgs; [xdg-desktop-portal-gtk];
   };
+  # extraPortals = with nixpkgs; [xdg-desktop-portal-gtk];
 
   programs.thunar = {
     enable = true;
@@ -119,9 +119,9 @@ in {
   services.atd.enable = true;
 
   services.dbus.packages = [nixpkgs.gcr];
+  services.upower.enable = true;
 
-  # programs.hyprland = {
-  #   enable = true;
-  #   package = inputs.hyprland.packages.hyprland;
-  # };
+  programs.hyprland = {
+    enable = true;
+  };
 }

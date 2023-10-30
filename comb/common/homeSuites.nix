@@ -21,7 +21,7 @@ in {
     homeProfiles.zsh
     homeProfiles.emacs
     homeProfiles.tmux
-    # homeProfiles.hyprland
+    homeProfiles.hyprland
     homeProfiles.devenv
     homeProfiles.foot
     homeProfiles.gpg

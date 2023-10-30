@@ -13,7 +13,13 @@
     docker = {
       enable = true;
       enableOnBoot = true;
+      enableNvidia = true;
       autoPrune.enable = true;
+      listenOptions = [
+        "/run/docker.sock"
+        "127.0.0.1:2376"
+        "[::1]:2376"
+      ];
     };
   };
 }

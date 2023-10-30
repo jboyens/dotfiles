@@ -13,6 +13,6 @@ in {
     // {
       targetHost = "192.168.86.100";
       targetUser = "jboyens";
-      tags = ["server"];
+      tags = [""];
     };
 }

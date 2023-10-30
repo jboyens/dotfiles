@@ -26,6 +26,8 @@ in {
     # common-gpu-nvidia
   ];
 
+  environment.systemPackages = [kernel.perf];
+
   boot = {
     initrd.availableKernelModules = [
       "nvme"
@@ -57,64 +59,69 @@ in {
       options nfs nfs4_disable_idmapping=0
     '';
   };
+  services = {
+    thermald.enable = true;
 
-  #options iwlwifi 11n_disable=8 bt_coex_active=1 power_save=0
-  #options iwlmvm power_scheme=1
-  # "i915.enable_fbc=1"
-  # "i915.enable_guc=3"
-  # "i915.modeset=1"
+    # xserver.videoDrivers = ["nvidia"];
 
-  # bluetooth
-  hardware.bluetooth = {
-    enable = true;
-    settings = {
-      General.Enable = "Source,Sink,Media,Socket";
+    # thunderbolt
+    hardware.bolt.enable = true;
+
+    # firmware updates
+    fwupd = {
+      enable = true;
+      extraRemotes = [
+        "lvfs"
+        "lvfs-testing"
+      ];
+    };
+
+    # fingerprint sensor setup
+    fprintd = {
+      enable = true;
     };
   };
 
-  # a (failed -- 2023-08-23) attempt at using the internal camera
-  # tried again (failed -- 2023-09-25)
-  # hardware.ipu6.enable = true;
-  # hardware.ipu6.platform = "ipu6ep";
-  # hardware.firmware = [nixpkgs.ipu6ep-camera-bin];
+  hardware = {
+    # bluetooth
+    bluetooth = {
+      enable = true;
+      settings = {
+        General.Enable = "Source,Sink,Media,Socket";
+      };
+    };
 
-  services.thermald.enable = true;
+    # a (failed -- 2023-08-23) attempt at using the internal camera
+    # tried again (failed -- 2023-09-25)
+    #ipu6.enable = true;
+    #ipu6.platform = "ipu6ep";
+    #firmware = [
+    #  inputs.ipu6-nix.packages.ipu6-camera-bins
+    #];
 
-  # nvidia
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+    # nvidia
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
 
-  # hardware.nvidia = {
-  #   modesetting.enable = true;
-  #   powerManagement.enable = true;
-  #   open = true;
-  #   nvidiaSettings = true;
-  #   prime = {
-  #     intelBusId = "PCI:0:2:0";
-  #     nvidiaBusId = "PCI:1:0:0";
-  #   };
-  # };
+      extraPackages = with nixpkgs; [
+        intel-media-driver
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
 
-  # services.xserver.videoDrivers = ["nvidia"];
-
-  # thunderbolt
-  services.hardware.bolt.enable = true;
-
-  # firmware updates
-  services.fwupd = {
-    enable = true;
-    extraRemotes = [
-      "lvfs"
-      # "dell-esrt"
-    ];
-  };
-
-  # fingerprint sensor setup
-  services.fprintd = {
-    enable = true;
+    # nvidia = {
+    #   modesetting.enable = true;
+    #   powerManagement.enable = true;
+    #   # open = true;
+    #   nvidiaSettings = true;
+    #   prime = {
+    #     intelBusId = "PCI:0:2:0";
+    #     nvidiaBusId = "PCI:1:0:0";
+    #   };
+    # };
   };
 
   security.pam.services = {

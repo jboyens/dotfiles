@@ -18,18 +18,8 @@
     useUserPackages = true;
     useGlobalPkgs = true;
     users.jboyens = {
-      imports = homeSuites.jboyens;
+      imports = homeSuites.jboyens; # ++ [inputs.stylix.homeManagerModules.stylix];
       home.stateVersion = "23.11";
-    };
-  };
-
-  common-boot = {
-    initrd.systemd.enable = true;
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.configurationLimit = 10;
-      systemd-boot.enable = true;
-      # systemd-boot.netbootxyz.enable = true;
     };
   };
 
@@ -67,28 +57,67 @@ in {
     hostName = "chappie";
   in {
     inherit bee time system home-manager;
-    networking = {inherit hostName;};
+    networking = {
+      inherit hostName;
+
+      extraHosts = ''
+        192.168.86.1  router.home
+
+        # Hosts
+        192.168.86.100	irongiant
+        192.168.86.96	wall-e
+        192.168.86.34	mediaserver nas backup-host
+        192.168.49.2	dev dev.fooninja.org
+        127.0.0.1	    api.local.flexe.com docker
+        172.19.0.3	    hydra.localhost hydra-admin.localhost api.local.flexe.com
+        192.168.1.240	argocd.fooninja.org
+        192.168.1.240	apps.fooninja.org
+      '';
+    };
     imports =
       [
         hardwareProfiles."${hostName}"
+        {
+          stylix.targets.gnome.enable = false;
+          stylix.image = /home/jboyens/Downloads/vhs.png;
+          stylix.polarity = "dark";
+        }
       ]
-      ++ nixosSuites.laptop;
+      ++ nixosSuites.laptop
+      ++ [
+        inputs.stylix.nixosModules.stylix
+      ];
 
-    boot =
-      common-boot
-      // {
-        initrd.luks.devices."cryptroot" = {
-          device = "/dev/disk/by-uuid/63ce633c-e5f2-4456-897a-5178d8fec6aa";
-          allowDiscards = true;
-          bypassWorkqueues = true;
-        };
-        initrd.luks.devices."nixstore" = {
-          device = "/dev/pool/cryptnixstore";
-          keyFile = "/sysroot/nixstore_keyfile.bin";
-          allowDiscards = true;
-          bypassWorkqueues = true;
+    boot = {
+      loader = {
+        efi.canTouchEfiVariables = true;
+        systemd-boot = {
+          enable = true;
+          configurationLimit = 10;
+          netbootxyz.enable = true;
         };
       };
+
+      initrd = {
+        systemd.enable = true;
+
+        luks = {
+          devices = {
+            "cryptroot" = {
+              device = "/dev/disk/by-uuid/63ce633c-e5f2-4456-897a-5178d8fec6aa";
+              allowDiscards = true;
+              bypassWorkqueues = true;
+            };
+            "nixstore" = {
+              device = "/dev/pool/cryptnixstore";
+              keyFile = "/sysroot/nixstore_keyfile.bin";
+              allowDiscards = true;
+              bypassWorkqueues = true;
+            };
+          };
+        };
+      };
+    };
 
     fileSystems =
       {
@@ -104,49 +133,6 @@ in {
         };
         "/boot" = {
           device = "/dev/disk/by-label/BOOT";
-          fsType = "vfat";
-        };
-      }
-      // nas-fileSystems;
-
-    swapDevices = [
-      {
-        device = "/swapfile";
-        size = 10240;
-      }
-    ];
-  };
-
-  kitt = let
-    hostName = "kitt";
-  in {
-    inherit bee time system home-manager;
-    networking = {inherit hostName;};
-    imports =
-      [
-        hardwareProfiles."${hostName}"
-      ]
-      ++ nixosSuites.laptop;
-    boot =
-      common-boot
-      // {
-        initrd.luks.devices."cryptroot" = {
-          device = "/dev/disk/by-uuid/6e6f01d5-826a-40e9-8fa7-cfcc4616dd92";
-          allowDiscards = true;
-          bypassWorkqueues = true;
-        };
-      };
-
-    fileSystems =
-      {
-        "/" = {
-          # device = "/dev/disk/by-uuid/14c3182f-f307-466a-8de3-b750e11ed995";
-          device = "/dev/disk/by-label/nixos";
-          fsType = "ext4";
-          options = ["noatime"];
-        };
-        "/boot" = {
-          device = "/dev/disk/by-uuid/C04A-6D05";
           fsType = "vfat";
         };
       }

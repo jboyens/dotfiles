@@ -54,38 +54,37 @@
   };
   kustomize = {
     pname = "kustomize";
-    version = "kustomize/v5.1.1";
+    version = "kustomize/v5.2.1";
     src = fetchFromGitHub {
       owner = "kubernetes-sigs";
       repo = "kustomize";
-      rev = "kustomize/v5.1.1";
+      rev = "kustomize/v5.2.1";
       fetchSubmodules = false;
-      sha256 = "sha256-XtpMws2o3h19PsRJXKg+y5/Zk3bc6mJ4O1LLZ40ioTM=";
+      sha256 = "sha256-NuDg9Vtfxddosi8J7p6+WI2jDM2k16gbWsQcZF27vJo=";
     };
   };
   pizauth = {
     pname = "pizauth";
-    version = "9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f";
+    version = "pizauth-1.0.2";
     src = fetchFromGitHub {
       owner = "ltratt";
       repo = "pizauth";
-      rev = "9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f";
+      rev = "pizauth-1.0.2";
       fetchSubmodules = false;
-      sha256 = "sha256-8wW9nf1YW9tfPuEE6JQTPeXdzrZCKP+1Zmo/B0dG38E=";
+      sha256 = "sha256-mRUN/e3Zh2HzMyZfSt0qb5eY5QJO/I+LTOuhszBunNk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./pizauth-9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f/Cargo.lock;
+      lockFile = ./pizauth-pizauth-1.0.2/Cargo.lock;
       outputHashes = {
       };
     };
-    date = "2023-08-19";
   };
   slack = {
     pname = "slack";
-    version = "4.34.115";
+    version = "4.34.121";
     src = fetchurl {
-      url = "https://downloads.slack-edge.com/releases/linux/4.34.115/prod/x64/slack-desktop-4.34.115-amd64.deb";
-      sha256 = "sha256-h2x8BX42HdiTQiQEWOs++fuxzCfjOQRGiSPYnbeX3j8=";
+      url = "https://downloads.slack-edge.com/releases/linux/4.34.121/prod/x64/slack-desktop-4.34.121-amd64.deb";
+      sha256 = "sha256-5e+GwVTnhZ4/+NyeIN/35onbg6GqTNoX+BXec3VLKYQ=";
     };
   };
   sloth = {
@@ -112,24 +111,24 @@
   };
   testkube = {
     pname = "testkube";
-    version = "v1.14.3";
+    version = "v1.15.9";
     src = fetchFromGitHub {
       owner = "kubeshop";
       repo = "testkube";
-      rev = "v1.14.3";
+      rev = "v1.15.9";
       fetchSubmodules = false;
-      sha256 = "sha256-tFHfjyOaeMwHUeV0vWyZr0fHaqhU30LAnmjz+OR/krA=";
+      sha256 = "sha256-0o8upbC1Hte4nHrCEqpGYSVxUO/c1RvOIYWGwZP0XTQ=";
     };
   };
   tilt = {
     pname = "tilt";
-    version = "v0.33.5";
+    version = "v0.33.6";
     src = fetchFromGitHub {
       owner = "tilt-dev";
       repo = "tilt";
-      rev = "v0.33.5";
+      rev = "v0.33.6";
       fetchSubmodules = false;
-      sha256 = "sha256-o78PoIKj+0FvZRpm0AqtUq3N9a9/LDYc7DIPZgSZe4s=";
+      sha256 = "sha256-WtE8ExUKFRtdYeg0+My/DB+L/qT+J1EaKHKChNjC5oI=";
     };
   };
 }

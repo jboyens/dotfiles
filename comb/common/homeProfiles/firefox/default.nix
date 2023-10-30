@@ -10,7 +10,7 @@
   lib = builtins // nixpkgs.lib // cell.lib;
 
   wrappedFF = nixpkgs.firefox-bin.override {
-    extraNativeMessagingHosts = with nixpkgs; [passff-host tridactyl-native];
+    nativeMessagingHosts = with nixpkgs; [passff-host tridactyl-native];
   };
 
   extraConfig = "";

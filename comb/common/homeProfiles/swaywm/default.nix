@@ -121,10 +121,10 @@ in {
           command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${nixpkgs.wob}/bin/wob";
           always = false;
         }
-        {
-          command = "persway daemon -w -d stack_main";
-          always = false;
-        }
+        # {
+        #   command = "persway daemon -w -d spiral";
+        #   always = false;
+        # }
         {
           command = "${nixpkgs.swayr}/bin/swayrd";
           always = false;

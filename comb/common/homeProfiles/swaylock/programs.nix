@@ -35,7 +35,7 @@ in {
       text-ver-color = text;
       text-wrong-color = text;
 
-      image = toString image;
+      # image = toString image;
     };
   };
 }

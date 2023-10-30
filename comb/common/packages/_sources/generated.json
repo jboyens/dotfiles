@@ -91,20 +91,20 @@
             "name": null,
             "owner": "kubernetes-sigs",
             "repo": "kustomize",
-            "rev": "kustomize/v5.1.1",
-            "sha256": "sha256-XtpMws2o3h19PsRJXKg+y5/Zk3bc6mJ4O1LLZ40ioTM=",
+            "rev": "kustomize/v5.2.1",
+            "sha256": "sha256-NuDg9Vtfxddosi8J7p6+WI2jDM2k16gbWsQcZF27vJo=",
             "type": "github"
         },
-        "version": "kustomize/v5.1.1"
+        "version": "kustomize/v5.2.1"
     },
     "pizauth": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./pizauth-9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f/Cargo.lock",
+                "./pizauth-pizauth-1.0.2/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-08-19",
+        "date": null,
         "extract": null,
         "name": "pizauth",
         "passthru": null,
@@ -116,11 +116,11 @@
             "name": null,
             "owner": "ltratt",
             "repo": "pizauth",
-            "rev": "9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f",
-            "sha256": "sha256-8wW9nf1YW9tfPuEE6JQTPeXdzrZCKP+1Zmo/B0dG38E=",
+            "rev": "pizauth-1.0.2",
+            "sha256": "sha256-mRUN/e3Zh2HzMyZfSt0qb5eY5QJO/I+LTOuhszBunNk=",
             "type": "github"
         },
-        "version": "9c2ed02861d17ec911a221c2b9b1c2edf7bcf68f"
+        "version": "pizauth-1.0.2"
     },
     "slack": {
         "cargoLocks": null,
@@ -131,11 +131,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-h2x8BX42HdiTQiQEWOs++fuxzCfjOQRGiSPYnbeX3j8=",
+            "sha256": "sha256-5e+GwVTnhZ4/+NyeIN/35onbg6GqTNoX+BXec3VLKYQ=",
             "type": "url",
-            "url": "https://downloads.slack-edge.com/releases/linux/4.34.115/prod/x64/slack-desktop-4.34.115-amd64.deb"
+            "url": "https://downloads.slack-edge.com/releases/linux/4.34.121/prod/x64/slack-desktop-4.34.121-amd64.deb"
         },
-        "version": "4.34.115"
+        "version": "4.34.121"
     },
     "sloth": {
         "cargoLocks": null,
@@ -191,11 +191,11 @@
             "name": null,
             "owner": "kubeshop",
             "repo": "testkube",
-            "rev": "v1.14.3",
-            "sha256": "sha256-tFHfjyOaeMwHUeV0vWyZr0fHaqhU30LAnmjz+OR/krA=",
+            "rev": "v1.15.9",
+            "sha256": "sha256-0o8upbC1Hte4nHrCEqpGYSVxUO/c1RvOIYWGwZP0XTQ=",
             "type": "github"
         },
-        "version": "v1.14.3"
+        "version": "v1.15.9"
     },
     "tilt": {
         "cargoLocks": null,
@@ -211,10 +211,10 @@
             "name": null,
             "owner": "tilt-dev",
             "repo": "tilt",
-            "rev": "v0.33.5",
-            "sha256": "sha256-o78PoIKj+0FvZRpm0AqtUq3N9a9/LDYc7DIPZgSZe4s=",
+            "rev": "v0.33.6",
+            "sha256": "sha256-WtE8ExUKFRtdYeg0+My/DB+L/qT+J1EaKHKChNjC5oI=",
             "type": "github"
         },
-        "version": "v0.33.5"
+        "version": "v0.33.6"
     }
 }

@@ -56,6 +56,38 @@ in {
   };
 
   config = {
+    stylix.image = /home/jboyens/Downloads/vhs.png;
+    stylix.polarity = "dark";
+    stylix.base16Scheme = "${inputs.base16-schemes}/catppuccin-mocha.yaml";
+    stylix.fonts = {
+      serif = {
+        package = inputs.nixpkgs.iosevka-bin.override {variant = "etoile";};
+        name = "Iosevka Etoile";
+      };
+
+      sansSerif = {
+        package = inputs.nixpkgs.iosevka-bin.override {variant = "aile";};
+        name = "Iosevka Aile";
+      };
+
+      monospace = {
+        package = inputs.nixpkgs.iosevka-bin;
+        name = "Iosevka";
+      };
+
+      emoji = {
+        package = inputs.nixpkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
+
+    stylix.fonts.sizes = {
+      applications = 12;
+      desktop = 12;
+      terminal = 10;
+      popups = 10;
+    };
+
     styling = {
       image = /home/jboyens/Downloads/vhs.png;
 

@@ -170,9 +170,11 @@ in {
       credential."https://github.com".helper = "!gh auth git-credential";
       credential."https://gist.github.com".helper = "!gh auth git-credential";
 
-      diff.algorithm = "histogram";
-      diff.lisp.xfuncname = "^(((;;;+ )|\\(|([ 	]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
-      diff.org.xfuncname = "^(\\*+ +.*)$";
+      diff = {
+        algorithm = "histogram";
+        lisp.xfuncname = "^(((;;;+ )|\\(|([ 	]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
+        org.xfuncname = "^(\\*+ +.*)$";
+      };
 
       github.user = "jboyens";
 

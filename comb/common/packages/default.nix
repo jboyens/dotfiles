@@ -30,4 +30,7 @@ in
       "swaync"
     ]
     ++ cell.lib.optional (!stdenv.isDarwin) "fuzzel")
-  // {gnupg = callPackage ./gnupg {};}
+  // {
+    gnupg = callPackage ./gnupg {};
+    devpod-cli = callPackage ./devpod-cli.nix {};
+  }

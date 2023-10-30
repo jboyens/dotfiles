@@ -267,13 +267,13 @@ in {
   # HYPRLAND {{{
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.hyprland;
 
     # SETTINGS {{{
     settings = {
       monitor = [
-        "eDP-1,preferred,0x0,1"
-        ",preferred,auto,1"
+        # "eDP-1,preferred,0x0,1"
+        "DP-4,preferred,0x0,1"
+        "DP-3,preferred,3840x0,1"
       ];
 
       # INPUT {{{
@@ -309,34 +309,30 @@ in {
       # EXEC {{{
       exec = [
         "hyprctl setcursor ${cursor-theme} ${toString cursor-size}"
-        "configure-gtk set org.gnome.desktop.interface cursor-theme '${cursor-theme}'"
-        "configure-gtk set org.gnome.desktop.interface cursor-size ${toString cursor-size}"
+        "${configure-gtk} set org.gnome.desktop.interface cursor-theme '${cursor-theme}'"
+        "${configure-gtk} set org.gnome.desktop.interface cursor-size ${toString cursor-size}"
 
         # "kvantummanager --set ${gtk-theme}"
-        "configure-gtk set org.gnome.desktop.interface icon-theme '${icon-theme}'"
-        "configure-gtk set org.gnome.desktop.interface gtk-theme '${gtk-theme}'"
-        "configure-gtk set org.gnome.desktop.interface color-scheme '${color-scheme}'"
+        "${configure-gtk} set org.gnome.desktop.interface icon-theme '${icon-theme}'"
+        "${configure-gtk} set org.gnome.desktop.interface gtk-theme '${gtk-theme}'"
+        "${configure-gtk} set org.gnome.desktop.interface color-scheme '${color-scheme}'"
 
-        "configure-gtk set org.gnome.desktop.interface font-name '${font-name}"
-        "configure-gtk set org.gnome.desktop.interface document-font-name '${document-font-name}'"
-        "configure-gtk set org.gnome.desktop.interface monospace-font-name '${monospace-font-name}'"
-        "configure-gtk set org.gnome.desktop.interface font-antialiasing '${font-antialiasing}'"
-        "configure-gtk set org.gnome.desktop.interface font-hinting '${font-hinting}'"
+        "${configure-gtk} set org.gnome.desktop.interface font-name '${font-name}"
+        "${configure-gtk} set org.gnome.desktop.interface document-font-name '${document-font-name}'"
+        "${configure-gtk} set org.gnome.desktop.interface monospace-font-name '${monospace-font-name}'"
+        "${configure-gtk} set org.gnome.desktop.interface font-antialiasing '${font-antialiasing}'"
+        "${configure-gtk} set org.gnome.desktop.interface font-hinting '${font-hinting}'"
       ];
       # }}}
 
       # ENV {{{
       env = [
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "__GL_VRR_ALLOWED,1"
-        "WLR_NO_HARDWARE_CURSORS,1"
         "WLR_DRM_NO_ATOMIC,1"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "GDK_BACKEND,wayland"
-        "QT_QPA_PLATFORM=wayland"
+        "QT_QPA_PLATFORM,wayland"
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "QT_AUTO_SCALE_SCREEN_FACTOR,1"
@@ -351,8 +347,8 @@ in {
         gaps_out = 8;
         border_size = 2;
 
-        "col.active_border" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
-        "col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
+        #"col.active_border" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
+        #"col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
 
         resize_on_border = true;
 
@@ -435,15 +431,15 @@ in {
         meh = "CONTROL ALT SHIFT";
         hyper = "CONTROL ALT SHIFT SUPER";
 
-        bracketleft = "code:20";
-        bracketright = "code:21";
-        q = "code:53";
-        slash = "code:34";
-        h = "code:44";
-        k = "code:55";
-        j = "code:54";
-        l = "code:33";
-        f = "code:29";
+        bracketleft = "code:34";
+        bracketright = "code:35";
+        q = "code:24";
+        slash = "code:61";
+        h = "code:43";
+        k = "code:45";
+        j = "code:44";
+        l = "code:46";
+        f = "code:41";
         grave = "code:49";
         backslash = "code:51";
       in [

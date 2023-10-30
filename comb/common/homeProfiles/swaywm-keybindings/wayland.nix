@@ -55,7 +55,7 @@ in {
 
       # "${super}+space" = "exec $DOTFILES/bin/appmenu";
       "${super}+space" = "exec rofi -show drun";
-      # "${super}+Tab" = "exec rofi -show window";
+      "${super}+Tab" = "exec rofi -show window";
       "${super}+Slash" = "exec rofi -show filebrowser";
 
       # "${super}+p" = "exec $DOTFILES/bin/rofi/bwmenu";
@@ -144,11 +144,11 @@ in {
 
       "--no-repeat --release ${hyper}+m" = "exec $HOME/sd/mute/slack";
 
-      "${super}+Control+Shift+space" = "exec persway stack-main-rotate-next";
-      "${super}+Shift+Tab" = "exec persway stack-focus-prev";
-      "${super}+Tab" = "exec persway stack-focus-next";
-      "${super}+c" = "exec persway change-layout stack-main --size 70 --stack-layout tiled";
-      "${super}+Control+space" = "exec persway stack-swap-main";
+      # "${super}+Control+Shift+space" = "exec persway stack-main-rotate-next";
+      # "${super}+Shift+Tab" = "exec persway stack-focus-prev";
+      # "${super}+Tab" = "exec persway stack-focus-next";
+      # "${super}+c" = "exec persway change-layout stack-main --size 70 --stack-layout tiled";
+      # "${super}+Control+space" = "exec persway stack-swap-main";
       # bindsym Mod4+v exec ${inputs.persway.persway} change-layout manual
       # bindsym Mod4+x exec ${inputs.persway.persway} change-layout stack-main --size 70
       # bindsym Mod4+z exec ${inputs.persway.persway} change-layout spiral

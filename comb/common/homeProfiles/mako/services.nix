@@ -43,7 +43,7 @@ in {
     padding = "20,16";
     width = 440;
 
-    backgroundColor = colors.withHashtag.base00;
+    backgroundColor = colors.withHashtag.base00 + "FF";
     borderColor = colors.withHashtag.base0D;
     textColor = colors.withHashtag.base05;
     progressColor = "over ${colors.withHashtag.base02}";

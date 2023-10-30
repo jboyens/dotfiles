@@ -13,7 +13,7 @@ in {
       main = {
         pad = "10x10";
         dpi-aware = lib.mkForce "yes";
-        font = "${fonts.monospace.name}:size=${toString fontSizes.terminal},Symbols Nerd Font Mono:size=${toString fontSizes.terminal}";
+        # font = "${fonts.monospace.name}:size=${toString fontSizes.terminal},Symbols Nerd Font Mono:size=${toString fontSizes.terminal}";
       };
 
       colors = {

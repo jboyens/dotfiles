@@ -15,7 +15,7 @@ in
       imports = [inputs.std.std.devshellProfiles.default];
 
       packages = with nixpkgs; [
-        nixVersions.nix_2_16
+        nixVersions.unstable
         statix
         rnix-lsp
         nixfmt
