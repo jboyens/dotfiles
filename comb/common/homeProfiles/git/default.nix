@@ -17,6 +17,33 @@ in {
 
   programs.zsh.initExtra = ''
     ### git aliases
+    alias cdg='cd `git rev-parse --show-toplevel`'
+    alias git="noglob git"
+    alias ga="git add"
+    alias gap="git add --patch"
+    alias gb="git branch -av"
+    alias gop="git open"
+    alias gbl="git blame"
+    alias gc="git commit"
+    alias gcm="git commit -m"
+    alias gca="git commit --amend"
+    alias gcf="git commit --fixup"
+    alias gcl="git clone"
+    alias gco="git checkout"
+    alias gcoo="git checkout --"
+    alias gf="git fetch"
+    alias gi="git init"
+    alias gl='git log --graph --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'
+    alias gll='git log --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'
+    alias gL="gl --stat"
+    alias gp="git push"
+    alias gpl="git pull --rebase --autostash"
+    alias gs="git status --short ."
+    alias gss="git status"
+    alias gst="git stash"
+    alias gr="git reset HEAD"
+    alias gv="git rev-parse"
+
     g() { [[ $# = 0 ]] && git status --short . || git $*; }
 
     # fzf
@@ -71,33 +98,6 @@ in {
 
       up = "push";
       down = "pull";
-
-      cdg = "cd `git rev-parse --show-toplevel`";
-      git = "noglob git";
-      ga = "git add";
-      gap = "git add --patch";
-      gb = "git branch -av";
-      gop = "git open";
-      gbl = "git blame";
-      gc = "git commit";
-      gcm = "git commit -m";
-      gca = "git commit --amend";
-      gcf = "git commit --fixup";
-      gcl = "git clone";
-      gco = "git checkout";
-      gcoo = "git checkout --";
-      gf = "git fetch";
-      gi = "git init";
-      gl = ''git log --graph --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'';
-      gll = ''git log --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'';
-      gL = "gl --stat";
-      gp = "git push";
-      gpl = "git pull --rebase --autostash";
-      gs = "git status --short .";
-      gss = "git status";
-      gst = "git stash";
-      gr = "git reset HEAD";
-      gv = "git rev-parse";
     };
 
     attributes = [
@@ -169,6 +169,7 @@ in {
       core.whitespace = "trailing-space";
       credential."https://github.com".helper = "!gh auth git-credential";
       credential."https://gist.github.com".helper = "!gh auth git-credential";
+      credential."https://gitlab.com".helper = "!glab auth git-credential";
 
       diff = {
         algorithm = "histogram";

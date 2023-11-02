@@ -8,7 +8,7 @@
 
   # 2023-08-31 -- issues w/ 6.5.0
   # 2023-10-23 -- issues w/ 6.6.0-rc7 -- fail to start decryption
-  # kernel = nixpkgs-unstable.linuxPackages_testing;
+  # kernel = nixpkgs-unstable.linuxPackages_latest;
   kernel = inputs.nixpkgs.linuxPackages_latest;
   lib = nixpkgs.lib // builtins;
 
