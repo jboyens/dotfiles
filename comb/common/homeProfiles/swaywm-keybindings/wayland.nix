@@ -1,12 +1,11 @@
 {
-  inputs,
   cell,
   config,
   ...
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
 
-  lib = builtins // inputs.nixpkgs.lib // cell.lib;
+  lib = builtins // cell.pkgs.lib // cell.lib;
 
   super = "Mod4";
   alt = "Mod1";
@@ -127,14 +126,14 @@ in {
       "${super}+${control}+Up" = "resize shrink height 40 px";
       "${super}+${control}+Right" = "resize shrink width 40 px";
 
-      "XF86AudioPlay" = "exec ${nixpkgs.playerctl}/bin/playerctl play";
-      "XF86AudioPause" = "exec ${nixpkgs.playerctl}/bin/playerctl play-pause";
-      "XF86AudioStop" = "exec ${nixpkgs.playerctl}/bin/playerctl stop";
-      "XF86AudioPrev" = "exec ${nixpkgs.playerctl}/bin/playerctl previous";
-      "XF86AudioNext" = "exec ${nixpkgs.playerctl}/bin/playerctl next";
+      "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play";
+      "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+      "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
+      "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+      "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
 
-      "XF86MonBrightnessUp" = "exec ${nixpkgs.brightnessctl}/bin/brightness_ctl set +10% && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
-      "XF86MonBrightnessDown" = "exec ${nixpkgs.brightnessctl}/bin/brightness_ctl set 10%- && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
+      "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightness_ctl set +10% && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
+      "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightness_ctl set 10%- && $DOTFILES/bin/brightnessctl_perc > $SWAYSOCK.wob";
 
       "XF86AudioRaiseVolume" = "exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob";
       "XF86AudioLowerVolume" = "exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob";

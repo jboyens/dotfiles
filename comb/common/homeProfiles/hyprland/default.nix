@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
   inherit (config) styling;
 
   theme = "Catppuccin-Mocha";
@@ -20,19 +20,19 @@
   font-antialiasing = "rgba";
   font-hinting = "full";
 
-  configure-gtk = nixpkgs.writeTextFile {
+  configure-gtk = pkgs.writeTextFile {
     name = "configure-gtk";
     destination = "/bin/configure-gtk";
     executable = true;
     text = let
-      schema = nixpkgs.gsettings-desktop-schemas;
+      schema = pkgs.gsettings-desktop-schemas;
       datadir = "${schema}/share/gsettings-schemas/${schema.name}";
     in ''
       export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
       gnome_schema=$2
       setting=$3
       value=$4
-      ${nixpkgs.glib}/bin/gsettings set $gnome_schema $setting '$value'
+      ${pkgs.glib}/bin/gsettings set $gnome_schema $setting '$value'
     '';
   };
 in {
@@ -302,7 +302,7 @@ in {
 
       # EXEC-ONCE {{{
       exec-once = [
-        "${nixpkgs.swww}/bin/swww init"
+        "${pkgs.swww}/bin/swww init"
       ];
       # }}}
 
@@ -429,7 +429,7 @@ in {
       bind = let
         mod = "SUPER";
         meh = "CONTROL ALT SHIFT";
-        hyper = "CONTROL ALT SHIFT SUPER";
+        #hyper = "CONTROL ALT SHIFT SUPER";
 
         bracketleft = "code:34";
         bracketright = "code:35";
@@ -520,9 +520,9 @@ in {
   };
 
   home.packages = [
-    nixpkgs.swww
-    nixpkgs.glib
-    nixpkgs.bibata-cursors
-    nixpkgs.tela-circle-icon-theme
+    pkgs.swww
+    pkgs.glib
+    pkgs.bibata-cursors
+    pkgs.tela-circle-icon-theme
   ];
 }

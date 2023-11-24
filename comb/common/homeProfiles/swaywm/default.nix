@@ -1,8 +1,8 @@
-{inputs, ...}: let
-  inherit (inputs) nixpkgs;
+{cell, ...}: let
+  inherit (cell) pkgs;
 in {
   home.packages = [
-    nixpkgs.dotool
+    pkgs.dotool
   ];
 
   systemd.user.services.dotoold = {
@@ -11,8 +11,8 @@ in {
     };
 
     Service = {
-      Environment = "PATH=${nixpkgs.coreutils}/bin:$PATH";
-      ExecStart = "${nixpkgs.dotool}/bin/dotoold";
+      Environment = "PATH=${pkgs.coreutils}/bin:$PATH";
+      ExecStart = "${pkgs.dotool}/bin/dotoold";
       Restart = "on-failure";
     };
 
@@ -47,7 +47,7 @@ in {
       export XDG_CURRENT_DESKTOP=sway
       export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
       export NIXOS_OZONE_WL=1
-      export XCURSOR_PATH=${nixpkgs.dracula-icon-theme}/share/icons
+      export XCURSOR_PATH=${pkgs.dracula-icon-theme}/share/icons
       export XCURSOR_THEME=Dracula
       export WLR_DRM_NO_MODIFIERS=1
     '';
@@ -118,7 +118,7 @@ in {
 
       startup = [
         {
-          command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${nixpkgs.wob}/bin/wob";
+          command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${pkgs.wob}/bin/wob";
           always = false;
         }
         # {
@@ -126,15 +126,15 @@ in {
         #   always = false;
         # }
         {
-          command = "${nixpkgs.swayr}/bin/swayrd";
+          command = "${pkgs.swayr}/bin/swayrd";
           always = false;
         }
         {
-          command = "${nixpkgs.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
+          command = "${pkgs.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
           always = false;
         }
         {
-          command = "${nixpkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           always = false;
         }
       ];

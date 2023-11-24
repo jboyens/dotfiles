@@ -1,17 +1,14 @@
-{
-  inputs,
-  cell,
-}: let
-  inherit (inputs) nixpkgs;
+{cell, ...}: let
+  inherit (cell) pkgs;
 in {
   fontDir.enable = true;
   enableGhostscriptFonts = true;
   enableDefaultPackages = true;
-  packages = with nixpkgs; [
-    (inputs.nixpkgs.iosevka-bin.override {variant = "etoile";})
-    (inputs.nixpkgs.iosevka-bin.override {variant = "aile";})
-    inputs.cells.common.packages.pragmasevka
-    inputs.nixpkgs.noto-fonts-emoji
+  packages = with pkgs; [
+    (pkgs.iosevka-bin.override {variant = "etoile";})
+    (pkgs.iosevka-bin.override {variant = "aile";})
+    cell.packages.pragmasevka
+    pkgs.noto-fonts-emoji
 
     ubuntu_font_family
     dejavu_fonts

@@ -6,7 +6,7 @@
 in rec {
   default = install-iso;
   install-iso = nixosGenerate {
-    pkgs = inputs.nixpkgs;
+    inherit (cell) pkgs;
     modules =
       [{isoImage.isoName = cell.lib.mkForce "laptop.iso";}]
       ++ inputs.cells.homebase.nixosSuites.default;

@@ -1,9 +1,9 @@
 {
-  inputs,
   cell,
+  config,
+  ...
 }: let
-  inherit (config.styling) colors;
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
 
   cfg = config.programs.rofi;
 in {
@@ -26,8 +26,8 @@ in {
   };
 
   home.packages = [
-    (nixpkgs.rofi-wayland.override {
-      plugins = with nixpkgs; [
+    (pkgs.rofi-wayland.override {
+      plugins = with pkgs; [
         rofi-calc
         rofi-emoji
         rofi-file-browser

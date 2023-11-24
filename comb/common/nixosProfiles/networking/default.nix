@@ -2,9 +2,9 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
 
-  lib = cell.lib // nixpkgs.lib;
+  lib = cell.lib // pkgs.lib;
 in {
   systemd.network.networks = let
     networkConfig = {

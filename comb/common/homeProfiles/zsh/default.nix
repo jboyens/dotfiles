@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  lib = builtins // inputs.nixpkgs.lib // cell.lib;
+  lib = builtins // cell.pkgs.lib // cell.lib;
 in {
   xdg.configFile = {
     "zsh/completions/" = {

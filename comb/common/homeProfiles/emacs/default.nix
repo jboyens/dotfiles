@@ -1,8 +1,9 @@
 {
-  inputs,
   cell,
+  config,
+  ...
 }: let
-  inherit (inputs) nixpkgs emacs-overlay;
+  inherit (cell) pkgs;
 
   # https://github.com/nix-community/emacs-overlay/issues/312
   # myEmacs = pkgs.emacsUnstablePgtk.overrideAttrs (prev: {
@@ -17,9 +18,10 @@
   # myEmacsPkg = emacs-overlay.packages.emacs-unstable-pgtk.overrideAttrs (prev: {
   #   passthru = prev.passthru // {treeSitter = true;};
   # });
-  myEmacsPkg = nixpkgs.emacs29-pgtk;
+  myEmacsPkg = pkgs.emacs29-pgtk;
+  # myEmacsPkg = pkgs.emacs29.override {toolkit = "lucid";};
 
-  myEmacs = (nixpkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
+  myEmacs = (pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
     epkgs.vterm
     epkgs.parinfer-rust-mode
     epkgs.treesit-grammars.with-all-grammars
@@ -39,7 +41,7 @@ in {
     ### end aliases
   '';
 
-  home.packages = with nixpkgs; [
+  home.packages = with pkgs; [
     ## Emacs itself
     binutils # native-comp needs 'as', provided by this
     # 29 + pgtk + native-comp

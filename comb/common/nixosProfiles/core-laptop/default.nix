@@ -1,8 +1,5 @@
-{
-  inputs,
-  cell,
-}: let
-  inherit (inputs) nixpkgs;
+{cell, ...}: let
+  inherit (cell) pkgs;
 in {
   # tlp = {
   #   enable = true;
@@ -48,8 +45,8 @@ in {
   programs.adb.enable = true;
 
   services.udev.packages = [
-    nixpkgs.android-udev-rules
-    nixpkgs.solo2-cli
+    pkgs.android-udev-rules
+    pkgs.solo2-cli
   ];
 
   # Clean up leftovers, as much as we can
@@ -81,7 +78,7 @@ in {
       export XDG_CURRENT_DESKTOP=sway
       export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
       export NIXOS_OZONE_WL=1
-      export XCURSOR_PATH=${nixpkgs.dracula-icon-theme}/share/icons
+      export XCURSOR_PATH=${pkgs.dracula-icon-theme}/share/icons
       export XCURSOR_THEME=Dracula
       export WLR_DRM_NO_MODIFIERS=1
     '';
@@ -95,15 +92,15 @@ in {
         output_name = "DP-4";
         max_fps = 30;
         chooser_type = "simple";
-        chooser_cmd = "${nixpkgs.slurp}/bin/slurp -f %o -or";
+        chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
       };
     };
   };
-  # extraPortals = with nixpkgs; [xdg-desktop-portal-gtk];
+  # extraPortals = with pkgs; [xdg-desktop-portal-gtk];
 
   programs.thunar = {
     enable = true;
-    plugins = with nixpkgs.xfce; [
+    plugins = with pkgs.xfce; [
       thunar-archive-plugin
       thunar-volman
     ];
@@ -114,11 +111,11 @@ in {
   programs.dconf.enable = true;
 
   programs.wireshark.enable = true;
-  programs.wireshark.package = nixpkgs.wireshark;
+  programs.wireshark.package = pkgs.wireshark;
 
   services.atd.enable = true;
 
-  services.dbus.packages = [nixpkgs.gcr];
+  services.dbus.packages = [pkgs.gcr];
   services.upower.enable = true;
 
   programs.hyprland = {

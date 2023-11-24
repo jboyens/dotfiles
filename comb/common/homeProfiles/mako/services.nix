@@ -1,11 +1,11 @@
 {
-  inputs,
   cell,
   config,
+  ...
 }: let
   inherit (config.styling) colors fonts fontSizes;
 
-  lib = builtins // inputs.nixpkgs.lib // cell.lib;
+  lib = builtins // cell.pkgs.lib // cell.lib;
 
   iconPath = let
     basePaths = [

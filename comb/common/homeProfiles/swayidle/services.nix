@@ -2,8 +2,8 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (nixpkgs) sway swaylock;
+  inherit (cell) pkgs;
+  inherit (pkgs) sway swaylock;
 in {
   swayidle = {
     enable = true;

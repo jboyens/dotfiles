@@ -1,11 +1,10 @@
 {
-  inputs,
   cell,
   config,
   ...
 }: let
-  inherit (config.styling) colors fonts fontSizes;
-  lib = builtins // inputs.nixpkgs.lib // cell.lib;
+  inherit (config.styling) colors;
+  lib = builtins // cell.pkgs.lib // cell.lib;
 in {
   programs.foot = {
     enable = true;

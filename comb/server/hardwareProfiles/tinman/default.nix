@@ -2,10 +2,10 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (inputs.cells.common) pkgs;
 
-  kernel = nixpkgs.linuxPackages_latest;
-  lib = nixpkgs.lib // builtins;
+  kernel = pkgs.linuxPackages_latest;
+  lib = pkgs.lib // builtins;
 
   defaults = {
     hardware.enableRedistributableFirmware = true;

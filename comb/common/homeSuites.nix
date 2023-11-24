@@ -25,7 +25,7 @@ in {
     homeProfiles.devenv
     homeProfiles.foot
     homeProfiles.gpg
-    homeProfiles.wlsunset
+    # homeProfiles.wlsunset
     homeProfiles.rofi
     homeProfiles.gtk
     homeProfiles.script-directory

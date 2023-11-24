@@ -1,16 +1,15 @@
 {
-  inputs,
   cell,
   config,
   ...
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (nixpkgs) makeDesktopItem;
+  inherit (cell) pkgs;
+  inherit (pkgs) makeDesktopItem;
 
-  lib = builtins // nixpkgs.lib // cell.lib;
+  lib = builtins // pkgs.lib // cell.lib;
 
-  wrappedFF = nixpkgs.firefox-bin.override {
-    nativeMessagingHosts = with nixpkgs; [passff-host tridactyl-native];
+  wrappedFF = pkgs.firefox-bin.override {
+    nativeMessagingHosts = with pkgs; [passff-host tridactyl-native];
   };
 
   extraConfig = "";
@@ -209,7 +208,7 @@ in {
 
     cfgPath = ".mozilla/firefox";
   in {
-    ".mozilla/native-messaging-hosts/tridactyl.json".source = "${nixpkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
+    ".mozilla/native-messaging-hosts/tridactyl.json".source = "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
 
     "${cfgPath}/profiles.ini".text = ''
       [Profile0]

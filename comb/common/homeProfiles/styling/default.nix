@@ -3,13 +3,14 @@
   cell,
   ...
 }: let
-  inherit (inputs) nixpkgs base16;
+  inherit (cell) pkgs;
+  inherit (inputs) base16;
 
-  lib = builtins // nixpkgs.lib // cell.lib;
+  lib = builtins // pkgs.lib // cell.lib;
 
   scheme =
     (base16.lib {
-      pkgs = nixpkgs;
+      pkgs = pkgs;
       inherit lib;
     })
     .mkSchemeAttrs "${inputs.base16-schemes}/catppuccin-mocha.yaml";
@@ -61,22 +62,22 @@ in {
     stylix.base16Scheme = "${inputs.base16-schemes}/catppuccin-mocha.yaml";
     stylix.fonts = {
       serif = {
-        package = inputs.nixpkgs.iosevka-bin.override {variant = "etoile";};
+        package = pkgs.iosevka-bin.override {variant = "etoile";};
         name = "Iosevka Etoile";
       };
 
       sansSerif = {
-        package = inputs.nixpkgs.iosevka-bin.override {variant = "aile";};
+        package = pkgs.iosevka-bin.override {variant = "aile";};
         name = "Iosevka Aile";
       };
 
       monospace = {
-        package = inputs.nixpkgs.iosevka-bin;
+        package = pkgs.iosevka-bin;
         name = "Iosevka";
       };
 
       emoji = {
-        package = inputs.nixpkgs.noto-fonts-emoji;
+        package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
     };
@@ -95,12 +96,12 @@ in {
 
       fonts = {
         serif = {
-          package = inputs.nixpkgs.iosevka-bin.override {variant = "etoile";};
+          package = pkgs.iosevka-bin.override {variant = "etoile";};
           name = "Iosevka Etoile";
         };
 
         sansSerif = {
-          package = inputs.nixpkgs.iosevka-bin.override {variant = "aile";};
+          package = pkgs.iosevka-bin.override {variant = "aile";};
           name = "Iosevka Aile";
         };
 
@@ -110,7 +111,7 @@ in {
         };
 
         emoji = {
-          package = inputs.nixpkgs.noto-fonts-emoji;
+          package = pkgs.noto-fonts-emoji;
           name = "Noto Color Emoji";
         };
       };

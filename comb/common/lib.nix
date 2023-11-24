@@ -2,6 +2,6 @@
   inputs,
   cell,
 }: let
-  lib = inputs.nixpkgs.lib // builtins;
+  lib = cell.pkgs.lib // builtins;
 in
   lib

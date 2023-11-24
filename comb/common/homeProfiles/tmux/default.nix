@@ -1,8 +1,9 @@
 {
-  inputs,
   cell,
+  config,
+  ...
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
 in {
   # Use a stable profile name so we can target it in themes
   xdg.configFile = {
@@ -134,7 +135,7 @@ in {
       bind -T copy-mode-vi H send-keys -X start-of-line
       bind -T copy-mode-vi L send-keys -X end-of-line
     '';
-    plugins = with nixpkgs; [
+    plugins = with pkgs; [
       {
         plugin = tmuxPlugins.catppuccin.overrideAttrs (oa: {
           version = "unstable-2023-08-28";

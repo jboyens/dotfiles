@@ -2,15 +2,15 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (inputs.cells.common) pkgs;
 
   # nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
 
   # 2023-08-31 -- issues w/ 6.5.0
   # 2023-10-23 -- issues w/ 6.6.0-rc7 -- fail to start decryption
   # kernel = nixpkgs-unstable.linuxPackages_latest;
-  kernel = inputs.nixpkgs.linuxPackages_latest;
-  lib = nixpkgs.lib // builtins;
+  kernel = pkgs.linuxPackages_latest;
+  lib = pkgs.lib // builtins;
 
   defaults = {
     hardware.enableRedistributableFirmware = true;
@@ -39,9 +39,9 @@ in {
       "cryptd"
       "thunderbolt"
     ];
-    initrd.kernelModules = ["i915" "dm-snapshot"];
+    initrd.kernelModules = ["dm-snapshot"];
 
-    blacklistedKernelModules = ["iTCO_wdt" "nouveau" "nvidia"];
+    blacklistedKernelModules = ["iTCO_wdt" "nouveau"];
     extraModulePackages = with kernel; [acpi_call];
     kernelModules = ["kvm-intel"];
 
@@ -61,8 +61,6 @@ in {
   };
   services = {
     thermald.enable = true;
-
-    # xserver.videoDrivers = ["nvidia"];
 
     # thunderbolt
     hardware.bolt.enable = true;
@@ -99,29 +97,41 @@ in {
     #  inputs.ipu6-nix.packages.ipu6-camera-bins
     #];
 
-    # nvidia
     opengl = {
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
 
-      extraPackages = with nixpkgs; [
-        intel-media-driver
+      extraPackages = with pkgs; [
+        mesa_drivers
+        intel-ocl
+        vaapiIntel
         vaapiVdpau
+        intel-media-driver
         libvdpau-va-gl
+        intel-compute-runtime
       ];
     };
+  };
 
-    # nvidia = {
-    #   modesetting.enable = true;
-    #   powerManagement.enable = true;
-    #   # open = true;
-    #   nvidiaSettings = true;
-    #   prime = {
-    #     intelBusId = "PCI:0:2:0";
-    #     nvidiaBusId = "PCI:1:0:0";
-    #   };
-    # };
+  specialisation = {
+    nvidia.configuration = {
+      services.xserver.videoDrivers = ["nvidia"];
+      system.nixos.tags = ["nvidia"];
+
+      hardware.nvidia = {
+        modesetting.enable = true;
+        powerManagement.enable = false;
+        powerManagement.finegrained = false;
+        open = false;
+        nvidiaSettings = true;
+        prime = {
+          sync.enable = true;
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
+      };
+    };
   };
 
   security.pam.services = {

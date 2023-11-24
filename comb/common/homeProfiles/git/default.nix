@@ -2,17 +2,17 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
 in {
   home.packages = [
-    nixpkgs.gitAndTools.git-annex
-    nixpkgs.gitAndTools.gh
-    nixpkgs.gitAndTools.git-open
-    nixpkgs.gitAndTools.diff-so-fancy
-    nixpkgs.gitAndTools.git-crypt
-    nixpkgs.gitAndTools.git-sync
-    nixpkgs.gitAndTools.git-delete-merged-branches
-    nixpkgs.git-imerge
+    pkgs.gitAndTools.git-annex
+    pkgs.gitAndTools.gh
+    pkgs.gitAndTools.git-open
+    pkgs.gitAndTools.diff-so-fancy
+    pkgs.gitAndTools.git-crypt
+    pkgs.gitAndTools.git-sync
+    pkgs.gitAndTools.git-delete-merged-branches
+    pkgs.git-imerge
   ];
 
   programs.zsh.initExtra = ''
@@ -88,7 +88,7 @@ in {
 
   programs.git = {
     enable = true;
-    package = nixpkgs.gitAndTools.gitFull;
+    package = pkgs.gitAndTools.gitFull;
     aliases = {
       unadd = "reset HEAD";
       ranked-authors = "!git authors | sort | uniq -c | sort -n";

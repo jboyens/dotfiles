@@ -2,8 +2,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-  lib = cell.lib // nixpkgs.lib;
+  lib = cell.lib // cell.pkgs.lib;
 
   # Hive or Std or Paisano or something treats nixpkgs as "special"
   # this breaks nixpkgs.outPath so we've got to filter it

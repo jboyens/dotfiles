@@ -1,9 +1,7 @@
 {
   inputs,
   cell,
-}: let
-  inherit (inputs) nixpkgs;
-in {
+}: {
   gtk = {
     enable = true;
 

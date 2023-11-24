@@ -1,11 +1,11 @@
 {
   inputs,
   cell,
+  config,
+  ...
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (inputs.nixpkgs) writeScriptBin;
-
-  lib = cell.lib // nixpkgs.lib;
+  inherit (cell) pkgs;
+  inherit (pkgs) writeScriptBin;
 in {
   programs.ssh.startAgent = true;
   programs.zsh.enable = true;
@@ -40,7 +40,7 @@ in {
     export PATH=$DOTFILES_BIN:$PATH
   '';
 
-  environment.systemPackages = with inputs.nixpkgs; [
+  environment.systemPackages = with pkgs; [
     bind
     binutils
     bottom
@@ -73,7 +73,7 @@ in {
 
     docker
     docker-compose
-    nixpkgs.solo2-cli
+    pkgs.solo2-cli
     (writeScriptBin "lxc-build-nixos-image" ''
       #!/usr/bin/env nix-shell
       #!nix-shell -i bash -p nixos-generators
@@ -91,5 +91,30 @@ in {
     virt-manager
   ];
 
+  # services.openiscsi.enable = true;
+  # services.openiscsi.name = "iqn.2020-08.org.linux-iscsi:chappie";
+  # services.openiscsi.discoverPortal = "192.168.86.34";
+  #
+  # services.multipath.enable = true;
+  # services.multipath.devices = [
+  #   {
+  #     vendor = "Synology";
+  #     product = "LUN";
+  #   }
+  # ];
+  # services.multipath.pathGroups = [
+  # ];
+
   environment.pathsToLink = ["/share/zsh"];
+
+  system.activationScripts.diff = {
+    supportsDryActivation = true;
+    text = ''
+      if [[ -e /run/current-system ]]; then
+        echo "--- diff to current-system"
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${config.nix.package}/bin diff /run/current-system "$systemConfig"
+        echo "---"
+      fi
+    '';
+  };
 }

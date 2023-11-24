@@ -2,11 +2,8 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (nixpkgs) stdenv;
-  inherit (cell) lib;
-
-  packages = with nixpkgs; [statix nil nixfmt nixpkgs-fmt alejandra];
+  inherit (cell) pkgs lib;
+  inherit (pkgs) stdenv;
 in
   lib.mapAttrs (_: inputs.std.lib.dev.mkShell) {
     default = _: {
@@ -14,7 +11,7 @@ in
 
       imports = [inputs.std.std.devshellProfiles.default];
 
-      packages = with nixpkgs; [
+      packages = with pkgs; [
         nixVersions.unstable
         statix
         rnix-lsp

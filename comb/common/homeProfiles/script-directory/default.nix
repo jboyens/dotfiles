@@ -1,9 +1,9 @@
 {
-  inputs,
+  cell,
   config,
   ...
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
 in {
   programs.script-directory = {
     enable = true;
@@ -16,7 +16,7 @@ in {
 
   programs.zsh = {
     initExtra = ''
-      fpath+="${nixpkgs.script-directory}/share/zsh/site-functions"
+      fpath+="${pkgs.script-directory}/share/zsh/site-functions"
     '';
   };
 }

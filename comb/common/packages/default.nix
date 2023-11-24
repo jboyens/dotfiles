@@ -2,8 +2,8 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (nixpkgs) callPackage stdenv;
+  inherit (cell) pkgs;
+  inherit (pkgs) callPackage stdenv;
 
   l = cell.lib // builtins;
 

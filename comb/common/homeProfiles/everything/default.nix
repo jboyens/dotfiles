@@ -4,13 +4,28 @@
   config,
   ...
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (cell) pkgs;
 
-  lib = cell.lib // nixpkgs.lib // builtins;
+  nixpkgs-unstable = import inputs.nixpkgs-unstable {
+    system = "x86_64-linux";
 
-  my = inputs.cells.common.packages;
+    overlays = [
+      inputs.nixpkgs-wayland.overlay
+      inputs.emacs-overlay.overlay
+      inputs.hyprland.overlays.default
+    ];
 
-  work-cloud = with nixpkgs; [
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = pkg: true;
+    };
+  };
+
+  lib = cell.lib // pkgs.lib // builtins;
+
+  my = cell.packages;
+
+  work-cloud = with pkgs; [
     go-jsonnet
     # broken 2023-08-18
     # hadolint
@@ -29,16 +44,16 @@
     # sloth
   ];
 
-  google-cloud = with nixpkgs; [
+  google-cloud = with pkgs; [
     (google-cloud-sdk.withExtraComponents [
       google-cloud-sdk.components.gke-gcloud-auth-plugin
       google-cloud-sdk.components.config-connector
       google-cloud-sdk.components.terraform-tools
     ])
-    # cloud-sql-proxy
+    google-cloud-sql-proxy
   ];
 
-  postgres = with nixpkgs; [
+  postgres = with pkgs; [
     postgresql
     pgcenter
   ];
@@ -49,7 +64,7 @@ in {
 
   xdg.enable = true;
 
-  home.packages = with nixpkgs;
+  home.packages = with pkgs;
     [
       # ripgrep
       sudo
@@ -90,14 +105,14 @@ in {
 
       element-desktop
       signal-desktop
-      beeper
-      slack
+      nixpkgs-unstable.beeper
+      nixpkgs-unstable.slack
       (makeDesktopItem {
         name = "Slack (WebRTC)";
         desktopName = "Slack (WebRTC)";
         genericName = "Open Slack w/ WebRTC";
         icon = "slack";
-        exec = "${nixpkgs.slack}/bin/slack --enable-features=WebRTCPipeWireCapturer %U";
+        exec = "${pkgs.slack}/bin/slack --enable-features=WebRTCPipeWireCapturer %U";
         categories = ["Network"];
       })
       zoom-us
@@ -110,7 +125,6 @@ in {
         categories = ["Network"];
       })
 
-      brave
       chromium
 
       evince
@@ -140,7 +154,7 @@ in {
       xfce.thunar
 
       qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
-      libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
+      # libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
       paper-icon-theme
 
       xdg-utils
@@ -283,11 +297,6 @@ in {
       wofi
       # my.swaywindow
     ]
-    ++ [
-      # inputs.persway.packages.persway
-      # i3status-rust
-      # foot
-    ]
     ++ work-cloud
     ++ google-cloud
     ++ postgres;
@@ -307,7 +316,7 @@ in {
     MACHINE_STORAGE_PATH = "${config.xdg.dataHome}/docker/machine";
 
     QT_QPA_PLATFORMTHEME = "gnome";
-    QT_STYLE_OVERRIDE = "kvantum";
+    # QT_STYLE_OVERRIDE = "kvantum";
     USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
 
     EDITOR = "nvim";
@@ -326,8 +335,8 @@ in {
 
     Service = {
       Type = "notify";
-      ExecStart = "${nixpkgs.maestral}/bin/maestral start -f -c %i";
-      ExecStop = "${nixpkgs.maestral}/bin/maestral stop";
+      ExecStart = "${pkgs.maestral}/bin/maestral start -f -c %i";
+      ExecStop = "${pkgs.maestral}/bin/maestral stop";
       WatchdogSec = "30s";
     };
 
@@ -361,7 +370,7 @@ in {
     enable = true;
     viAlias = true;
     vimAlias = true;
-    plugins = with nixpkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
       dracula-nvim
     ];
     extraLuaConfig = ''

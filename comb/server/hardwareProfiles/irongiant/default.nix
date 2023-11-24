@@ -2,8 +2,8 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (nixpkgs) lib;
+  inherit (inputs.cells.common) pkgs;
+  inherit (pkgs) lib;
 in {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-cpu-intel
@@ -16,7 +16,7 @@ in {
   boot = {
     initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid"];
     initrd.kernelModules = ["dm-snapshot"];
-    kernelPackages = nixpkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = ["kvm-intel"];
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU

@@ -124,7 +124,8 @@
     # lib = inputs.nixpkgs.lib // builtins;
     collect = hive.collect // {renamer = cell: target: "${target}";};
   in
-    hive.growOn {
+    hive.growOn
+    {
       inherit inputs;
 
       cellsFrom = ./comb;
@@ -183,7 +184,8 @@
       #     "nvidia-settings"
       #     "nvidia-persistenced"
       #   ];
-    } {
+    }
+    {
       checks = inputs.namaka.lib.load {
         src = ./tests;
         inputs = {
@@ -192,7 +194,8 @@
           lib = builtins // inputs.nixpkgs.lib // std.pick self ["common" "lib"];
         };
       };
-    } {
+    }
+    {
       lib = std.pick self ["common" "lib"];
       devShells = std.harvest self ["common" "devshells"];
       packages = std.harvest self [
@@ -201,7 +204,8 @@
       ];
       pkgs = std.harvest self ["common" "pkgs"];
       # homeModules = std.harvest self ["homebase" "homeModules"];
-    } {
+    }
+    {
       nixosConfigurations = collect self "nixosConfigurations";
       nixosProfiles = std.harvest self [
         ["common" "nixosProfiles"]

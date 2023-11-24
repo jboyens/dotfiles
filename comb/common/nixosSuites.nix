@@ -1,9 +1,7 @@
 {
   inputs,
   cell,
-}: let
-  lib = builtins // inputs.nixpkgs.lib // cell.lib;
-in rec {
+}: rec {
   default = [
     cell.nixosProfiles.core
     cell.nixosProfiles.networking

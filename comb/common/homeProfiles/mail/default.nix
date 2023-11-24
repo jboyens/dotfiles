@@ -2,21 +2,21 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs nixpkgs-unstable;
-  inherit (inputs.cells.common.packages) pizauth isync-oauth2;
+  inherit (cell) pkgs;
+  inherit (cell.packages) pizauth isync-oauth2;
 in {
   home.packages = [
-    nixpkgs.mu
-    nixpkgs.offlineimap
-    nixpkgs.age
+    pkgs.mu
+    pkgs.offlineimap
+    pkgs.age
 
-    nixpkgs.imapfilter
-    nixpkgs-unstable.legacyPackages.x86_64-linux.msmtp
-    (nixpkgs.writeScriptBin "mu-reindex" ''
+    pkgs.imapfilter
+    pkgs.msmtp
+    (pkgs.writeScriptBin "mu-reindex" ''
       if [ -f /tmp/mu4e_lock ]; then
-        ${nixpkgs.coreutils-full}/bin/touch /tmp/mu_reindex_now
+        ${pkgs.coreutils-full}/bin/touch /tmp/mu_reindex_now
       else
-        ${nixpkgs.mu}/bin/mu index --lazy-check
+        ${pkgs.mu}/bin/mu index --lazy-check
       fi
     '')
 
@@ -35,7 +35,7 @@ in {
         };
 
         Service = {
-          Environment = "PATH=${nixpkgs.libnotify}/bin:${nixpkgs.age}/bin:$PATH";
+          Environment = "PATH=${pkgs.libnotify}/bin:${pkgs.age}/bin:$PATH";
           ExecStart = "${pizauth}/bin/pizauth server -dvc %h/.config/pizauth.conf";
           Restart = "always";
           RestartSec = "30";
@@ -52,8 +52,8 @@ in {
         };
 
         Service = {
-          Environment = "PATH=${isync-oauth2}/bin:${nixpkgs.mu}/bin:${pizauth}/bin:$PATH";
-          ExecStart = "${nixpkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
+          Environment = "PATH=${isync-oauth2}/bin:${pkgs.mu}/bin:${pizauth}/bin:$PATH";
+          ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
           Restart = "always";
           RestartSec = "30";
         };
@@ -69,8 +69,8 @@ in {
         };
 
         Service = {
-          Environment = "PATH=${isync-oauth2}/bin:${nixpkgs.mu}/bin:${pizauth}/bin:$PATH";
-          ExecStart = "${nixpkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
+          Environment = "PATH=${isync-oauth2}/bin:${pkgs.mu}/bin:${pizauth}/bin:$PATH";
+          ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
           Restart = "always";
           RestartSec = "30";
         };
