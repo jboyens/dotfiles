@@ -17,9 +17,7 @@
           };
 
           icons_format = "{icon} ";
-          icons = {
-            icons = "awesome5";
-          };
+          icons.icons = "awesome5";
         };
         theme = "dracula";
 

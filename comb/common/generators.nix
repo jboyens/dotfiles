@@ -8,8 +8,13 @@ in rec {
   install-iso = nixosGenerate {
     inherit (cell) pkgs;
     modules =
-      [{isoImage.isoName = cell.lib.mkForce "laptop.iso";}]
-      ++ inputs.cells.homebase.nixosSuites.default;
+      [
+        {
+          isoImage.isoName = cell.lib.mkForce "laptop.iso";
+          virtualisation.docker.enableNvidia = cell.lib.mkForce false;
+        }
+      ]
+      ++ inputs.cells.laptop.nixosSuites.default;
     format = "install-iso";
   };
 }

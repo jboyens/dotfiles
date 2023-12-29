@@ -1,14 +1,10 @@
 {cell, ...}: let
   inherit (cell) pkgs;
 in {
-  home.packages = [
-    pkgs.dotool
-  ];
+  home.packages = [pkgs.dotool];
 
   systemd.user.services.dotoold = {
-    Install = {
-      WantedBy = ["sway-session.target"];
-    };
+    Install = {WantedBy = ["sway-session.target"];};
 
     Service = {
       Environment = "PATH=${pkgs.coreutils}/bin:$PATH";

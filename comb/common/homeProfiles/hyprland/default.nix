@@ -1,40 +1,9 @@
 {
   inputs,
   cell,
-  config,
   ...
 }: let
   inherit (cell) pkgs;
-  inherit (config) styling;
-
-  theme = "Catppuccin-Mocha";
-
-  gtk-theme = "Catppucin-Mocha-Standard-Blue-dark";
-  cursor-theme = "Bibata-Modern-Ice";
-  cursor-size = 20;
-  icon-theme = "Tela-circle-dracula";
-  color-scheme = "prefer-dark";
-  font-name = "${styling.fonts.sansSerif.name} ${toString styling.fontSizes.desktop}";
-  document-font-name = "${styling.fonts.sansSerif.name} ${toString styling.fontSizes.applications}";
-  monospace-font-name = "${styling.fonts.monospace.name} ${toString styling.fontSizes.terminal}";
-  font-antialiasing = "rgba";
-  font-hinting = "full";
-
-  configure-gtk = pkgs.writeTextFile {
-    name = "configure-gtk";
-    destination = "/bin/configure-gtk";
-    executable = true;
-    text = let
-      schema = pkgs.gsettings-desktop-schemas;
-      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-    in ''
-      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-      gnome_schema=$2
-      setting=$3
-      value=$4
-      ${pkgs.glib}/bin/gsettings set $gnome_schema $setting '$value'
-    '';
-  };
 in {
   # WAYBAR {{{
   programs.waybar = {
@@ -49,26 +18,11 @@ in {
         passthrough = false;
         gtk-layer-shell = true;
 
-        modules-left = [
-          "cpu"
-          "memory"
-          "temperature"
-          "wireplumber"
-          "wlr/taskbar"
-          "mpris"
-        ];
+        modules-left = ["cpu" "memory" "temperature" "wireplumber" "wlr/taskbar" "mpris"];
 
-        modules-center = [
-          "wlr/workspaces"
-        ];
+        modules-center = ["hyprland/workspaces"];
 
-        modules-right = [
-          "idle_inhibitor"
-          "network"
-          "battery"
-          "tray"
-          "clock"
-        ];
+        modules-right = ["idle_inhibitor" "network" "battery" "tray" "clock"];
 
         battery = {
           format = "  {icon}  {capacity}%";
@@ -134,9 +88,7 @@ in {
             default = "▶";
             mpv = "🎵";
           };
-          status-icons = {
-            paused = "⏸";
-          };
+          status-icons = {paused = "⏸";};
         };
 
         network = {
@@ -151,9 +103,7 @@ in {
 
         wireplumber = {
           format = " {icon} {volume}% ";
-          format-icons = {
-            default = ["" ""];
-          };
+          format-icons = {default = ["" ""];};
           format-muted = "";
           on-click = "/nix/store/8bipiqr1j2rsnx79jzdazw40fcp7dfhh-pavucontrol-5.0/bin/pavucontrol";
         };
@@ -163,10 +113,18 @@ in {
           max-length = 120;
         };
 
-        "wlr/workspaces" = {
+        "hyprland/workspaces" = {
+          on-click = "activate";
+          active-only = false;
           all-outputs = true;
+          format = "{}";
+          format-icons = {
+            urgent = "";
+            active = "";
+            default = "";
+          };
+
           disable-scroll = true;
-          format = "{name}";
         };
 
         "wlr/taskbar" = {
@@ -177,9 +135,7 @@ in {
           tooltip-format = "{title}";
           on-click = "activate";
           on-click-middle = "close";
-          ignore-list = [
-            "foot"
-          ];
+          ignore-list = ["foot"];
         };
 
         temperature = {
@@ -271,9 +227,9 @@ in {
     # SETTINGS {{{
     settings = {
       monitor = [
-        # "eDP-1,preferred,0x0,1"
-        "DP-4,preferred,0x0,1"
-        "DP-3,preferred,3840x0,1"
+        "eDP-1,preferred,0x0,1"
+        "DP-5,preferred,0x0,1"
+        "DP-4,preferred,3840x0,1"
       ];
 
       # INPUT {{{
@@ -295,33 +251,16 @@ in {
 
       "device:at-translated-set-2-keyboard" = {
         kb_model = "dell";
-        kb_layout = "us,";
-        kb_variant = "dvorak,";
+        kb_layout = "us";
+        kb_variant = "dvorak";
         kb_options = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
       };
 
-      # EXEC-ONCE {{{
-      exec-once = [
-        "${pkgs.swww}/bin/swww init"
-      ];
-      # }}}
+      exec-once = [''bash -c "swww query || swww init"''];
 
       # EXEC {{{
       exec = [
-        "hyprctl setcursor ${cursor-theme} ${toString cursor-size}"
-        "${configure-gtk} set org.gnome.desktop.interface cursor-theme '${cursor-theme}'"
-        "${configure-gtk} set org.gnome.desktop.interface cursor-size ${toString cursor-size}"
-
-        # "kvantummanager --set ${gtk-theme}"
-        "${configure-gtk} set org.gnome.desktop.interface icon-theme '${icon-theme}'"
-        "${configure-gtk} set org.gnome.desktop.interface gtk-theme '${gtk-theme}'"
-        "${configure-gtk} set org.gnome.desktop.interface color-scheme '${color-scheme}'"
-
-        "${configure-gtk} set org.gnome.desktop.interface font-name '${font-name}"
-        "${configure-gtk} set org.gnome.desktop.interface document-font-name '${document-font-name}'"
-        "${configure-gtk} set org.gnome.desktop.interface monospace-font-name '${monospace-font-name}'"
-        "${configure-gtk} set org.gnome.desktop.interface font-antialiasing '${font-antialiasing}'"
-        "${configure-gtk} set org.gnome.desktop.interface font-hinting '${font-hinting}'"
+        "$DOTFILES/bin/laptop.sh"
       ];
       # }}}
 
@@ -336,49 +275,48 @@ in {
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "QT_AUTO_SCALE_SCREEN_FACTOR,1"
-        "XCURSOR_THEME,${cursor-theme}"
-        "XCURSOR_SIZE,${toString cursor-size}"
       ];
       # }}}
 
       # GENERAL {{{
       general = {
-        gaps_in = 3;
-        gaps_out = 8;
-        border_size = 2;
+        gaps_in = 10;
+        gaps_out = 14;
+        border_size = 3;
 
-        #"col.active_border" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
-        #"col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
+        resize_on_border = false;
 
-        resize_on_border = true;
-
-        layout = "master";
+        layout = "dwindle";
       };
       # }}}
 
       # MISC {{{
       misc = {
-        vfr = "true";
-        vrr = 0;
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        allow_session_lock_restore = true;
       };
       # }}}
 
       # DECORATION {{{
       decoration = {
         rounding = 10;
-        # multisample_edges = true;
-        drop_shadow = false;
+        drop_shadow = true;
 
         blur = {
           enabled = true;
-          passes = 3;
+          passes = 2;
           size = 6;
           new_optimizations = "on";
           ignore_opacity = "on";
-          xray = false;
+          xray = true;
         };
+
+        active_opacity = 1.0;
+        inactive_opacity = 0.8;
+        fullscreen_opacity = 1.0;
       };
       # }}}
 
@@ -393,22 +331,28 @@ in {
 
       # ANIMATIONS {{{
       animations = {
-        enabled = "yes";
+        enabled = "true";
+
         bezier = [
-          "wind, 0.05, 0.9, 0.1, 1.05"
-          "winIn, 0.1, 1.1, 0.1, 1.1"
-          "winOut, 0.3, -0.3, 0, 1"
-          "liner, 1, 1, 1, 1"
+          "linear, 0, 0, 1, 1"
+          "md3_standard, 0.2, 0, 0, 1"
+          "md3_decel, 0.05, 0.7, 0.1, 1"
+          "md3_accel, 0.3, 0, 0.8, 0.15"
+          "overshot, 0.05, 0.9, 0.1, 1.1"
+          "crazyshot, 0.1, 1.5, 0.76, 0.92"
+          "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
+          "fluent_decel, 0.1, 1, 0, 1"
+          "easeInOutCirc, 0.85, 0, 0.15, 1"
+          "easeOutCirc, 0, 0.55, 0.45, 1"
+          "easeOutExpo, 0.16, 1, 0.3, 1"
         ];
+
         animation = [
-          "windows, 1, 6, wind, slide"
-          "windowsIn, 1, 6, winIn, slide"
-          "windowsOut, 1, 5, winOut, slide"
-          "windowsMove, 1, 5, wind, slide"
-          "border, 1, 1, liner"
-          "borderangle, 1, 30, liner, loop"
-          "fade, 1, 10, default"
-          "workspaces, 1, 5, wind"
+          "windows, 1, 3, md3_decel, popin 60%"
+          "border, 1, 10, default"
+          "fade, 1, 2.5, md3_decel"
+          "workspaces, 1, 3.5, easeOutExpo, slide"
+          "specialWorkspace, 1, 3, md3_decel, slidevert"
         ];
       };
       # }}}
@@ -418,77 +362,88 @@ in {
         no_gaps_when_only = 2;
       };
 
+      dwindle = {
+        preserve_split = true;
+        smart_split = true;
+        no_gaps_when_only = 1;
+      };
+
       # BINDS {{{
       bindm = let
-        mod = "SUPER";
-      in [
-        "${mod}, mouse:272, movewindow"
-        "${mod}, mouse:273, resizewindow"
+        mod = "SUPER_L";
+      in ["${mod}, mouse:272, movewindow" "${mod}, mouse:273, resizewindow"];
+
+      bindl = [
+        ",switch:Lid Switch,exec,$DOTFILES/bin/laptop.sh"
       ];
 
       bind = let
-        mod = "SUPER";
+        mod = "SUPER_L";
         meh = "CONTROL ALT SHIFT";
         #hyper = "CONTROL ALT SHIFT SUPER";
-
-        bracketleft = "code:34";
-        bracketright = "code:35";
-        q = "code:24";
-        slash = "code:61";
-        h = "code:43";
-        k = "code:45";
-        j = "code:44";
-        l = "code:46";
-        f = "code:41";
-        grave = "code:49";
-        backslash = "code:51";
       in [
-        "${mod}, RETURN, exec, foot bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\""
-        "${mod} CONTROL, RETURN, exec, foot"
-        "${mod}, ${bracketleft}, workspace, e-1"
-        "${mod}, ${bracketright}, workspace, e+1"
-        "${mod}, ${q}, killactive,"
-        "${mod}, SPACE, exec, rofi -show drun"
-        "${mod}, TAB, exec, rofi -show window"
-        "${mod}, ${slash}, exec, rofi -show filebrowser"
+        ''
+          ${mod}, Return, exec, foot bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"''
+        "${mod} CONTROL, Return, exec, foot"
+        "${mod}, bracketleft, workspace, e-1"
+        "${mod}, bracketright, workspace, e+1"
+        "${mod}, q, killactive,"
+        "${mod}, space, exec, rofi -show drun"
+        "${mod}, Tab, exec, rofi -show window"
+        "${mod}, slash, exec, rofi -show filebrowser"
+        "${mod} CONTROL, slash, exec, firefox"
 
-        "${meh}, ${h}, movecurrentworkspacetomonitor, l"
-        "${meh}, ${j}, movecurrentworkspacetomonitor, d"
-        "${meh}, ${k}, movecurrentworkspacetomonitor, u"
-        "${meh}, ${l}, movecurrentworkspacetomonitor, r"
+        "${meh}, h, movecurrentworkspacetomonitor, l"
+        "${meh}, j, movecurrentworkspacetomonitor, d"
+        "${meh}, k, movecurrentworkspacetomonitor, u"
+        "${meh}, l, movecurrentworkspacetomonitor, r"
 
-        "${mod} SHIFT, DOWN, movewindow, d"
-        "${mod} SHIFT, LEFT, movewindow, l"
-        "${mod} SHIFT, RIGHT, movewindow, r"
-        "${mod} SHIFT, UP, movewindow, u"
+        "${mod} SHIFT, Down, movewindow, d"
+        "${mod} SHIFT, Left, movewindow, l"
+        "${mod} SHIFT, Right, movewindow, r"
+        "${mod} SHIFT, Up, movewindow, u"
 
-        "${mod} SHIFT, ${h}, movewindow, l"
-        "${mod} SHIFT, ${k}, movewindow, u"
-        "${mod} SHIFT, ${j}, movewindow, d"
-        "${mod} SHIFT, ${l}, movewindow, r"
+        "${mod} SHIFT, h, movewindow, l"
+        "${mod} SHIFT, j, movewindow, d"
+        "${mod} SHIFT, k, movewindow, u"
+        "${mod} SHIFT, l, movewindow, r"
 
-        "${mod}, ${h}, movefocus, l"
-        "${mod}, ${k}, movefocus, u"
-        "${mod}, ${j}, movefocus, d"
-        "${mod}, ${l}, movefocus, r"
+        "${mod}, h, movefocus, l"
+        "${mod}, k, movefocus, u"
+        "${mod}, j, movefocus, d"
+        "${mod}, l, movefocus, r"
 
-        "${mod} SHIFT, SPACE, togglefloating,"
-        "${mod}, ${f}, togglefloating,"
-        "${mod} CONTROL, ${f}, fullscreen, 1"
+        "${mod}, f, togglefloating,"
+        "${mod} CONTROL, f, fullscreen, 1"
 
-        "${mod}, DOWN, resizeactive, 0 -40"
-        "${mod}, LEFT, resizeactive, -40 0"
-        "${mod}, RIGHT, resizeactive, -40 0"
-        "${mod}, UP, resizeactive, 0 -40"
+        "${mod}, Down, resizeactive, 0 -40"
+        "${mod}, Left, resizeactive, -40 0"
+        "${mod}, Right, resizeactive, -40 0"
+        "${mod}, Up, resizeactive, 0 -40"
 
-        "${mod} CONTROL, DOWN, resizeactive, 0 40"
-        "${mod} CONTROL, LEFT, resizeactive, 40 0"
-        "${mod} CONTROL, RIGHT, resizeactive, 40 0"
-        "${mod} CONTROL, UP, resizeactive, 0 40"
+        "${mod} CONTROL, Down, resizeactive, 0 40"
+        "${mod} CONTROL, Left, resizeactive, 40 0"
+        "${mod} CONTROL, Right, resizeactive, 40 0"
+        "${mod} CONTROL, Up, resizeactive, 0 40"
 
-        "${mod} SHIFT, ${grave}, exec, emacsclient -n -c -e '(doom/open-scratch-buffer)'"
+        "${mod} SHIFT, grave, exec, emacsclient -n -c -e '(doom/open-scratch-buffer)'"
 
-        "${mod}, ${backslash}, exec, firefox"
+        "${mod}, backslash, exec, firefox"
+
+        "CONTROL SHIFT,space,pass,^(Slack)$"
+
+        ",XF86AudioPlay,exec,${pkgs.playerctl}/bin/playerctl play"
+        ",XF86AudioPause,exec,${pkgs.playerctl}/bin/playerctl play-pause"
+        ",XF86AudioStop,exec,${pkgs.playerctl}/bin/playerctl stop"
+        ",XF86AudioPrev,exec,${pkgs.playerctl}/bin/playerctl previous"
+        ",XF86AudioNext,exec,${pkgs.playerctl}/bin/playerctl next"
+
+        ",XF86MonBrightnessUp,exec,${pkgs.brightnessctl}/bin/brightness_ctl set +10%"
+        ",XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightness_ctl set 10%-"
+
+        ",XF86AudioRaiseVolume,exec,pamixer -ui 2"
+        ",XF86AudioLowerVolume,exec,pamixer -ud 2"
+        ",XF86AudioMute,exec,pamixer -t"
       ];
       # }}}
     };
@@ -498,31 +453,17 @@ in {
     extraConfig = ''
       # workspaces
       # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-      ${builtins.concatStringsSep "\n" (builtins.genList (
-          x: let
-            ws = let
-              c = (x + 1) / 10;
-            in
-              builtins.toString (x + 1 - (c * 10));
-          in ''
-            bind = SUPER, ${ws}, workspace, ${toString (x + 1)}
-            bind = SUPER SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
-          ''
-        )
+      ${builtins.concatStringsSep "\n" (builtins.genList (x: let
+          ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
+        in ''
+          bind = SUPER, ${ws}, workspace, ${toString (x + 1)}
+          bind = SUPER SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
+        '')
         10)}
     '';
     # }}}
   };
   # }}}
 
-  xdg.configFile = {
-    "hypr/themes/theme.conf".source = ./_themes + "/${theme}.conf";
-  };
-
-  home.packages = [
-    pkgs.swww
-    pkgs.glib
-    pkgs.bibata-cursors
-    pkgs.tela-circle-icon-theme
-  ];
+  home.packages = [pkgs.swww];
 }

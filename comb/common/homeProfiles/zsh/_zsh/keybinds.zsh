@@ -27,10 +27,10 @@ if (( $+commands[fzf] )); then
 fi
 
 # Omni-Completion
-if (( $+commands[fasd] )); then
-  bindkey -M viins '^x^f' fasd-complete-f  # C-x C-f to do fasd-complete-f (only files)
-  bindkey -M viins '^x^d' fasd-complete-d  # C-x C-d to do fasd-complete-d (only directories)
-fi
+# if (( $+commands[fasd] )); then
+#   bindkey -M viins '^x^f' fasd-complete-f  # C-x C-f to do fasd-complete-f (only files)
+#   bindkey -M viins '^x^d' fasd-complete-d  # C-x C-d to do fasd-complete-d (only directories)
+# fi
 
 # Completing words in buffer in tmux
 if [ -n "$TMUX" ]; then

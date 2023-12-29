@@ -21,6 +21,7 @@ in {
       allow-loopback-pinentry
     '';
 
-    pinentryFlavor = "gtk2";
+    # pinentryFlavor = "gtk2";
+    pinentryFlavor = "gnome3";
   };
 }

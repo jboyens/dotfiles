@@ -4,91 +4,97 @@
 }: let
   inherit (cell) pkgs;
 in {
-  home.packages = [
-    pkgs.gitAndTools.git-annex
-    pkgs.gitAndTools.gh
-    pkgs.gitAndTools.git-open
-    pkgs.gitAndTools.diff-so-fancy
-    pkgs.gitAndTools.git-crypt
-    pkgs.gitAndTools.git-sync
-    pkgs.gitAndTools.git-delete-merged-branches
+  home.packages = with pkgs.gitAndTools; [
+    git-annex
+    gh
+    git-open
+    diff-so-fancy
+    git-crypt
+    git-sync
+    git-delete-merged-branches
+
     pkgs.git-imerge
   ];
 
-  programs.zsh.initExtra = ''
-    ### git aliases
-    alias cdg='cd `git rev-parse --show-toplevel`'
-    alias git="noglob git"
-    alias ga="git add"
-    alias gap="git add --patch"
-    alias gb="git branch -av"
-    alias gop="git open"
-    alias gbl="git blame"
-    alias gc="git commit"
-    alias gcm="git commit -m"
-    alias gca="git commit --amend"
-    alias gcf="git commit --fixup"
-    alias gcl="git clone"
-    alias gco="git checkout"
-    alias gcoo="git checkout --"
-    alias gf="git fetch"
-    alias gi="git init"
-    alias gl='git log --graph --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'
-    alias gll='git log --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'
-    alias gL="gl --stat"
-    alias gp="git push"
-    alias gpl="git pull --rebase --autostash"
-    alias gs="git status --short ."
-    alias gss="git status"
-    alias gst="git stash"
-    alias gr="git reset HEAD"
-    alias gv="git rev-parse"
+  programs.zsh = {
+    shellAliases = {
+      cdg = "cd `git rev-parse --show-toplevel`";
+      git = "noglob git";
+      ga = "git add";
+      gap = "git add --patch";
+      gb = "git branch -av";
+      gop = "git open";
+      gbl = "git blame";
+      gc = "git commit";
+      gcm = "git commit -m";
+      gca = "git commit --amend";
+      gcf = "git commit --fixup";
+      gcl = "git clone";
+      gco = "git checkout";
+      gcoo = "git checkout --";
+      gf = "git fetch";
+      gi = "git init";
+      gl = ''git log --graph --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'';
+      gll = ''git log --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"a'';
+      gL = "gl --stat";
+      gp = "git push";
+      gpl = "git pull --rebase --autostash";
+      gs = "git status --short .";
+      gss = "git status";
+      gst = "git stash";
+      gr = "git reset HEAD";
+      gv = "git rev-parse";
+    };
 
-    g() { [[ $# = 0 ]] && git status --short . || git $*; }
+    initExtra = ''
+      ### git aliases
+      g() { [[ $# = 0 ]] && git status --short . || git $*; }
 
-    # fzf
-    if (( $+commands[fzf] )); then
-      __git_log () {
-        # format str implies:
-        #  --abbrev-commit
-        #  --decorate
-        git log \
-          --color=always \
-          --graph \
-          --all \
-          --date=short \
-          --format="%C(bold blue)%h%C(reset) %C(green)%ad%C(reset) | %C(white)%s %C(red)[%an] %C(bold yellow)%d"
-      }
+      # fzf
+      if (( $+commands[fzf] )); then
+        __git_log () {
+          # format str implies:
+          #  --abbrev-commit
+          #  --decorate
+          git log \
+            --color=always \
+            --graph \
+            --all \
+            --date=short \
+            --format="%C(bold blue)%h%C(reset) %C(green)%ad%C(reset) | %C(white)%s %C(red)[%an] %C(bold yellow)%d"
+        }
 
-      _fzf_complete_git() {
-        ARGS="$@"
+        _fzf_complete_git() {
+          ARGS="$@"
 
-        # these are commands I commonly call on commit hashes.
-        # cp->cherry-pick, co->checkout
+          # these are commands I commonly call on commit hashes.
+          # cp->cherry-pick, co->checkout
 
-        if [[ $ARGS == 'git cp'* || \
-              $ARGS == 'git cherry-pick'* || \
-              $ARGS == 'git co'* || \
-              $ARGS == 'git checkout'* || \
-              $ARGS == 'git reset'* || \
-              $ARGS == 'git show'* || \
-              $ARGS == 'git log'* ]]; then
-          _fzf_complete "--reverse --multi" "$@" < <(__git_log)
-        else
-          eval "zle ''${fzf_default_completion:-expand-or-complete}"
-        fi
-      }
+          if [[ $ARGS == 'git cp'* || \
+                $ARGS == 'git cherry-pick'* || \
+                $ARGS == 'git co'* || \
+                $ARGS == 'git checkout'* || \
+                $ARGS == 'git reset'* || \
+                $ARGS == 'git show'* || \
+                $ARGS == 'git log'* ]]; then
+            _fzf_complete "--reverse --multi" "$@" < <(__git_log)
+          else
+            eval "zle ''${fzf_default_completion:-expand-or-complete}"
+          fi
+        }
 
-      _fzf_complete_git_post() {
-        sed -e 's/^[^a-z0-9]*//' | awk '{print $1}'
-      }
-    fi
-    ### end aliases
-  '';
+        _fzf_complete_git_post() {
+          sed -e 's/^[^a-z0-9]*//' | awk '{print $1}'
+        }
+      fi
+      ### end git aliases
+    '';
+  };
 
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
+
     aliases = {
       unadd = "reset HEAD";
       ranked-authors = "!git authors | sort | uniq -c | sort -n";
@@ -159,17 +165,22 @@ in {
 
     lfs.enable = true;
 
-    signing.key = "785C9CAE60A7B23F";
-    signing.signByDefault = true;
+    signing = {
+      key = "785C9CAE60A7B23F";
+      signByDefault = true;
+    };
 
     userEmail = "jr.boyens@flexe.com";
     userName = "JR Boyens";
 
     extraConfig = {
       core.whitespace = "trailing-space";
-      credential."https://github.com".helper = "!gh auth git-credential";
-      credential."https://gist.github.com".helper = "!gh auth git-credential";
-      credential."https://gitlab.com".helper = "!glab auth git-credential";
+
+      credential = {
+        "https://github.com".helper = "!gh auth git-credential";
+        "https://gist.github.com".helper = "!gh auth git-credential";
+        "https://gitlab.com".helper = "!glab auth git-credential";
+      };
 
       diff = {
         algorithm = "histogram";
@@ -205,12 +216,14 @@ in {
 
       rerere.enabled = true;
 
-      url."https://github.com/".insteadOf = "gh:";
-      url."git@github.com:".insteadOf = "ssh+gh:";
-      url."git@github.com:jboyens/".insteadOf = "gh:/";
-      url."https://gist.github.com/".insteadOf = "gist:";
-      url."https://gitlab.com/".insteadOf = "gl:";
-      url."git@gitlab.com:".insteadOf = "ssh+gl:";
+      url = {
+        "https://github.com/".insteadOf = "gh:";
+        "git@github.com:".insteadOf = "ssh+gh:";
+        "git@github.com:jboyens/".insteadOf = "gh:/";
+        "https://gist.github.com/".insteadOf = "gist:";
+        "https://gitlab.com/".insteadOf = "gl:";
+        "git@gitlab.com:".insteadOf = "ssh+gl:";
+      };
     };
   };
 }

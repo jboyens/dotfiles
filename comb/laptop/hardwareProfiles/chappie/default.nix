@@ -42,8 +42,8 @@ in {
     initrd.kernelModules = ["dm-snapshot"];
 
     blacklistedKernelModules = ["iTCO_wdt" "nouveau"];
-    extraModulePackages = with kernel; [acpi_call];
-    kernelModules = ["kvm-intel"];
+    extraModulePackages = with kernel; [acpi_call v4l2loopback];
+    kernelModules = ["kvm-intel" "v4l2loopback"];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -57,6 +57,7 @@ in {
     ];
     extraModprobeConfig = ''
       options nfs nfs4_disable_idmapping=0
+      options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
     '';
   };
   services = {
@@ -68,25 +69,18 @@ in {
     # firmware updates
     fwupd = {
       enable = true;
-      extraRemotes = [
-        "lvfs"
-        "lvfs-testing"
-      ];
+      extraRemotes = ["lvfs" "lvfs-testing"];
     };
 
     # fingerprint sensor setup
-    fprintd = {
-      enable = true;
-    };
+    fprintd = {enable = true;};
   };
 
   hardware = {
     # bluetooth
     bluetooth = {
       enable = true;
-      settings = {
-        General.Enable = "Source,Sink,Media,Socket";
-      };
+      settings = {General.Enable = "Source,Sink,Media,Socket";};
     };
 
     # a (failed -- 2023-08-23) attempt at using the internal camera

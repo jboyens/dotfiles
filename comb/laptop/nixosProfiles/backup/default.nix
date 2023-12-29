@@ -1,8 +1,4 @@
-{
-  inputs,
-  cell,
-  ...
-}: let
+{...}: let
   # baseRepo = "sftp://jboyens@192.168.86.34:2223//backup";
   baseRepo = "rest:http://192.168.86.34:8899";
 
@@ -32,6 +28,7 @@ in {
       };
       passwordFile = "/home/jboyens/.secrets/backup.secret";
     };
+
     Mail = {
       user = "jboyens";
       paths = ["/home/jboyens/.mail"];
@@ -43,6 +40,7 @@ in {
       };
       passwordFile = "/home/jboyens/.secrets/backup.secret";
     };
+
     Home = {
       user = "jboyens";
       paths = ["/home/jboyens"];

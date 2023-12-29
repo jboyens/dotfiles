@@ -23,13 +23,13 @@ in {
     [
       hardwareProfiles."${hostName}"
     ]
-    ++ nixosSuites.server;
+    ++ nixosSuites.default;
 
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     users.jboyens = {
-      imports = homeSuites.jboyens;
+      imports = homeSuites.jboyens-basic;
 
       home.stateVersion = "23.11";
     };

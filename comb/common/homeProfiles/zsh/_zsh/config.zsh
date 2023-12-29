@@ -17,8 +17,8 @@ export ZVM_VI_INSERT_ESCAPE_BINDKEY=$ZVM_VI_ESCAPE_BINDKEY
 export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
 
 # fasd
-export _FASD_DATA="$XDG_CACHE_HOME/fasd"
-export _FASD_VIMINFO="$XDG_CACHE_HOME/viminfo"
+# export _FASD_DATA="$XDG_CACHE_HOME/fasd"
+# export _FASD_VIMINFO="$XDG_CACHE_HOME/viminfo"
 
 # fzf
 if (( $+commands[fd] )); then

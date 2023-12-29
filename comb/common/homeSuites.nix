@@ -3,31 +3,36 @@
   cell,
 }: let
   inherit (cell) homeProfiles;
-in {
-  jboyens = [
-    homeProfiles.everything
-    homeProfiles.kanshi
-    homeProfiles.mako
-    homeProfiles.swaywm
-    homeProfiles.swaywm-bars
-    homeProfiles.swaywm-colors
-    homeProfiles.swaywm-keybindings
-    homeProfiles.swaywm-window-commands
-    homeProfiles.swayidle
-    homeProfiles.swaylock
-    homeProfiles.firefox
-    homeProfiles.mail
+in rec {
+  jboyens-basic = [
     homeProfiles.git
     homeProfiles.zsh
     homeProfiles.emacs
     homeProfiles.tmux
-    homeProfiles.hyprland
     homeProfiles.devenv
-    homeProfiles.foot
     homeProfiles.gpg
-    # homeProfiles.wlsunset
-    homeProfiles.rofi
-    homeProfiles.gtk
     homeProfiles.script-directory
   ];
+
+  jboyens =
+    [
+      homeProfiles.everything
+      homeProfiles.kanshi
+      homeProfiles.mako
+      homeProfiles.swaywm
+      homeProfiles.swaywm-bars
+      homeProfiles.swaywm-keybindings
+      homeProfiles.swaywm-window-commands
+      homeProfiles.swayidle
+      homeProfiles.swaylock
+      homeProfiles.firefox-webapp
+      homeProfiles.firefox
+      homeProfiles.mail
+      homeProfiles.hyprland
+      homeProfiles.foot
+      homeProfiles.wlsunset
+      homeProfiles.rofi
+      homeProfiles.gtk
+    ]
+    ++ jboyens-basic;
 }

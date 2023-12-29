@@ -58,7 +58,7 @@ if (( $+commands[eza] )); then
   alias tree='eza --tree'
 fi
 
-if (( $+commands[fasd] )); then
+if (( $+commands[fzf] )); then
   # fuzzy completion with 'z' when called without args
   unalias z 2>/dev/null
   function z {

@@ -48,9 +48,6 @@
       colmena.follows = "colmena";
     };
 
-    namaka.url = "github:nix-community/namaka";
-    namaka.inputs.haumea.follows = "haumea";
-
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -65,7 +62,8 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    nixpkgs-wayland.url = "github:Scrumplex/nixpkgs-wayland/9d959ae12bc3405a704330d7ce06b9e243866a6c";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
     # persway = {
@@ -83,8 +81,12 @@
 
     base16.url = "github:SenchoPens/base16.nix";
 
-    base16-schemes.url = "github:tinted-theming/base16-schemes";
-    base16-schemes.flake = false;
+    # base16-schemes.url = "github:tinted-theming/base16-schemes";
+    # base16-schemes.url = "github:tinted-theming/base16-schemes";
+    # base16-schemes.flake = false;
+
+    catppuccin-base16.url = "github:catppuccin/base16";
+    catppuccin-base16.flake = false;
 
     base16-rofi.url = "github:tinted-theming/base16-rofi";
     base16-rofi.flake = false;
@@ -100,7 +102,7 @@
 
     devenv.url = "github:cachix/devenv";
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/41d218597590a89324a4b7c50cf0bf088a7214ba";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.base16.follows = "base16";
     stylix.inputs.home-manager.follows = "home-manager";
@@ -162,13 +164,13 @@
 
         # devshells
         (devshells "devshells")
-
-        # checks
-        (namaka "checks")
       ];
 
       nixpkgsConfig.allowUnfreePredicate = pkg: true;
       nixpkgsConfig.allowUnfree = true;
+      nixpkgsConfig.permittedInsecurePackages = [
+        "electron-25.9.0"
+      ];
       # nixpkgsConfig.allowUnfreePredicate = pkg:
       #   lib.elem (lib.getName pkg) [
       #     "slack"
@@ -186,20 +188,10 @@
       #   ];
     }
     {
-      checks = inputs.namaka.lib.load {
-        src = ./tests;
-        inputs = {
-          inherit inputs;
-
-          lib = builtins // inputs.nixpkgs.lib // std.pick self ["common" "lib"];
-        };
-      };
-    }
-    {
       lib = std.pick self ["common" "lib"];
       devShells = std.harvest self ["common" "devshells"];
       packages = std.harvest self [
-        # ["common" "generators"]
+        ["common" "generators"]
         ["common" "packages"]
       ];
       pkgs = std.harvest self ["common" "pkgs"];
@@ -207,19 +199,27 @@
     }
     {
       nixosConfigurations = collect self "nixosConfigurations";
-      nixosProfiles = std.harvest self [
+
+      nixosProfiles.common = std.harvest self [
         ["common" "nixosProfiles"]
-        ["homebase" "nixosProfiles"]
+      ];
+
+      nixosProfiles.laptop = std.harvest self [
         ["laptop" "nixosProfiles"]
+      ];
+
+      nixosProfiles.server = std.harvest self [
         ["server" "nixosProfiles"]
       ];
+
       homeConfigurations = collect self "homeConfigurations";
+
       homeProfiles = std.harvest self [
         ["common" "homeProfiles"]
-        ["homebase" "homeProfiles"]
         ["laptop" "homeProfiles"]
         ["server" "homeProfiles"]
       ];
+
       colmenaHive = collect self "colmenaConfigurations";
 
       configFiles = std.harvest self ["common" "configs"];

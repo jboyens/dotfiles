@@ -1,13 +1,19 @@
-{cell, ...}: let
-  inherit (cell) pkgs;
+{
+  inputs,
+  cell,
+  ...
+}: let
+  inherit (inputs.cells.common) pkgs;
 in {
   fontDir.enable = true;
+
   enableGhostscriptFonts = true;
   enableDefaultPackages = true;
+
   packages = with pkgs; [
     (pkgs.iosevka-bin.override {variant = "etoile";})
     (pkgs.iosevka-bin.override {variant = "aile";})
-    cell.packages.pragmasevka
+    inputs.cells.common.packages.pragmasevka
     pkgs.noto-fonts-emoji
 
     ubuntu_font_family

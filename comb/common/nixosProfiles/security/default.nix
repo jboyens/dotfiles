@@ -2,20 +2,24 @@
   inputs,
   cell,
 }: {
-  # Prevent replacing the running kernel w/o reboot
-  security.protectKernelImage = true;
-  security.rtkit.enable = true;
-  security.sudo.extraRules = [
-    {
-      users = ["jboyens"];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/loadkeys";
-          options = ["NOPASSWD"];
-        }
-      ];
-    }
-  ];
+  security = {
+    # Prevent replacing the running kernel w/o reboot
+    protectKernelImage = true;
+
+    rtkit.enable = true;
+
+    sudo.extraRules = [
+      {
+        users = ["jboyens"];
+        commands = [
+          {
+            command = "/run/current-system/sw/bin/loadkeys";
+            options = ["NOPASSWD"];
+          }
+        ];
+      }
+    ];
+  };
 
   boot = {
     # tmpfs = /tmp is mounted in ram. Doing so makes temp file management speedy

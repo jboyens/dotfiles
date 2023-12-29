@@ -1,7 +1,4 @@
 {
   inputs,
   cell,
-}: let
-  lib = cell.pkgs.lib // builtins;
-in
-  lib
+}: let lib = cell.pkgs.lib // builtins; in lib

@@ -77,6 +77,10 @@
         command = "floating enable,,move to position center,,resize set 800 600,,border pixel 3";
         criteria = {title = "^Emacs Everywhere.*";};
       }
+      {
+        command = "resize set width 384px,,focus";
+        criteria = {title = "^Extension: \\(Bitwarden.*";};
+      }
     ];
   };
 }

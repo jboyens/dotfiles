@@ -33,6 +33,12 @@ in {
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
   # CPU
   nix.settings.max-jobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = "performance";

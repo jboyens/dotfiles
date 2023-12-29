@@ -54,37 +54,37 @@
   };
   kustomize = {
     pname = "kustomize";
-    version = "kustomize/v5.2.1";
+    version = "kustomize/v5.3.0";
     src = fetchFromGitHub {
       owner = "kubernetes-sigs";
       repo = "kustomize";
-      rev = "kustomize/v5.2.1";
+      rev = "kustomize/v5.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-NuDg9Vtfxddosi8J7p6+WI2jDM2k16gbWsQcZF27vJo=";
+      sha256 = "sha256-TleO28Q6JaOz1OAJKbvLhN99a841FEhHL15NTMhS1Oc=";
     };
   };
   pizauth = {
     pname = "pizauth";
-    version = "pizauth-1.0.2";
+    version = "pizauth-1.0.3";
     src = fetchFromGitHub {
       owner = "ltratt";
       repo = "pizauth";
-      rev = "pizauth-1.0.2";
+      rev = "pizauth-1.0.3";
       fetchSubmodules = false;
-      sha256 = "sha256-mRUN/e3Zh2HzMyZfSt0qb5eY5QJO/I+LTOuhszBunNk=";
+      sha256 = "sha256-aBaVvEPCnDPXkoUxYucB/C4pXcHwlF9678ieBZ5VL5w=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./pizauth-pizauth-1.0.2/Cargo.lock;
+      lockFile = ./pizauth-pizauth-1.0.3/Cargo.lock;
       outputHashes = {
       };
     };
   };
   slack = {
     pname = "slack";
-    version = "4.34.121";
+    version = "4.35.131";
     src = fetchurl {
-      url = "https://downloads.slack-edge.com/releases/linux/4.34.121/prod/x64/slack-desktop-4.34.121-amd64.deb";
-      sha256 = "sha256-5e+GwVTnhZ4/+NyeIN/35onbg6GqTNoX+BXec3VLKYQ=";
+      url = "https://downloads.slack-edge.com/releases/linux/4.35.131/prod/x64/slack-desktop-4.35.131-amd64.deb";
+      sha256 = "sha256-6/LrMI4HnKuUnVGHipkp/zjEfHRlbi+K3UqZsfYeY1U=";
     };
   };
   sloth = {
@@ -111,24 +111,24 @@
   };
   testkube = {
     pname = "testkube";
-    version = "v1.15.9";
+    version = "v1.16.20";
     src = fetchFromGitHub {
       owner = "kubeshop";
       repo = "testkube";
-      rev = "v1.15.9";
+      rev = "v1.16.20";
       fetchSubmodules = false;
-      sha256 = "sha256-0o8upbC1Hte4nHrCEqpGYSVxUO/c1RvOIYWGwZP0XTQ=";
+      sha256 = "sha256-CgzhCy+fQku377sNO2xD4M4Uy6F3I/tnGMOZfj+3/60=";
     };
   };
   tilt = {
     pname = "tilt";
-    version = "v0.33.6";
+    version = "v0.33.10";
     src = fetchFromGitHub {
       owner = "tilt-dev";
       repo = "tilt";
-      rev = "v0.33.6";
+      rev = "v0.33.10";
       fetchSubmodules = false;
-      sha256 = "sha256-WtE8ExUKFRtdYeg0+My/DB+L/qT+J1EaKHKChNjC5oI=";
+      sha256 = "sha256-LPb2tC3xIGhjiLYkTU+NBIUoqiicO2ORM6Nt1eTnwQs=";
     };
   };
 }

@@ -4,17 +4,13 @@
   ...
 }: let
   inherit (cell) pkgs;
-  inherit (pkgs) makeDesktopItem;
-
-  lib = builtins // pkgs.lib // cell.lib;
 
   wrappedFF = pkgs.firefox-bin.override {
-    nativeMessagingHosts = with pkgs; [passff-host tridactyl-native];
+    nativeMessagingHosts = with pkgs; [
+      tridactyl-native
+    ];
   };
 
-  extraConfig = "";
-
-  profileName = "jboyens";
   settings = {
     # Default to dark theme in DevTools panel
     "devtools.theme" = "dark";
@@ -191,36 +187,30 @@ in {
     BROWSER = "firefox";
   };
 
-  home.packages = [
-    wrappedFF
-    (makeDesktopItem {
-      name = "firefox-private";
-      desktopName = "Firefox (Private)";
-      genericName = "Open a private Firefox window";
-      icon = "firefox";
-      exec = "${wrappedFF}/bin/firefox --private-window";
-      categories = ["Network"];
-    })
-  ];
+  programs.firefox = {
+    enable = true;
+    package = wrappedFF;
 
-  home.file = let
-    inherit profileName;
+    profiles = {
+      default = {
+        inherit settings;
 
-    cfgPath = ".mozilla/firefox";
-  in {
+        path = "jboyens.default";
+        isDefault = true;
+      };
+    };
+
+    # webapps = {
+    #   slack = {
+    #     url = "https://app.slack.com";
+    #     id = 1;
+    #     name = "Slack";
+    #   };
+    # };
+  };
+
+  home.file = {
     ".mozilla/native-messaging-hosts/tridactyl.json".source = "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
-
-    "${cfgPath}/profiles.ini".text = ''
-      [Profile0]
-      Name=default
-      IsRelative=1
-      Path=${profileName}.default
-      Default=1
-
-      [General]
-      StartWithLastProfile=1
-      Version=2
-    '';
 
     ".config/tridactyl/tridactylrc".text = ''
       " Comment toggler for Reddit, Hacker News, and Lobste.rs
@@ -271,23 +261,5 @@ in {
 
       bind zp js window.location.href = 'org-protocol://roam-ref?template=r&ref=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title)
     '';
-
-    "${cfgPath}/${profileName}.default/user.js" = {
-      text = ''
-        ${lib.concatStrings (lib.mapAttrsToList (name: value: ''
-            user_pref("${name}", ${builtins.toJSON value});
-          '')
-          settings)}
-        ${extraConfig}
-      '';
-    };
-
-    "${cfgPath}/${profileName}.default/chrome/userChrome.css" = {
-      text = "";
-    };
-
-    "${cfgPath}/${profileName}.default/chrome/userContent.css" = {
-      text = "";
-    };
   };
 }

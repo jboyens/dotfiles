@@ -2,27 +2,14 @@
   inputs,
   cell,
 }: rec {
+  inherit (inputs.cells) common laptop;
+
   default = [
-    cell.nixosProfiles.core
-    cell.nixosProfiles.networking
-    cell.nixosProfiles.nix
-    cell.nixosProfiles.security
-    cell.nixosProfiles.users
-    cell.nixosProfiles.virtualisation
+    common.nixosProfiles.core
+    common.nixosProfiles.networking
+    common.nixosProfiles.nix
+    common.nixosProfiles.security
+    common.nixosProfiles.users
+    common.nixosProfiles.virtualisation
   ];
-
-  laptop =
-    [
-      cell.nixosProfiles.core-laptop
-      cell.nixosProfiles.backup
-      cell.nixosProfiles.fonts
-      cell.nixosProfiles.pipewire
-      cell.nixosProfiles.tailscale
-    ]
-    ++ default;
-
-  server =
-    [
-    ]
-    ++ default;
 }

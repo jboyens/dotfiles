@@ -36,10 +36,13 @@ in {
 
   networking = {
     useDHCP = false;
+    wireless.enable = false;
     wireless.iwd.enable = true;
     useNetworkd = true;
     domain = "fooninja.org";
 
     firewall.checkReversePath = "loose";
   };
+
+  services.tailscale.enable = true;
 }

@@ -1,25 +1,9 @@
 {
-  inputs,
   cell,
   config,
   ...
 }: let
   inherit (cell) pkgs;
-
-  nixpkgs-unstable = import inputs.nixpkgs-unstable {
-    system = "x86_64-linux";
-
-    overlays = [
-      inputs.nixpkgs-wayland.overlay
-      inputs.emacs-overlay.overlay
-      inputs.hyprland.overlays.default
-    ];
-
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = pkg: true;
-    };
-  };
 
   lib = cell.lib // pkgs.lib // builtins;
 
@@ -105,16 +89,8 @@ in {
 
       element-desktop
       signal-desktop
-      nixpkgs-unstable.beeper
-      nixpkgs-unstable.slack
-      (makeDesktopItem {
-        name = "Slack (WebRTC)";
-        desktopName = "Slack (WebRTC)";
-        genericName = "Open Slack w/ WebRTC";
-        icon = "slack";
-        exec = "${pkgs.slack}/bin/slack --enable-features=WebRTCPipeWireCapturer %U";
-        categories = ["Network"];
-      })
+      beeper
+      slack
       zoom-us
       (makeDesktopItem {
         name = "Google Meet";
@@ -140,7 +116,7 @@ in {
 
       ydotool
 
-      polkit_gnome
+      # polkit_gnome
 
       libqalculate # calculator cli w/ currency conversion
       (makeDesktopItem {
@@ -153,7 +129,7 @@ in {
 
       xfce.thunar
 
-      qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
+      # qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
       # libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
       paper-icon-theme
 
@@ -260,7 +236,7 @@ in {
       # notify-send
       libnotify
 
-      wl-clipboard-x11
+      # wl-clipboard-x11
 
       envsubst
 
@@ -277,24 +253,24 @@ in {
       # markdown-to-confluence
 
       # autotiling
-      fuzzel
-      grim
-      qt5.qtwayland
+      # fuzzel
+      # grim
+      # qt5.qtwayland
       # broken as of 2023-08-11
       # sirula
-      slurp
-      sov
-      sway-contrib.grimshot
-      swaybg
+      # slurp
+      # sov
+      # sway-contrib.grimshot
+      # swaybg
       # swayidle
       # swaylock
-      swayr
-      wayvnc
-      wev
-      wl-clipboard
-      wlr-randr
-      wob
-      wofi
+      # swayr
+      # wayvnc
+      # wev
+      # wl-clipboard
+      # wlr-randr
+      # wob
+      # wofi
       # my.swaywindow
     ]
     ++ work-cloud
@@ -315,7 +291,7 @@ in {
     DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     MACHINE_STORAGE_PATH = "${config.xdg.dataHome}/docker/machine";
 
-    QT_QPA_PLATFORMTHEME = "gnome";
+    # QT_QPA_PLATFORMTHEME = "gnome";
     # QT_STYLE_OVERRIDE = "kvantum";
     USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
 

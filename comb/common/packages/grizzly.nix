@@ -10,7 +10,7 @@ buildGo119Module rec {
 
   version = lib.removePrefix "v" sources.grizzly.version;
 
-  vendorSha256 = "sha256-DDYhdRPcD5hfSW9nRmCWpsrVmIEU1sBoVvFz5Begx8w=";
+  vendorHash = "sha256-DDYhdRPcD5hfSW9nRmCWpsrVmIEU1sBoVvFz5Begx8w=";
 
   CGO_ENABLED = 0;
 

@@ -1,6 +1,7 @@
 {
   inputs,
   cell,
+  ...
 }: let
   pkgs = import inputs.nixpkgs {
     system = "x86_64-linux";
@@ -14,6 +15,9 @@
     config = {
       allowUnfree = true;
       allowUnfreePredicate = pkg: true;
+      permittedInsecurePackages = [
+        "electron-25.9.0"
+      ];
     };
   };
 in

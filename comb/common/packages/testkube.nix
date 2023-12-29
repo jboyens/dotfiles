@@ -8,7 +8,7 @@ buildGoModule {
   inherit (sources.testkube) pname src;
   version = lib.removePrefix "v" sources.testkube.version;
 
-  vendorSha256 = "sha256-SvRGtaD7fRCpjeQ3pnCHNtsss7D87FkknFoEuxHG3nE=";
+  vendorHash = "sha256-09OYhF1Vs8mK9yQkaUSynqx9GYHcHla/ICEtQIuGxxo=";
   doCheck = false;
   subPackages = ["cmd/kubectl-testkube"];
 

@@ -24,7 +24,7 @@ in
         inherit (inputs) nixos-generators;
       in [
         {package = inputs.colmena.packages.colmena;}
-        {package = inputs.namaka.packages.default;}
+        # {package = inputs.namaka.packages.default;}
         {
           category = "general commands";
           name = "fmt";
@@ -57,7 +57,7 @@ in
           category = "nix";
           name = "update";
           help = "Update inputs";
-          command = "nix flake update $PRJ_ROOT $@";
+          command = "nix flake update --flake $PRJ_ROOT $@";
         }
         {
           category = "nix";
@@ -82,6 +82,13 @@ in
           name = "clean";
           help = "Clean result/ dirs";
           command = "(cd $PRJ_ROOT && fd --type symlink -u result -X rm {})";
+        }
+
+        {
+          category = "packages";
+          name = "update-packages";
+          help = "Update packages in this repo";
+          command = "(cd $PRJ_ROOT/comb/common/packages && nix shell github:berberman/nvfetcher --command nvfetcher -c sources.toml -k ~/keyfile.toml)";
         }
       ];
     };

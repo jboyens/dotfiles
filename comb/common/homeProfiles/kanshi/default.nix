@@ -1,17 +1,17 @@
 {config}: let
-  laptop = {
-    name = "eDP-1";
-    mode = "1920x1200@60Hz";
+  left = {
+    name = "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
+    mode = "3840x2160@60Hz";
   };
 
-  left = {
+  center = {
     name = "LG Electronics LG Ultra HD 0x00011A21";
     mode = "3840x2160@60Hz";
   };
 
   right = {
-    name = "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
-    mode = "3840x2160@60Hz";
+    name = "eDP-1";
+    mode = "1920x1200@60Hz";
   };
 in {
   services.kanshi = {
@@ -20,29 +20,31 @@ in {
       Home = {
         outputs = [
           {
-            criteria = laptop.name;
-            status = "disable";
-          }
-          {
             inherit (left) mode;
 
             criteria = left.name;
             position = "0,0";
           }
           {
+            inherit (center) mode;
+
+            criteria = center.name;
+            position = "3840,0";
+          }
+          {
             inherit (right) mode;
 
             criteria = right.name;
-            position = "3840,0";
+            position = "7680,960";
           }
         ];
       };
       Mobile = {
         outputs = [
           {
-            inherit (laptop) mode;
+            inherit (right) mode;
 
-            criteria = laptop.name;
+            criteria = right.name;
             position = "0,0";
             scale = 1.0;
           }
@@ -52,22 +54,22 @@ in {
   };
 
   wayland.windowManager.sway.config.output = {
-    "${laptop.name}" = {
-      inherit (laptop) mode;
-
-      position = "6940,2160";
-    };
-
     "${left.name}" = {
       inherit (left) mode;
 
       position = "0,0";
     };
 
+    "${center.name}" = {
+      inherit (center) mode;
+
+      position = "3840,0";
+    };
+
     "${right.name}" = {
       inherit (right) mode;
 
-      position = "3840,0";
+      position = "7680,960";
     };
   };
 }

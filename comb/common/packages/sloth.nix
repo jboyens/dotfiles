@@ -10,7 +10,7 @@ buildGoModule rec {
 
   version = lib.removePrefix "v" sources.sloth.version;
 
-  vendorSha256 = "sha256-j6qXUQ/Tu3VNQL5xBOHloRn5DH3KG/znCLi1s8RIoL8=";
+  vendorHash = "sha256-j6qXUQ/Tu3VNQL5xBOHloRn5DH3KG/znCLi1s8RIoL8=";
 
   subPackages = ["cmd/sloth"];
 
