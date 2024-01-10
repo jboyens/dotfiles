@@ -32,7 +32,7 @@ in
           command = "nix fmt $PRJ_ROOT";
         }
         (lib.mkIf stdenv.isLinux {
-          package = nixos-generators.packages.nixos-generators;
+          package = nixos-generators.packages.nixos-generate;
           category = "generate";
         })
         {

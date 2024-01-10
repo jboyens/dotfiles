@@ -68,7 +68,11 @@ in {
     '';
   };
   imports =
-    [cell.hardwareProfiles.chappie]
+    [
+      # work around a jankety stylix issue
+      {options.programs = {};}
+      cell.hardwareProfiles.chappie
+    ]
     ++ cell.nixosSuites.default;
 
   boot = {

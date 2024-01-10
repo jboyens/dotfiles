@@ -8,11 +8,14 @@
     [
       inputs.stylix.nixosModules.stylix
       {
-        stylix.targets.gnome.enable = false;
-        stylix.base16Scheme = "${inputs.catppuccin-base16}/base16/frappe.yaml";
-        stylix.image =
-          /home/jboyens/hyprdots/Configs/.config/swww/Catppuccin-Mocha/escape_velocity.jpg;
-        stylix.polarity = "dark";
+        stylix = {
+          targets = {
+            gnome.enable = false;
+          };
+          base16Scheme = "${inputs.catppuccin-base16}/base16/frappe.yaml";
+          image = /home/jboyens/hyprdots/Configs/.config/swww/Catppuccin-Mocha/escape_velocity.jpg;
+          polarity = "dark";
+        };
       }
       cell.nixosProfiles.core
       cell.nixosProfiles.backup

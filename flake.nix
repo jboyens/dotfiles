@@ -7,114 +7,114 @@
   inputs = {
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
-    nixpkgs-unstable.url = "nixpkgs/master"; # for packages on the edge
-    # nixpkgs-unstable.url = "path:/home/jboyens/Workspace/nixpkgs"; # for packages on the edge
-    # nixpkgs-stable.url = "nixpkgs/nixos-22.11";
+    nixpkgs-unstable.url = "nixpkgs/master";
 
-    # flake-parts.url = "github:hercules-ci/flake-parts";
-
-    std.url = "github:divnix/std";
-    std.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      devshell.follows = "devshell";
-      nixago.follows = "nixago";
-      paisano.follows = "paisano";
+    std = {
+      url = "github:divnix/std";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        devshell.follows = "devshell";
+        nixago.follows = "nixago";
+        paisano.follows = "paisano";
+      };
     };
 
-    colmena.url = "github:zhaofengli/colmena";
-    colmena.inputs.nixpkgs.follows = "nixpkgs";
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    haumea.url = "github:nix-community/haumea/v0.2.2";
-    haumea.inputs.nixpkgs.follows = "nixpkgs";
+    haumea = {
+      url = "github:nix-community/haumea/v0.2.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixago.url = "github:nix-community/nixago";
 
     nixos-generators = {
-      url = "github:nix-community/nixos-generators/1.7.0";
+      url = "github:nix-community/nixos-generators/1.8.0";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixlib.follows = "nixpkgs";
+      };
+    };
+
+    paisano = {
+      url = "github:divnix/paisano";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixlib.follows = "nixpkgs";
     };
 
-    paisano.url = "github:divnix/paisano";
-    paisano.inputs.nixpkgs.follows = "nixpkgs";
-
-    hive.url = "github:jboyens/hive";
-    hive.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      paisano.follows = "paisano";
-      colmena.follows = "colmena";
+    hive = {
+      url = "github:divnix/hive";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        paisano.follows = "paisano";
+        colmena.follows = "colmena";
+      };
     };
 
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    nixpkgs-wayland.url = "github:Scrumplex/nixpkgs-wayland/9d959ae12bc3405a704330d7ce06b9e243866a6c";
-    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
-
-    # persway = {
-    #   url = "github:johnae/persway";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     devshell.follows = "devshell";
-    #     dream2nix = {
-    #       url = "github:nix-community/dream2nix/legacy";
-    #       inputs.nixpkgs.follows = "nixpkgs";
-    #       inputs.nixpkgsV1.follows = "nixpkgs";
-    #     };
-    #   };
-    # };
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     base16.url = "github:SenchoPens/base16.nix";
 
-    # base16-schemes.url = "github:tinted-theming/base16-schemes";
-    # base16-schemes.url = "github:tinted-theming/base16-schemes";
-    # base16-schemes.flake = false;
+    catppuccin-base16 = {
+      url = "github:catppuccin/base16";
+      flake = false;
+    };
 
-    catppuccin-base16.url = "github:catppuccin/base16";
-    catppuccin-base16.flake = false;
+    base16-rofi = {
+      url = "github:tinted-theming/base16-rofi";
+      flake = false;
+    };
 
-    base16-rofi.url = "github:tinted-theming/base16-rofi";
-    base16-rofi.flake = false;
+    catppuccin = {
+      url = "github:catppuccin/base16";
+      flake = false;
+    };
 
-    catppuccin.url = "github:catppuccin/base16";
-    catppuccin.flake = false;
-
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-
-    # flexe.url = "git+ssh://git@gitlab.com/flexe/nix-releases";
-    # flexe.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     devenv.url = "github:cachix/devenv";
 
-    stylix.url = "github:danth/stylix/41d218597590a89324a4b7c50cf0bf088a7214ba";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.inputs.base16.follows = "base16";
-    stylix.inputs.home-manager.follows = "home-manager";
-
-    ipu6-nix.url = "github:Mitame/ipu6-nix";
-
-    # comma = {url = "github:nix-community/comma";};
-    # comma.inputs.nixpkgs.follows = "nixpkgs";
-
-    # flexe-flakes.url = "gitlab:flexe/flakes";
-    # flexe-flakes.url = "/home/jboyens/Workspace/flexe-flakes";
-    # flexe-flakes.inputs.nixpkgs.follows = "nixpkgs";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        base16.follows = "base16";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
   outputs = {
@@ -171,21 +171,6 @@
       nixpkgsConfig.permittedInsecurePackages = [
         "electron-25.9.0"
       ];
-      # nixpkgsConfig.allowUnfreePredicate = pkg:
-      #   lib.elem (lib.getName pkg) [
-      #     "slack"
-      #     "spotify"
-      #     "zoom"
-      #     "google-chrome"
-      #     "chromium"
-      #     "chromium-unwrapped"
-      #     "chrome-widevine-cdm"
-      #     "symbola"
-      #     "ttf-envy-code-r"
-      #     "nvidia-x11"
-      #     "nvidia-settings"
-      #     "nvidia-persistenced"
-      #   ];
     }
     {
       lib = std.pick self ["common" "lib"];

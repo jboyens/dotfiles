@@ -9,7 +9,7 @@
     overlays = [
       inputs.nixpkgs-wayland.overlay
       inputs.emacs-overlay.overlay
-      inputs.hyprland.overlays.default
+      # inputs.hyprland.overlays.default
     ];
 
     config = {

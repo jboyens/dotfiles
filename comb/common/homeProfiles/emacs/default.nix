@@ -5,21 +5,7 @@
 }: let
   inherit (cell) pkgs;
 
-  # https://github.com/nix-community/emacs-overlay/issues/312
-  # myEmacs = pkgs.emacsUnstablePgtk.overrideAttrs (prev: {
-  #   postFixup = builtins.replaceStrings ["/bin/emacs"] ["/bin/.emacs-*-wrapped"] prev.postFixup;
-  # });
-  # myEmacs = pkgs.emacsUnstablePgtk;
-  # myEmacs = (pkgs.emacsGit.override {
-  #   withSQLite3 = true;
-  #   withWebP = true;
-  #   withPgtk = true;
-  # });
-  # myEmacsPkg = emacs-overlay.packages.emacs-unstable-pgtk.overrideAttrs (prev: {
-  #   passthru = prev.passthru // {treeSitter = true;};
-  # });
   myEmacsPkg = pkgs.emacs29-pgtk;
-  # myEmacsPkg = pkgs.emacs29.override {toolkit = "lucid";};
 
   myEmacs = (pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
     epkgs.vterm
@@ -31,6 +17,24 @@ in {
   home.sessionPath = [
     "${config.xdg.configHome}/emacs/bin"
   ];
+
+  systemd.user.services.org-mode-sync = {
+    Unit = {
+      Description = "git-sync for org-mode-store";
+      ConditionPathExists = "%h/Documents/org-mode";
+      After = "network.target";
+    };
+
+    Service = {
+      Environment = "PATH=${pkgs.git-sync}/bin:${pkgs.git}/bin:$PATH";
+      WorkingDirectory = "/home/jboyens/Documents/org-mode/";
+      ExecStart = "${pkgs.git-sync}/bin/git-sync-on-inotify";
+      Restart = "always";
+      RestartSec = "30";
+    };
+
+    Install = {WantedBy = ["default.target"];};
+  };
 
   programs.zsh.initExtra = ''
     ### emacs aliases
@@ -100,10 +104,10 @@ in {
     terraform-ls
 
     # :lang go
-    gocode
     gomodifytags
     gotests
     gore
+    gopls
 
     # :lang markdown
     discount

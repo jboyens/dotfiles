@@ -46,5 +46,5 @@ in {
     package = pkgs.wireshark;
   };
 
-  hyprland.enable = true;
+  # hyprland.enable = true;
 }

@@ -65,7 +65,6 @@ in {
 
       go
       gopls
-      gocode
       gore
       gotools
       gotests

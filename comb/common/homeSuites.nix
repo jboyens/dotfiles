@@ -20,17 +20,12 @@ in rec {
       homeProfiles.kanshi
       homeProfiles.mako
       homeProfiles.swaywm
-      homeProfiles.swaywm-bars
+      homeProfiles.i3status-rust
       homeProfiles.swaywm-keybindings
-      homeProfiles.swaywm-window-commands
-      homeProfiles.swayidle
-      homeProfiles.swaylock
       homeProfiles.firefox-webapp
       homeProfiles.firefox
       homeProfiles.mail
-      homeProfiles.hyprland
       homeProfiles.foot
-      homeProfiles.wlsunset
       homeProfiles.rofi
       homeProfiles.gtk
     ]
