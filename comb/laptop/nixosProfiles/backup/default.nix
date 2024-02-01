@@ -1,4 +1,4 @@
-{...}: let
+_: let
   # baseRepo = "sftp://jboyens@192.168.86.34:2223//backup";
   baseRepo = "rest:http://192.168.86.34:8899";
 
@@ -55,10 +55,22 @@ in {
     };
   };
 
-  systemd.services.restic-backups-Home.serviceConfig.CPUQuota = "200%";
-  systemd.services.restic-backups-Home.serviceConfig.IOWeight = "1";
-  systemd.services.restic-backups-Mail.serviceConfig.CPUQuota = "200%";
-  systemd.services.restic-backups-Mail.serviceConfig.IOWeight = "1";
-  systemd.services.restic-backups-Workspace.serviceConfig.CPUQuota = "200%";
-  systemd.services.restic-backups-Workspace.serviceConfig.IOWeight = "1";
+  systemd = {
+    services = {
+      restic-backups-Home = {
+        serviceConfig.CPUQuota = "200%";
+        serviceConfig.IOWeight = "1";
+      };
+
+      restic-backups-Mail = {
+        serviceConfig.CPUQuota = "200%";
+        serviceConfig.IOWeight = "1";
+      };
+
+      restic-backups-Workspace = {
+        serviceConfig.CPUQuota = "200%";
+        serviceConfig.IOWeight = "1";
+      };
+    };
+  };
 }

@@ -12,7 +12,8 @@
           targets = {
             gnome.enable = false;
           };
-          base16Scheme = "${inputs.catppuccin-base16}/base16/frappe.yaml";
+          # base16Scheme = "${inputs.catppuccin-base16}/base16/frappe.yaml";
+          base16Scheme = "${inputs.base16-schemes}/base16/onedark.yaml";
           image = /home/jboyens/hyprdots/Configs/.config/swww/Catppuccin-Mocha/escape_velocity.jpg;
           polarity = "dark";
         };

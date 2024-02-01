@@ -43,13 +43,13 @@
   };
   grizzly = {
     pname = "grizzly";
-    version = "v0.2.0";
+    version = "v0.3.1";
     src = fetchFromGitHub {
       owner = "grafana";
       repo = "grizzly";
-      rev = "v0.2.0";
+      rev = "v0.3.1";
       fetchSubmodules = false;
-      sha256 = "sha256-6z/6QZlCm4mRMKAVzLnOokv8ib7Y/7a17ojjMfeoJ4w=";
+      sha256 = "sha256-d/DUazWBT96+dnwVXo667RHALUM2FHxXoI54fFU2HZw=";
     };
   };
   kustomize = {
@@ -81,10 +81,10 @@
   };
   slack = {
     pname = "slack";
-    version = "4.35.131";
+    version = "4.36.138";
     src = fetchurl {
-      url = "https://downloads.slack-edge.com/releases/linux/4.35.131/prod/x64/slack-desktop-4.35.131-amd64.deb";
-      sha256 = "sha256-6/LrMI4HnKuUnVGHipkp/zjEfHRlbi+K3UqZsfYeY1U=";
+      url = "https://downloads.slack-edge.com/releases/linux/4.36.138/prod/x64/slack-desktop-4.36.138-amd64.deb";
+      sha256 = "sha256-T1ses3jVpYo2T53HDfXAzNm+DO26tC33GT3fux0qAho=";
     };
   };
   sloth = {
@@ -111,13 +111,13 @@
   };
   testkube = {
     pname = "testkube";
-    version = "v1.16.20";
+    version = "v1.16.25";
     src = fetchFromGitHub {
       owner = "kubeshop";
       repo = "testkube";
-      rev = "v1.16.20";
+      rev = "v1.16.25";
       fetchSubmodules = false;
-      sha256 = "sha256-CgzhCy+fQku377sNO2xD4M4Uy6F3I/tnGMOZfj+3/60=";
+      sha256 = "sha256-304LLlHgk21hIBgrDyZ/3xUMfMa1egl4VZWHuFGkX7k=";
     };
   };
   tilt = {

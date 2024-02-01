@@ -1,4 +1,4 @@
-{...}: {
+_: {
   mako = {
     enable = true;
     actions = true;

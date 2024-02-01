@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  common = inputs.common;
+  inherit (inputs) common;
 in {
   inherit (common) bee;
 
@@ -11,7 +11,8 @@ in {
   deployment =
     common.deployment
     // {
-      targetHost = "192.168.86.248";
+      # targetHost = "192.168.86.246";
+      targetHost = "10.10.10.2";
       targetUser = "jboyens";
       tags = ["server"];
     };

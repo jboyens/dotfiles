@@ -48,262 +48,312 @@ in {
 
   xdg.enable = true;
 
-  home.packages = with pkgs;
-    [
-      # ripgrep
-      sudo
-      bottom
-      fzf
-      eza
+  home = {
+    packages = with pkgs;
+      [
+        # ripgrep
+        sudo
+        bottom
+        fzf
+        eza
 
-      # clang
-      (lib.hiPrio gcc)
-      # bear
-      gdb
-      cmake
-      # llvmPackages.libcxx
+        # clang
+        (lib.hiPrio gcc)
+        # bear
+        gdb
+        cmake
+        # llvmPackages.libcxx
 
-      go
-      gopls
-      gore
-      gotools
-      gotests
-      gomodifytags
-      golangci-lint
-      delve
+        go
+        gopls
+        gore
+        gotools
+        gotests
+        gomodifytags
+        golangci-lint
+        delve
 
-      (lib.hiPrio ruby_3_2)
-      solargraph
+        (lib.hiPrio ruby_3_2)
+        solargraph
 
-      shellcheck
+        shellcheck
 
-      easyeffects
+        easyeffects
 
-      editorconfig-core-c
+        editorconfig-core-c
 
-      bitwarden
+        bitwarden
 
-      maestral
-      maestral-gui
+        maestral
+        maestral-gui
 
-      element-desktop
-      signal-desktop
-      beeper
-      slack
-      zoom-us
-      (makeDesktopItem {
-        name = "Google Meet";
-        desktopName = "Google Meet";
-        genericName = "Open Google Meet";
-        icon = "chrome-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
-        exec = "chromium \"--profile-directory=Profile\ 1\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
-        categories = ["Network"];
-      })
+        element-desktop
+        signal-desktop
+        beeper
+        slack
+        zoom-us
+        (makeDesktopItem {
+          name = "Google Meet";
+          desktopName = "Google Meet";
+          genericName = "Open Google Meet";
+          icon = "chrome-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
+          exec = "chromium \"--profile-directory=Profile\ 1\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
+          categories = ["Network"];
+        })
 
-      chromium
+        chromium
 
-      evince
-      zathura
+        evince
+        zathura
 
-      mpv
-      mpvc
+        mpv
+        mpvc
 
-      spotify
+        # spotify
 
-      brightnessctl
-      playerctl
+        floorp
+        nyxt
 
-      ydotool
+        brightnessctl
+        playerctl
 
-      # polkit_gnome
+        ydotool
 
-      libqalculate # calculator cli w/ currency conversion
-      (makeDesktopItem {
-        name = "scratch-calc";
-        desktopName = "Calculator";
-        icon = "calc";
-        exec = ''scratch "${tmux}/bin/tmux new-session -s calc -n calc qalc"'';
-        categories = ["Development"];
-      })
+        # polkit_gnome
 
-      xfce.thunar
+        libqalculate # calculator cli w/ currency conversion
+        (makeDesktopItem {
+          name = "scratch-calc";
+          desktopName = "Calculator";
+          icon = "calc";
+          exec = ''scratch "${tmux}/bin/tmux new-session -s calc -n calc qalc"'';
+          categories = ["Development"];
+        })
 
-      # qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
-      # libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
-      paper-icon-theme
+        xfce.thunar
 
-      xdg-utils
+        # qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
+        # libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
+        paper-icon-theme
 
-      rofi-bluetooth
-      rofi-power-menu
-      rofi-pulse-select
-      rofi-rbw
-      rofi-systemd
+        xdg-utils
 
-      # Fake rofi dmenu entries
-      (makeDesktopItem {
-        name = "rofi-browsermenu";
-        desktopName = "Open Bookmark in Browser";
-        icon = "bookmark-new-symbolic";
-        exec = "\\$DOTFILES_BIN/rofi/browsermenu";
-      })
+        rofi-bluetooth
+        rofi-power-menu
+        rofi-pulse-select
+        rofi-rbw
+        rofi-systemd
 
-      (makeDesktopItem {
-        name = "rofi-browsermenu-history";
-        desktopName = "Open Browser History";
-        icon = "accessories-clock";
-        exec = "\\$DOTFILES_BIN/rofi/browsermenu history";
-      })
+        # Fake rofi dmenu entries
+        (makeDesktopItem {
+          name = "rofi-browsermenu";
+          desktopName = "Open Bookmark in Browser";
+          icon = "bookmark-new-symbolic";
+          exec = "\\$DOTFILES_BIN/rofi/browsermenu";
+        })
 
-      (makeDesktopItem {
-        name = "rofi-filemenu";
-        desktopName = "Open Directory in Terminal";
-        icon = "folder";
-        exec = "\\$DOTFILES_BIN/rofi/filemenu";
-      })
+        (makeDesktopItem {
+          name = "rofi-browsermenu-history";
+          desktopName = "Open Browser History";
+          icon = "accessories-clock";
+          exec = "\\$DOTFILES_BIN/rofi/browsermenu history";
+        })
 
-      (makeDesktopItem {
-        name = "rofi-filemenu-scratch";
-        desktopName = "Open Directory in Scratch Terminal";
-        icon = "folder";
-        exec = "\\$DOTFILES_BIN/rofi/filemenu -x";
-      })
+        (makeDesktopItem {
+          name = "rofi-filemenu";
+          desktopName = "Open Directory in Terminal";
+          icon = "folder";
+          exec = "\\$DOTFILES_BIN/rofi/filemenu";
+        })
 
-      (makeDesktopItem {
-        name = "lock-display";
-        desktopName = "Lock screen";
-        icon = "system-lock-screen";
-        exec = "\\$DOTFILES_BIN/zzz";
-      })
+        (makeDesktopItem {
+          name = "rofi-filemenu-scratch";
+          desktopName = "Open Directory in Scratch Terminal";
+          icon = "folder";
+          exec = "\\$DOTFILES_BIN/rofi/filemenu -x";
+        })
 
-      # for calculations
-      bc
+        (makeDesktopItem {
+          name = "lock-display";
+          desktopName = "Lock screen";
+          icon = "system-lock-screen";
+          exec = "\\$DOTFILES_BIN/zzz";
+        })
 
-      # for watching networks
-      bwm_ng
+        # for calculations
+        bc
 
-      # for guessing mime-types
-      file
+        # for watching networks
+        bwm_ng
 
-      # for checking out block devices
-      hdparm
+        # for guessing mime-types
+        file
 
-      # for checking in on block devices
-      iotop
+        # for checking out block devices
+        hdparm
 
-      # for understanding who has what open
-      lsof
+        # for checking in on block devices
+        iotop
 
-      # for running commands repeatedly
-      entr
+        # for understanding who has what open
+        lsof
 
-      # for downloading things rapidly
-      axel
+        # for running commands repeatedly
+        entr
 
-      # for monitoring
-      bottom
-      btop
+        # for downloading things rapidly
+        axel
 
-      # for json parsing
-      jq
+        # for monitoring
+        bottom
+        btop
 
-      # for yaml parsing
-      yq-go
+        # for json parsing
+        jq
 
-      # for pretty du
-      du-dust
+        # for yaml parsing
+        yq-go
 
-      # dig
-      bind
+        # for pretty du
+        du-dust
 
-      # sound
-      pavucontrol
-      pamixer
+        # dig
+        bind
 
-      # network
-      mtr
+        # sound
+        pavucontrol
+        pamixer
 
-      # zips
-      unzip
+        # network
+        mtr
 
-      # certs/keys
-      openssl
+        # zips
+        unzip
 
-      # wireless
-      iw
+        # certs/keys
+        openssl
 
-      # notify-send
-      libnotify
+        # wireless
+        iw
 
-      # wl-clipboard-x11
+        # notify-send
+        libnotify
 
-      envsubst
+        # wl-clipboard-x11
 
-      age
+        envsubst
 
-      glab
+        age
 
-      jira-cli-go
+        glab
 
-      my.testkube
+        jira-cli-go
 
-      nvd
+        my.testkube
 
-      # markdown-to-confluence
+        nvd
 
-      # autotiling
-      # fuzzel
-      # grim
-      # qt5.qtwayland
-      # broken as of 2023-08-11
-      # sirula
-      # slurp
-      # sov
-      # sway-contrib.grimshot
-      # swaybg
-      # swayidle
-      # swaylock
-      # swayr
-      # wayvnc
-      # wev
-      # wl-clipboard
-      # wlr-randr
-      # wob
-      # wofi
-      # my.swaywindow
-    ]
-    ++ work-cloud
-    ++ google-cloud
-    ++ postgres;
+        # markdown-to-confluence
+
+        # autotiling
+        # fuzzel
+        # grim
+        # qt5.qtwayland
+        # broken as of 2023-08-11
+        # sirula
+        # slurp
+        # sov
+        # sway-contrib.grimshot
+        # swaybg
+        # swayidle
+        # swaylock
+        # swayr
+        # wayvnc
+        # wev
+        # wl-clipboard
+        # wlr-randr
+        # wob
+        # wofi
+        # my.swaywindow
+      ]
+      ++ work-cloud
+      ++ google-cloud
+      ++ postgres;
+
+    # modules.shell.zsh.rcFiles = ["${configDir}/emacs/aliases.zsh"];
+
+    sessionPath = ["$HOME/.krew/bin"];
+
+    sessionVariables = {
+      # Try really hard to get QT to respect my GTK theme.
+      # sessionVariables.GTK_DATA_PREFIX = ["${config.system.path}"];
+
+      GNUPGHOME = "${config.xdg.configHome}/gnupg";
+      DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+      MACHINE_STORAGE_PATH = "${config.xdg.dataHome}/docker/machine";
+
+      # QT_QPA_PLATFORMTHEME = "gnome";
+      # QT_STYLE_OVERRIDE = "kvantum";
+      USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
+
+      EDITOR = "nvim";
+      BROWSER = "floorp";
+    };
+
+    shellAliases = {
+      vim = "nvim";
+      v = "nvim";
+      k = "kubectl";
+    };
+  };
 
   fonts.fontconfig.enable = true;
 
-  # modules.shell.zsh.rcFiles = ["${configDir}/emacs/aliases.zsh"];
+  programs = {
+    k9s.enable = true;
 
-  home.sessionPath = ["$HOME/.krew/bin"];
+    # programs.zsh.rcInit = ''eval "$(direnv hook zsh)"'';
 
-  home.sessionVariables = {
-    # Try really hard to get QT to respect my GTK theme.
-    # sessionVariables.GTK_DATA_PREFIX = ["${config.system.path}"];
+    zsh.initExtra = lib.concatStringsSep "\n" [
+      ''
+        ### docker aliases
+        alias dk=docker
+        alias dkc=docker-compose
+        alias dkm=docker-machine
+        alias dkl='dk logs'
+        alias dkcl='dkc logs'
 
-    GNUPGHOME = "${config.xdg.configHome}/gnupg";
-    DOCKER_CONFIG = "${config.xdg.configHome}/docker";
-    MACHINE_STORAGE_PATH = "${config.xdg.dataHome}/docker/machine";
+        dkclr() {
+          dk stop $(docker ps -a -q)
+          dk rm $(docker ps -a -q)
+        }
 
-    # QT_QPA_PLATFORMTHEME = "gnome";
-    # QT_STYLE_OVERRIDE = "kvantum";
-    USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
+        dke() {
+          dk exec -it "$1" "''${@:1}"
+        }
+        ### end aliases
+      ''
+    ];
 
-    EDITOR = "nvim";
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      plugins = with pkgs.vimPlugins; [
+        dracula-nvim
+      ];
+      extraLuaConfig = ''
+        vim.cmd [[source ~/.config/nvim/init-custom.vim]]
+      '';
+    };
+
+    bat.enable = true;
+
+    broot.enable = true;
+    broot.enableZshIntegration = true;
+
+    chromium.enable = true;
   };
-
-  home.shellAliases = {
-    vim = "nvim";
-    v = "nvim";
-    k = "kubectl";
-  };
-
-  programs.k9s.enable = true;
 
   systemd.user.services."maestral-daemon@maestral" = {
     Unit = {Description = "Maestral daemon for the config %i";};
@@ -318,51 +368,9 @@ in {
     Install = {WantedBy = ["default.target"];};
   };
 
-  # programs.zsh.rcInit = ''eval "$(direnv hook zsh)"'';
-
-  programs.zsh.initExtra = lib.concatStringsSep "\n" [
-    ''
-      ### docker aliases
-      alias dk=docker
-      alias dkc=docker-compose
-      alias dkm=docker-machine
-      alias dkl='dk logs'
-      alias dkcl='dkc logs'
-
-      dkclr() {
-        dk stop $(docker ps -a -q)
-        dk rm $(docker ps -a -q)
-      }
-
-      dke() {
-        dk exec -it "$1" "''${@:1}"
-      }
-      ### end aliases
-    ''
-  ];
-
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      dracula-nvim
-    ];
-    extraLuaConfig = ''
-      vim.cmd [[source ~/.config/nvim/init-custom.vim]]
-    '';
-  };
-
   # services = {xserver.enable = lib.mkDefault false;};
 
   services.mpris-proxy.enable = true;
-
-  programs.bat.enable = true;
-
-  programs.broot.enable = true;
-  programs.broot.enableZshIntegration = true;
-
-  programs.chromium.enable = true;
 
   # xst-256color isn't supported over ssh, so revert to a known one
   # modules.shell.zsh.rcInit = ''

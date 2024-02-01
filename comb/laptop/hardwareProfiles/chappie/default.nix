@@ -135,6 +135,11 @@ in {
     polkit-1.fprintAuth = true;
   };
 
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore
+    KillUserProceses=true
+  '';
+
   # chappie has 20 listed cores, but a bunch are e-cores, let's save those and
   # utilize the HT cores.
   nix.settings.max-jobs = lib.mkDefault 12;

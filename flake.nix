@@ -8,6 +8,7 @@
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
     nixpkgs-unstable.url = "nixpkgs/master";
+    nixpkgs-stable.url = "nixpkgs/nixos-23.11";
 
     std = {
       url = "github:divnix/std";
@@ -17,6 +18,11 @@
         nixago.follows = "nixago";
         paisano.follows = "paisano";
       };
+    };
+
+    flake-compat = {
+      url = "github:inclyc/flake-compat";
+      flake = false;
     };
 
     colmena = {
@@ -84,6 +90,10 @@
     };
 
     base16.url = "github:SenchoPens/base16.nix";
+    base16-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
 
     catppuccin-base16 = {
       url = "github:catppuccin/base16";
@@ -115,6 +125,10 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
+
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
   };
 
   outputs = {
@@ -166,11 +180,13 @@
         (devshells "devshells")
       ];
 
-      nixpkgsConfig.allowUnfreePredicate = pkg: true;
-      nixpkgsConfig.allowUnfree = true;
-      nixpkgsConfig.permittedInsecurePackages = [
-        "electron-25.9.0"
-      ];
+      nixpkgsConfig = {
+        allowUnfreePredicate = pkg: true;
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          "electron-25.9.0"
+        ];
+      };
     }
     {
       lib = std.pick self ["common" "lib"];
@@ -179,22 +195,20 @@
         ["common" "generators"]
         ["common" "packages"]
       ];
-      pkgs = std.harvest self ["common" "pkgs"];
-      # homeModules = std.harvest self ["homebase" "homeModules"];
-    }
-    {
+      pkgs = std.harvest self [
+        ["common" "pkgs"]
+      ];
+
       nixosConfigurations = collect self "nixosConfigurations";
 
-      nixosProfiles.common = std.harvest self [
-        ["common" "nixosProfiles"]
-      ];
+      nixosProfiles = {
+        common = std.harvest self [["common" "nixosProfiles"]];
+        laptop = std.harvest self [["laptop" "nixosProfiles"]];
+        server = std.harvest self [["server" "nixosProfiles"]];
+      };
 
-      nixosProfiles.laptop = std.harvest self [
-        ["laptop" "nixosProfiles"]
-      ];
-
-      nixosProfiles.server = std.harvest self [
-        ["server" "nixosProfiles"]
+      nixosModules = std.harvest self [
+        ["server" "nixosModules"]
       ];
 
       homeConfigurations = collect self "homeConfigurations";
@@ -206,10 +220,5 @@
       ];
 
       colmenaHive = collect self "colmenaConfigurations";
-
-      configFiles = std.harvest self ["common" "configs"];
-
-      formatter."x86_64-linux" =
-        inputs.nixpkgs.legacyPackages."x86_64-linux".alejandra;
     };
 }

@@ -48,7 +48,7 @@ in {
       "${super}+Return" = ''
         exec ${terminal} bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
 
-      "${super}+${control}+Slash" = "exec firefox";
+      "${super}+${control}+Slash" = "exec floorp";
 
       "${super}+q" = "kill";
 
@@ -79,7 +79,7 @@ in {
       "${super}+m" = "exec emacsclient -c -n -e '(=mu4e)' && $DOTFILES/bin/activate emacs";
 
       "${hyper}+e" = "exec $DOTFILES/bin/activate emacs";
-      "${hyper}+f" = "exec $DOTFILES/bin/activate firefox";
+      "${hyper}+f" = "exec $DOTFILES/bin/activate floorp";
       "${hyper}+s" = "exec $DOTFILES/bin/activate slack";
       "${hyper}+z" = "exec $DOTFILES/bin/activate zoom zoom-us";
 

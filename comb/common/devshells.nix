@@ -14,7 +14,7 @@ in
       packages = with pkgs; [
         nixVersions.unstable
         statix
-        rnix-lsp
+        nil
         nixfmt
         nixpkgs-fmt
         alejandra

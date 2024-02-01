@@ -5,6 +5,9 @@
   inherit (inputs.cells.common) nixosSuites;
   inherit (inputs.cells.common) homeSuites;
   inherit (cell) hardwareProfiles;
+  inherit (cell) nixosModules;
+
+  serverSuites = cell.nixosSuites;
 
   bee = {
     system = "x86_64-linux";
@@ -22,8 +25,10 @@ in {
   imports =
     [
       hardwareProfiles."${hostName}"
+      nixosModules.blocky
     ]
-    ++ nixosSuites.default;
+    ++ nixosSuites.default
+    ++ serverSuites.default;
 
   home-manager = {
     useUserPackages = true;

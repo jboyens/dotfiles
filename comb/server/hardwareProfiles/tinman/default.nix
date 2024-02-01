@@ -52,24 +52,26 @@ in {
     };
   };
 
-  services.thermald.enable = true;
+  services = {
+    thermald.enable = true;
+
+    # thunderbolt
+    hardware.bolt.enable = true;
+
+    # firmware updates
+    fwupd = {
+      enable = true;
+      extraRemotes = [
+        "lvfs"
+        # "dell-esrt"
+      ];
+    };
+  };
 
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-  };
-
-  # thunderbolt
-  services.hardware.bolt.enable = true;
-
-  # firmware updates
-  services.fwupd = {
-    enable = true;
-    extraRemotes = [
-      "lvfs"
-      # "dell-esrt"
-    ];
   };
 
   nix.settings.max-jobs = lib.mkDefault 4;

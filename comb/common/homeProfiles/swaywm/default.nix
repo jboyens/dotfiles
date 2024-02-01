@@ -1,11 +1,37 @@
 {
+  inputs,
   cell,
   config,
   ...
 }: let
-  inherit (cell) pkgs;
+  inherit (cell) pkgs lib;
+
+  cfg = config.wayland.windowManager.sway;
 in {
-  home.packages = [pkgs.dotool];
+  home.packages = lib.mkIf cfg.enable [
+    pkgs.dotool
+    # autotiling
+    # fuzzel
+    pkgs.grim
+    pkgs.i3status-rust
+    # qt5.qtwayland
+    # broken as of 2023-08-11
+    # sirula
+    pkgs.slurp
+    # sov
+    pkgs.sway-contrib.grimshot
+    pkgs.swaybg
+    pkgs.swayidle
+    pkgs.swaylock
+    # swayr
+    pkgs.wayvnc
+    pkgs.wev
+    pkgs.wl-clipboard
+    pkgs.wl-clipboard-x11
+    pkgs.wlr-randr
+    pkgs.wob
+    pkgs.wofi
+  ];
 
   systemd.user.services.dotoold = {
     Install = {WantedBy = ["sway-session.target"];};
@@ -24,7 +50,190 @@ in {
     };
   };
 
-  programs.swaylock.enable = true;
+  programs = {
+    swaylock.enable = true;
+
+    swayr = {
+      enable = true;
+      settings = {
+        menu = {
+          executable = "${pkgs.wofi}/bin/wofi";
+          args = [
+            "--show=dmenu"
+            "--allow-markup"
+            "--allow-images"
+            "--insensitive"
+            "--cache-file=/dev/null"
+            "--parse-search"
+            "--height=40%"
+            "--prompt={prompt}"
+          ];
+        };
+        format = {
+          output_format = "{indent}Output {name}    ({id})";
+          workspace_format = "{indent}Workspace {name} [{layout}] on output {output_name}    ({id})";
+          container_format = "{indent}Container [{layout}] {marks} on workspace {workspace_name}    ({id})";
+          window_format = "img:{app_icon}:text:{indent}{app_name} — {urgency_start}“{title}”{urgency_end} {marks} on workspace {workspace_name} / {output_name}    ({id})";
+          indent = "    ";
+          urgency_start = "";
+          urgency_end = "";
+          html_escape = true;
+        };
+        layout = {
+          auto_tile = false;
+          auto_tile_min_window_width_per_output_width = [
+            [800 400]
+            [1024 500]
+            [1280 600]
+            [1400 680]
+            [1440 700]
+            [1600 780]
+            [1680 780]
+            [1920 920]
+            [2048 980]
+            [2560 1000]
+            [3440 1200]
+            [3840 1280]
+            [4096 1400]
+            [4480 1600]
+            [7680 2400]
+          ];
+        };
+        focus = {lockin_delay = 750;};
+        misc = {seq_inhibit = false;};
+      };
+      systemd = {
+        enable = true;
+        target = "sway-session.target";
+      };
+    };
+
+    waybar = {
+      enable = false;
+      systemd = {
+        enable = true;
+        target = "sway-session.target";
+      };
+      settings = [
+        {
+          "position" = "bottom";
+          "height" = 37;
+          "spacing" = 4;
+          "modules-left" = ["sway/workspaces" "sway/mode" "sway/scratchpad"];
+          "modules-center" = ["sway/window"];
+          "modules-right" = ["mpris" "idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "battery" "clock" "tray"];
+          "sway/mode" = {
+            "format" = "<span style=\"italic\">{}</span>";
+          };
+          "sway/scratchpad" = {
+            "format" = "{icon} {count}";
+            "show-empty" = false;
+            "format-icons" = ["" ""];
+            "tooltip" = true;
+            "tooltip-format" = "{app}: {title}";
+          };
+          "idle_inhibitor" = {
+            "format" = "{icon}";
+            "format-icons" = {
+              "activated" = "";
+              "deactivated" = "";
+            };
+          };
+          "tray" = {
+            "spacing" = 10;
+          };
+          "clock" = {
+            "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+            "format-alt" = "{:%Y-%m-%d}";
+          };
+          "cpu" = {
+            "format" = "{usage}% ";
+            "tooltip" = false;
+          };
+          "memory" = {
+            "format" = "{}% ";
+          };
+          "temperature" = {
+            "hwmon-path" = "/sys/class/hwmon/hwmon5/temp1_input";
+            "critical-threshold" = 80;
+            "format" = "{temperatureC}°C {icon}";
+            "format-icons" = ["" "" ""];
+          };
+          "battery" = {
+            "states" = {
+              "warning" = 30;
+              "critical" = 15;
+            };
+            "format" = "{capacity}% {icon}";
+            "format-charging" = "{capacity}% ";
+            "format-plugged" = "{capacity}% ";
+            "format-alt" = "{time} {icon}";
+            "format-icons" = ["" "" "" "" ""];
+          };
+          "network" = {
+            "format-wifi" = "{essid} ({signalStrength}%) ";
+            "format-ethernet" = "{ipaddr}/{cidr} ";
+            "tooltip-format" = "{ifname} via {gwaddr} ";
+            "format-linked" = "{ifname} (No IP) ";
+            "format-disconnected" = "Disconnected ⚠";
+            "format-alt" = "{ifname}= {ipaddr}/{cidr}";
+          };
+          "pulseaudio" = {
+            "format" = "{volume}% {icon} {format_source}";
+            "format-bluetooth" = "{volume}% {icon} {format_source}";
+            "format-bluetooth-muted" = " {icon} {format_source}";
+            "format-muted" = " {format_source}";
+            "format-source" = "{volume}% ";
+            "format-source-muted" = "";
+            "format-icons" = {
+              "headphone" = "";
+              "hands-free" = "";
+              "headset" = "";
+              "phone" = "";
+              "portable" = "";
+              "car" = "";
+              "default" = ["" "" ""];
+            };
+            "on-click" = "pavucontrol";
+          };
+          "mpris" = {
+            "format" = "{player_icon} {dynamic}";
+            "format-paused" = "{status_icon} <i>{dynamic}</i>";
+            "player-icons" = {
+              "default" = "▶";
+              "mpv" = "🎵";
+            };
+            "status-icons" = {
+              "paused" = "⏸";
+            };
+            "ignored-players" = ["firefox" "floorp"];
+          };
+        }
+      ];
+      style = ''
+        widget label {
+          border-radius: 8px;
+          margin: 0 8px 0 0;
+          padding: 2px;
+        }
+
+        #keyboard-state {
+          border-radius: 8px;
+          margin: 0 8px 0 0;
+          padding: 2px;
+        }
+
+        #keyboard-state > label {
+          margin: 0 4px 0 0;
+          color: #fff;
+        }
+
+        #language {
+          color: #fff;
+        }
+      '';
+    };
+  };
 
   services = {
     wlsunset = {
@@ -54,132 +263,6 @@ in {
         }
       ];
     };
-  };
-
-  programs.waybar = {
-    enable = true;
-    systemd = {
-      enable = true;
-      target = "sway-session.target";
-    };
-    settings = [
-      {
-        "position" = "bottom";
-        "height" = 37;
-        "spacing" = 4;
-        "modules-left" = ["sway/workspaces" "sway/mode" "sway/scratchpad"];
-        "modules-center" = ["sway/window"];
-        "modules-right" = ["mpris" "idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "battery" "clock" "tray"];
-        "sway/mode" = {
-          "format" = "<span style=\"italic\">{}</span>";
-        };
-        "sway/scratchpad" = {
-          "format" = "{icon} {count}";
-          "show-empty" = false;
-          "format-icons" = ["" ""];
-          "tooltip" = true;
-          "tooltip-format" = "{app}: {title}";
-        };
-        "idle_inhibitor" = {
-          "format" = "{icon}";
-          "format-icons" = {
-            "activated" = "";
-            "deactivated" = "";
-          };
-        };
-        "tray" = {
-          "spacing" = 10;
-        };
-        "clock" = {
-          "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          "format-alt" = "{:%Y-%m-%d}";
-        };
-        "cpu" = {
-          "format" = "{usage}% ";
-          "tooltip" = false;
-        };
-        "memory" = {
-          "format" = "{}% ";
-        };
-        "temperature" = {
-          "hwmon-path" = "/sys/class/hwmon/hwmon5/temp1_input";
-          "critical-threshold" = 80;
-          "format" = "{temperatureC}°C {icon}";
-          "format-icons" = ["" "" ""];
-        };
-        "battery" = {
-          "states" = {
-            "warning" = 30;
-            "critical" = 15;
-          };
-          "format" = "{capacity}% {icon}";
-          "format-charging" = "{capacity}% ";
-          "format-plugged" = "{capacity}% ";
-          "format-alt" = "{time} {icon}";
-          "format-icons" = ["" "" "" "" ""];
-        };
-        "network" = {
-          "format-wifi" = "{essid} ({signalStrength}%) ";
-          "format-ethernet" = "{ipaddr}/{cidr} ";
-          "tooltip-format" = "{ifname} via {gwaddr} ";
-          "format-linked" = "{ifname} (No IP) ";
-          "format-disconnected" = "Disconnected ⚠";
-          "format-alt" = "{ifname}= {ipaddr}/{cidr}";
-        };
-        "pulseaudio" = {
-          "format" = "{volume}% {icon} {format_source}";
-          "format-bluetooth" = "{volume}% {icon} {format_source}";
-          "format-bluetooth-muted" = " {icon} {format_source}";
-          "format-muted" = " {format_source}";
-          "format-source" = "{volume}% ";
-          "format-source-muted" = "";
-          "format-icons" = {
-            "headphone" = "";
-            "hands-free" = "";
-            "headset" = "";
-            "phone" = "";
-            "portable" = "";
-            "car" = "";
-            "default" = ["" "" ""];
-          };
-          "on-click" = "pavucontrol";
-        };
-        "mpris" = {
-          "format" = "{player_icon} {dynamic}";
-          "format-paused" = "{status_icon} <i>{dynamic}</i>";
-          "player-icons" = {
-            "default" = "▶";
-            "mpv" = "🎵";
-          };
-          "status-icons" = {
-            "paused" = "⏸";
-          };
-          "ignored-players" = ["firefox"];
-        };
-      }
-    ];
-    style = ''
-      widget label {
-        border-radius: 8px;
-        margin: 0 8px 0 0;
-        padding: 2px;
-      }
-
-      #keyboard-state {
-        border-radius: 8px;
-        margin: 0 8px 0 0;
-        padding: 2px;
-      }
-
-      #keyboard-state > label {
-        margin: 0 4px 0 0;
-        color: #fff;
-      }
-
-      #language {
-        color: #fff;
-      }
-    '';
   };
 
   wayland.windowManager.sway = {
@@ -279,14 +362,6 @@ in {
           command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | ${pkgs.wob}/bin/wob";
           always = false;
         }
-        # {
-        #   command = "persway daemon -w -d spiral";
-        #   always = false;
-        # }
-        {
-          command = "${pkgs.swayr}/bin/swayrd";
-          always = false;
-        }
         {
           command = "${pkgs.ydotool}/bin/ydotoold --socket-path=/run/user/%U/.ydotool_socket --socket-perm=0600 --socket-own %U:%G";
           always = false;
@@ -378,14 +453,14 @@ in {
         ];
       };
 
-      bars = [];
-      # bars = [
-      #   ({
-      #       position = "bottom";
-      #       statusCommand = "i3status-rs config-bottom.toml";
-      #     }
-      #     // config.lib.stylix.sway.bar)
-      # ];
+      # bars = [];
+      bars = [
+        ({
+            position = "bottom";
+            statusCommand = "i3status-rs config-bottom.toml";
+          }
+          // config.lib.stylix.sway.bar)
+      ];
     };
   };
 }

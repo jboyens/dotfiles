@@ -1,12 +1,12 @@
 {config}: let
   left = {
-    name = "Philips Consumer Electronics Company PHL 272P7VU 0x0000014E";
+    name = "LG Electronics LG Ultra HD 0x00011A21";
     mode = "3840x2160@60Hz";
   };
 
   center = {
-    name = "LG Electronics LG Ultra HD 0x00011A21";
-    mode = "3840x2160@60Hz";
+    name = "LG Electronics LG ULTRAWIDE 205NTLE54632";
+    mode = "3440x1440@100Hz";
   };
 
   right = {
@@ -29,13 +29,13 @@ in {
             inherit (center) mode;
 
             criteria = center.name;
-            position = "3840,0";
+            position = "3840,370";
           }
           {
             inherit (right) mode;
 
             criteria = right.name;
-            position = "7680,960";
+            position = "7280,750";
           }
         ];
       };
@@ -63,13 +63,13 @@ in {
     "${center.name}" = {
       inherit (center) mode;
 
-      position = "3840,0";
+      position = "3840,370";
     };
 
     "${right.name}" = {
       inherit (right) mode;
 
-      position = "7680,960";
+      position = "7280,750";
     };
   };
 }
