@@ -206,7 +206,7 @@ in {
             "status-icons" = {
               "paused" = "⏸";
             };
-            "ignored-players" = ["firefox" "floorp"];
+            "ignored-players" = ["firefox"];
           };
         }
       ];

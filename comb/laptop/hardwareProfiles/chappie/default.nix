@@ -108,25 +108,25 @@ in {
     };
   };
 
-  specialisation = {
-    nvidia.configuration = {
-      services.xserver.videoDrivers = ["nvidia"];
-      system.nixos.tags = ["nvidia"];
-
-      hardware.nvidia = {
-        modesetting.enable = true;
-        powerManagement.enable = false;
-        powerManagement.finegrained = false;
-        open = false;
-        nvidiaSettings = true;
-        prime = {
-          sync.enable = true;
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:1:0:0";
-        };
-      };
-    };
-  };
+  # specialisation = {
+  #   nvidia.configuration = {
+  #     services.xserver.videoDrivers = ["nvidia"];
+  #     system.nixos.tags = ["nvidia"];
+  #
+  #     hardware.nvidia = {
+  #       modesetting.enable = true;
+  #       powerManagement.enable = false;
+  #       powerManagement.finegrained = false;
+  #       open = false;
+  #       nvidiaSettings = true;
+  #       prime = {
+  #         sync.enable = true;
+  #         intelBusId = "PCI:0:2:0";
+  #         nvidiaBusId = "PCI:1:0:0";
+  #       };
+  #     };
+  #   };
+  # };
 
   security.pam.services = {
     sudo.fprintAuth = true;

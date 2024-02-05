@@ -5,7 +5,7 @@
 }: let
   inherit (cell) pkgs;
 
-  myEmacsPkg = pkgs.emacs29-pgtk;
+  myEmacsPkg = pkgs.emacs-pgtk;
 
   myEmacs = (pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
     epkgs.vterm

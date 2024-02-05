@@ -111,7 +111,6 @@ in {
 
         # spotify
 
-        floorp
         nyxt
 
         brightnessctl
@@ -297,7 +296,7 @@ in {
       USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
 
       EDITOR = "nvim";
-      BROWSER = "floorp";
+      BROWSER = "firefox";
     };
 
     shellAliases = {

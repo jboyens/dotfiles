@@ -16,8 +16,6 @@ in rec {
 
   jboyens =
     [
-      inputs.spicetify-nix.homeManagerModule
-      homeProfiles.spicetify
       homeProfiles.everything
       homeProfiles.kanshi
       homeProfiles.mako

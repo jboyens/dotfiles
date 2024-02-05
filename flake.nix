@@ -126,8 +126,6 @@
       };
     };
 
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
-
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
   };
 
@@ -220,5 +218,9 @@
       ];
 
       colmenaHive = collect self "colmenaConfigurations";
+
+      microvms = std.harvest self [
+        ["common" "microvms"]
+      ];
     };
 }
