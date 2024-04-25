@@ -16,19 +16,6 @@
       sha256 = "sha256-lI8uKtVxrziQ8q/Ss+QTgg1xTObZUTAzjL3MYmtwyd8=";
     };
   };
-  fuzzel = {
-    pname = "fuzzel";
-    version = "d904bc05323cd2977c493531219ad6e4aefe45b5";
-    src = fetchgit {
-      url = "https://git.sr.ht/~dnkl/fuzzel";
-      rev = "d904bc05323cd2977c493531219ad6e4aefe45b5";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-2lTo3FfmREFgyoTF2p9Au9FzCSmxU6LOKfSHjV/3pZM=";
-    };
-    date = "2023-01-02";
-  };
   gnupg = {
     pname = "gnupg";
     version = "gnupg-2.4.0";
@@ -41,94 +28,31 @@
       sha256 = "sha256-YoeGeAV3qaKPUrSuWm7RTFKb5ariQR4UGYo2Bkaj3rY=";
     };
   };
-  grizzly = {
-    pname = "grizzly";
-    version = "v0.3.1";
-    src = fetchFromGitHub {
-      owner = "grafana";
-      repo = "grizzly";
-      rev = "v0.3.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-d/DUazWBT96+dnwVXo667RHALUM2FHxXoI54fFU2HZw=";
-    };
-  };
   kustomize = {
     pname = "kustomize";
-    version = "kustomize/v5.3.0";
+    version = "kustomize/v5.4.1";
     src = fetchFromGitHub {
       owner = "kubernetes-sigs";
       repo = "kustomize";
-      rev = "kustomize/v5.3.0";
+      rev = "kustomize/v5.4.1";
       fetchSubmodules = false;
-      sha256 = "sha256-TleO28Q6JaOz1OAJKbvLhN99a841FEhHL15NTMhS1Oc=";
+      sha256 = "sha256-zt+/CKIIaZxfjfMu9L4/bDc5MmaqeEp3MI/m++GQoEc=";
     };
   };
   pizauth = {
     pname = "pizauth";
-    version = "pizauth-1.0.3";
+    version = "pizauth-1.0.4";
     src = fetchFromGitHub {
       owner = "ltratt";
       repo = "pizauth";
-      rev = "pizauth-1.0.3";
+      rev = "pizauth-1.0.4";
       fetchSubmodules = false;
-      sha256 = "sha256-aBaVvEPCnDPXkoUxYucB/C4pXcHwlF9678ieBZ5VL5w=";
+      sha256 = "sha256-Du+MVdYVQgH2V7928kpur+Xp/0y7HXgB8ZC0qciiQvs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./pizauth-pizauth-1.0.3/Cargo.lock;
+      lockFile = ./pizauth-pizauth-1.0.4/Cargo.lock;
       outputHashes = {
       };
-    };
-  };
-  slack = {
-    pname = "slack";
-    version = "4.36.138";
-    src = fetchurl {
-      url = "https://downloads.slack-edge.com/releases/linux/4.36.138/prod/x64/slack-desktop-4.36.138-amd64.deb";
-      sha256 = "sha256-T1ses3jVpYo2T53HDfXAzNm+DO26tC33GT3fux0qAho=";
-    };
-  };
-  sloth = {
-    pname = "sloth";
-    version = "v0.11.0";
-    src = fetchFromGitHub {
-      owner = "slok";
-      repo = "sloth";
-      rev = "v0.11.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-KMVD7uH3Yg9ThnwKKzo6jom0ctFywt2vu7kNdfjiMCs=";
-    };
-  };
-  swaync = {
-    pname = "swaync";
-    version = "v0.9.0";
-    src = fetchFromGitHub {
-      owner = "ErikReider";
-      repo = "SwayNotificationCenter";
-      rev = "v0.9.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-mwwSTs4d9jUXUy33nSYJCRFlpH6naCmbRUSpfVacMBE=";
-    };
-  };
-  testkube = {
-    pname = "testkube";
-    version = "v1.16.25";
-    src = fetchFromGitHub {
-      owner = "kubeshop";
-      repo = "testkube";
-      rev = "v1.16.25";
-      fetchSubmodules = false;
-      sha256 = "sha256-304LLlHgk21hIBgrDyZ/3xUMfMa1egl4VZWHuFGkX7k=";
-    };
-  };
-  tilt = {
-    pname = "tilt";
-    version = "v0.33.10";
-    src = fetchFromGitHub {
-      owner = "tilt-dev";
-      repo = "tilt";
-      rev = "v0.33.10";
-      fetchSubmodules = false;
-      sha256 = "sha256-LPb2tC3xIGhjiLYkTU+NBIUoqiicO2ORM6Nt1eTnwQs=";
     };
   };
 }

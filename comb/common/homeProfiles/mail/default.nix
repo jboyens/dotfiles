@@ -4,9 +4,10 @@
 }: let
   inherit (cell) pkgs;
   inherit (cell.packages) pizauth isync-oauth2;
+  inherit (pkgs.stdenv) system;
 in {
   home.packages = [
-    pkgs.mu
+    inputs.nixpkgs-unstable.legacyPackages.${system}.mu
     pkgs.offlineimap
     pkgs.age
 

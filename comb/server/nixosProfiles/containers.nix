@@ -47,6 +47,22 @@ _: {
   };
 
   virtualisation.oci-containers.containers = {
+    overseerr = {
+      image = "sctx/overseerr";
+      environment = {
+        TZ = "America/Los_Angeles";
+        PUID = "1000";
+        PGID = "1000";
+        LOG_LEVEL = "debug";
+      };
+      volumes = [
+        "/home/jboyens/config/overseerr:/app/config"
+      ];
+      ports = [
+        "5055:5055/tcp"
+      ];
+    };
+
     watchtower = {
       image = "ghcr.io/containrrr/watchtower";
       volumes = [

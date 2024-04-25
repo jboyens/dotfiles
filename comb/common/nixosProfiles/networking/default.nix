@@ -16,6 +16,15 @@ in {
       enable = true;
       name = "wl*";
       inherit networkConfig;
+      routes = [
+        {
+          routeConfig = {
+            Gateway = "_dhcp4";
+            InitialCongestionWindow = 60;
+            InitialAdvertisedReceiveWindow = 60;
+          };
+        }
+      ];
     };
 
     "70-wired" = {
@@ -31,13 +40,20 @@ in {
     };
   };
 
-  # services.NetworkManager-wait-online.enable = lib.mkForce false;
+  # systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
   systemd.network.wait-online.enable = lib.mkForce false;
 
   networking = {
     useDHCP = false;
-    wireless.enable = false;
-    wireless.iwd.enable = true;
+    wireless.enable = true;
+    wireless.iwd.enable = false;
+    wireless.iwd.settings = {
+      Rank = {
+        BandModifier2_4GHz = 0.5;
+        BandModifier5GHz = 2.0;
+      };
+    };
+    networkmanager.enable = false;
     useNetworkd = true;
     domain = "fooninja.org";
 

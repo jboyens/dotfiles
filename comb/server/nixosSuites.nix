@@ -7,5 +7,6 @@
   default = [
     cell.nixosProfiles.vaultwarden
     cell.nixosProfiles.containers
+    cell.nixosProfiles.dns
   ];
 }

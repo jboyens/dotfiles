@@ -1,8 +1,11 @@
 {
   inputs,
   cell,
+  config,
+  ...
 }: let
   inherit (cell) pkgs;
+  inherit (pkgs) lib;
 in {
   home.packages = with pkgs.gitAndTools; [
     git-annex
@@ -91,6 +94,47 @@ in {
     '';
   };
 
+  systemd.user.services."git-maintenance@" = {
+    Unit = {
+      Description = "Optimize Git repositories data";
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${config.programs.git.package}/bin/git for-each-repo --config=maintenance.repo maintenance run --schedule=%i";
+      LockPersonality = "yes";
+      MemoryDenyWriteExecute = "yes";
+      NoNewPrivileges = "yes";
+      RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+      RestrictNamespaces = "yes";
+      RestrictRealtime = "yes";
+      RestrictSUIDSGID = "yes";
+      SystemCallArchitectures = "native";
+      SystemCallFilter = "@system-service";
+    };
+  };
+
+  systemd.user.timers = let
+    git-maintenance = {
+      Unit = {
+        Description = "Optimize Git repositories data";
+      };
+
+      Timer = {
+        OnCalendar = "%i";
+        Persistent = "true";
+      };
+
+      Install = {
+        WantedBy = ["timers.target"];
+      };
+    };
+  in {
+    "git-maintenance@hourly" = git-maintenance;
+    "git-maintenance@daily" = git-maintenance;
+    "git-maintenance@weekly" = git-maintenance;
+  };
+
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
@@ -134,7 +178,11 @@ in {
       "*.org   diff=org"
     ];
 
-    diff-so-fancy.enable = true;
+    # diff-so-fancy.enable = true;
+    difftastic = {
+      enable = true;
+      display = "side-by-side";
+    };
 
     ignores = [
       "*~"
@@ -182,6 +230,9 @@ in {
         "https://gitlab.com".helper = "!glab auth git-credential";
       };
 
+      column.ui = "auto";
+      branch.sort = "-committerdate";
+
       diff = {
         algorithm = "histogram";
         lisp.xfuncname = "^(((;;;+ )|\\(|([ 	]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
@@ -196,6 +247,16 @@ in {
       };
 
       init.defaultBranch = "master";
+
+      maintenance = {
+        repo = [
+          "/home/jboyens/Workspace/warehouser"
+          "/home/jboyens/Workspace/provisioner"
+          "/home/jboyens/Workspace/infrastructure"
+          "/home/jboyens/Workspace/argocd-pipelines"
+          "/home/jboyens/.config/dotfiles"
+        ];
+      };
 
       protocol.version = 2;
 

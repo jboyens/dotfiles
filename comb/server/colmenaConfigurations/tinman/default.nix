@@ -11,8 +11,7 @@ in {
   deployment =
     common.deployment
     // {
-      # targetHost = "192.168.86.246";
-      targetHost = "10.10.10.2";
+      targetHost = "192.168.86.244";
       targetUser = "jboyens";
       tags = ["server"];
     };

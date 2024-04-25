@@ -58,18 +58,21 @@ in {
       inherit (left) mode;
 
       position = "0,0";
+      subpixel = "rgb";
     };
 
     "${center.name}" = {
       inherit (center) mode;
 
       position = "3840,370";
+      subpixel = "rgb";
     };
 
     "${right.name}" = {
       inherit (right) mode;
 
       position = "7280,750";
+      subpixel = "rgb";
     };
   };
 }

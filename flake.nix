@@ -7,65 +7,24 @@
   inputs = {
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
+    # nixpkgs.url = "nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "nixpkgs/master";
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
-
-    std = {
-      url = "github:divnix/std";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        devshell.follows = "devshell";
-        nixago.follows = "nixago";
-        paisano.follows = "paisano";
-      };
-    };
-
-    flake-compat = {
-      url = "github:inclyc/flake-compat";
-      flake = false;
-    };
-
-    colmena = {
-      url = "github:zhaofengli/colmena";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    haumea = {
-      url = "github:nix-community/haumea/v0.2.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixago.url = "github:nix-community/nixago";
-
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators/1.8.0";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixlib.follows = "nixpkgs";
-      };
-    };
-
-    paisano = {
-      url = "github:divnix/paisano";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     hive = {
       url = "github:divnix/hive";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        paisano.follows = "paisano";
-        colmena.follows = "colmena";
+        std.inputs.devshell.url = "github:numtide/devshell";
       };
     };
 
+    std.inputs.devshell.url = "github:numtide/devshell";
+    hive.inputs.colmena.url = "github:zhaofengli/colmena";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
+      # url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -85,6 +44,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     nixpkgs-wayland = {
+      # url = "github:nix-community/nixpkgs-wayland/1ce086a5ec78554848ab094cc135eb6c26839642";
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -110,15 +70,12 @@
       flake = false;
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     devenv.url = "github:cachix/devenv";
 
     stylix = {
-      url = "github:danth/stylix";
+      # url = "github:danth/stylix";
+      url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
+      # url = "github:danth/stylix/release-23.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         base16.follows = "base16";
@@ -138,8 +95,7 @@
     # lib = inputs.nixpkgs.lib // builtins;
     collect = hive.collect // {renamer = cell: target: "${target}";};
   in
-    hive.growOn
-    {
+    hive.growOn {
       inherit inputs;
 
       cellsFrom = ./comb;
@@ -181,21 +137,14 @@
       nixpkgsConfig = {
         allowUnfreePredicate = pkg: true;
         allowUnfree = true;
-        permittedInsecurePackages = [
-          "electron-25.9.0"
-        ];
+        permittedInsecurePackages = [];
       };
-    }
-    {
+    } {
       lib = std.pick self ["common" "lib"];
       devShells = std.harvest self ["common" "devshells"];
-      packages = std.harvest self [
-        ["common" "generators"]
-        ["common" "packages"]
-      ];
-      pkgs = std.harvest self [
-        ["common" "pkgs"]
-      ];
+      packages =
+        std.harvest self [["common" "generators"] ["common" "packages"]];
+      pkgs = std.harvest self [["common" "pkgs"]];
 
       nixosConfigurations = collect self "nixosConfigurations";
 
@@ -205,9 +154,7 @@
         server = std.harvest self [["server" "nixosProfiles"]];
       };
 
-      nixosModules = std.harvest self [
-        ["server" "nixosModules"]
-      ];
+      nixosModules = std.harvest self [["server" "nixosModules"]];
 
       homeConfigurations = collect self "homeConfigurations";
 
@@ -219,8 +166,6 @@
 
       colmenaHive = collect self "colmenaConfigurations";
 
-      microvms = std.harvest self [
-        ["common" "microvms"]
-      ];
+      microvms = std.harvest self [["common" "microvms"]];
     };
 }

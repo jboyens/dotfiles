@@ -1,4 +1,5 @@
 {
+  inputs,
   cell,
   config,
   ...
@@ -23,7 +24,7 @@
     minikube
     (open-policy-agent.overrideAttrs (_: {doCheck = false;}))
     stern
-    terraform
+    opentofu
     tilt
     # sloth
   ];
@@ -41,6 +42,9 @@
     postgresql
     pgcenter
   ];
+  # system = pkgs.stdenv.system;
+  # maestral = inputs.nixpkgs-unstable.legacyPackages."${system}".maestral;
+  # maestral-gui = inputs.nixpkgs-unstable.legacyPackages."${system}".maestral-gui;
 in {
   imports = [
     cell.homeProfiles.styling
@@ -54,7 +58,7 @@ in {
         # ripgrep
         sudo
         bottom
-        fzf
+        my.fzf
         eza
 
         # clang
@@ -76,22 +80,22 @@ in {
         (lib.hiPrio ruby_3_2)
         solargraph
 
+        nodejs
+        nodePackages.prettier
+
         shellcheck
 
         easyeffects
 
         editorconfig-core-c
 
-        bitwarden
+        # maestral
+        # maestral-gui
 
-        maestral
-        maestral-gui
-
-        element-desktop
         signal-desktop
-        beeper
         slack
         zoom-us
+        discord
         (makeDesktopItem {
           name = "Google Meet";
           desktopName = "Google Meet";
@@ -109,9 +113,7 @@ in {
         mpv
         mpvc
 
-        # spotify
-
-        nyxt
+        spotify
 
         brightnessctl
         playerctl
@@ -248,8 +250,6 @@ in {
 
         jira-cli-go
 
-        my.testkube
-
         nvd
 
         # markdown-to-confluence
@@ -354,22 +354,31 @@ in {
     chromium.enable = true;
   };
 
-  systemd.user.services."maestral-daemon@maestral" = {
-    Unit = {Description = "Maestral daemon for the config %i";};
-
-    Service = {
-      Type = "notify";
-      ExecStart = "${pkgs.maestral}/bin/maestral start -f -c %i";
-      ExecStop = "${pkgs.maestral}/bin/maestral stop";
-      WatchdogSec = "30s";
-    };
-
-    Install = {WantedBy = ["default.target"];};
-  };
+  # systemd.user.services."maestral-daemon@maestral" = {
+  #   Unit = {Description = "Maestral daemon for the config %i";};
+  #
+  #   Service = {
+  #     Type = "notify";
+  #     ExecStart = "${maestral}/bin/maestral start -f -c %i";
+  #     ExecStop = "${maestral}/bin/maestral stop";
+  #     WatchdogSec = "30s";
+  #   };
+  #
+  #   Install = {WantedBy = ["default.target"];};
+  # };
 
   # services = {xserver.enable = lib.mkDefault false;};
 
   services.mpris-proxy.enable = true;
+
+  home.pointerCursor = {
+    package = lib.mkDefault pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 24;
+
+    gtk.enable = true;
+    x11.enable = true;
+  };
 
   # xst-256color isn't supported over ssh, so revert to a known one
   # modules.shell.zsh.rcInit = ''

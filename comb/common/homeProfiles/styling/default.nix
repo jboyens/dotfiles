@@ -10,12 +10,14 @@ in {
 
     fonts = {
       serif = {
-        package = pkgs.iosevka-bin.override {variant = "etoile";};
+        package = pkgs.iosevka-bin.override {variant = "Etoile";};
+        # package = pkgs.iosevka-bin.override {variant = "etoile";};
         name = "Iosevka Etoile";
       };
 
       sansSerif = {
-        package = pkgs.iosevka-bin.override {variant = "aile";};
+        package = pkgs.iosevka-bin.override {variant = "Aile";};
+        # package = pkgs.iosevka-bin.override {variant = "aile";};
         name = "Iosevka Aile";
       };
 

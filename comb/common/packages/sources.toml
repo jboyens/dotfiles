@@ -1,7 +1,7 @@
-[fuzzel]
-src.git = "https://git.sr.ht/~dnkl/fuzzel"
-src.branch = "master"
-fetch.git = "https://git.sr.ht/~dnkl/fuzzel"
+# [fuzzel]
+# src.git = "https://git.sr.ht/~dnkl/fuzzel"
+# src.branch = "master"
+# fetch.git = "https://git.sr.ht/~dnkl/fuzzel"
 
 [pizauth]
 src.github_tag = "ltratt/pizauth"
@@ -12,34 +12,34 @@ cargo_locks = [ "Cargo.lock" ]
 src.github = "moriyoshi/cyrus-sasl-xoauth2"
 fetch.github = "moriyoshi/cyrus-sasl-xoauth2"
 
-[sloth]
-src.github = "slok/sloth"
-fetch.github = "slok/sloth"
-
-[grizzly]
-src.github = "grafana/grizzly"
-fetch.github = "grafana/grizzly"
-
+# [sloth]
+# src.github = "slok/sloth"
+# fetch.github = "slok/sloth"
+#
+# [grizzly]
+# src.github = "grafana/grizzly"
+# fetch.github = "grafana/grizzly"
+#
 [kustomize]
 src.github = "kubernetes-sigs/kustomize"
 src.include_regex = "kustomize/v.*"
 fetch.github = "kubernetes-sigs/kustomize"
 
-[testkube]
-src.github_tag = "kubeshop/testkube"
-fetch.github = "kubeshop/testkube"
+# [testkube]
+# src.github_tag = "kubeshop/testkube"
+# fetch.github = "kubeshop/testkube"
+#
+# [tilt]
+# src.github_tag = "tilt-dev/tilt"
+# fetch.github = "tilt-dev/tilt"
 
-[tilt]
-src.github_tag = "tilt-dev/tilt"
-fetch.github = "tilt-dev/tilt"
+# [slack]
+# src.aur = "slack-desktop"
+# fetch.url = "https://downloads.slack-edge.com/releases/linux/$ver/prod/x64/slack-desktop-$ver-amd64.deb"
 
-[slack]
-src.aur = "slack-desktop"
-fetch.url = "https://downloads.slack-edge.com/releases/linux/$ver/prod/x64/slack-desktop-$ver-amd64.deb"
-
-[swaync]
-src.github = "ErikReider/SwayNotificationCenter"
-fetch.github = "ErikReider/SwayNotificationCenter"
+# [swaync]
+# src.github = "ErikReider/SwayNotificationCenter"
+# fetch.github = "ErikReider/SwayNotificationCenter"
 
 [gnupg]
 src.manual = "gnupg-2.4.0"

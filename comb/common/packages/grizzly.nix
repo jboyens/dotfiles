@@ -1,11 +1,11 @@
 {
   stdenv,
   lib,
-  buildGo119Module,
+  buildGoModule,
   fetchFromGitHub,
   sources,
 }:
-buildGo119Module rec {
+buildGoModule rec {
   inherit (sources.grizzly) pname src;
 
   version = lib.removePrefix "v" sources.grizzly.version;

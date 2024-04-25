@@ -46,7 +46,7 @@ in {
 
       "${super}+${control}+Return" = "exec ${terminal}";
       "${super}+Return" = ''
-        exec ${terminal} bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+        exec ${terminal} ${pkgs.bash}/bin/bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
 
       "${super}+${control}+Slash" = "exec firefox";
 

@@ -1,5 +1,4 @@
 {
-  inputs,
   cell,
   config,
   ...
@@ -237,7 +236,7 @@ in {
 
   services = {
     wlsunset = {
-      enable = true;
+      enable = false;
       latitude = "47.6062";
       longitude = "-122.3321";
     };
@@ -288,8 +287,6 @@ in {
       export XDG_CURRENT_DESKTOP=sway
       export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
       export NIXOS_OZONE_WL=1
-      export XCURSOR_PATH=${pkgs.dracula-icon-theme}/share/icons
-      export XCURSOR_THEME=Dracula
       export WLR_DRM_NO_MODIFIERS=1
     '';
 

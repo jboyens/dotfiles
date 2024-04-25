@@ -53,9 +53,9 @@ in {
     };
 
     # HACK
-    nixPath = nixPathInputs ++ ["nixpkgs=${inputs.std.inputs.nixpkgs}"];
+    nixPath = nixPathInputs ++ ["nixpkgs=${inputs.nixpkgs}"];
 
-    registry = registryInputs // {nixpkgs.flake = inputs.std.inputs.nixpkgs;};
+    registry = registryInputs // {nixpkgs.flake = inputs.nixpkgs;};
 
     extraOptions = ''
       experimental-features = nix-command flakes

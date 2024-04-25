@@ -1,22 +1,26 @@
 {
+  inputs,
   cell,
   config,
   ...
 }: let
   inherit (cell) pkgs;
 
-  myEmacsPkg = pkgs.emacs-pgtk;
+  # myEmacsPkg = pkgs.emacs-unstable-pgtk;
+  myEmacsPkg = pkgs.emacs29-pgtk;
+  # myEmacsPkg = pkgs.enableDebugging pkgs.emacs-unstable;
+  # myEmacsPkg = pkgs.emacs;
 
-  myEmacs = (pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
-    epkgs.vterm
-    epkgs.parinfer-rust-mode
-    epkgs.treesit-grammars.with-all-grammars
-    epkgs.mu4e
-  ]);
+  myEmacs =
+    (inputs.nixpkgs.pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages
+    (epkgs: [
+      epkgs.vterm
+      epkgs.parinfer-rust-mode
+      epkgs.treesit-grammars.with-all-grammars
+      epkgs.mu4e
+    ]);
 in {
-  home.sessionPath = [
-    "${config.xdg.configHome}/emacs/bin"
-  ];
+  home.sessionPath = ["${config.xdg.configHome}/emacs/bin"];
 
   systemd.user.services.org-mode-sync = {
     Unit = {
@@ -90,7 +94,7 @@ in {
       mimeTypes = ["x-scheme-handler/org-protocol"];
     })
     # :lang nix
-    nixfmt
+    nixfmt-rfc-style
     # :lang sh
     shellcheck
     shfmt
@@ -111,7 +115,7 @@ in {
 
     # :lang markdown
     discount
-    python311Packages.grip
+    # python311Packages.grip
 
     # :lang web
     html-tidy

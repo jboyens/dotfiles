@@ -32,5 +32,5 @@ in
     ++ cell.lib.optional (!stdenv.isDarwin) "fuzzel")
   // {
     gnupg = callPackage ./gnupg {};
-    devpod-cli = callPackage ./devpod-cli.nix {};
+    fzf = callPackage ./fzf.nix {};
   }

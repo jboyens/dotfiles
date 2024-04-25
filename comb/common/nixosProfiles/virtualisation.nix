@@ -10,6 +10,12 @@
 
     libvirtd.enable = true;
 
+    # podman = {
+    #   enable = true;
+    #   enableNvidia = config.hardware.nvidia.modesetting.enable;
+    #   autoPrune.enable = true;
+    # };
+
     docker = {
       enable = true;
       enableOnBoot = true;

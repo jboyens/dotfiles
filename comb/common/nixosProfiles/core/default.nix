@@ -7,6 +7,7 @@
   inherit (pkgs) writeScriptBin;
 in {
   programs = {
+    nix-ld.enable = true;
     ssh = {
       startAgent = true;
       enableAskPassword = true;
@@ -15,6 +16,11 @@ in {
 
     zsh.enable = true;
   };
+
+  # services.xserver.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # networking.networkmanager.enable = false;
 
   services = {
     earlyoom = {
@@ -72,7 +78,7 @@ in {
       wget
       whois
 
-      nixfmt
+      nixfmt-rfc-style
       nixpkgs-fmt
       alejandra
 

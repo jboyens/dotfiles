@@ -19,25 +19,6 @@
         },
         "version": "v0.2"
     },
-    "fuzzel": {
-        "cargoLocks": null,
-        "date": "2023-01-02",
-        "extract": null,
-        "name": "fuzzel",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "d904bc05323cd2977c493531219ad6e4aefe45b5",
-            "sha256": "sha256-2lTo3FfmREFgyoTF2p9Au9FzCSmxU6LOKfSHjV/3pZM=",
-            "type": "git",
-            "url": "https://git.sr.ht/~dnkl/fuzzel"
-        },
-        "version": "d904bc05323cd2977c493531219ad6e4aefe45b5"
-    },
     "gnupg": {
         "cargoLocks": null,
         "date": null,
@@ -57,26 +38,6 @@
         },
         "version": "gnupg-2.4.0"
     },
-    "grizzly": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "grizzly",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "grafana",
-            "repo": "grizzly",
-            "rev": "v0.3.1",
-            "sha256": "sha256-d/DUazWBT96+dnwVXo667RHALUM2FHxXoI54fFU2HZw=",
-            "type": "github"
-        },
-        "version": "v0.3.1"
-    },
     "kustomize": {
         "cargoLocks": null,
         "date": null,
@@ -91,16 +52,16 @@
             "name": null,
             "owner": "kubernetes-sigs",
             "repo": "kustomize",
-            "rev": "kustomize/v5.3.0",
-            "sha256": "sha256-TleO28Q6JaOz1OAJKbvLhN99a841FEhHL15NTMhS1Oc=",
+            "rev": "kustomize/v5.4.1",
+            "sha256": "sha256-zt+/CKIIaZxfjfMu9L4/bDc5MmaqeEp3MI/m++GQoEc=",
             "type": "github"
         },
-        "version": "kustomize/v5.3.0"
+        "version": "kustomize/v5.4.1"
     },
     "pizauth": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./pizauth-pizauth-1.0.3/Cargo.lock",
+                "./pizauth-pizauth-1.0.4/Cargo.lock",
                 {}
             ]
         },
@@ -116,105 +77,10 @@
             "name": null,
             "owner": "ltratt",
             "repo": "pizauth",
-            "rev": "pizauth-1.0.3",
-            "sha256": "sha256-aBaVvEPCnDPXkoUxYucB/C4pXcHwlF9678ieBZ5VL5w=",
+            "rev": "pizauth-1.0.4",
+            "sha256": "sha256-Du+MVdYVQgH2V7928kpur+Xp/0y7HXgB8ZC0qciiQvs=",
             "type": "github"
         },
-        "version": "pizauth-1.0.3"
-    },
-    "slack": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "slack",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-T1ses3jVpYo2T53HDfXAzNm+DO26tC33GT3fux0qAho=",
-            "type": "url",
-            "url": "https://downloads.slack-edge.com/releases/linux/4.36.138/prod/x64/slack-desktop-4.36.138-amd64.deb"
-        },
-        "version": "4.36.138"
-    },
-    "sloth": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "sloth",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "slok",
-            "repo": "sloth",
-            "rev": "v0.11.0",
-            "sha256": "sha256-KMVD7uH3Yg9ThnwKKzo6jom0ctFywt2vu7kNdfjiMCs=",
-            "type": "github"
-        },
-        "version": "v0.11.0"
-    },
-    "swaync": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "swaync",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "ErikReider",
-            "repo": "SwayNotificationCenter",
-            "rev": "v0.9.0",
-            "sha256": "sha256-mwwSTs4d9jUXUy33nSYJCRFlpH6naCmbRUSpfVacMBE=",
-            "type": "github"
-        },
-        "version": "v0.9.0"
-    },
-    "testkube": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "testkube",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "kubeshop",
-            "repo": "testkube",
-            "rev": "v1.16.25",
-            "sha256": "sha256-304LLlHgk21hIBgrDyZ/3xUMfMa1egl4VZWHuFGkX7k=",
-            "type": "github"
-        },
-        "version": "v1.16.25"
-    },
-    "tilt": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "tilt",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "tilt-dev",
-            "repo": "tilt",
-            "rev": "v0.33.10",
-            "sha256": "sha256-LPb2tC3xIGhjiLYkTU+NBIUoqiicO2ORM6Nt1eTnwQs=",
-            "type": "github"
-        },
-        "version": "v0.33.10"
+        "version": "pizauth-1.0.4"
     }
 }

@@ -1,7 +1,6 @@
 {
   inputs,
   cell,
-  ...
 }: let
   inherit (inputs.cells.common) pkgs;
 in {
@@ -11,8 +10,10 @@ in {
   enableDefaultPackages = true;
 
   packages = with pkgs; [
-    (pkgs.iosevka-bin.override {variant = "etoile";})
-    (pkgs.iosevka-bin.override {variant = "aile";})
+    (pkgs.iosevka-bin.override {variant = "Etoile";})
+    # (pkgs.iosevka-bin.override {variant = "etoile";})
+    (pkgs.iosevka-bin.override {variant = "Aile";})
+    # (pkgs.iosevka-bin.override {variant = "aile";})
     inputs.cells.common.packages.pragmasevka
     pkgs.noto-fonts-emoji
 
@@ -32,7 +33,11 @@ in {
     fira-code
     fira-mono
     iosevka-bin
-    (iosevka-bin.override {variant = "sgr-iosevka-term";})
+    (iosevka-bin.override {variant = "SGr-IosevkaTerm";})
+    # (iosevka-bin.override {variant = "sgr-iosevka-term";})
+    iosevka-comfy.comfy
+    iosevka-comfy.comfy-duo
+    iosevka-comfy.comfy-fixed
     _3270font
     jetbrains-mono
     hack-font

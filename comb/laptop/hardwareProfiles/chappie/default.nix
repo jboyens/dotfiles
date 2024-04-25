@@ -42,8 +42,8 @@ in {
     initrd.kernelModules = ["dm-snapshot"];
 
     blacklistedKernelModules = ["iTCO_wdt" "nouveau"];
-    extraModulePackages = with kernel; [acpi_call v4l2loopback];
-    kernelModules = ["kvm-intel" "v4l2loopback"];
+    extraModulePackages = with kernel; [acpi_call]; #v4l2loopback];
+    kernelModules = ["kvm-intel"]; # "v4l2loopback"];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -57,8 +57,9 @@ in {
     ];
     extraModprobeConfig = ''
       options nfs nfs4_disable_idmapping=0
-      options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
+      options iwlmvm power_scheme=1
     '';
+    # options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
   };
   services = {
     thermald.enable = true;
@@ -109,22 +110,22 @@ in {
   };
 
   # specialisation = {
-  #   nvidia.configuration = {
-  #     services.xserver.videoDrivers = ["nvidia"];
-  #     system.nixos.tags = ["nvidia"];
+  # nvidia.configuration = {
+  # services.xserver.videoDrivers = ["nvidia"];
+  # system.nixos.tags = ["nvidia"];
   #
-  #     hardware.nvidia = {
-  #       modesetting.enable = true;
-  #       powerManagement.enable = false;
-  #       powerManagement.finegrained = false;
-  #       open = false;
-  #       nvidiaSettings = true;
-  #       prime = {
-  #         sync.enable = true;
-  #         intelBusId = "PCI:0:2:0";
-  #         nvidiaBusId = "PCI:1:0:0";
-  #       };
-  #     };
+  # hardware.nvidia = {
+  #   modesetting.enable = true;
+  #   powerManagement.enable = false;
+  #   powerManagement.finegrained = false;
+  #   open = false;
+  #   nvidiaSettings = true;
+  #   prime = {
+  #     sync.enable = true;
+  #     intelBusId = "PCI:0:2:0";
+  #     nvidiaBusId = "PCI:1:0:0";
+  #   };
+  # };
   #   };
   # };
 

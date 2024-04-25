@@ -15,7 +15,7 @@ in
         nixVersions.unstable
         statix
         nil
-        nixfmt
+        nixfmt-rfc-style
         nixpkgs-fmt
         alejandra
       ];
@@ -23,7 +23,9 @@ in
       commands = let
         inherit (inputs) nixos-generators;
       in [
-        {package = inputs.colmena.packages.colmena;}
+        {
+          package = inputs.hive.inputs.colmena.packages.x86_64-linux.colmena;
+        }
         # {package = inputs.namaka.packages.default;}
         {
           category = "general commands";
@@ -31,10 +33,10 @@ in
           help = "Format repository";
           command = "nix fmt $PRJ_ROOT";
         }
-        (lib.mkIf stdenv.isLinux {
-          package = nixos-generators.packages.nixos-generate;
-          category = "generate";
-        })
+        # (lib.mkIf stdenv.isLinux {
+        #   package = nixos-generators.packages.nixos-generate;
+        #   category = "generate";
+        # })
         {
           category = "nix";
           name = "switch";

@@ -2,6 +2,8 @@
   inputs,
   cell,
 }: let
+  inherit (inputs.cells.common) pkgs;
+
   nas-fileSystems = let
     options = [
       "nfsvers=4.1"
@@ -39,14 +41,16 @@ in {
   };
 
   time.timeZone = "America/Los_Angeles";
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
+  # system.stateVersion = "23.11";
 
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     users.jboyens = {
       imports = inputs.cells.common.homeSuites.jboyens;
-      home.stateVersion = "23.11";
+      home.stateVersion = "24.05";
+      # home.stateVersion = "23.11";
     };
   };
 
@@ -82,6 +86,26 @@ in {
         enable = true;
         configurationLimit = 10;
         netbootxyz.enable = true;
+        extraEntries = {
+          "shell.conf" = ''
+            title UEFI-Shell
+            efi /efi/edk2-uefi-shell/shell.efi
+          '';
+          "windows.conf" = ''
+            title Windows
+            efi /efi/edk2-uefi-shell/shell.efi
+            options -nointerrupt -noconsolein -noconsoleout efi/edk2-uefi-shell/windows.nsh
+          '';
+        };
+        extraFiles = {
+          "efi/edk2-uefi-shell/shell.efi" = "${pkgs.edk2-uefi-shell}";
+          "efi/edk2-uefi-shell/windows.nsh" = pkgs.writeTextFile {
+            name = "windows.nsh";
+            text = ''
+              HD2c:EFI\Boot\BootX64.efi
+            '';
+          };
+        };
       };
     };
 
