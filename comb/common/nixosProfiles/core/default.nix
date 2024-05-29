@@ -15,6 +15,13 @@ in {
     };
 
     zsh.enable = true;
+
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 7d --keep 3";
+      flake = "/home/jboyens/.config/dotfiles";
+    };
   };
 
   # services.xserver.enable = true;

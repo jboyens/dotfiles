@@ -11,14 +11,12 @@
   # myEmacsPkg = pkgs.enableDebugging pkgs.emacs-unstable;
   # myEmacsPkg = pkgs.emacs;
 
-  myEmacs =
-    (inputs.nixpkgs.pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages
-    (epkgs: [
-      epkgs.vterm
-      epkgs.parinfer-rust-mode
-      epkgs.treesit-grammars.with-all-grammars
-      epkgs.mu4e
-    ]);
+  myEmacs = (inputs.nixpkgs.pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
+    epkgs.vterm
+    epkgs.parinfer-rust-mode
+    epkgs.treesit-grammars.with-all-grammars
+    epkgs.mu4e
+  ]);
 in {
   home.sessionPath = ["${config.xdg.configHome}/emacs/bin"];
 
@@ -37,7 +35,9 @@ in {
       RestartSec = "30";
     };
 
-    Install = {WantedBy = ["default.target"];};
+    Install = {
+      WantedBy = ["default.target"];
+    };
   };
 
   programs.zsh.initExtra = ''
@@ -70,7 +70,14 @@ in {
 
     ## Module dependencies
     # :checkers spell
-    (aspellWithDicts (ds: with ds; [en en-computers en-science]))
+    (aspellWithDicts (
+      ds:
+        with ds; [
+          en
+          en-computers
+          en-science
+        ]
+    ))
     # :checkers grammar
     # languagetool
     # :tools editorconfig

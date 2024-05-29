@@ -101,6 +101,10 @@ in {
 
     Service = {
       Type = "oneshot";
+      Environment = [
+        "PATH=${pkgs.openssh}/bin:$PATH"
+        "SSH_AUTH_SOCK=/run/user/1000/ssh-agent"
+      ];
       ExecStart = "${config.programs.git.package}/bin/git for-each-repo --config=maintenance.repo maintenance run --schedule=%i";
       LockPersonality = "yes";
       MemoryDenyWriteExecute = "yes";

@@ -252,6 +252,17 @@ in {
 
         nvd
 
+        (weechat.override {
+          configure = {availablePlugins, ...}: {
+            scripts = with pkgs.weechatScripts; [
+              wee-slack
+              weechat-notify-send
+              weechat-go
+              weechat-autosort
+            ];
+          };
+        })
+
         # markdown-to-confluence
 
         # autotiling

@@ -12,7 +12,7 @@ in
       imports = [inputs.std.std.devshellProfiles.default];
 
       packages = with pkgs; [
-        nixVersions.unstable
+        nixVersions.latest
         statix
         nil
         nixfmt-rfc-style
@@ -90,7 +90,7 @@ in
           category = "packages";
           name = "update-packages";
           help = "Update packages in this repo";
-          command = "(cd $PRJ_ROOT/comb/common/packages && nix shell github:berberman/nvfetcher --command nvfetcher -c sources.toml -k ~/keyfile.toml)";
+          command = "(cd $PRJ_ROOT/comb/common/packages && nix shell github:berberman/nvfetcher/0.6.2 --command nvfetcher -c sources.toml -k ~/keyfile.toml)";
         }
       ];
     };

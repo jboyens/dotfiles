@@ -41,8 +41,11 @@ in {
     ];
     initrd.kernelModules = ["dm-snapshot"];
 
-    blacklistedKernelModules = ["iTCO_wdt" "nouveau"];
-    extraModulePackages = with kernel; [acpi_call]; #v4l2loopback];
+    blacklistedKernelModules = [
+      "iTCO_wdt"
+      "nouveau"
+    ];
+    extraModulePackages = with kernel; [acpi_call]; # v4l2loopback];
     kernelModules = ["kvm-intel"]; # "v4l2loopback"];
 
     kernelParams = [
@@ -70,18 +73,25 @@ in {
     # firmware updates
     fwupd = {
       enable = true;
-      extraRemotes = ["lvfs" "lvfs-testing"];
+      extraRemotes = [
+        "lvfs"
+        "lvfs-testing"
+      ];
     };
 
     # fingerprint sensor setup
-    fprintd = {enable = true;};
+    fprintd = {
+      enable = true;
+    };
   };
 
   hardware = {
     # bluetooth
     bluetooth = {
       enable = true;
-      settings = {General.Enable = "Source,Sink,Media,Socket";};
+      settings = {
+        General.Enable = "Source,Sink,Media,Socket";
+      };
     };
 
     # a (failed -- 2023-08-23) attempt at using the internal camera
@@ -110,22 +120,37 @@ in {
   };
 
   # specialisation = {
-  # nvidia.configuration = {
-  # services.xserver.videoDrivers = ["nvidia"];
-  # system.nixos.tags = ["nvidia"];
-  #
-  # hardware.nvidia = {
-  #   modesetting.enable = true;
-  #   powerManagement.enable = false;
-  #   powerManagement.finegrained = false;
-  #   open = false;
-  #   nvidiaSettings = true;
-  #   prime = {
-  #     sync.enable = true;
-  #     intelBusId = "PCI:0:2:0";
-  #     nvidiaBusId = "PCI:1:0:0";
+  #   nvidia.configuration = {
+  #     services.xserver.videoDrivers = ["nvidia"];
+  #     system.nixos.tags = ["nvidia"];
+
+  #     hardware.nvidia = {
+  #       modesetting.enable = true;
+  #       powerManagement.enable = false;
+  #       powerManagement.finegrained = false;
+  #       open = false;
+  #       nvidiaSettings = true;
+  #       prime = {
+  #         sync.enable = true;
+  #         intelBusId = "PCI:0:2:0";
+  #         nvidiaBusId = "PCI:1:0:0";
+  #       };
+  #     };
   #   };
-  # };
+
+  #   kde.configuration = {
+  #     services.xserver.enable = true;
+  #     services.xserver.desktopManager.plasma6.enable = true;
+  #     services.xserver.displayManager.sddm.enable = true;
+  #     services.xserver.autorun = false;
+  #   };
+
+  #   gnome.configuration = {
+  #     services.xserver.enable = true;
+  #     services.xserver.desktopManager.gnome.enable = true;
+  #     services.xserver.displayManager.gdm.enable = true;
+  #     services.xserver.autorun = false;
+  #     hardware.pulseaudio.enable = false;
   #   };
   # };
 

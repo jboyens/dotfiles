@@ -5,6 +5,7 @@
   inherit (inputs.cells.common) pkgs;
 in {
   adb.enable = true;
+
   # even though this is managed via home-manager, this sets up some pam stuff
   # that is important
   sway = {

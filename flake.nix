@@ -73,8 +73,8 @@
     devenv.url = "github:cachix/devenv";
 
     stylix = {
-      # url = "github:danth/stylix";
-      url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
+      url = "github:danth/stylix";
+      # url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
       # url = "github:danth/stylix/release-23.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
