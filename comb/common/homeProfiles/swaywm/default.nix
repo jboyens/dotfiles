@@ -367,6 +367,10 @@ in {
           command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           always = false;
         }
+        {
+          command = "eww open bar";
+          always = false;
+        }
       ];
 
       window = {
@@ -450,14 +454,14 @@ in {
         ];
       };
 
-      # bars = [];
-      bars = [
-        ({
-            position = "bottom";
-            statusCommand = "i3status-rs config-bottom.toml";
-          }
-          // config.lib.stylix.sway.bar)
-      ];
+      bars = [];
+      # bars = [
+      #   ({
+      #       position = "bottom";
+      #       statusCommand = "i3status-rs config-bottom.toml";
+      #     }
+      #     // config.lib.stylix.sway.bar)
+      # ];
     };
   };
 }

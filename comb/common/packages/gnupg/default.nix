@@ -9,4 +9,6 @@ in
   gnupg.overrideAttrs (oa: {
     inherit (sources.gnupg) src;
     version = lib.removePrefix "gnupg-" sources.gnupg.version;
+
+    meta = oa.meta // {mainProgram = "gpg";};
   })

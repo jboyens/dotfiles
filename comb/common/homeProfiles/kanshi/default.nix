@@ -16,41 +16,47 @@
 in {
   services.kanshi = {
     enable = true;
-    profiles = {
-      Home = {
-        outputs = [
-          {
-            inherit (left) mode;
+    settings = [
+      {
+        profile = {
+          name = "Home";
+          outputs = [
+            {
+              inherit (left) mode;
 
-            criteria = left.name;
-            position = "0,0";
-          }
-          {
-            inherit (center) mode;
+              criteria = left.name;
+              position = "0,0";
+            }
+            {
+              inherit (center) mode;
 
-            criteria = center.name;
-            position = "3840,370";
-          }
-          {
-            inherit (right) mode;
+              criteria = center.name;
+              position = "3840,370";
+            }
+            {
+              inherit (right) mode;
 
-            criteria = right.name;
-            position = "7280,750";
-          }
-        ];
-      };
-      Mobile = {
-        outputs = [
-          {
-            inherit (right) mode;
+              criteria = right.name;
+              position = "7280,750";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "Mobile";
+          outputs = [
+            {
+              inherit (right) mode;
 
-            criteria = right.name;
-            position = "0,0";
-            scale = 1.0;
-          }
-        ];
-      };
-    };
+              criteria = right.name;
+              position = "0,0";
+              scale = 1.0;
+            }
+          ];
+        };
+      }
+    ];
   };
 
   wayland.windowManager.sway.config.output = {

@@ -9,7 +9,7 @@ in {
     common-cpu-intel
     common-pc-laptop
     common-pc-laptop-ssd
-    common-gpu-intel
+    # common-gpu-intel
     apple-macbook-pro-12-1
   ];
 

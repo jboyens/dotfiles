@@ -58,7 +58,8 @@ in {
         # ripgrep
         sudo
         bottom
-        my.fzf
+        # my.fzf
+        fzf
         eza
 
         # clang

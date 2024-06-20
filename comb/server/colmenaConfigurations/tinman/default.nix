@@ -11,7 +11,7 @@ in {
   deployment =
     common.deployment
     // {
-      targetHost = "192.168.86.244";
+      targetHost = "tinman.taila7ca.ts.net";
       targetUser = "jboyens";
       tags = ["server"];
     };

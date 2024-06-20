@@ -18,11 +18,9 @@ in {
       inherit networkConfig;
       routes = [
         {
-          routeConfig = {
-            Gateway = "_dhcp4";
-            InitialCongestionWindow = 60;
-            InitialAdvertisedReceiveWindow = 60;
-          };
+          Gateway = "_dhcp4";
+          InitialCongestionWindow = 60;
+          InitialAdvertisedReceiveWindow = 60;
         }
       ];
     };
@@ -45,12 +43,14 @@ in {
 
   networking = {
     useDHCP = false;
-    wireless.enable = true;
-    wireless.iwd.enable = false;
-    wireless.iwd.settings = {
-      Rank = {
-        BandModifier2_4GHz = 0.5;
-        BandModifier5GHz = 2.0;
+    wireless = {
+      enable = true;
+      iwd.enable = false;
+      iwd.settings = {
+        Rank = {
+          BandModifier2_4GHz = 0.5;
+          BandModifier5GHz = 2.0;
+        };
       };
     };
     networkmanager.enable = false;

@@ -19,6 +19,7 @@ in rec {
       homeProfiles.everything
       homeProfiles.kanshi
       homeProfiles.mako
+      homeProfiles.hyprland
       homeProfiles.swaywm
       homeProfiles.i3status-rust
       homeProfiles.swaywm-keybindings
@@ -28,6 +29,7 @@ in rec {
       homeProfiles.foot
       homeProfiles.rofi
       homeProfiles.gtk
+      homeProfiles.eww
     ]
     ++ jboyens-basic;
 }

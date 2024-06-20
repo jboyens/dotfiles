@@ -9,7 +9,7 @@ in {
   programs.gpg = {
     enable = true;
     homedir = "${config.xdg.configHome}/gnupg";
-    package = myPkg;
+    # package = myPkg;
   };
 
   services.gpg-agent = {

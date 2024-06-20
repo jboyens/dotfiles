@@ -3,7 +3,6 @@
   cell,
 }: let
   inherit (cell) pkgs lib;
-  inherit (pkgs) stdenv;
 in
   lib.mapAttrs (_: inputs.std.lib.dev.mkShell) {
     default = _: {
@@ -12,17 +11,14 @@ in
       imports = [inputs.std.std.devshellProfiles.default];
 
       packages = with pkgs; [
-        nixVersions.latest
         statix
-        nil
+        # nil
         nixfmt-rfc-style
         nixpkgs-fmt
         alejandra
       ];
 
-      commands = let
-        inherit (inputs) nixos-generators;
-      in [
+      commands = [
         {
           package = inputs.hive.inputs.colmena.packages.x86_64-linux.colmena;
         }

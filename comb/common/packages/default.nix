@@ -16,20 +16,12 @@
       })
       list)));
 in
-  mkPackages ([
-      "isync-oauth2"
-      "cyrus-sasl-xoauth2"
-      "pizauth"
-      "pragmasevka"
-      "slack"
-      "sloth"
-      "kustomize"
-      "grizzly"
-      "tilt"
-      "testkube"
-      "swaync"
-    ]
-    ++ cell.lib.optional (!stdenv.isDarwin) "fuzzel")
+  mkPackages [
+    "isync-oauth2"
+    "cyrus-sasl-xoauth2"
+    "pizauth"
+    "pragmasevka"
+  ]
   // {
     gnupg = callPackage ./gnupg {};
     fzf = callPackage ./fzf.nix {};

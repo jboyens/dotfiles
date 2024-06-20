@@ -55,6 +55,7 @@ in {
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
       "i915.mitigations=off"
+      "i915.enable_guc=2"
       "mem_sleep_default=deep"
       "nmi_watchdog=0"
     ];
@@ -121,22 +122,26 @@ in {
 
   # specialisation = {
   #   nvidia.configuration = {
-  #     services.xserver.videoDrivers = ["nvidia"];
-  #     system.nixos.tags = ["nvidia"];
+  services.xserver.videoDrivers = ["nvidia"];
+  # system.nixos.tags = ["nvidia"];
 
-  #     hardware.nvidia = {
-  #       modesetting.enable = true;
-  #       powerManagement.enable = false;
-  #       powerManagement.finegrained = false;
-  #       open = false;
-  #       nvidiaSettings = true;
-  #       prime = {
-  #         sync.enable = true;
-  #         intelBusId = "PCI:0:2:0";
-  #         nvidiaBusId = "PCI:1:0:0";
-  #       };
-  #     };
-  #   };
+  environment.variables = {
+    VDPAU_DRIVER = lib.mkOverride 990 "nvidia";
+  };
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+    prime = {
+      sync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+  # };
 
   #   kde.configuration = {
   #     services.xserver.enable = true;

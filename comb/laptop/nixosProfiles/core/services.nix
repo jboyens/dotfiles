@@ -1,8 +1,10 @@
 {
   inputs,
   cell,
+  config,
 }: let
   inherit (inputs.cells.common) pkgs;
+  inherit (inputs.cells.common) lib;
 in {
   auto-cpufreq.enable = true;
   thermald.enable = true;
@@ -23,6 +25,8 @@ in {
       };
     };
   };
+
+  hypridle.enable = lib.mkIf config.programs.hyprland.enable true;
 
   # command scheduler
   # atd.enable = true;

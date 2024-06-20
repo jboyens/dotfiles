@@ -1,10 +1,15 @@
 {
   inputs,
   cell,
+  config,
+  ...
 }: let
   inherit (inputs.cells.common) pkgs;
 in {
   adb.enable = true;
+
+  hyprland.enable = true;
+  hyprlock.enable = true;
 
   # even though this is managed via home-manager, this sets up some pam stuff
   # that is important
@@ -44,6 +49,4 @@ in {
     enable = true;
     package = pkgs.wireshark;
   };
-
-  # hyprland.enable = true;
 }

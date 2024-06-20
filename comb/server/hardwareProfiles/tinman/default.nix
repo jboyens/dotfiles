@@ -17,7 +17,7 @@ in {
     common-cpu-intel
     common-pc-laptop
     common-pc-laptop-ssd
-    common-gpu-intel
+    # common-gpu-intel
     # common-gpu-nvidia
   ];
 

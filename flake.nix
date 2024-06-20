@@ -73,8 +73,8 @@
     devenv.url = "github:cachix/devenv";
 
     stylix = {
-      url = "github:danth/stylix";
-      # url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
+      # url = "github:danth/stylix";
+      url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
       # url = "github:danth/stylix/release-23.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -82,8 +82,6 @@
         home-manager.follows = "home-manager";
       };
     };
-
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
   };
 
   outputs = {
@@ -124,7 +122,7 @@
         diskoConfigurations
         colmenaConfigurations
 
-        (installables "generators")
+        # (installables "generators")
         (installables "packages")
 
         # pkgs
@@ -142,8 +140,10 @@
     } {
       lib = std.pick self ["common" "lib"];
       devShells = std.harvest self ["common" "devshells"];
-      packages =
-        std.harvest self [["common" "generators"] ["common" "packages"]];
+      packages = std.harvest self [
+        # ["common" "generators"]
+        ["common" "packages"]
+      ];
       pkgs = std.harvest self [["common" "pkgs"]];
 
       nixosConfigurations = collect self "nixosConfigurations";
