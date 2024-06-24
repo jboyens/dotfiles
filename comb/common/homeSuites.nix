@@ -4,32 +4,62 @@
 }: let
   inherit (cell) homeProfiles;
 in rec {
-  jboyens-basic = [
-    homeProfiles.git
+  shell = [
     homeProfiles.zsh
-    homeProfiles.emacs
-    homeProfiles.tmux
-    homeProfiles.devenv
-    homeProfiles.gpg
     homeProfiles.script-directory
+    homeProfiles.gpg
   ];
 
-  jboyens =
+  mail = [
+    homeProfiles.mail
+    homeProfiles.pizauth
+  ];
+
+  hyprland =
     [
-      homeProfiles.everything
-      homeProfiles.kanshi
-      homeProfiles.mako
       homeProfiles.hyprland
+    ]
+    ++ _graphical;
+
+  sway =
+    [
+      homeProfiles.kanshi
       homeProfiles.swaywm
       homeProfiles.i3status-rust
       homeProfiles.swaywm-keybindings
-      homeProfiles.firefox-webapp
-      homeProfiles.firefox
-      homeProfiles.mail
-      homeProfiles.foot
-      homeProfiles.rofi
-      homeProfiles.gtk
-      homeProfiles.eww
     ]
-    ++ jboyens-basic;
+    ++ _graphical;
+
+  _graphical = [
+    homeProfiles.wayland
+    # homeProfiles.mako
+    homeProfiles.fnott
+    homeProfiles.eww
+    homeProfiles.gtk
+    homeProfiles.firefox-webapp
+    homeProfiles.firefox
+    homeProfiles.foot
+    homeProfiles.rofi
+  ];
+
+  development = [
+    homeProfiles.git
+    homeProfiles.emacs
+    homeProfiles.tmux
+    homeProfiles.devenv
+  ];
+
+  basic = shell;
+
+  primary =
+    [homeProfiles.everything]
+    ++ basic
+    ++ mail
+    ++ hyprland
+    ++ development;
+
+  secondary =
+    [homeProfiles.everything]
+    ++ basic
+    ++ development;
 }

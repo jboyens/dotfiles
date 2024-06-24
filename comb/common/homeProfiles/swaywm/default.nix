@@ -8,46 +8,17 @@
   cfg = config.wayland.windowManager.sway;
 in {
   home.packages = lib.mkIf cfg.enable [
-    pkgs.dotool
     # autotiling
     # fuzzel
-    pkgs.grim
     pkgs.i3status-rust
     # qt5.qtwayland
     # broken as of 2023-08-11
     # sirula
-    pkgs.slurp
-    # sov
-    pkgs.sway-contrib.grimshot
     pkgs.swaybg
     pkgs.swayidle
     pkgs.swaylock
     # swayr
-    pkgs.wayvnc
-    pkgs.wev
-    pkgs.wl-clipboard
-    pkgs.wl-clipboard-x11
-    pkgs.wlr-randr
-    pkgs.wob
-    pkgs.wofi
   ];
-
-  systemd.user.services.dotoold = {
-    Install = {WantedBy = ["sway-session.target"];};
-
-    Service = {
-      Environment = "PATH=${pkgs.coreutils}/bin:$PATH";
-      ExecStart = "${pkgs.dotool}/bin/dotoold";
-      Restart = "on-failure";
-    };
-
-    Unit = {
-      After = "graphical-session.target";
-      Description = "dotool reads commands from stdin and simulates keyboard and pointer events";
-      Documentation = "https://git.sr.ht/~geb/dotool";
-      PartOf = "graphical-session.target";
-    };
-  };
 
   programs = {
     swaylock.enable = true;
@@ -235,12 +206,6 @@ in {
   };
 
   services = {
-    wlsunset = {
-      enable = false;
-      latitude = "47.6062";
-      longitude = "-122.3321";
-    };
-
     swayidle = {
       enable = true;
       timeouts = [

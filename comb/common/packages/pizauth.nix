@@ -17,8 +17,13 @@ rustPlatform.buildRustPackage {
   #   cp ${./pizauth-Cargo.lock} Cargo.lock
   # '';
 
+  postInstall = ''
+    install -Dm644 $src/pizauth.1 -t $out/share/man/man1
+    install -Dm644 $src/pizauth.conf.5 -t $out/share/man/man5
+  '';
+
   meta = with lib; {
-    description = "pizauth is a simple program for requesting, showing, and refreshing OAuth2 access tokens";
+    description = "A simple program for requesting, showing, and refreshing OAuth2 access tokens";
     homepage = "https://github.com/ltratt/pizauth";
     license = licenses.mit;
     maintainers = [maintainers.jboyens];

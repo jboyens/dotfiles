@@ -15,12 +15,18 @@
       url = "github:divnix/hive";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        std.inputs.devshell.url = "github:numtide/devshell";
+        colmena.url = "github:zhaofengli/colmena";
+        std.follows = "std";
       };
     };
 
-    std.inputs.devshell.url = "github:numtide/devshell";
-    hive.inputs.colmena.url = "github:zhaofengli/colmena";
+    std = {
+      url = "github:divnix/std";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        devshell.url = "github:numtide/devshell";
+      };
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -73,8 +79,8 @@
     devenv.url = "github:cachix/devenv";
 
     stylix = {
-      # url = "github:danth/stylix";
-      url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
+      url = "github:danth/stylix";
+      # url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
       # url = "github:danth/stylix/release-23.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -152,17 +158,24 @@
         common = std.harvest self [["common" "nixosProfiles"]];
         laptop = std.harvest self [["laptop" "nixosProfiles"]];
         server = std.harvest self [["server" "nixosProfiles"]];
+        desktop = std.harvest self [["desktop" "nixosProfiles"]];
       };
 
-      nixosModules = std.harvest self [["server" "nixosModules"]];
+      nixosModules = std.harvest self [
+        ["common" "nixosModules"]
+        ["server" "nixosModules"]
+      ];
 
       homeConfigurations = collect self "homeConfigurations";
 
       homeProfiles = std.harvest self [
         ["common" "homeProfiles"]
         ["laptop" "homeProfiles"]
+        ["desktop" "homeProfiles"]
         ["server" "homeProfiles"]
       ];
+
+      homeModules = std.harvest self [["common" "homeModules"]];
 
       colmenaHive = collect self "colmenaConfigurations";
 

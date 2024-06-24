@@ -28,23 +28,6 @@ in {
   systemd.user = {
     startServices = "sd-switch";
     services = {
-      pizauth = {
-        Unit = {
-          Description = "OAuth2 Service Daemon";
-          ConditionPathExists = "%h/.config/pizauth.conf";
-          After = "network.target";
-        };
-
-        Service = {
-          Environment = "PATH=${pkgs.libnotify}/bin:${pkgs.age}/bin:$PATH";
-          ExecStart = "${pizauth}/bin/pizauth server -dvc %h/.config/pizauth.conf";
-          Restart = "always";
-          RestartSec = "30";
-        };
-
-        Install = {WantedBy = ["default.target"];};
-      };
-
       "goimapnotify@flexe" = {
         Unit = {
           Description = "IMAP notifier using IDLE, golang version.";

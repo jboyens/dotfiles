@@ -23,6 +23,6 @@ in {
 
     # pinentryFlavor = "gtk2";
     # pinentryFlavor = "gnome3";
-    pinentryPackage = pkgs.pinentry-gnome;
+    pinentryPackage = pkgs.pinentry-gtk2;
   };
 }

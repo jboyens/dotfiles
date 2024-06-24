@@ -1,9 +1,7 @@
 {
   inputs,
   cell,
-}: let
-  inherit (cell) pkgs;
-in {
+}: {
   printers = {
     ensureDefaultPrinter = "HLL2350DW";
     ensurePrinters = [
@@ -20,6 +18,4 @@ in {
   };
 
   keyboard.zsa.enable = true;
-
-  services.udev.packages = [pkgs.qmk-udev-rules];
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 fuzzel \
-    -P ' ' \
+    -p ' ' \
     -b 2e3440ff \
     -t e5e9f0ff \
     -s 4c566aff \
@@ -10,5 +10,4 @@ fuzzel \
     -m bf616aff \
     -w 60 \
     -f "Iosevka:size=16" \
-    -I \
     "$@"

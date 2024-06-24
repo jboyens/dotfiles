@@ -19,7 +19,7 @@
     docker = {
       enable = true;
       enableOnBoot = true;
-      enableNvidia = config.hardware.nvidia.modesetting.enable;
+      # enableNvidia = config.hardware.nvidia.modesetting.enable;
       autoPrune.enable = true;
       listenOptions = ["/run/docker.sock" "127.0.0.1:2376" "[::1]:2376"];
     };

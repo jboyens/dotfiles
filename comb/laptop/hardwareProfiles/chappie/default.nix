@@ -164,6 +164,7 @@ in {
     login.fprintAuth = true;
     swaylock.fprintAuth = true;
     polkit-1.fprintAuth = true;
+    hyprlock = {};
   };
 
   services.logind.extraConfig = ''

@@ -41,15 +41,15 @@ in {
   };
 
   time.timeZone = "America/Los_Angeles";
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
   # system.stateVersion = "23.11";
 
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     users.jboyens = {
-      imports = inputs.cells.common.homeSuites.jboyens;
-      home.stateVersion = "24.05";
+      imports = inputs.cells.common.homeSuites.primary;
+      home.stateVersion = "24.11";
       # home.stateVersion = "23.11";
     };
   };
@@ -73,11 +73,10 @@ in {
   };
   imports =
     [
-      # work around a jankety stylix issue
-      {options.programs = {};}
       cell.hardwareProfiles.chappie
     ]
-    ++ cell.nixosSuites.default;
+    ++ cell.nixosSuites.default
+    ++ inputs.cells.common.nixosSuites.default;
 
   boot = {
     loader = {
