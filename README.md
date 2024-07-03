@@ -6,4 +6,4 @@
 > guarantees that it will work out of the box for anyone but myself. It may also
 > change drastically and without warning. 
 
-Shamelessly copied from [hlissner](https://github.com/hlissner/dotfiles)
+Shamelessly inspired by [hlissner](https://github.com/hlissner/dotfiles)
