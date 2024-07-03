@@ -2,3 +2,6 @@ result
 
 # nixago: ignore-linked-files
 /profiles.ini
+/.direnv/
+/.devenv/
+/.data/

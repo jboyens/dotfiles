@@ -11,22 +11,7 @@
     nixpkgs-unstable.url = "nixpkgs/master";
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
 
-    hive = {
-      url = "github:divnix/hive";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        colmena.url = "github:zhaofengli/colmena";
-        std.follows = "std";
-      };
-    };
-
-    std = {
-      url = "github:divnix/std";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        devshell.url = "github:numtide/devshell";
-      };
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -44,6 +29,13 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
+      };
+    };
+
+    nix2container = {
+      url = "github:nlewo/nix2container";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -77,6 +69,14 @@
     };
 
     devenv.url = "github:cachix/devenv";
+    mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
+    ez-configs = {
+      url = "github:ehllie/ez-configs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
 
     stylix = {
       url = "github:danth/stylix";
@@ -92,93 +92,65 @@
 
   outputs = {
     self,
-    hive,
-    std,
+    flake-parts,
     ...
-  } @ inputs: let
-    # lib = inputs.nixpkgs.lib // builtins;
-    collect = hive.collect // {renamer = cell: target: "${target}";};
-  in
-    hive.growOn {
-      inherit inputs;
-
-      cellsFrom = ./comb;
-
-      cellBlocks = with std.blockTypes;
-      with hive.blockTypes; [
-        # library
-        (functions "lib")
-
-        # modules
-        (functions "nixosModules")
-        (functions "homeModules")
-
-        # profiles
-        (functions "hardwareProfiles")
-        (functions "nixosProfiles")
-        (functions "homeProfiles")
-
-        # suites
-        (functions "nixosSuites")
-        (functions "homeSuites")
-
-        # configurations
-        nixosConfigurations
-        homeConfigurations
-        diskoConfigurations
-        colmenaConfigurations
-
-        # (installables "generators")
-        (installables "packages")
-
-        # pkgs
-        (pkgs "pkgs")
-
-        # devshells
-        (devshells "devshells")
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.devenv.flakeModule
+        inputs.ez-configs.flakeModule
       ];
 
-      nixpkgsConfig = {
-        allowUnfreePredicate = pkg: true;
-        allowUnfree = true;
-        permittedInsecurePackages = [];
-      };
-    } {
-      lib = std.pick self ["common" "lib"];
-      devShells = std.harvest self ["common" "devshells"];
-      packages = std.harvest self [
-        # ["common" "generators"]
-        ["common" "packages"]
-      ];
-      pkgs = std.harvest self [["common" "pkgs"]];
+      systems = ["x86_64-linux"];
 
-      nixosConfigurations = collect self "nixosConfigurations";
+      perSystem = {
+        config,
+        system,
+        lib,
+        ...
+      }: let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+        };
+      in {
+        _module.args = {inherit pkgs;};
+        devenv.shells.default = {pkgs, ...}: {
+          packages = lib.attrValues {
+            inherit (pkgs) alejandra statix;
+          };
+          languages.nix.enable = true;
 
-      nixosProfiles = {
-        common = std.harvest self [["common" "nixosProfiles"]];
-        laptop = std.harvest self [["laptop" "nixosProfiles"]];
-        server = std.harvest self [["server" "nixosProfiles"]];
-        desktop = std.harvest self [["desktop" "nixosProfiles"]];
+          scripts = {
+            fmt.exec = "nix fmt .";
+            switch.exec = "nh os switch";
+            boot.exec = "nh os boot";
+            update.exec = "nix flake update";
+            check.exec = "nix flake check --impure";
+            dry-build.exec = "nh os build --dry";
+            build.exec = "nh os build";
+            update-packages.exec = "(cd packages && nix shell github:berberman/nvfetcher/0.6.2 --command nvfetcher -c sources.toml -k ~/keyfile.toml)";
+          };
+        };
+
+        packages = import ./packages {
+          inherit inputs pkgs lib;
+        };
       };
 
-      nixosModules = std.harvest self [
-        ["common" "nixosModules"]
-        ["server" "nixosModules"]
-      ];
+      ezConfigs = {
+        root = ./.;
+        globalArgs = {inherit inputs self;};
+        nixos.hosts.bishop.userHomeModules = ["jboyens"];
+        home.users.jboyens.importDefault = true;
+      };
 
-      homeConfigurations = collect self "homeConfigurations";
-
-      homeProfiles = std.harvest self [
-        ["common" "homeProfiles"]
-        ["laptop" "homeProfiles"]
-        ["desktop" "homeProfiles"]
-        ["server" "homeProfiles"]
-      ];
-
-      homeModules = std.harvest self [["common" "homeModules"]];
-
-      colmenaHive = collect self "colmenaConfigurations";
-
-      microvms = std.harvest self [["common" "microvms"]];
+      flake = {
+      };
     };
+
+  # nixpkgsConfig = {
+  #   allowUnfreePredicate = pkg: true;
+  #   allowUnfree = true;
+  #   permittedInsecurePackages = [];
+  # };
 }
