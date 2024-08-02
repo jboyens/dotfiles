@@ -11,6 +11,7 @@ in {
 
     settings = {
       main = {
+        default-timeout = 10;
         background = colors.base00 + "FF";
         border-color = colors.base0D + "FF";
         title-color = colors.base05 + "FF";

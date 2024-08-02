@@ -78,7 +78,7 @@ in {
     };
 
     waybar = {
-      enable = false;
+      enable = true;
       systemd = {
         enable = true;
         target = "sway-session.target";
@@ -331,10 +331,10 @@ in {
           command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           always = false;
         }
-        {
-          command = "eww open bar";
-          always = false;
-        }
+        # {
+        #   command = "eww open bar";
+        #   always = false;
+        # }
       ];
 
       window = {

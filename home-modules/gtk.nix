@@ -11,8 +11,8 @@
     # })
     pkgs.catppuccin-gtk
     pkgs.tela-circle-icon-theme
-    pkgs.gnome.adwaita-icon-theme
-    pkgs.gnome.gnome-themes-extra
+    pkgs.adwaita-icon-theme
+    pkgs.gnome-themes-extra
     pkgs.bibata-cursors
   ];
 

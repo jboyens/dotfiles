@@ -4,7 +4,7 @@
     pkgs.grim
     pkgs.sway-contrib.grimshot
     pkgs.slurp
-    pkgs.wayvnc
+    (pkgs.enableDebugging pkgs.wayvnc)
     pkgs.wev
     pkgs.wl-clipboard
     pkgs.wl-clipboard-x11

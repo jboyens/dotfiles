@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   # my = cell.packages;
@@ -54,7 +55,7 @@ in {
         sudo
         bottom
         # my.fzf
-        fzf
+        inputs.nixpkgs-unstable.legacyPackages."${system}".fzf
         eza
 
         # clang
@@ -81,7 +82,7 @@ in {
 
         shellcheck
 
-        easyeffects
+        # easyeffects
 
         editorconfig-core-c
 

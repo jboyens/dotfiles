@@ -281,8 +281,8 @@ in {
 
     settings = {
       monitor = [
-        "DP-1,3440x1440@160Hz,3840x370,1"
-        "DP-2,3840x2160@60Hz,0x0,1"
+        "DP-1,3440x1440@160Hz,3840x370,1,vrr,1"
+        "DP-2,3840x2160@60Hz,0x0,1,vrr,1"
       ];
 
       # Set programs that you use

@@ -245,6 +245,10 @@
     };
   };
 
+  # services.xserver.enable = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma6.enable = true;
+
   system.userActivationScripts.cleanupHome = ''
     pushd "/home/jboyens"
     rm -rf .compose-cache .nv .pki .dbus .fehbg
@@ -254,18 +258,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
-
-    wlr = {
-      enable = lib.mkForce false;
-      settings = {
-        screencast = {
-          output_name = "DP-4";
-          max_fps = 30;
-          chooser_type = "simple";
-          chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-        };
-      };
-    };
+    config.common.default = "*";
+    wlr.enable = true;
   };
 }

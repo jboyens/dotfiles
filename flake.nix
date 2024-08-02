@@ -9,9 +9,15 @@
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
     # nixpkgs.url = "nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "nixpkgs/master";
+    # nixpkgs.url = "nixpkgs/master";
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -92,6 +98,7 @@
 
   outputs = {
     self,
+    lix-module,
     flake-parts,
     ...
   } @ inputs:
@@ -116,9 +123,11 @@
         _module.args = {inherit pkgs;};
         devenv.shells.default = {pkgs, ...}: {
           packages = lib.attrValues {
-            inherit (pkgs) alejandra statix;
+            inherit (pkgs) alejandra statix cachix vulnix deadnix;
+
+            lix = lix-module.packages."${system}".default;
           };
-          languages.nix.enable = true;
+          # languages.nix.enable = true;
 
           scripts = {
             fmt.exec = "nix fmt .";

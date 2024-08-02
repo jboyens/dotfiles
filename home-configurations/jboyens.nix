@@ -9,6 +9,7 @@
   imports = lib.attrValues {
     inherit
       (ezModules)
+      beancount
       devenv
       emacs
       everything
@@ -18,7 +19,8 @@
       git
       gpg
       gtk
-      hyprland
+      # hyprland
+      kanshi
       mail
       # mako
       pizauth
@@ -26,8 +28,8 @@
       secrets
       script-directory
       styling
-      # sway
-      # swaywm-keybindings
+      sway
+      swaywm-keybindings
       tmux
       wayland
       zsh

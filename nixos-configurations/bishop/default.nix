@@ -14,6 +14,7 @@
 in {
   imports =
     [
+      inputs.lix-module.nixosModules.default
       inputs.home-manager.nixosModules.default
       inputs.stylix.nixosModules.stylix
     ]
@@ -96,6 +97,9 @@ in {
       "mitigations=off"
     ];
     extraModprobeConfig = ''
+      options iwlmvm power_scheme=1
+      options iwlwifi 11n_disable=8
+      options cfg80211 ieee80211_regdom=US
     '';
   };
 
@@ -148,7 +152,7 @@ in {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        mesa_drivers
+        mesa.drivers
         vaapiVdpau
       ];
     };

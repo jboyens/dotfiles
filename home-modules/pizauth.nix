@@ -1,5 +1,10 @@
-{pkgs, ...}: let
-  inherit (pkgs) pizauth;
+{
+  pkgs,
+  self,
+  ...
+}: let
+  inherit (pkgs) system;
+  inherit (self.packages."${system}") pizauth;
 in {
   systemd.user = {
     services = {

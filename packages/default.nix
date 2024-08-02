@@ -23,5 +23,4 @@ in
   ]
   // {
     gnupg = callPackage ./gnupg {};
-    fzf = callPackage ./fzf.nix {};
   }
