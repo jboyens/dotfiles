@@ -37,8 +37,8 @@
   networking = {
     useDHCP = false;
     wireless = {
-      enable = true;
-      iwd.enable = false;
+      enable = false;
+      iwd.enable = true;
       iwd.settings = {
         Rank = {
           BandModifier2_4GHz = 0.5;

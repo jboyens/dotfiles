@@ -6,10 +6,10 @@
 in {
   portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    # extraPortals = [pkgs.xdg-desktop-portal-hyprland];
 
     wlr = {
-      enable = lib.mkForce false;
+      enable = true;
       settings = {
         screencast = {
           output_name = "DP-4";

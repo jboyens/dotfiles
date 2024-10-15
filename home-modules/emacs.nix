@@ -3,11 +3,11 @@
   config,
   ...
 }: let
+  myEmacsPkg = pkgs.emacs-pgtk;
   # myEmacsPkg = pkgs.emacs-unstable-pgtk;
-  myEmacsPkg = pkgs.emacs29-pgtk;
+  # myEmacsPkg = pkgs.emacs29-pgtk;
   # myEmacsPkg = pkgs.enableDebugging pkgs.emacs-unstable;
   # myEmacsPkg = pkgs.emacs;
-
   myEmacs = (pkgs.emacsPackagesFor myEmacsPkg).emacsWithPackages (epkgs: [
     epkgs.vterm
     epkgs.parinfer-rust-mode

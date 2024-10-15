@@ -26,6 +26,6 @@ rustPlatform.buildRustPackage {
     description = "A simple program for requesting, showing, and refreshing OAuth2 access tokens";
     homepage = "https://github.com/ltratt/pizauth";
     license = licenses.mit;
-    maintainers = [maintainers.jboyens];
+    maintainers = [];
   };
 }

@@ -10,7 +10,7 @@
     inherit
       (ezModules)
       beancount
-      devenv
+      # devenv
       emacs
       everything
       firefox

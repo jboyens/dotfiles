@@ -11,9 +11,8 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
-    inputs.nixpkgs-wayland.overlay
+    # inputs.nixpkgs-wayland.overlay
     inputs.emacs-overlay.overlay
-    inputs.devenv.overlays.default
   ];
 
   programs.zsh.enable = true;

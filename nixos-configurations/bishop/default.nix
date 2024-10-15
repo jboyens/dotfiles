@@ -14,7 +14,7 @@
 in {
   imports =
     [
-      inputs.lix-module.nixosModules.default
+      # inputs.lix-module.nixosModules.default
       inputs.home-manager.nixosModules.default
       inputs.stylix.nixosModules.stylix
     ]
@@ -86,7 +86,7 @@ in {
     };
 
     blacklistedKernelModules = [];
-    extraModulePackages = [];
+    extraModulePackages = with kernel; [openrazer];
     kernelModules = ["kvm-amd"];
 
     kernelParams = [
@@ -95,12 +95,19 @@ in {
       #      server/headless builds, but on my lonely home system I prioritize
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
+
+      # λ sudo filefrag -v /swapfile| awk '$1=="0:" { print substr($4, 1, length($4)-2) }'
+      "resume_offset=431001600"
     ];
+
     extraModprobeConfig = ''
       options iwlmvm power_scheme=1
       options iwlwifi 11n_disable=8
       options cfg80211 ieee80211_regdom=US
     '';
+
+    # λ findmnt -no UUID -T /swapfile
+    resumeDevice = "/dev/disk/by-uuid/703145ec-80a3-4d0f-a858-419dcd773248";
   };
 
   fileSystems = {
@@ -148,6 +155,9 @@ in {
     };
     cpu.amd.updateMicrocode = true;
 
+    openrazer.enable = true;
+    openrazer.users = ["jboyens"];
+
     graphics = {
       enable = true;
       enable32Bit = true;
@@ -159,5 +169,8 @@ in {
   };
 
   # bishop is a beast with 32 listed cores
-  nix.settings.max-jobs = lib.mkDefault 32;
+  nix.settings = {
+    cores = lib.mkDefault 32;
+    max-jobs = lib.mkDefault 4;
+  };
 }

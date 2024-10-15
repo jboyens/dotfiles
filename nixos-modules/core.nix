@@ -147,8 +147,8 @@
   programs = {
     adb.enable = true;
 
-    hyprland.enable = true;
-    hyprlock.enable = true;
+    hyprland.enable = false;
+    hyprlock.enable = false;
 
     # even though this is managed via home-manager, this sets up some pam stuff
     # that is important
@@ -242,6 +242,13 @@
 
         KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="d010", MODE="0660", GROUP="input", TAG+="uaccess", TAG+="udev-acl"
       '';
+    };
+
+    xserver = {
+      enable = true;
+
+      displayManager.startx.enable = true;
+      windowManager.i3.enable = true;
     };
   };
 

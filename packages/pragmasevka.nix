@@ -6,12 +6,12 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "pragmasevka";
-  version = "1.6.4";
+  version = "1.6.6";
 
   src = fetchzip {
     url = "https://github.com/shytikov/pragmasevka/releases/download/v${version}/Pragmasevka.zip";
     stripRoot = false;
-    hash = "sha256-9ZBozMYjNy/9IO+2Rl6SQC9h+aLBYfG7K4q6GKIOKeo=";
+    hash = "sha256-URgqxl3Hy0AXjPiQyd3AGmue68IYZOC8FoVEodYqwxQ=";
   };
 
   installPhase = ''
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     description = "PragmataPro meets Iosevka";
     homepage = "https://github.com/shytikov/pragmasevka";
     license = licenses.ofl;
-    maintainers = [maintainers.jboyens];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

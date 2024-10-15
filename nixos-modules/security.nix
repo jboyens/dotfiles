@@ -1,7 +1,7 @@
-{...}: {
+_: {
   security = {
     # Prevent replacing the running kernel w/o reboot
-    protectKernelImage = true;
+    protectKernelImage = false;
 
     rtkit.enable = true;
 

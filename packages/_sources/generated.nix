@@ -30,16 +30,16 @@
   };
   pizauth = {
     pname = "pizauth";
-    version = "pizauth-1.0.4";
+    version = "pizauth-1.0.5";
     src = fetchFromGitHub {
       owner = "ltratt";
       repo = "pizauth";
-      rev = "pizauth-1.0.4";
+      rev = "pizauth-1.0.5";
       fetchSubmodules = false;
-      sha256 = "sha256-Du+MVdYVQgH2V7928kpur+Xp/0y7HXgB8ZC0qciiQvs=";
+      sha256 = "sha256-9NezG644oCLTWHTdUaUpJbuwkJu3at/IGNH3FSxl/DI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./pizauth-pizauth-1.0.4/Cargo.lock;
+      lockFile = ./pizauth-pizauth-1.0.5/Cargo.lock;
       outputHashes = {
       };
     };

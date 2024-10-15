@@ -13,11 +13,25 @@
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+    flake-compat.url = "github:nix-community/flake-compat";
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
+    nix-eval-jobs = {
+      url = "github:nix-community/nix-eval-jobs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
+
+    lib-aggregate = {
+      url = "github:nix-community/lib-aggregate";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    # lix-module = {
+    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.flake-utils.follows = "flake-utils";
+    # };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -27,7 +41,10 @@
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     emacs-overlay = {
@@ -35,6 +52,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -42,16 +60,22 @@
       url = "github:nlewo/nix2container";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
       };
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    nixpkgs-wayland = {
-      # url = "github:nix-community/nixpkgs-wayland/1ce086a5ec78554848ab094cc135eb6c26839642";
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nixpkgs-wayland = {
+    #   # url = "github:nix-community/nixpkgs-wayland/1ce086a5ec78554848ab094cc135eb6c26839642";
+    #   url = "github:nix-community/nixpkgs-wayland";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     lib-aggregate.follows = "lib-aggregate";
+    #     nix-eval-jobs.follows = "nix-eval-jobs";
+    #     flake-compat.follows = "flake-compat";
+    #   };
+    # };
 
     base16.url = "github:SenchoPens/base16.nix";
     base16-schemes = {
@@ -74,7 +98,8 @@
       flake = false;
     };
 
-    devenv.url = "github:cachix/devenv";
+    devshell.url = "github:numtide/devshell";
+
     mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
     ez-configs = {
       url = "github:ehllie/ez-configs";
@@ -92,19 +117,20 @@
         nixpkgs.follows = "nixpkgs";
         base16.follows = "base16";
         home-manager.follows = "home-manager";
+        flake-compat.follows = "flake-compat";
       };
     };
   };
 
   outputs = {
     self,
-    lix-module,
+    # lix-module,
     flake-parts,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        inputs.devenv.flakeModule
+        inputs.devshell.flakeModule
         inputs.ez-configs.flakeModule
       ];
 
@@ -121,39 +147,103 @@
         };
       in {
         _module.args = {inherit pkgs;};
-        devenv.shells.default = {pkgs, ...}: {
+        devshells.default = {pkgs, ...}: {
           packages = lib.attrValues {
-            inherit (pkgs) alejandra statix cachix vulnix deadnix;
+            inherit (pkgs) alejandra statix vulnix deadnix colmena;
 
-            lix = lix-module.packages."${system}".default;
+            # lix = lix-module.packages."${system}".default;
           };
-          # languages.nix.enable = true;
 
-          scripts = {
-            fmt.exec = "nix fmt .";
-            switch.exec = "nh os switch";
-            boot.exec = "nh os boot";
-            update.exec = "nix flake update";
-            check.exec = "nix flake check --impure";
-            dry-build.exec = "nh os build --dry";
-            build.exec = "nh os build";
-            update-packages.exec = "(cd packages && nix shell github:berberman/nvfetcher/0.6.2 --command nvfetcher -c sources.toml -k ~/keyfile.toml)";
-          };
+          commands = [
+            {
+              help = "format nix files";
+              name = "fmt";
+              category = "formatter";
+              command = "nix fmt .";
+            }
+            {
+              help = "switch to new version now";
+              category = "NixOS";
+              name = "switch";
+              package = pkgs.nh;
+              command = "nh os switch";
+            }
+            {
+              help = "switch to new version on boot";
+              category = "NixOS";
+              name = "boot";
+              package = pkgs.nh;
+              command = "nh os boot";
+            }
+            {
+              help = "update flake";
+              category = "NixOS";
+              name = "update";
+              command = "nix flake update";
+            }
+            {
+              help = "check flake";
+              category = "NixOS";
+              name = "check";
+              command = "nix flake check";
+            }
+            {
+              help = "dry build";
+              category = "NixOS";
+              name = "dry-build";
+              package = pkgs.nh;
+              command = "nh os build --dry";
+            }
+            {
+              help = "build";
+              category = "NixOS";
+              name = "build";
+              package = pkgs.nh;
+              command = "nh os build";
+            }
+            {
+              help = "update packages";
+              name = "update-packages";
+              command = "(cd packages && nix shell github:berberman/nvfetcher/0.6.2 --command nvfetcher -c sources.toml -k ~/keyfile.toml)";
+            }
+          ];
         };
 
         packages = import ./packages {
           inherit inputs pkgs lib;
         };
+
+        formatter = pkgs.alejandra;
       };
 
       ezConfigs = {
         root = ./.;
         globalArgs = {inherit inputs self;};
         nixos.hosts.bishop.userHomeModules = ["jboyens"];
+        nixos.hosts.tinman.userHomeModules = ["jboyens"];
         home.users.jboyens.importDefault = true;
       };
 
       flake = {
+        colmena = {
+          meta.nixpkgs = import inputs.nixpkgs {
+            system = "x86_64-linux";
+            overlays = [];
+          };
+
+          tinman = {
+            name,
+            nodes,
+            pkgs,
+            ...
+          }: {
+            deployment = {
+              targetHost = "192.168.86.244";
+              targetUser = "jboyens";
+            };
+            boot.isContainer = true;
+          };
+        };
       };
     };
 

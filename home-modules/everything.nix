@@ -30,6 +30,7 @@
       google-cloud-sdk.components.gke-gcloud-auth-plugin
       google-cloud-sdk.components.config-connector
       google-cloud-sdk.components.terraform-tools
+      google-cloud-sdk.components.pubsub-emulator
     ])
     google-cloud-sql-proxy
   ];
