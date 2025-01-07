@@ -31,33 +31,16 @@ in {
   systemd.user = {
     startServices = "sd-switch";
     services = {
-      "goimapnotify@flexe" = {
+      "goimapnotify" = {
         Unit = {
           Description = "IMAP notifier using IDLE, golang version.";
-          ConditionPathExists = "%h/.config/imapnotify/%I/notify.conf";
+          ConditionPathExists = "%h/.config/imapnotify/notify.yaml";
           After = "network.target";
         };
 
         Service = {
           Environment = "PATH=${isync-oauth2}/bin:${pkgs.mu}/bin:${pizauth}/bin:$PATH";
-          ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
-          Restart = "always";
-          RestartSec = "30";
-        };
-
-        Install = {WantedBy = ["default.target"];};
-      };
-
-      "goimapnotify@fooninja" = {
-        Unit = {
-          Description = "IMAP notifier using IDLE, golang version.";
-          ConditionPathExists = "%h/.config/imapnotify/%I/notify.conf";
-          After = "network.target";
-        };
-
-        Service = {
-          Environment = "PATH=${isync-oauth2}/bin:${pkgs.mu}/bin:${pizauth}/bin:$PATH";
-          ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/%I/notify.conf";
+          ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/notify.yaml";
           Restart = "always";
           RestartSec = "30";
         };

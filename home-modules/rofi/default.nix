@@ -28,7 +28,7 @@ in {
       plugins = with pkgs; [
         rofi-calc
         rofi-emoji
-        rofi-file-browser
+        # rofi-file-browser
         rofi-top
       ];
     })

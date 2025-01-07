@@ -51,8 +51,6 @@
       url = "github:nix-community/emacs-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -66,16 +64,16 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    # nixpkgs-wayland = {
-    #   # url = "github:nix-community/nixpkgs-wayland/1ce086a5ec78554848ab094cc135eb6c26839642";
-    #   url = "github:nix-community/nixpkgs-wayland";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     lib-aggregate.follows = "lib-aggregate";
-    #     nix-eval-jobs.follows = "nix-eval-jobs";
-    #     flake-compat.follows = "flake-compat";
-    #   };
-    # };
+    nixpkgs-wayland = {
+      # url = "github:nix-community/nixpkgs-wayland/1ce086a5ec78554848ab094cc135eb6c26839642";
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        lib-aggregate.follows = "lib-aggregate";
+        nix-eval-jobs.follows = "nix-eval-jobs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
 
     base16.url = "github:SenchoPens/base16.nix";
     base16-schemes = {
@@ -165,15 +163,13 @@
               help = "switch to new version now";
               category = "NixOS";
               name = "switch";
-              package = pkgs.nh;
-              command = "nh os switch";
+              command = "${lib.getExe pkgs.nh} os switch";
             }
             {
               help = "switch to new version on boot";
               category = "NixOS";
               name = "boot";
-              package = pkgs.nh;
-              command = "nh os boot";
+              command = "${lib.getExe pkgs.nh} os boot";
             }
             {
               help = "update flake";
@@ -191,15 +187,13 @@
               help = "dry build";
               category = "NixOS";
               name = "dry-build";
-              package = pkgs.nh;
-              command = "nh os build --dry";
+              command = "${lib.getExe pkgs.nh} os build --dry";
             }
             {
               help = "build";
               category = "NixOS";
               name = "build";
-              package = pkgs.nh;
-              command = "nh os build";
+              command = "${lib.getExe pkgs.nh} os build";
             }
             {
               help = "update packages";
@@ -220,31 +214,11 @@
         root = ./.;
         globalArgs = {inherit inputs self;};
         nixos.hosts.bishop.userHomeModules = ["jboyens"];
-        nixos.hosts.tinman.userHomeModules = ["jboyens"];
+        nixos.hosts.tinman.userHomeModules = ["server"];
         home.users.jboyens.importDefault = true;
       };
 
-      flake = {
-        colmena = {
-          meta.nixpkgs = import inputs.nixpkgs {
-            system = "x86_64-linux";
-            overlays = [];
-          };
-
-          tinman = {
-            name,
-            nodes,
-            pkgs,
-            ...
-          }: {
-            deployment = {
-              targetHost = "192.168.86.244";
-              targetUser = "jboyens";
-            };
-            boot.isContainer = true;
-          };
-        };
-      };
+      flake = {};
     };
 
   # nixpkgsConfig = {

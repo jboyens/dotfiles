@@ -284,6 +284,7 @@
         "https://gist.github.com/".insteadOf = "gist:";
         "https://gitlab.com/".insteadOf = "gl:";
         "git@gitlab.com:".insteadOf = "ssh+gl:";
+        "ssh://git@gitlab.com/".insteadOf = "https://gitlab.com/";
       };
     };
   };

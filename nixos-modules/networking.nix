@@ -54,4 +54,5 @@
   };
 
   services.tailscale.enable = true;
+  services.bpftune.enable = true;
 }

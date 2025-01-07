@@ -41,7 +41,7 @@
     "pizauth": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./pizauth-pizauth-1.0.5/Cargo.lock",
+                "./pizauth-pizauth-1.0.6/Cargo.lock",
                 {}
             ]
         },
@@ -57,10 +57,10 @@
             "name": null,
             "owner": "ltratt",
             "repo": "pizauth",
-            "rev": "pizauth-1.0.5",
-            "sha256": "sha256-9NezG644oCLTWHTdUaUpJbuwkJu3at/IGNH3FSxl/DI=",
+            "rev": "pizauth-1.0.6",
+            "sha256": "sha256-x3LdutVrQFrkXvbGPVzBV7Y8P9okKgv2rh2YdnDXvsc=",
             "type": "github"
         },
-        "version": "pizauth-1.0.5"
+        "version": "pizauth-1.0.6"
     }
 }

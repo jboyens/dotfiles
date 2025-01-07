@@ -16,6 +16,7 @@
       firefox
       fnott
       foot
+      fuzzel
       git
       gpg
       gtk

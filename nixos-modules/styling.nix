@@ -6,8 +6,21 @@
   stylix = {
     enable = true;
 
-    base16Scheme = "${inputs.base16-schemes}/base16/onedark.yaml";
-    image = /home/jboyens/hyprdots/Configs/.config/swww/Catppuccin-Mocha/aesthetic_deer.png;
+    # base16Scheme = "${inputs.base16-schemes}/base16/onedark.yaml";
+
+    # use IFD due to tinted-theming/schemes @ 61058a8d2e2bd4482b53d57a68feb56cdb991f0b
+    # which causes a parse error otherwise due to the addition of "#" marks in
+    # front of all the colors values
+    base16Scheme = {
+      yaml = "${inputs.base16-schemes}/base16/onedark.yaml";
+      use-ifd = "always";
+    };
+
+    # image = /home/jboyens/hyprdots/Configs/.config/swww/Catppuccin-Mocha/aesthetic_deer.png;
+    image = pkgs.fetchurl {
+      url = "https://w.wallhaven.cc/full/1p/wallhaven-1pewdv.jpg";
+      sha256 = "sha256-4thxoM75RUEHWZGT2e7S/KsdLZIJqAxzKJz/K2GgZ6U=";
+    };
     polarity = "dark";
 
     cursor = {

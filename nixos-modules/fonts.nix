@@ -22,7 +22,7 @@
       symbola
       noto-fonts
       noto-fonts-emoji
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       cascadia-code
       atkinson-hyperlegible
       inconsolata
@@ -43,7 +43,7 @@
       hack-font
       ibm-plex
       oxygenfonts
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      nerd-fonts.symbols-only
     ];
 
     fontconfig.defaultFonts = {

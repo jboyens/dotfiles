@@ -1,7 +1,7 @@
 {
   inputs,
-  lib,
   pkgs,
+  ezModules,
   ...
 }: let
   kernel = pkgs.linuxPackages_latest;
@@ -17,6 +17,14 @@ in {
       # inputs.lix-module.nixosModules.default
       inputs.home-manager.nixosModules.default
       inputs.stylix.nixosModules.stylix
+      ezModules.android
+      ezModules.backup
+      ezModules.fonts
+      ezModules.graphical
+      ezModules.hardware
+      ezModules.pipewire
+      ezModules.printing
+      ezModules.styling
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [
       defaults
@@ -86,7 +94,7 @@ in {
     };
 
     blacklistedKernelModules = [];
-    extraModulePackages = with kernel; [openrazer];
+    extraModulePackages = with kernel; [v4l2loopback];
     kernelModules = ["kvm-amd"];
 
     kernelParams = [
@@ -98,6 +106,26 @@ in {
 
       # λ sudo filefrag -v /swapfile| awk '$1=="0:" { print substr($4, 1, length($4)-2) }'
       "resume_offset=431001600"
+    ];
+
+    kernelPatches = [
+      # {
+      #   name = "amd-vcache-3d-vcache";
+      #   patch = [
+      #     ./0001-platform-x86-amd-amd_3d_vcache-Add-AMD-3D-V-Cache-op.patch
+      #     ./0002-platform-x86-amd-amd_3d_vcache-Add-sysfs-ABI-documen.patch
+      #   ];
+      #   extraConfig = ''
+      #     AMD_3D_VCACHE y
+      #   '';
+      # }
+      # {
+      #   name = "amd-hfi";
+      #   patch = null;
+      #   extraConfig = ''
+      #     AMD_HFI y
+      #   '';
+      # }
     ];
 
     extraModprobeConfig = ''

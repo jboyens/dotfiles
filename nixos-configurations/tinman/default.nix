@@ -16,7 +16,6 @@ in {
     [
       # inputs.lix-module.nixosModules.default
       inputs.home-manager.nixosModules.default
-      inputs.stylix.nixosModules.stylix
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [
       defaults

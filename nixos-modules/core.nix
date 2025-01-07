@@ -1,11 +1,11 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }: {
   programs = {
     nix-ld.enable = true;
+
     ssh = {
       startAgent = true;
       enableAskPassword = true;
@@ -90,28 +90,6 @@
       lm_sensors
 
       xdg-utils
-
-      docker
-      docker-compose
-
-      pkgs.solo2-cli
-
-      (writeScriptBin "lxc-build-nixos-image" ''
-        #!/usr/bin/env nix-shell
-        #!nix-shell -i bash -p nixos-generators
-        set -xe
-        config=$1
-        metaimg=`nixos-generate -f lxc-metadata \
-          | xargs -r cat \
-          | awk '{print $3}'`
-        img=`nixos-generate -c $config -f lxc \
-          | xargs -r cat \
-          | awk '{print $3}'`
-        lxc image import --alias nixos $metaimg $img
-      '')
-
-      qemu
-      virt-manager
     ];
 
     pathsToLink = ["/share/zsh"];
@@ -127,60 +105,8 @@
       fi
     '';
   };
-  hardware.printers = {
-    ensureDefaultPrinter = "HLL2350DW";
-    ensurePrinters = [
-      {
-        name = "HLL2350DW";
-        deviceUri = "ipp://192.168.86.78";
-        model = "everywhere";
-        ppdOptions = {
-          PageSize = "Letter";
-          Duplex = "DuplexNoTumble";
-        };
-      }
-    ];
-  };
-
-  hardware.keyboard.zsa.enable = true;
 
   programs = {
-    adb.enable = true;
-
-    hyprland.enable = false;
-    hyprlock.enable = false;
-
-    # even though this is managed via home-manager, this sets up some pam stuff
-    # that is important
-    sway = {
-      enable = true;
-
-      wrapperFeatures = {
-        gtk = true;
-        base = true;
-      };
-
-      extraSessionCommands = ''
-        export SDL_VIDEODRIVER=wayland
-        export QT_QPA_PLATFORM=wayland
-        export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-        export _JAVA_AWT_WM_NONREPARENTING=1
-        export MOZ_WEBRENDER=1
-        export MOZ_ENABLE_WAYLAND=1
-        export MOZ_DBUS_REMOTE=1
-        export XDG_SESSION_TYPE=wayland
-        export XDG_CURRENT_DESKTOP=sway
-        export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
-        export NIXOS_OZONE_WL=1
-        export WLR_DRM_NO_MODIFIERS=1
-      '';
-    };
-
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
-    };
-
     udevil.enable = true;
     dconf.enable = true;
 
@@ -208,53 +134,7 @@
         };
       };
     };
-
-    hypridle.enable = lib.mkIf config.programs.hyprland.enable true;
-
-    # command scheduler
-    # atd.enable = true;
-
-    # GNOME crypto services?
-    dbus.packages = [pkgs.gcr];
-
-    # Virtual filesystem support
-    gvfs.enable = true;
-
-    # Printing
-    printing = {enable = true;};
-    system-config-printer.enable = true;
-
-    # D-Bus thumbnailer
-    # tumbler.enable = true;
-
-    udev = {
-      packages = [
-        pkgs.android-udev-rules
-        pkgs.solo2-cli
-        pkgs.qmk-udev-rules
-      ];
-
-      # ydotool + Pixel Fold + DOIO support
-      extraRules = ''
-        KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
-
-        ATTR{idProduct}=="4e11", GOTO="adb", MODE="0660", GROUP="adbusers", TAG+="uaccess", SYMLINK+="android", SYMLINK+="android%n", SYMLINK+="android_adb"
-
-        KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="d010", MODE="0660", GROUP="input", TAG+="uaccess", TAG+="udev-acl"
-      '';
-    };
-
-    xserver = {
-      enable = true;
-
-      displayManager.startx.enable = true;
-      windowManager.i3.enable = true;
-    };
   };
-
-  # services.xserver.enable = true;
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma6.enable = true;
 
   system.userActivationScripts.cleanupHome = ''
     pushd "/home/jboyens"
@@ -262,10 +142,4 @@
     [ -s .xsession-errors ] || rm -f .xsession-errors*
     popd
   '';
-
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    wlr.enable = true;
-  };
 }
