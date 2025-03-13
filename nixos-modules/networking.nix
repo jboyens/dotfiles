@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   systemd.network.networks = let
     networkConfig = {
       DHCP = "yes";
@@ -54,5 +58,8 @@
   };
 
   services.tailscale.enable = true;
+  # taildrive
+  services.davfs2.enable = true;
+
   services.bpftune.enable = true;
 }

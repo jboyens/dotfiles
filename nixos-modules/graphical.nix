@@ -14,7 +14,9 @@
     gvfs.enable = true;
 
     # Printing
-    printing = {enable = true;};
+    printing = {
+      enable = true;
+    };
     system-config-printer.enable = true;
 
     # D-Bus thumbnailer
@@ -32,17 +34,19 @@
   xdg.portal = {
     enable = true;
     config.common.default = "*";
-    wlr.enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gnome];
   };
 
   programs = {
     hyprland.enable = false;
     hyprlock.enable = false;
 
+    niri.enable = true;
+
     # even though this is managed via home-manager, this sets up some pam stuff
     # that is important
     sway = {
-      enable = true;
+      enable = false;
 
       wrapperFeatures = {
         gtk = true;
@@ -66,7 +70,10 @@
 
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
     };
   };
 }

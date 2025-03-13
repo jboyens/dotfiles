@@ -195,12 +195,12 @@
       {plugin = tmuxPlugins.copycat;}
       {plugin = tmuxPlugins.prefix-highlight;}
       {plugin = tmuxPlugins.yank;}
-      {
-        plugin = tmuxPlugins.resurrect;
-        extraConfig = ''
-          set -g @resurrect-processes 'ssh sqlite3 "git log"'
-        '';
-      }
+      # {
+      #   plugin = tmuxPlugins.resurrect;
+      #   extraConfig = ''
+      #     set -g @resurrect-processes 'ssh sqlite3 "git log"'
+      #   '';
+      # }
       {
         plugin = tmuxPlugins.open;
         extraConfig = ''

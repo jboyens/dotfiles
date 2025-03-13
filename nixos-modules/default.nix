@@ -6,13 +6,21 @@
   ...
 }: {
   imports = lib.attrValues {
-    inherit (ezModules) core networking nix nfs security virtualization;
+    inherit
+      (ezModules)
+      core
+      networking
+      nix
+      nfs
+      security
+      virtualization
+      ;
   };
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     # inputs.nixpkgs-wayland.overlay
-    # inputs.emacs-overlay.overlay
+    inputs.emacs-overlay.overlay
   ];
 
   programs.zsh.enable = true;

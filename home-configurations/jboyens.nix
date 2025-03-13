@@ -23,6 +23,7 @@
       # hyprland
       kanshi
       mail
+      niri
       # mako
       pizauth
       rofi
@@ -31,7 +32,9 @@
       styling
       sway
       swaywm-keybindings
+      i3status-rust
       tmux
+      waybar
       wayland
       zsh
       ;

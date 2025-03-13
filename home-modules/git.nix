@@ -218,7 +218,7 @@
       signByDefault = true;
     };
 
-    userEmail = "jr.boyens@flexe.com";
+    userEmail = "jboyens@moment.dev";
     userName = "JR Boyens";
 
     extraConfig = {
@@ -268,10 +268,15 @@
       push = {
         default = "current";
         gpgSign = "if-asked";
+        autoSetupRemote = true;
       };
 
       rebase = {
         autoSquash = true;
+        autoStash = true;
+      };
+
+      merge = {
         autoStash = true;
       };
 

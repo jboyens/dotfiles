@@ -14,7 +14,7 @@
 in {
   imports =
     [
-      # inputs.lix-module.nixosModules.default
+      inputs.lix-module.nixosModules.default
       inputs.home-manager.nixosModules.default
       inputs.stylix.nixosModules.stylix
       ezModules.android
@@ -56,8 +56,6 @@ in {
       192.168.86.96	wall-e
       192.168.86.34	mediaserver nas backup-host
       192.168.49.2	dev dev.fooninja.org
-      127.0.0.1	    api.local.flexe.com docker
-      172.19.0.3	    hydra.localhost hydra-admin.localhost api.local.flexe.com
       192.168.1.240	argocd.fooninja.org
       192.168.1.240	apps.fooninja.org
     '';
@@ -158,7 +156,13 @@ in {
     }
   ];
 
-  environment.systemPackages = [kernel.perf];
+  environment = {
+    systemPackages = [kernel.perf];
+    variables = {
+      LIBVA_DRIVER_NAME = "radeonsi";
+      VDPAU_DRIVER = "radeonsi";
+    };
+  };
 
   services = {
     thermald.enable = false;
@@ -185,6 +189,10 @@ in {
 
     openrazer.enable = true;
     openrazer.users = ["jboyens"];
+
+    amdgpu = {
+      amdvlk.enable = true;
+    };
 
     graphics = {
       enable = true;

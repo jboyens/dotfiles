@@ -13,6 +13,7 @@
     # front of all the colors values
     base16Scheme = {
       yaml = "${inputs.base16-schemes}/base16/onedark.yaml";
+      # yaml = "${inputs.base16-schemes}/base16/gigavolt.yaml";
       use-ifd = "always";
     };
 

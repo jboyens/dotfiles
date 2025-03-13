@@ -134,6 +134,12 @@
         };
       };
     };
+
+    # security.pam.services.<name>.enableGnomeKeyring
+    gnome = {
+      gnome-keyring.enable = true;
+      gnome-settings-daemon.enable = true;
+    };
   };
 
   system.userActivationScripts.cleanupHome = ''

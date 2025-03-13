@@ -10,7 +10,7 @@
     #   variant = "frappe";
     # })
     pkgs.catppuccin-gtk
-    pkgs.tela-circle-icon-theme
+    # pkgs.tela-circle-icon-theme
     pkgs.adwaita-icon-theme
     pkgs.gnome-themes-extra
     pkgs.bibata-cursors
@@ -56,10 +56,10 @@
     };
 
     iconTheme = {
-      package = pkgs.tela-circle-icon-theme;
-      name = "Tela-circle-dark";
-      # name = "Adwaita:dark";
-      # package = pkgs.gnome.adwaita-icon-theme;
+      # package = pkgs.tela-circle-icon-theme;
+      # name = "Tela-circle-dark";
+      name = "Adwaita:dark";
+      package = pkgs.adwaita-icon-theme;
     };
   };
 }

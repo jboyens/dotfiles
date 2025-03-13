@@ -1,6 +1,8 @@
 {
-  inputs,
-  cell,
+  config,
+  pkgs,
+  lib,
+  ...
 }: {
   programs.i3status-rust = {
     enable = true;

@@ -7,35 +7,31 @@
   inputs = {
     # Core dependencies.
     nixpkgs.url = "nixpkgs/nixos-unstable"; # primary nixpkgs
-    # nixpkgs.url = "nixpkgs/nixos-23.11";
+    # nixpkgs.url = "nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "nixpkgs/master";
+    # nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     # nixpkgs.url = "nixpkgs/master";
-    nixpkgs-stable.url = "nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "nixpkgs/nixos-24.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-compat.url = "github:nix-community/flake-compat";
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
-    nix-eval-jobs = {
-      url = "github:nix-community/nix-eval-jobs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
 
     lib-aggregate = {
       url = "github:nix-community/lib-aggregate";
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    # lix-module = {
-    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-utils.follows = "flake-utils";
-    # };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # url = "github:nix-community/home-manager/release-23.11";
+      # url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -54,14 +50,6 @@
       };
     };
 
-    nix2container = {
-      url = "github:nlewo/nix2container";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     nixpkgs-wayland = {
@@ -70,7 +58,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         lib-aggregate.follows = "lib-aggregate";
-        nix-eval-jobs.follows = "nix-eval-jobs";
         flake-compat.follows = "flake-compat";
       };
     };
@@ -110,7 +97,7 @@
     stylix = {
       url = "github:danth/stylix";
       # url = "github:danth/stylix/4da2d793e586f3f45a54fb9755ee9bf39d3cd52e";
-      # url = "github:danth/stylix/release-23.11";
+      # url = "github:danth/stylix/release-24.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         base16.follows = "base16";
@@ -122,7 +109,7 @@
 
   outputs = {
     self,
-    # lix-module,
+    lix-module,
     flake-parts,
     ...
   } @ inputs:
@@ -147,9 +134,16 @@
         _module.args = {inherit pkgs;};
         devshells.default = {pkgs, ...}: {
           packages = lib.attrValues {
-            inherit (pkgs) alejandra statix vulnix deadnix colmena;
+            inherit
+              (pkgs)
+              alejandra
+              statix
+              vulnix
+              deadnix
+              colmena
+              ;
 
-            # lix = lix-module.packages."${system}".default;
+            lix = lix-module.packages."${system}".default;
           };
 
           commands = [

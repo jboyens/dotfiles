@@ -44,6 +44,7 @@
       ibm-plex
       oxygenfonts
       nerd-fonts.symbols-only
+      # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     ];
 
     fontconfig.defaultFonts = {

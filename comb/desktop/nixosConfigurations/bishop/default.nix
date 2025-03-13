@@ -35,8 +35,6 @@
       192.168.86.96	wall-e
       192.168.86.34	mediaserver nas backup-host
       192.168.49.2	dev dev.fooninja.org
-      127.0.0.1	    api.local.flexe.com docker
-      172.19.0.3	    hydra.localhost hydra-admin.localhost api.local.flexe.com
       192.168.1.240	argocd.fooninja.org
       192.168.1.240	apps.fooninja.org
     '';
