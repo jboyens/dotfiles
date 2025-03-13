@@ -1,11 +1,8 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    ghostty
     widevine-cdm
 
-    flare-signal
-    libsecret
-    gnome-keyring
+    ghostty
   ];
 
   xdg.mimeApps = {

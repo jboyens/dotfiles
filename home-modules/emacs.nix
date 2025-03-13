@@ -26,7 +26,7 @@ in {
     };
 
     Service = {
-      Environment = "PATH=${pkgs.git-sync}/bin:${pkgs.git}/bin:$PATH";
+      Environment = "PATH=${pkgs.git-sync}/bin:${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH";
       WorkingDirectory = "/home/jboyens/Documents/org-mode/";
       ExecStart = "${pkgs.git-sync}/bin/git-sync-on-inotify";
       Restart = "always";

@@ -7,6 +7,12 @@
   programs.i3status-rust = {
     enable = true;
 
+    # Bugfix
+    # https://nixpk.gs/pr-tracker.html?pr=386738
+    package = pkgs.i3status-rust.override {
+      inherit (inputs.nixpkgs-unstable.legacyPackages.x86_64-linux) notmuch;
+    };
+
     bars = {
       bottom = {
         settings = {
@@ -19,7 +25,7 @@
           };
 
           icons_format = "{icon} ";
-          icons.icons = "awesome5";
+          icons.icons = "material-nf";
         };
         theme = "dracula";
 

@@ -15,7 +15,7 @@
   up = "k";
   right = "l";
 
-  terminal = "foot";
+  terminal = "ghostty";
 in {
   wayland.windowManager.sway.config = {
     modifier = "Mod4";

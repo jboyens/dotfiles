@@ -4,6 +4,14 @@
   config,
   ...
 }: {
+  environment.systemPackages = [
+    (pkgs.catppuccin-sddm.override {
+      flavor = "mocha";
+      font = "Iosevka";
+      fontSize = "12";
+      # background = "${./wallpaper.png}";
+    })
+  ];
   services = {
     hypridle.enable = lib.mkIf config.programs.hyprland.enable true;
 
@@ -22,6 +30,12 @@
     # D-Bus thumbnailer
     # tumbler.enable = true;
     #
+
+    displayManager.sddm = {
+      enable = true;
+      theme = "catppuccin-mocha";
+      wayland.enable = true;
+    };
 
     xserver = {
       enable = true;

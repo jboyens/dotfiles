@@ -208,6 +208,7 @@
         root = ./.;
         globalArgs = {inherit inputs self;};
         nixos.hosts.bishop.userHomeModules = ["jboyens"];
+        nixos.hosts.mechagodzilla.userHomeModules = ["jboyens"];
         nixos.hosts.tinman.userHomeModules = ["server"];
         home.users.jboyens.importDefault = true;
       };

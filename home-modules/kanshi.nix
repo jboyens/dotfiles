@@ -14,6 +14,23 @@ in {
     settings = [
       {
         profile = {
+          name = "Office";
+          outputs = [
+            {
+              criteria = "Hewlett Packard HP Pavilion32 CNC71107KL";
+              mode = "2560x1440@60Hz";
+              position = "1920,0";
+            }
+            {
+              criteria = "BOE 0x0A5C Unknown";
+              mode = "1920x1080@60Hz";
+              position = "0,270";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
           name = "Home";
           outputs = [
             {

@@ -4,312 +4,217 @@
   config,
   inputs,
   ...
-}: let
-  # my = cell.packages;
-  work-cloud = with pkgs; [
-    go-jsonnet
-    # broken 2023-08-18
-    # hadolint
-    istioctl
-    kind
-    krew
-    kube3d
-    kubectl
-    kubernetes-helm
-    kustomize
-    minikube
-    (open-policy-agent.overrideAttrs (_: {doCheck = false;}))
-    stern
-    opentofu
-    tilt
-    # sloth
-  ];
-
-  google-cloud = with pkgs; [
-    (google-cloud-sdk.withExtraComponents [
-      google-cloud-sdk.components.gke-gcloud-auth-plugin
-      google-cloud-sdk.components.config-connector
-      google-cloud-sdk.components.terraform-tools
-      google-cloud-sdk.components.pubsub-emulator
-    ])
-    google-cloud-sql-proxy
-  ];
-
-  postgres = with pkgs; [
-    postgresql
-    pgcenter
-  ];
-  # system = pkgs.stdenv.system;
-  # maestral = inputs.nixpkgs-unstable.legacyPackages."${system}".maestral;
-  # maestral-gui = inputs.nixpkgs-unstable.legacyPackages."${system}".maestral-gui;
-in {
-  imports = [
-    # cell.homeProfiles.styling
-  ];
+}: {
+  imports = [];
 
   xdg.enable = true;
 
   home = {
-    packages = with pkgs;
-      [
-        # ripgrep
-        sudo
-        bottom
-        # my.fzf
-        inputs.nixpkgs-unstable.legacyPackages."${system}".fzf
-        eza
+    packages = with pkgs; [
+      # ripgrep
+      sudo
+      bottom
+      # my.fzf
+      inputs.nixpkgs-unstable.legacyPackages."${system}".fzf
+      eza
 
-        # clang
-        (lib.hiPrio gcc)
-        # bear
-        gdb
-        cmake
-        # llvmPackages.libcxx
+      shellcheck
 
-        go
-        gopls
-        gore
-        gotools
-        gotests
-        gomodifytags
-        golangci-lint
-        delve
+      editorconfig-core-c
 
-        (lib.hiPrio ruby_3_2)
-        solargraph
+      # maestral
+      # maestral-gui
 
-        nodejs
-        nodePackages.prettier
+      signal-desktop
+      slack
+      (zoom-us.overrideAttrs {
+        version = "6.2.11.5069";
+        src = pkgs.fetchurl {
+          url = "https://zoom.us/client/6.2.11.5069/zoom_x86_64.pkg.tar.xz";
+          hash = "sha256-k8T/lmfgAFxW1nwEyh61lagrlHP5geT2tA7e5j61+qw=";
+        };
+      })
+      discord
+      (makeDesktopItem {
+        name = "Google Meet";
+        desktopName = "Google Meet";
+        genericName = "Open Google Meet";
+        icon = "chrome-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
+        exec = "chromium \"--profile-directory=Default\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
+        categories = ["Network"];
+      })
 
-        shellcheck
+      chromium
 
-        # easyeffects
+      evince
+      zathura
 
-        editorconfig-core-c
+      mpv
+      mpvc
 
-        # maestral
-        # maestral-gui
+      spotify
 
-        signal-desktop
-        slack
-        # zoom-us
-        (zoom-us.overrideAttrs {
-          version = "6.2.11.5069";
-          src = pkgs.fetchurl {
-            url = "https://zoom.us/client/6.2.11.5069/zoom_x86_64.pkg.tar.xz";
-            hash = "sha256-k8T/lmfgAFxW1nwEyh61lagrlHP5geT2tA7e5j61+qw=";
-          };
-        })
-        discord
-        (makeDesktopItem {
-          name = "Google Meet";
-          desktopName = "Google Meet";
-          genericName = "Open Google Meet";
-          icon = "chrome-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
-          exec = "chromium \"--profile-directory=Default\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
-          categories = ["Network"];
-        })
+      signal-desktop
+      slack
+      # zoom-us
+      (zoom-us.overrideAttrs {
+        version = "6.2.11.5069";
+        src = pkgs.fetchurl {
+          url = "https://zoom.us/client/6.2.11.5069/zoom_x86_64.pkg.tar.xz";
+          hash = "sha256-k8T/lmfgAFxW1nwEyh61lagrlHP5geT2tA7e5j61+qw=";
+        };
+      })
+      discord
+      (makeDesktopItem {
+        name = "Google Meet";
+        desktopName = "Google Meet";
+        genericName = "Open Google Meet";
+        icon = "chrome-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
+        exec = "chromium \"--profile-directory=Default\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
+        categories = ["Network"];
+      })
 
-        chromium
+      brightnessctl
+      playerctl
 
-        evince
-        zathura
+      ydotool
 
-        mpv
-        mpvc
+      # polkit_gnome
 
-        spotify
+      libqalculate # calculator cli w/ currency conversion
+      (makeDesktopItem {
+        name = "scratch-calc";
+        desktopName = "Calculator";
+        icon = "calc";
+        exec = ''scratch "${tmux}/bin/tmux new-session -s calc -n calc qalc"'';
+        categories = ["Development"];
+      })
 
-        brightnessctl
-        playerctl
+      xfce.thunar
 
-        ydotool
+      # qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
+      # libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
+      paper-icon-theme
 
-        # polkit_gnome
+      xdg-utils
 
-        libqalculate # calculator cli w/ currency conversion
-        (makeDesktopItem {
-          name = "scratch-calc";
-          desktopName = "Calculator";
-          icon = "calc";
-          exec = ''scratch "${tmux}/bin/tmux new-session -s calc -n calc qalc"'';
-          categories = ["Development"];
-        })
+      rofi-bluetooth
+      rofi-power-menu
+      rofi-pulse-select
+      rofi-rbw
+      rofi-systemd
 
-        xfce.thunar
+      # Fake rofi dmenu entries
+      (makeDesktopItem {
+        name = "rofi-browsermenu";
+        desktopName = "Open Bookmark in Browser";
+        icon = "bookmark-new-symbolic";
+        exec = "\\$DOTFILES_BIN/rofi/browsermenu";
+      })
 
-        # qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
-        # libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
-        paper-icon-theme
+      (makeDesktopItem {
+        name = "rofi-browsermenu-history";
+        desktopName = "Open Browser History";
+        icon = "accessories-clock";
+        exec = "\\$DOTFILES_BIN/rofi/browsermenu history";
+      })
 
-        xdg-utils
+      (makeDesktopItem {
+        name = "rofi-filemenu";
+        desktopName = "Open Directory in Terminal";
+        icon = "folder";
+        exec = "\\$DOTFILES_BIN/rofi/filemenu";
+      })
 
-        rofi-bluetooth
-        rofi-power-menu
-        rofi-pulse-select
-        rofi-rbw
-        rofi-systemd
+      (makeDesktopItem {
+        name = "rofi-filemenu-scratch";
+        desktopName = "Open Directory in Scratch Terminal";
+        icon = "folder";
+        exec = "\\$DOTFILES_BIN/rofi/filemenu -x";
+      })
 
-        # Fake rofi dmenu entries
-        (makeDesktopItem {
-          name = "rofi-browsermenu";
-          desktopName = "Open Bookmark in Browser";
-          icon = "bookmark-new-symbolic";
-          exec = "\\$DOTFILES_BIN/rofi/browsermenu";
-        })
+      (makeDesktopItem {
+        name = "lock-display";
+        desktopName = "Lock screen";
+        icon = "system-lock-screen";
+        exec = "\\$DOTFILES_BIN/zzz";
+      })
 
-        (makeDesktopItem {
-          name = "rofi-browsermenu-history";
-          desktopName = "Open Browser History";
-          icon = "accessories-clock";
-          exec = "\\$DOTFILES_BIN/rofi/browsermenu history";
-        })
+      # for calculations
+      bc
 
-        (makeDesktopItem {
-          name = "rofi-filemenu";
-          desktopName = "Open Directory in Terminal";
-          icon = "folder";
-          exec = "\\$DOTFILES_BIN/rofi/filemenu";
-        })
+      # for watching networks
+      bwm_ng
 
-        (makeDesktopItem {
-          name = "rofi-filemenu-scratch";
-          desktopName = "Open Directory in Scratch Terminal";
-          icon = "folder";
-          exec = "\\$DOTFILES_BIN/rofi/filemenu -x";
-        })
+      # for guessing mime-types
+      file
 
-        (makeDesktopItem {
-          name = "lock-display";
-          desktopName = "Lock screen";
-          icon = "system-lock-screen";
-          exec = "\\$DOTFILES_BIN/zzz";
-        })
+      # for checking out block devices
+      hdparm
 
-        # for calculations
-        bc
+      # for checking in on block devices
+      iotop
 
-        # for watching networks
-        bwm_ng
+      # for understanding who has what open
+      lsof
 
-        # for guessing mime-types
-        file
+      # for running commands repeatedly
+      entr
 
-        # for checking out block devices
-        hdparm
+      # for downloading things rapidly
+      axel
 
-        # for checking in on block devices
-        iotop
+      # for monitoring
+      bottom
+      btop
 
-        # for understanding who has what open
-        lsof
+      # for json parsing
+      jq
 
-        # for running commands repeatedly
-        entr
+      # for yaml parsing
+      yq-go
 
-        # for downloading things rapidly
-        axel
+      # for pretty du
+      du-dust
 
-        # for monitoring
-        bottom
-        btop
+      # dig
+      bind
 
-        # for json parsing
-        jq
+      # sound
+      pavucontrol
+      pamixer
 
-        # for yaml parsing
-        yq-go
+      # network
+      mtr
 
-        # for pretty du
-        du-dust
+      # zips
+      unzip
 
-        # dig
-        bind
+      # certs/keys
+      openssl
 
-        # sound
-        pavucontrol
-        pamixer
+      # wireless
+      iw
 
-        # network
-        mtr
+      # notify-send
+      libnotify
 
-        # zips
-        unzip
+      # wl-clipboard-x11
 
-        # certs/keys
-        openssl
+      envsubst
 
-        # wireless
-        iw
+      age
 
-        # notify-send
-        libnotify
+      nvd
 
-        # wl-clipboard-x11
-
-        envsubst
-
-        age
-
-        glab
-
-        jira-cli-go
-
-        nvd
-
-        (weechat.override {
-          configure = {availablePlugins, ...}: {
-            scripts = with pkgs.weechatScripts; [
-              wee-slack
-              weechat-notify-send
-              weechat-go
-              weechat-autosort
-            ];
-          };
-        })
-
-        # markdown-to-confluence
-
-        # autotiling
-        # fuzzel
-        # grim
-        # qt5.qtwayland
-        # broken as of 2023-08-11
-        # sirula
-        # slurp
-        # sov
-        # sway-contrib.grimshot
-        # swaybg
-        # swayidle
-        # swaylock
-        # swayr
-        # wayvnc
-        # wev
-        # wl-clipboard
-        # wlr-randr
-        # wob
-        # wofi
-        # my.swaywindow
-      ]
-      ++ work-cloud
-      ++ google-cloud
-      ++ postgres;
-
-    # modules.shell.zsh.rcFiles = ["${configDir}/emacs/aliases.zsh"];
-
-    sessionPath = ["$HOME/.krew/bin"];
+      postgresql
+      pgcenter
+    ];
 
     sessionVariables = {
-      # Try really hard to get QT to respect my GTK theme.
-      # sessionVariables.GTK_DATA_PREFIX = ["${config.system.path}"];
-
       GNUPGHOME = "${config.xdg.configHome}/gnupg";
       DOCKER_CONFIG = "${config.xdg.configHome}/docker";
       MACHINE_STORAGE_PATH = "${config.xdg.dataHome}/docker/machine";
-
-      # QT_QPA_PLATFORMTHEME = "gnome";
-      # QT_STYLE_OVERRIDE = "kvantum";
-      USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
 
       EDITOR = "nvim";
       BROWSER = "firefox";
@@ -318,17 +223,12 @@ in {
     shellAliases = {
       vim = "nvim";
       v = "nvim";
-      k = "kubectl";
     };
   };
 
   fonts.fontconfig.enable = true;
 
   programs = {
-    k9s.enable = true;
-
-    # programs.zsh.rcInit = ''eval "$(direnv hook zsh)"'';
-
     zsh.initExtra = lib.concatStringsSep "\n" [
       ''
         ### docker aliases

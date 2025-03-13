@@ -21,6 +21,7 @@
       gpg
       gtk
       # hyprland
+      i3status-rust
       kanshi
       mail
       niri
@@ -30,7 +31,6 @@
       secrets
       script-directory
       styling
-      sway
       swaywm-keybindings
       i3status-rust
       tmux

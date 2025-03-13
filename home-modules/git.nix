@@ -222,7 +222,14 @@
     userName = "JR Boyens";
 
     extraConfig = {
-      core.whitespace = "trailing-space";
+      core = {
+        excludesfile = "~/.gitignore";
+        fsmonitor = true;
+        untrackedCache = true;
+        whitespace = "trailing-space";
+      };
+
+      commit.verbose = true;
 
       credential = {
         "https://github.com".helper = "!gh auth git-credential";
@@ -232,9 +239,20 @@
 
       column.ui = "auto";
       branch.sort = "-committerdate";
+      tag.sort = "version:refname";
+      init.defaultBranch = "main";
+
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
+      };
 
       diff = {
         algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
         lisp.xfuncname = "^(((;;;+ )|\\(|([ 	]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
         org.xfuncname = "^(\\*+ +.*)$";
       };
@@ -246,17 +264,17 @@
         "gitlab.com/api/v4".user = "jr.boyens";
       };
 
-      init.defaultBranch = "master";
+      help.autocorrect = "prompt";
 
       maintenance = {
         repo = [
-          "/home/jboyens/Workspace/warehouser"
-          "/home/jboyens/Workspace/provisioner"
-          "/home/jboyens/Workspace/infrastructure"
-          "/home/jboyens/Workspace/argocd-pipelines"
+          "/home/jboyens/Workspace/moment"
+          "/home/jboyens/Workspace/atlas"
           "/home/jboyens/.config/dotfiles"
         ];
       };
+
+      merge.conflictstyle = "zdiff3";
 
       protocol.version = 2;
 
@@ -269,18 +287,23 @@
         default = "current";
         gpgSign = "if-asked";
         autoSetupRemote = true;
+        followTags = true;
       };
 
       rebase = {
         autoSquash = true;
         autoStash = true;
+        updateRefs = true;
       };
 
       merge = {
         autoStash = true;
       };
 
-      rerere.enabled = true;
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
 
       url = {
         "https://github.com/".insteadOf = "gh:";

@@ -12,8 +12,8 @@
     # which causes a parse error otherwise due to the addition of "#" marks in
     # front of all the colors values
     base16Scheme = {
-      yaml = "${inputs.base16-schemes}/base16/onedark.yaml";
-      # yaml = "${inputs.base16-schemes}/base16/gigavolt.yaml";
+      # yaml = "${inputs.base16-schemes}/base16/onedark.yaml";
+      yaml = "${inputs.base16-schemes}/base16/material-palenight.yaml";
       use-ifd = "always";
     };
 

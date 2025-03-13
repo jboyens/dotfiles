@@ -9,7 +9,7 @@ in {
   home.packages = lib.mkIf cfg.enable [
     # autotiling
     # fuzzel
-    pkgs.i3status-rust
+    # pkgs.i3status-rust
     # qt5.qtwayland
     # broken as of 2023-08-11
     # sirula
@@ -182,7 +182,8 @@ in {
     '';
 
     config = {
-      terminal = "foot";
+      # terminal = "foot";
+      terminal = "ghostty";
 
       window.titlebar = false;
       floating.titlebar = false;
