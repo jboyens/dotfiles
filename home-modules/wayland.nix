@@ -14,22 +14,22 @@
     # pkgs.sov
   ];
 
-  systemd.user.services.dotoold = {
-    Install = {WantedBy = ["sway-session.target"];};
-
-    Service = {
-      Environment = "PATH=${pkgs.coreutils}/bin:$PATH";
-      ExecStart = "${pkgs.dotool}/bin/dotoold";
-      Restart = "on-failure";
-    };
-
-    Unit = {
-      After = "graphical-session.target";
-      Description = "dotool reads commands from stdin and simulates keyboard and pointer events";
-      Documentation = "https://git.sr.ht/~geb/dotool";
-      PartOf = "graphical-session.target";
-    };
-  };
+  # systemd.user.services.dotoold = {
+  #   Install = {WantedBy = ["sway-session.target"];};
+  #
+  #   Service = {
+  #     Environment = "PATH=${pkgs.coreutils}/bin:$PATH";
+  #     ExecStart = "${pkgs.dotool}/bin/dotoold";
+  #     Restart = "on-failure";
+  #   };
+  #
+  #   Unit = {
+  #     After = "graphical-session.target";
+  #     Description = "dotool reads commands from stdin and simulates keyboard and pointer events";
+  #     Documentation = "https://git.sr.ht/~geb/dotool";
+  #     PartOf = "graphical-session.target";
+  #   };
+  # };
 
   services = {
     wlsunset = {

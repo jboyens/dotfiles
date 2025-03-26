@@ -31,25 +31,29 @@
     # tumbler.enable = true;
     #
 
-    displayManager.sddm = {
-      enable = true;
-      theme = "catppuccin-mocha";
-      wayland.enable = true;
-    };
+    # displayManager.sddm = {
+    #   enable = true;
+    #   theme = "catppuccin-mocha";
+    #   wayland.enable = true;
+    # };
 
     xserver = {
       enable = true;
 
-      displayManager.startx.enable = true;
+      # displayManager.startx.enable = true;
+      displayManager.gdm.enable = true;
+      displayManager.gdm.debug = true;
       windowManager.i3.enable = true;
+      desktopManager.gnome.enable = true;
+      desktopManager.gnome.debug = true;
     };
   };
 
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    extraPortals = [pkgs.xdg-desktop-portal-gnome];
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   config.common.default = "*";
+  #   extraPortals = [pkgs.xdg-desktop-portal-gnome];
+  # };
 
   programs = {
     hyprland.enable = false;

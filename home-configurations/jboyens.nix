@@ -32,7 +32,6 @@
       script-directory
       styling
       swaywm-keybindings
-      i3status-rust
       tmux
       waybar
       wayland

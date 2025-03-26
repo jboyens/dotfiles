@@ -7,6 +7,7 @@
     networkConfig = {
       DHCP = "yes";
       Domains = "fooninja.org";
+      MulticastDNS = "yes";
     };
   in {
     "90-wireless" = {
@@ -20,6 +21,9 @@
           InitialAdvertisedReceiveWindow = 60;
         }
       ];
+      linkConfig = {
+        Multicast = true;
+      };
     };
 
     "70-wired" = {
@@ -42,7 +46,7 @@
     useDHCP = false;
     wireless = {
       enable = false;
-      iwd.enable = true;
+      iwd.enable = false;
       iwd.settings = {
         Rank = {
           BandModifier2_4GHz = 0.5;
@@ -50,8 +54,8 @@
         };
       };
     };
-    networkmanager.enable = false;
-    useNetworkd = true;
+    networkmanager.enable = true;
+    useNetworkd = false;
     domain = "fooninja.org";
 
     firewall.checkReversePath = "loose";

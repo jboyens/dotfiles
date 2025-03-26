@@ -22,7 +22,7 @@
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
     gtk3.extraConfig = {
-      gtk-fallback-icon-theme = "Adwaita:dark";
+      gtk-fallback-icon-theme = "Adwaita";
       # gtk-application-prefer-dark-theme = "true";
       gtk-xft-hinting = "1";
       gtk-xft-hintstyle = "hintfull";
@@ -30,7 +30,7 @@
     };
 
     gtk4.extraConfig = {
-      gtk-fallback-icon-theme = "Adwaita:dark";
+      gtk-fallback-icon-theme = "Adwaita";
       # gtk-application-prefer-dark-theme = "true";
       gtk-xft-hinting = "1";
       gtk-xft-hintstyle = "hintfull";
@@ -58,7 +58,7 @@
     iconTheme = {
       # package = pkgs.tela-circle-icon-theme;
       # name = "Tela-circle-dark";
-      name = "Adwaita:dark";
+      name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
     };
   };
