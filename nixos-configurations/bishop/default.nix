@@ -14,7 +14,7 @@
 in {
   imports =
     [
-      inputs.lix-module.nixosModules.default
+      # inputs.lix-module.nixosModules.default
       inputs.home-manager.nixosModules.default
       inputs.stylix.nixosModules.stylix
       ezModules.android
@@ -30,7 +30,7 @@ in {
       defaults
       common-cpu-amd
       common-cpu-amd-pstate
-      common-cpu-amd-zenpower
+      # common-cpu-amd-zenpower
       common-pc-ssd
       common-gpu-amd
     ]);
@@ -187,8 +187,8 @@ in {
     };
     cpu.amd.updateMicrocode = true;
 
-    openrazer.enable = true;
-    openrazer.users = ["jboyens"];
+    # openrazer.enable = true;
+    # openrazer.users = ["jboyens"];
 
     amdgpu = {
       amdvlk.enable = true;

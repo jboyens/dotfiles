@@ -12,6 +12,22 @@
       # background = "${./wallpaper.png}";
     })
   ];
+
+  specialisation = {
+    "GNOME".configuration = {
+      services.xserver.displayManager.gdm.enable = true;
+      services.xserver.desktopManager.gnome.enable = true;
+      system.nixos.tags = ["gnome"];
+    };
+
+    "Plasma6".configuration = {
+      services.displayManager.sddm.enable = true;
+      services.xserver.displayManager.gdm.enable = lib.mkForce false;
+      services.desktopManager.plasma6.enable = true;
+      system.nixos.tags = ["plasma6"];
+    };
+  };
+
   services = {
     hypridle.enable = lib.mkIf config.programs.hyprland.enable true;
 
@@ -42,10 +58,9 @@
 
       # displayManager.startx.enable = true;
       displayManager.gdm.enable = true;
-      displayManager.gdm.debug = true;
-      windowManager.i3.enable = true;
       desktopManager.gnome.enable = true;
-      desktopManager.gnome.debug = true;
+
+      windowManager.i3.enable = true;
     };
   };
 

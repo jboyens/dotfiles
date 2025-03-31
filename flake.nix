@@ -23,11 +23,11 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    # lix-module = {
+    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.flake-utils.follows = "flake-utils";
+    # };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -109,7 +109,7 @@
 
   outputs = {
     self,
-    lix-module,
+    # lix-module,
     flake-parts,
     ...
   } @ inputs:
@@ -143,7 +143,7 @@
               colmena
               ;
 
-            lix = lix-module.packages."${system}".default;
+            # lix = lix-module.packages."${system}".default;
           };
 
           commands = [

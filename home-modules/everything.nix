@@ -93,7 +93,7 @@
       xfce.thunar
 
       # qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
-      # libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
+      # kdePackages.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
       paper-icon-theme
 
       xdg-utils
