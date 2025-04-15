@@ -20,7 +20,6 @@ in
     "cyrus-sasl-xoauth2"
     "pizauth"
     "pragmasevka"
-    "moment"
   ]
   // {
     gnupg = callPackage ./gnupg {};

@@ -46,20 +46,6 @@ in {
 
   networking = {
     hostName = "mechagodzilla";
-
-    extraHosts = ''
-      192.168.86.1  router.home
-
-      # Hosts
-      192.168.86.100	irongiant
-      192.168.86.96	wall-e
-      192.168.86.34	mediaserver nas backup-host
-      192.168.49.2	dev dev.fooninja.org
-      127.0.0.1	    api.local.flexe.com docker
-      172.19.0.3	    hydra.localhost hydra-admin.localhost api.local.flexe.com
-      192.168.1.240	argocd.fooninja.org
-      192.168.1.240	apps.fooninja.org
-    '';
   };
 
   # imports =
@@ -82,7 +68,10 @@ in {
     initrd = {
       systemd.enable = true;
       compressor = "zstd";
-      compressorArgs = ["--ultra" "-22"];
+      compressorArgs = [
+        "--ultra"
+        "-22"
+      ];
       availableKernelModules = [
         "vmd"
         "xhci_pci"
@@ -121,7 +110,10 @@ in {
     "/boot" = {
       device = "/dev/disk/by-uuid/6A53-1546";
       fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
     };
   };
 
@@ -176,14 +168,14 @@ in {
       };
     };
 
-    openrazer.enable = true;
+    openrazer.enable = false;
     openrazer.users = ["jboyens"];
 
     graphics = {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        mesa.drivers
+        mesa
         vaapiVdpau
       ];
     };

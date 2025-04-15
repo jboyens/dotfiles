@@ -13,20 +13,20 @@
     })
   ];
 
-  specialisation = {
-    "GNOME".configuration = {
-      services.xserver.displayManager.gdm.enable = true;
-      services.xserver.desktopManager.gnome.enable = true;
-      system.nixos.tags = ["gnome"];
-    };
-
-    "Plasma6".configuration = {
-      services.displayManager.sddm.enable = true;
-      services.xserver.displayManager.gdm.enable = lib.mkForce false;
-      services.desktopManager.plasma6.enable = true;
-      system.nixos.tags = ["plasma6"];
-    };
-  };
+  # specialisation = {
+  #   "GNOME".configuration = {
+  #     services.xserver.displayManager.gdm.enable = true;
+  #     services.xserver.desktopManager.gnome.enable = true;
+  #     system.nixos.tags = ["gnome"];
+  #   };
+  #
+  #   "Plasma6".configuration = {
+  #     services.displayManager.sddm.enable = true;
+  #     services.xserver.displayManager.gdm.enable = lib.mkForce false;
+  #     services.desktopManager.plasma6.enable = true;
+  #     system.nixos.tags = ["plasma6"];
+  #   };
+  # };
 
   services = {
     hypridle.enable = lib.mkIf config.programs.hyprland.enable true;
@@ -47,28 +47,27 @@
     # tumbler.enable = true;
     #
 
-    # displayManager.sddm = {
-    #   enable = true;
-    #   theme = "catppuccin-mocha";
-    #   wayland.enable = true;
-    # };
-
-    xserver = {
+    displayManager.sddm = {
       enable = true;
-
-      # displayManager.startx.enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-
-      windowManager.i3.enable = true;
+      theme = "catppuccin-mocha";
+      wayland.enable = true;
     };
+
+    # xserver = {
+    #   enable = true;
+    #
+    #   displayManager.gdm.enable = true;
+    #   desktopManager.gnome.enable = true;
+    #
+    #   windowManager.i3.enable = true;
+    # };
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   config.common.default = "*";
-  #   extraPortals = [pkgs.xdg-desktop-portal-gnome];
-  # };
+  xdg.portal = {
+    enable = true;
+    config.common.default = "*";
+    extraPortals = [pkgs.xdg-desktop-portal-wlr];
+  };
 
   programs = {
     hyprland.enable = false;
