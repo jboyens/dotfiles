@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   # Use a stable profile name so we can target it in themes
@@ -80,6 +81,8 @@
     terminal = "foot";
 
     extraConfig = ''
+      set-option -g default-shell ${lib.getExe pkgs.zsh}
+
       setw -g automatic-rename on      # rename window after current program
       set  -g renumber-windows on      # renumber windows when one is closed
 
@@ -159,37 +162,21 @@
     '';
     plugins = with pkgs; [
       {
-        plugin = tmuxPlugins.catppuccin.overrideAttrs (oa: {
-          version = "unstable-2023-08-28";
-          src = fetchFromGitHub {
-            owner = "catppuccin";
-            repo = "tmux";
-            rev = "7a284c98e5df4cc84a1a45ad633916f0b2b916b2";
-            sha256 = "sha256-jxcxW0gEfXaSt8VM3UIs0dKNKaHb8JSEQBBV3SVjW/A=";
-          };
-        });
+        plugin = tmuxPlugins.catppuccin;
+        # plugin = tmuxPlugins.catppuccin.overrideAttrs (oa: {
+        #   version = "unstable-2023-08-28";
+        #   src = fetchFromGitHub {
+        #     owner = "catppuccin";
+        #     repo = "tmux";
+        #     rev = "7a284c98e5df4cc84a1a45ad633916f0b2b916b2";
+        #     sha256 = "sha256-jxcxW0gEfXaSt8VM3UIs0dKNKaHb8JSEQBBV3SVjW/A=";
+        #   };
+        # });
         extraConfig = ''
           set -g @catppuccin_flavour 'frappe'
-
-          set -g @catppuccin_window_left_separator ""
-          set -g @catppuccin_window_right_separator " "
-          set -g @catppuccin_window_middle_separator " █"
+          set -g @catppuccin_window_status_style "rounded"
           set -g @catppuccin_window_number_position "right"
-
-          set -g @catppuccin_window_default_fill "number"
-          set -g @catppuccin_window_default_text "#W"
-
-          set -g @catppuccin_window_current_fill "number"
-          set -g @catppuccin_window_current_text "#W"
-
           set -g @catppuccin_status_modules "application session"
-          set -g @catppuccin_status_left_separator  " "
-          set -g @catppuccin_status_right_separator ""
-          set -g @catppuccin_status_right_separator_inverse "no"
-          set -g @catppuccin_status_fill "icon"
-          set -g @catppuccin_status_connect_separator "no"
-
-          set -g @catppuccin_directory_text "#{pane_current_path}"
         '';
       }
       {plugin = tmuxPlugins.copycat;}

@@ -10,7 +10,7 @@ _: let
   };
 in {
   services.kanshi = {
-    enable = false;
+    enable = true;
     settings = [
       {
         profile = {

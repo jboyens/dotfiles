@@ -60,7 +60,7 @@ in {
 
       background = {
         # color = rgba(0D0D17FF)
-        color = "rgba(000000FF)";
+        # color = "rgba(000000FF)";
         # path = {{ SWWW_WALL }}
         # path = screenshot
         # blur_size = 5
@@ -73,9 +73,9 @@ in {
         outline_thickness = 2;
         dots_size = 0.1;
         dots_spacing = 0.3;
-        outer_color = "$entry_border_color";
-        inner_color = "$entry_background_color";
-        font_color = "$entry_color";
+        # outer_color = "$entry_border_color";
+        # inner_color = "$entry_background_color";
+        # font_color = "$entry_color";
         # fade_on_empty = true
 
         position = "0, 20";
@@ -168,7 +168,17 @@ in {
         "spacing" = 4;
         "modules-left" = ["hyprland/workspaces"];
         "modules-center" = ["hyprland/window"];
-        "modules-right" = ["mpris" "idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "clock" "tray"];
+        "modules-right" = [
+          "mpris"
+          "idle_inhibitor"
+          "pulseaudio"
+          "network"
+          "cpu"
+          "memory"
+          "temperature"
+          "clock"
+          "tray"
+        ];
         "idle_inhibitor" = {
           "format" = "{icon}";
           "format-icons" = {
@@ -194,7 +204,11 @@ in {
           "hwmon-path" = "/sys/class/hwmon/hwmon5/temp1_input";
           "critical-threshold" = 80;
           "format" = "{temperatureC}°C {icon}";
-          "format-icons" = ["" "" ""];
+          "format-icons" = [
+            ""
+            ""
+            ""
+          ];
         };
         "battery" = {
           "states" = {
@@ -205,7 +219,13 @@ in {
           "format-charging" = "{capacity}% ";
           "format-plugged" = "{capacity}% ";
           "format-alt" = "{time} {icon}";
-          "format-icons" = ["" "" "" "" ""];
+          "format-icons" = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
         "network" = {
           "format-wifi" = "{essid} ({signalStrength}%) ";
@@ -229,7 +249,11 @@ in {
             "phone" = "";
             "portable" = "";
             "car" = "";
-            "default" = ["" "" ""];
+            "default" = [
+              ""
+              ""
+              ""
+            ];
           };
           "on-click" = "pavucontrol";
         };
@@ -336,11 +360,6 @@ in {
         active_opacity = 1.0;
         inactive_opacity = 1.0;
 
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        # "col.shadow" = "rgba(1a1a1aee)";
-
         # https://wiki.hyprland.org/Configuring/Variables/#blur
         blur = {
           enabled = true;
@@ -382,7 +401,7 @@ in {
       # https://wiki.hyprland.org/Configuring/Variables/#misc
       misc = {
         force_default_wallpaper = "-1"; # Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo = "-1"; # If true disables the random hyprland logo / anime girl background. :(
+        # disable_hyprland_logo = "-1"; # If true disables the random hyprland logo / anime girl background. :(
         key_press_enables_dpms = true;
       };
 

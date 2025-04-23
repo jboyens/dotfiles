@@ -5,7 +5,7 @@
   ...
 }: {
   programs.waybar = {
-    enable = true;
+    enable = false;
     systemd = {
       enable = false;
       target = "sway-session.target";

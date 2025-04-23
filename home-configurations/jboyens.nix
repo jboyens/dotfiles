@@ -31,6 +31,7 @@
       secrets
       script-directory
       styling
+      sway
       swaywm-keybindings
       tmux
       waybar

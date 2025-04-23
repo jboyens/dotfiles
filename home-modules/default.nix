@@ -8,7 +8,7 @@
   ];
 
   xdg.mimeApps = {
-    enable = false;
+    enable = true;
 
     defaultApplications = {
       "x-scheme-handler/https" = "firefox.desktop";

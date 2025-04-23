@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   ezModules,
+  config,
   ...
 }: let
   kernel = pkgs.linuxPackages_latest;
@@ -85,7 +86,7 @@ in {
       kernelModules = [];
     };
 
-    blacklistedKernelModules = ["nouveau"];
+    # blacklistedKernelModules = [ "nouveau" ];
     extraModulePackages = [];
     kernelModules = ["kvm-intel"];
 
@@ -126,7 +127,7 @@ in {
 
   environment.systemPackages = [kernel.perf];
   environment.variables = {
-    VDPAU_DRIVER = lib.mkOverride 990 "nvidia";
+    # VDPAU_DRIVER = lib.mkOverride 990 "nvidia";
   };
 
   services = {
@@ -141,7 +142,7 @@ in {
       ];
     };
 
-    xserver.videoDrivers = ["nvidia"];
+    # xserver.videoDrivers = [ "nvidia" ];
   };
 
   hardware = {
@@ -155,14 +156,14 @@ in {
     cpu.intel.updateMicrocode = true;
 
     nvidia = {
-      modesetting.enable = true;
+      modesetting.enable = false;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
-      open = true;
-      nvidiaSettings = true;
-      package = kernel.nvidiaPackages.beta;
+      open = false;
+      nvidiaSettings = false;
+
       prime = {
-        sync.enable = true;
+        sync.enable = false;
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };

@@ -47,11 +47,11 @@
     # tumbler.enable = true;
     #
 
-    displayManager.sddm = {
-      enable = true;
-      theme = "catppuccin-mocha";
-      wayland.enable = true;
-    };
+    # displayManager.sddm = {
+    #   enable = true;
+    #   theme = "catppuccin-mocha";
+    #   wayland.enable = true;
+    # };
 
     # xserver = {
     #   enable = true;
@@ -73,12 +73,12 @@
     hyprland.enable = false;
     hyprlock.enable = false;
 
-    niri.enable = true;
+    niri.enable = false;
 
     # even though this is managed via home-manager, this sets up some pam stuff
     # that is important
     sway = {
-      enable = false;
+      enable = true;
 
       wrapperFeatures = {
         gtk = true;
