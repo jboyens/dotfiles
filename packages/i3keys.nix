@@ -6,7 +6,7 @@
 }:
 buildGoModule rec {
   pname = "i3keys";
-  version = "unstable-2022-10-24";
+  version = "0.0.16";
 
   src = fetchFromGitHub {
     owner = "RasmusLindroth";

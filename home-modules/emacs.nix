@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
   # myEmacsPkg = pkgs.emacs-pgtk;
@@ -38,7 +39,7 @@ in {
     };
   };
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = lib.mkOrder 550 ''
     ### emacs aliases
     e()     { emacsclient -c -n -a 'emacs' "$@" }
     ediff() { e --eval "(ediff-files \"$1\" \"$2\")"; }

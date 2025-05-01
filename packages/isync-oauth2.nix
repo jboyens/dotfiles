@@ -4,7 +4,6 @@
   isync,
   cyrus_sasl,
   cyrus-sasl-xoauth2,
-  sources,
 }:
 buildEnv {
   name = "isync-oauth2";

@@ -1,5 +1,5 @@
 {lib, ...}: {
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = lib.mkOrder 550 ''
     function osc7-pwd() {
         emulate -L zsh # also sets localoptions for us
         setopt extendedglob

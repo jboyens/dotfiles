@@ -1,0 +1,25 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p curl nix-update
+
+# shellcheck shell=bash
+
+nix-update -F \
+	-vr 'pizauth-(.*)' \
+	--build pizauth
+
+nix-update -F \
+	--build i3keys
+
+nix-update -F \
+	--build pragmasevka
+
+nix-update -F \
+	--build cyrus-sasl-xoauth2
+
+nix-update -F \
+	--version "$(curl https://d324d25svypnd9.cloudfront.net/tauri/latest-version)" \
+	--build moment
+
+nix-update -F \
+	--version "$(curl https://d1zyf2h5975v9k.cloudfront.net/tauri/latest-version)" \
+	--build moment-staging

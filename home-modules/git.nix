@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   home.packages = with pkgs.gitAndTools; [
@@ -45,7 +46,7 @@
       gv = "git rev-parse";
     };
 
-    initExtra = ''
+    initContent = lib.mkOrder 550 ''
       ### git aliases
       g() { [[ $# = 0 ]] && git status --short . || git $*; }
 

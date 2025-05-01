@@ -207,7 +207,7 @@ in {
   };
 
   home.file = {
-    ".mozilla/native-messaging-hosts/tridactyl.json".source = "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
+    # ".mozilla/native-messaging-hosts/tridactyl.json".source = "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
 
     ".config/tridactyl/tridactylrc".text = ''
       " Comment toggler for Reddit, Hacker News, and Lobste.rs

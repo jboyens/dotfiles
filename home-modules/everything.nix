@@ -35,7 +35,7 @@
 
       spotify
 
-      signal-desktop-bin
+      signal-desktop
       slack
       # zoom-us
       (zoom-us.overrideAttrs {
@@ -210,26 +210,28 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    zsh.initExtra = lib.concatStringsSep "\n" [
-      ''
-        ### docker aliases
-        alias dk=docker
-        alias dkc=docker-compose
-        alias dkm=docker-machine
-        alias dkl='dk logs'
-        alias dkcl='dkc logs'
+    zsh.initContent = lib.mkOrder 550 (
+      lib.concatStringsSep "\n" [
+        ''
+          ### docker aliases
+          alias dk=docker
+          alias dkc=docker-compose
+          alias dkm=docker-machine
+          alias dkl='dk logs'
+          alias dkcl='dkc logs'
 
-        dkclr() {
-          dk stop $(docker ps -a -q)
-          dk rm $(docker ps -a -q)
-        }
+          dkclr() {
+            dk stop $(docker ps -a -q)
+            dk rm $(docker ps -a -q)
+          }
 
-        dke() {
-          dk exec -it "$1" "''${@:1}"
-        }
-        ### end aliases
-      ''
-    ];
+          dke() {
+            dk exec -it "$1" "''${@:1}"
+          }
+          ### end aliases
+        ''
+      ]
+    );
 
     neovim = {
       enable = true;

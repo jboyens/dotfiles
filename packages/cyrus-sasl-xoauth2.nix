@@ -6,14 +6,25 @@
   automake,
   libtool,
   cyrus_sasl,
-  sources,
 }:
-stdenv.mkDerivation rec {
-  inherit (sources.cyrus-sasl-xoauth2) src pname;
+stdenv.mkDerivation {
+  pname = "cyrus-sasl-xoauth2";
+  version = "0.2";
 
-  version = lib.removePrefix "v" sources.cyrus-sasl-xoauth2.version;
+  src = fetchFromGitHub {
+    owner = "moriyoshi";
+    repo = "cyrus-sasl-xoauth2";
+    rev = "v0.2";
+    fetchSubmodules = false;
+    sha256 = "sha256-lI8uKtVxrziQ8q/Ss+QTgg1xTObZUTAzjL3MYmtwyd8=";
+  };
 
-  nativeBuildInputs = [autoconf automake libtool cyrus_sasl];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    cyrus_sasl
+  ];
   buildInputs = [];
 
   preConfigure = "./autogen.sh";

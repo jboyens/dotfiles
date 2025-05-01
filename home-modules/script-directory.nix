@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   programs.script-directory = {
@@ -13,7 +14,7 @@
   };
 
   programs.zsh = {
-    initExtra = ''
+    initContent = lib.mkOrder 550 ''
       fpath+="${pkgs.script-directory}/share/zsh/site-functions"
     '';
   };

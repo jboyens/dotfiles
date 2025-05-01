@@ -141,6 +141,7 @@
               vulnix
               deadnix
               colmena
+              nix-update
               ;
 
             # lix = lix-module.packages."${system}".default;
@@ -192,7 +193,7 @@
             {
               help = "update packages";
               name = "update-packages";
-              command = "(cd packages && nix shell github:berberman/nvfetcher/0.6.2 --command nvfetcher -c sources.toml -k ~/keyfile.toml)";
+              command = "update.sh";
             }
           ];
         };

@@ -1,26 +1,11 @@
-{
-  inputs,
-  pkgs,
-  lib,
-  ...
-}: let
-  inherit (pkgs) callPackage stdenv;
-
-  sources = callPackage ./_sources/generated.nix {};
-  mkPackage = path: callPackage path {inherit sources;};
-  mkPackages = list:
-    lib.mapAttrs (_: mkPackage) (lib.listToAttrs (lib.flatten (lib.map (e: {
-        name = e;
-        value = ./. + "/${e}.nix";
-      })
-      list)));
-in
-  mkPackages [
-    "isync-oauth2"
-    "cyrus-sasl-xoauth2"
-    "pizauth"
-    "pragmasevka"
-  ]
-  // {
-    gnupg = callPackage ./gnupg {};
-  }
+{pkgs, ...}: let
+  inherit (pkgs) callPackage;
+in {
+  moment = callPackage ./moment.nix {};
+  moment-staging = callPackage ./moment-staging.nix {};
+  pizauth = callPackage ./pizauth.nix {};
+  pragmasevka = callPackage ./pragmasevka.nix {};
+  isync-oauth2 = callPackage ./isync-oauth2.nix {};
+  cyrus-sasl-xoauth2 = callPackage ./cyrus-sasl-xoauth2.nix {};
+  i3keys = callPackage ./i3keys.nix {};
+}

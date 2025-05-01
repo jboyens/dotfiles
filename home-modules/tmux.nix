@@ -38,7 +38,7 @@
     TMUX_HOME = "${config.xdg.configHome}/tmux";
   };
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = lib.mkOrder 550 ''
     ### tmux aliases
     alias ta='tmux attach'
     alias tl='tmux ls'

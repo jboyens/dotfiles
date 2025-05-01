@@ -24,6 +24,7 @@ in {
       ezModules.hardware
       ezModules.pipewire
       ezModules.printing
+      ezModules.steam
       ezModules.styling
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [

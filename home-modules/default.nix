@@ -1,14 +1,23 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: let
+  inherit (pkgs) system;
+  inherit (self.packages."${system}") moment-staging;
+in {
   home.packages = with pkgs; [
     widevine-cdm
 
     ghostty
 
     gnomeExtensions.tiling-shell
+
+    moment-staging
   ];
 
   xdg.mimeApps = {
-    enable = true;
+    enable = false;
 
     defaultApplications = {
       "x-scheme-handler/https" = "firefox.desktop";

@@ -1,21 +1,22 @@
 {
   lib,
   rustPlatform,
-  sources,
+  fetchFromGitHub,
   ...
 }:
 rustPlatform.buildRustPackage {
-  inherit (sources.pizauth) src;
+  pname = "pizauth";
+  version = "1.0.7";
 
-  name = sources.pizauth.pname;
-  version = lib.removePrefix "v" sources.pizauth.version;
+  src = fetchFromGitHub {
+    owner = "ltratt";
+    repo = "pizauth";
+    rev = "pizauth-1.0.7";
+    fetchSubmodules = false;
+    sha256 = "sha256-lvG50Ej0ius4gHEsyMKOXLD20700mc4iWJxHK5DvYJc=";
+  };
 
-  # cargoSha256 = "sha256-DbWLNgr60vTbrcBRcJGRm+bLGNjhaXLizUuaeOPU5Rc=";
-  cargoLock = sources.pizauth.cargoLock."Cargo.lock";
-
-  # postPatch = ''
-  #   cp ${./pizauth-Cargo.lock} Cargo.lock
-  # '';
+  cargoHash = "sha256-WyQIk74AKfsv0noafCGMRS6o+Lq6CeP99AFSdYq+QHg=";
 
   postInstall = ''
     install -Dm644 $src/pizauth.1 -t $out/share/man/man1
