@@ -255,7 +255,7 @@ layout {
 // spawn-at-startup "alacritty" "-e" "fish"
 
 spawn-at-startup "@xwayland_satellite@"
-spawn-at-startup "@kanshi@"
+spawn-at-startup "@waydisplays@"
 spawn-at-startup "@waybar@"
 
 environment {

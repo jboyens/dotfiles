@@ -18,11 +18,11 @@
       foot
       fuzzel
       git
+      go
       gpg
       gtk
       # hyprland
       i3status-rust
-      kanshi
       mail
       niri
       # mako
@@ -36,6 +36,7 @@
       tmux
       waybar
       wayland
+      way-displays
       zsh
       ;
   };

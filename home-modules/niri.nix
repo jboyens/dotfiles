@@ -8,12 +8,12 @@
     "niri/config.kdl" = {
       source = pkgs.substituteAll {
         src = ./niri.kdl;
-        xwayland_satellite = "${lib.getExe pkgs.xwayland-satellite}";
-        kanshi = "${lib.getExe pkgs.kanshi}";
-        waybar = "${lib.getExe pkgs.waybar}";
-        ghostty = "${lib.getExe pkgs.ghostty}";
         fuzzel = "${lib.getExe pkgs.fuzzel}";
+        ghostty = "${lib.getExe pkgs.ghostty}";
         swaylock = "${lib.getExe pkgs.swaylock}";
+        waybar = "${lib.getExe pkgs.waybar}";
+        waydisplays = "${lib.getExe pkgs.way-displays}";
+        xwayland_satellite = "${lib.getExe pkgs.xwayland-satellite}";
       };
     };
   };

@@ -7,7 +7,10 @@
 }: {
   imports = [];
 
-  xdg.enable = true;
+  xdg = {
+    enable = true;
+    portal.xdgOpenUsePortal = true;
+  };
 
   home = {
     packages = with pkgs; [
