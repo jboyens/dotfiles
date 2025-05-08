@@ -1,45 +1,28 @@
-_: let
-  left = {
-    name = "LG Electronics LG Ultra HD 0x00011A21";
-    mode = "3840x2160@60Hz";
-  };
-
-  right = {
-    name = "LG Electronics LG ULTRAWIDE 205NTLE54632";
-    mode = "3440x1440@160Hz";
-  };
-in {
+{osConfig, ...}: {
   services.way-displays = {
     enable = true;
     settings = {
       ARRANGE = "ROW";
       ALIGN = "TOP";
       ORDER = [
+        "eDP-1"
+        "DP-6"
         "DP-2"
         "DP-1"
       ];
-      SCALING = true;
+      SCALING =
+        if (osConfig.networking.hostName == "mechagodzilla")
+        then false
+        else true;
       AUTO_SCALE = true;
       VRR_OFF = [
+        "eDP-1"
+        "DP-6"
         "DP-2"
         "DP-1"
       ];
     };
   };
 
-  wayland.windowManager.sway.config.output = {
-    "${left.name}" = {
-      inherit (left) mode;
-
-      position = "0,0";
-      subpixel = "rgb";
-    };
-
-    "${right.name}" = {
-      inherit (right) mode;
-
-      position = "3840,370";
-      subpixel = "rgb";
-    };
-  };
+  wayland.windowManager.sway.config.output = {};
 }

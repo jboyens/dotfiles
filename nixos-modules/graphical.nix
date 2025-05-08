@@ -14,6 +14,8 @@
   ];
 
   services = {
+    flatpak.enable = true;
+
     hypridle.enable = lib.mkIf config.programs.hyprland.enable true;
 
     # GNOME crypto services?
@@ -46,7 +48,7 @@
   xdg.portal = {
     enable = true;
     config.common.default = "*";
-    extraPortals = [pkgs.xdg-desktop-portal-wlr];
+    extraPortals = [pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
   };
 
   programs = {
@@ -64,6 +66,10 @@
         gtk = true;
         base = true;
       };
+
+      extraOptions = [
+        "--unsupported-gpu"
+      ];
 
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland

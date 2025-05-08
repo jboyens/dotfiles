@@ -15,6 +15,9 @@ in {
     gnomeExtensions.tiling-shell
 
     moment-staging
+
+    flatpak
+    gnome-software
   ];
 
   home.sessionVariables = let

@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   systemd.network.networks = let
     networkConfig = {
       DHCP = "yes";

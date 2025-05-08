@@ -32,7 +32,7 @@ in {
       common-cpu-intel
       common-pc-laptop
       common-pc-ssd
-      common-gpu-intel
+      common-gpu-nvidia
     ]);
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -86,7 +86,7 @@ in {
       kernelModules = [];
     };
 
-    # blacklistedKernelModules = [ "nouveau" ];
+    blacklistedKernelModules = ["nouveau"];
     extraModulePackages = [];
     kernelModules = ["kvm-intel"];
 
@@ -96,6 +96,8 @@ in {
       #      server/headless builds, but on my lonely home system I prioritize
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
+      "nvidia_drm.modeset=1"
+      "nvidia_drm.fbdev=1"
     ];
 
     kernelPatches = [];
@@ -125,9 +127,9 @@ in {
     }
   ];
 
-  environment.systemPackages = [kernel.perf];
+  environment.systemPackages = [kernel.perf kernel.cpupower];
   environment.variables = {
-    # VDPAU_DRIVER = lib.mkOverride 990 "nvidia";
+    VDPAU_DRIVER = lib.mkOverride 990 "nvidia";
   };
 
   services = {
@@ -142,7 +144,7 @@ in {
       ];
     };
 
-    # xserver.videoDrivers = [ "nvidia" ];
+    xserver.videoDrivers = ["nvidia"];
   };
 
   hardware = {
@@ -156,11 +158,11 @@ in {
     cpu.intel.updateMicrocode = true;
 
     nvidia = {
-      modesetting.enable = false;
+      modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
       open = false;
-      nvidiaSettings = false;
+      nvidiaSettings = true;
 
       prime = {
         sync.enable = false;

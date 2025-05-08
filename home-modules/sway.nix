@@ -157,26 +157,6 @@ in {
     systemd.enable = true;
     swaynag.enable = true;
 
-    wrapperFeatures = {
-      gtk = true;
-      base = true;
-    };
-
-    extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
-      export QT_QPA_PLATFORM=wayland
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      export MOZ_WEBRENDER=1
-      export MOZ_ENABLE_WAYLAND=1
-      export MOZ_DBUS_REMOTE=1
-      export XDG_SESSION_TYPE=wayland
-      export XDG_CURRENT_DESKTOP=sway
-      export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
-      export NIXOS_OZONE_WL=1
-      export WLR_DRM_NO_MODIFIERS=1
-    '';
-
     extraConfig = ''
       bindswitch --locked lid:toggle exec $DOTFILES/bin/laptop.sh
     '';
@@ -240,7 +220,30 @@ in {
         };
       };
 
-      workspaceOutputAssign = [];
+      assigns = {
+        "1" = [
+          {app_id = "Slack";}
+          {app_id = "signal";}
+          {app_id = "discord";}
+        ];
+      };
+
+      workspaceOutputAssign = [
+        {
+          workspace = "1";
+          output = [
+            "eDP-1"
+            "DP-2"
+          ];
+        }
+        {
+          workspace = "2";
+          output = [
+            "DP-6"
+            "DP-1"
+          ];
+        }
+      ];
 
       startup = [
         {
@@ -253,6 +256,18 @@ in {
         }
         {
           command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          always = false;
+        }
+        {
+          command = "signal-desktop";
+          always = false;
+        }
+        {
+          command = "discord";
+          always = false;
+        }
+        {
+          command = "slack";
           always = false;
         }
         # {
@@ -302,7 +317,7 @@ in {
           {
             command = "floating true,,sticky true";
             criteria = {
-              title = "Zoom Meeting";
+              class = "zoom";
             };
           }
           {
@@ -375,6 +390,12 @@ in {
             command = "resize set width 384px,,focus";
             criteria = {
               title = "^Extension: \\(Bitwarden.*";
+            };
+          }
+          {
+            command = "move to output eDP-1,,floating yes";
+            criteria = {
+              app_id = "moment-tauri-app";
             };
           }
         ];

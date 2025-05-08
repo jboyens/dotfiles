@@ -41,22 +41,14 @@
       signal-desktop
       slack
       # zoom-us
-      (zoom-us.overrideAttrs {
-        version = "6.2.11.5069";
-        src = pkgs.fetchurl {
-          url = "https://zoom.us/client/6.2.11.5069/zoom_x86_64.pkg.tar.xz";
-          hash = "sha256-k8T/lmfgAFxW1nwEyh61lagrlHP5geT2tA7e5j61+qw=";
-        };
-      })
+      # (zoom-us.overrideAttrs {
+      #   version = "6.2.11.5069";
+      #   src = pkgs.fetchurl {
+      #     url = "https://zoom.us/client/6.2.11.5069/zoom_x86_64.pkg.tar.xz";
+      #     hash = "sha256-k8T/lmfgAFxW1nwEyh61lagrlHP5geT2tA7e5j61+qw=";
+      #   };
+      # })
       discord
-      (makeDesktopItem {
-        name = "Google Meet";
-        desktopName = "Google Meet";
-        genericName = "Open Google Meet";
-        icon = "chrome-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
-        exec = "chromium \"--profile-directory=Default\" --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan --ozone-platform-hint=auto";
-        categories = ["Network"];
-      })
 
       brightnessctl
       playerctl
