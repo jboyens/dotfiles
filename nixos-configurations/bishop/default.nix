@@ -93,7 +93,8 @@ in {
     };
 
     blacklistedKernelModules = [];
-    extraModulePackages = with kernel; [v4l2loopback];
+    # extraModulePackages = with kernel; [ v4l2loopback ];
+    extraModulePackages = [];
     kernelModules = ["kvm-amd"];
 
     kernelParams = [

@@ -3,9 +3,7 @@
   lib,
   ...
 }: let
-  filteredInputs =
-    lib.filterAttrs (n: _: n != "self")
-    inputs;
+  filteredInputs = lib.filterAttrs (n: _: n != "self") inputs;
   nixPathInputs = lib.mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
   registryInputs = lib.mapAttrs (_: v: {flake = v;}) filteredInputs;
 in {
@@ -44,8 +42,14 @@ in {
     settings = {
       sandbox = true;
 
-      trusted-users = ["root" "@wheel"];
-      allowed-users = ["@wheel" "nix-ssh"];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      allowed-users = [
+        "@wheel"
+        "nix-ssh"
+      ];
 
       auto-optimise-store = true;
     };
@@ -53,7 +57,11 @@ in {
     # HACK
     nixPath = nixPathInputs ++ ["nixpkgs=${inputs.nixpkgs}"];
 
-    registry = registryInputs // {nixpkgs.flake = inputs.nixpkgs;};
+    registry =
+      registryInputs
+      // {
+        nixpkgs.flake = inputs.nixpkgs;
+      };
 
     extraOptions = ''
       experimental-features = nix-command flakes

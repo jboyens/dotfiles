@@ -163,7 +163,7 @@
     "nglayout.initialpaint.delay" = 0;
 
     # force webrender to use Wayland
-    "gfx.webrender.compositor.force-enabled" = true;
+    # "gfx.webrender.compositor.force-enabled" = true;
 
     # Disable crash reports
     "breakpad.reportURL" = "";
