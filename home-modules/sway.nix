@@ -180,6 +180,12 @@ in {
       };
 
       input = {
+        "1452:620:Apple_Inc._Magic_Keyboard_with_Numeric_Keypad" = {
+          xkb_layout = "us";
+          xkb_model = "applealu_ansi";
+          xkb_variant = "dvorak";
+        };
+
         "1:1:AT_Translated_Set_2_keyboard" = {
           xkb_model = "dell";
           xkb_layout = "us";

@@ -16,10 +16,4 @@ nix-update -F \
 nix-update -F \
 	--build cyrus-sasl-xoauth2
 
-nix-update -F \
-	--version "$(curl https://d324d25svypnd9.cloudfront.net/tauri/latest-version)" \
-	--build moment
-
-nix-update -F \
-	--version "$(curl https://d1zyf2h5975v9k.cloudfront.net/tauri/latest-version)" \
-	--build moment-staging
+./update-moment.sh

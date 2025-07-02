@@ -16,11 +16,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "moment";
-  version = "0.3.560+611";
+  version = "0.3.569+717";
 
   src = fetchurl {
     url = "https://d324d25svypnd9.cloudfront.net/tauri/linux/Moment_${lib.escapeURL version}_amd64.deb";
-    sha256 = "sha256-q2axsHqZS+Y/AJZP74dJFag8UYuln+TdbmttN0dOyX4=";
+    sha256 = "sha256-iOySfw6B/y3fa1oLHIHuLg/vHG0jnXdTgeCR6QW3TLQ=";
   };
 
   nativeBuildInputs = [

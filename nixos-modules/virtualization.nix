@@ -2,6 +2,7 @@
   environment.systemPackages = with pkgs; [
     docker
     docker-compose
+    docker-buildx
 
     qemu
 
@@ -41,7 +42,11 @@
       enableOnBoot = true;
       # enableNvidia = config.hardware.nvidia.modesetting.enable;
       autoPrune.enable = true;
-      listenOptions = ["/run/docker.sock" "127.0.0.1:2376" "[::1]:2376"];
+      listenOptions = [
+        "/run/docker.sock"
+        "127.0.0.1:2376"
+        "[::1]:2376"
+      ];
     };
   };
 }

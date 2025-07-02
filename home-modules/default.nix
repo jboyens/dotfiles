@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (pkgs) system;
-  inherit (self.packages."${system}") moment-staging;
+  inherit (self.packages."${system}") moment-staging moment;
 in {
   home = {
     packages = with pkgs; [
@@ -15,7 +15,8 @@ in {
 
       gnomeExtensions.tiling-shell
 
-      moment-staging
+      # moment
+      # (lib.lowPrio moment-staging)
 
       flatpak
       gnome-software

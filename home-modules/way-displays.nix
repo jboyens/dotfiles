@@ -1,22 +1,39 @@
-{osConfig, ...}: {
-  services.way-displays = {
+{
+  osConfig,
+  lib,
+  ...
+}: {
+  services.way-displays = let
+    isMechagodzilla = osConfig.networking.hostName == "mechagodzilla";
+  in {
     enable = true;
     settings = {
       ARRANGE = "ROW";
-      ALIGN = "TOP";
+      ALIGN =
+        if isMechagodzilla
+        then "BOTTOM"
+        else "TOP";
       ORDER = [
         "eDP-1"
+        "DP-3"
         "DP-6"
         "DP-2"
         "DP-1"
       ];
-      SCALING =
-        if (osConfig.networking.hostName == "mechagodzilla")
+      SCALING = true;
+      SCALE = [
+        (lib.mkIf isMechagodzilla {
+          NAME_DESC = "DP-3";
+          SCALE = "1.5";
+        })
+      ];
+      AUTO_SCALE =
+        if isMechagodzilla
         then false
         else true;
-      AUTO_SCALE = true;
       VRR_OFF = [
         "eDP-1"
+        "DP-3"
         "DP-6"
         "DP-2"
         "DP-1"

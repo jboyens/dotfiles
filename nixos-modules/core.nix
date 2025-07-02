@@ -134,6 +134,7 @@
     gnome = {
       gnome-keyring.enable = true;
       gnome-settings-daemon.enable = true;
+      gcr-ssh-agent.enable = false;
     };
   };
 
