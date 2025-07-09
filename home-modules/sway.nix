@@ -414,7 +414,7 @@ in {
             position = "bottom";
             statusCommand = "i3status-rs config-bottom.toml";
           }
-          // config.lib.stylix.sway.bar
+          // config.stylix.targets.sway.exportedBarConfig
         )
       ];
     };

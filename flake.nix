@@ -101,9 +101,12 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         base16.follows = "base16";
-        home-manager.follows = "home-manager";
-        flake-compat.follows = "flake-compat";
       };
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

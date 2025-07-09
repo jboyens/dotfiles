@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-  imports = [];
+  imports = [inputs.nixvim.homeModules.nixvim];
 
   xdg = {
     enable = true;

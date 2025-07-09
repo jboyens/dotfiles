@@ -16,11 +16,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "moment-staging";
-  version = "0.3.570-staging+753";
+  version = "0.3.570-staging+774";
 
   src = fetchurl {
     url = "https://d1zyf2h5975v9k.cloudfront.net/tauri/linux/%5Bstaging%5D+Moment_${lib.escapeURL version}_amd64.deb";
-    sha256 = "sha256-olaj9say49a9286CTH1zw/zpeXrV6Xv/6BZR+Q2xgTE=";
+    sha256 = "sha256-oYJC0DlR2Vw3jVOUl9KD6jLYrFdWRHXrD2GbP6ixufw=";
   };
 
   nativeBuildInputs = [
