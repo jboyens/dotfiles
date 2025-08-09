@@ -114,6 +114,7 @@
     self,
     # lix-module,
     flake-parts,
+    nixpkgs,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -130,7 +131,7 @@
         lib,
         ...
       }: let
-        pkgs = import inputs.nixpkgs {
+        pkgs = import nixpkgs {
           inherit system;
         };
       in {
