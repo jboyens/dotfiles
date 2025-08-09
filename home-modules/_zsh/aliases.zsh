@@ -34,6 +34,7 @@ rcp() {
   # -J = don't touch mtimes on symlinks (always errors)
   rsync -azPJ \
     --include=.git/ \
+    --include=.jj/ \
     --filter=':- .gitignore' \
     --filter=":- $XDG_CONFIG_HOME/git/ignore" \
     "$@"
