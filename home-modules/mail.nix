@@ -6,8 +6,7 @@
 }: let
   # inherit (cell.packages) pizauth isync-oauth2;
   inherit (pkgs.stdenv) system;
-  pizauth = self.packages."${system}".pizauth;
-  isync-oauth2 = self.packages."${system}".isync-oauth2;
+  inherit (self.packages."${system}") pizauth isync-oauth2;
 in {
   home.packages = [
     inputs.nixpkgs-unstable.legacyPackages.${system}.mu
@@ -45,7 +44,9 @@ in {
           RestartSec = "30";
         };
 
-        Install = {WantedBy = ["default.target"];};
+        Install = {
+          WantedBy = ["default.target"];
+        };
       };
 
       mbsync = {
@@ -76,7 +77,9 @@ in {
           Persistent = "true";
         };
 
-        Install = {WantedBy = ["default.target"];};
+        Install = {
+          WantedBy = ["default.target"];
+        };
       };
     };
   };
