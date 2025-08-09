@@ -7,6 +7,8 @@
   nixPathInputs = lib.mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
   registryInputs = lib.mapAttrs (_: v: {flake = v;}) filteredInputs;
 in {
+  nixpkgs.overlays = [];
+
   nix = {
     settings = {
       substituters = ["https://cache.nixos.org"];
