@@ -130,6 +130,7 @@ in {
   environment.systemPackages = [kernel.perf kernel.cpupower];
   environment.variables = {
     VDPAU_DRIVER = lib.mkOverride 990 "nvidia";
+    LIBVA_DRIVER_NAME = "nvidia";
   };
 
   services = {

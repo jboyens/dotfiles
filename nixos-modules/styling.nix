@@ -13,7 +13,9 @@
     # front of all the colors values
     base16Scheme = {
       # yaml = "${inputs.base16-schemes}/base16/onedark.yaml";
-      yaml = "${inputs.base16-schemes}/base16/material-palenight.yaml";
+      # yaml = "${inputs.base16-schemes}/base16/material-palenight.yaml";
+      # yaml = "${inputs.base16-schemes}/base16/summercamp.yaml";
+      yaml = "${inputs.base16-schemes}/base16/nord.yaml";
       use-ifd = "always";
     };
 

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  config,
   osConfig,
   ...
 }: {
@@ -18,17 +19,17 @@
       bottom = {
         settings = {
           theme = {
-            theme = "dracula";
-            overrides = {
-              alternating_tint_bg = "#11111100";
-              alternating_tint_fg = "#11111100";
-            };
+            theme = "native";
+            overrides =
+              {
+              }
+              // config.lib.stylix.i3status-rust.bar;
           };
 
           icons_format = "{icon} ";
           icons.icons = "material-nf";
         };
-        theme = "dracula";
+        theme = "native";
 
         blocks = [
           {
