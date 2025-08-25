@@ -11,7 +11,7 @@
 
   settings = {
     # Default to dark theme in DevTools panel
-    "devtools.theme" = "dark";
+    # "devtools.theme" = "dark";
     # Enable ETP for decent security (makes firefox containers and many
     # common security/privacy add-ons redundant).
     "browser.contentblocking.category" = "strict";
@@ -246,7 +246,7 @@ in {
       bindurl ^https://duckduckgo.com f hint -Jc[data-testid=result]
       bindurl ^https://duckduckgo.com F hint -Jbc[data-testid=result]
 
-      set theme dark
+      " set theme dark
 
       " Defaults to 300ms but I'm a 'move fast and close the wrong tabs' kinda chap
       set hintdelay 100

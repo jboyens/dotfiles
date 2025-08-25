@@ -169,6 +169,8 @@ in {
   services = {
     thermald.enable = false;
 
+    nixseparatedebuginfod.enable = true;
+
     # firmware updates
     fwupd = {
       enable = true;
