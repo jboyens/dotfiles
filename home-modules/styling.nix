@@ -1,5 +1,6 @@
 _: {
-  stylix.targets.firefox.profileNames = ["default"];
+  stylix.targets.firefox.profileNames = [ "default" ];
   stylix.targets.kde.enable = false;
   stylix.targets.qt.enable = false;
+  stylix.targets.emacs.enable = true;
 }

@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   stylix = {
@@ -12,17 +13,20 @@
     # which causes a parse error otherwise due to the addition of "#" marks in
     # front of all the colors values
     base16Scheme = {
-      # yaml = "${inputs.base16-schemes}/base16/onedark.yaml";
-      # yaml = "${inputs.base16-schemes}/base16/material-palenight.yaml";
-      # yaml = "${inputs.base16-schemes}/base16/summercamp.yaml";
-      yaml = "${inputs.base16-schemes}/base16/nord.yaml";
+      #   # yaml = "${inputs.base16-schemes}/base16/onedark.yaml";
+      #   # yaml = "${inputs.base16-schemes}/base16/material-palenight.yaml";
+      #   # yaml = "${inputs.base16-schemes}/base16/summercamp.yaml";
+      # yaml = "${inputs.base16-schemes}/base16/nord.yaml";
+      yaml = "${inputs.base16-schemes}/base16/monokai.yaml";
       use-ifd = "always";
     };
 
     # image = /home/jboyens/hyprdots/Configs/.config/swww/Catppuccin-Mocha/aesthetic_deer.png;
     image = pkgs.fetchurl {
-      url = "https://w.wallhaven.cc/full/1p/wallhaven-1pewdv.jpg";
-      sha256 = "sha256-4thxoM75RUEHWZGT2e7S/KsdLZIJqAxzKJz/K2GgZ6U=";
+      # url = "https://w.wallhaven.cc/full/1p/wallhaven-1pewdv.jpg";
+      # sha256 = "sha256-4thxoM75RUEHWZGT2e7S/KsdLZIJqAxzKJz/K2GgZ6U=";
+      url = "https://w.wallhaven.cc/full/ml/wallhaven-ml9r9k.png";
+      sha256 = "sha256-xBBEgrPvGL5skMuReyKUoUxe2be10ktwBhN7+O9oZ7A=";
     };
     polarity = "dark";
 

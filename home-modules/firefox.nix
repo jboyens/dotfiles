@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   wrappedFF = pkgs.firefox-bin.override {
     nativeMessagingHosts = with pkgs; [
       tridactyl-native
@@ -86,7 +87,8 @@
     # https://github.com/tlswg/tls13-spec/issues/1001
     "security.tls.enable_0rtt_data" = false;
     # Use Mozilla geolocation service instead of Google if given permission
-    "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
+    "geo.provider.network.url" =
+      "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
     "geo.provider.use_gpsd" = false;
     # https://support.mozilla.org/en-US/kb/extension-recommendations
     "browser.newtabpage.activity-stream.asrouter.userprefs.cfr" = false;
@@ -179,7 +181,8 @@
     "extensions.formautofill.creditCards.enabled" = false;
     "extensions.formautofill.heuristics.enabled" = false;
   };
-in {
+in
+{
   home.sessionVariables = {
     XDG_DESKTOP_DIR = "${config.home.homeDirectory}/";
   };
