@@ -151,14 +151,15 @@
       yq-go
 
       # for pretty du
-      du-dust
+      dust
 
       # dig
       bind
 
       # sound
       pavucontrol
-      pamixer
+      # broken 10/8/2025
+      # pamixer
 
       # network
       mtr
@@ -264,6 +265,7 @@
   # services = {xserver.enable = lib.mkDefault false;};
 
   services.mpris-proxy.enable = true;
+  services.tailscale-systray.enable = true;
 
   home.pointerCursor = {
     package = lib.mkDefault pkgs.bibata-cursors;

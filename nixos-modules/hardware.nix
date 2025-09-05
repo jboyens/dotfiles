@@ -9,7 +9,6 @@
 
   services.udev = {
     packages = [
-      pkgs.android-udev-rules
       pkgs.solo2-cli
       pkgs.qmk-udev-rules
     ];

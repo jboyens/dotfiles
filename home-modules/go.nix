@@ -3,14 +3,16 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib.strings) removePrefix;
   inherit (config.home) homeDirectory;
 
   xdgDataHome = removePrefix homeDirectory config.xdg.dataHome;
-in {
+in
+{
   programs.go = {
     enable = true;
-    goPath = "${xdgDataHome}/go";
+    env.GOPATH = "${xdgDataHome}/go";
   };
 }

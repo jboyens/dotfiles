@@ -15,13 +15,13 @@
       (pkgs.iosevka-bin.override {variant = "Aile";})
       # (pkgs.iosevka-bin.override {variant = "aile";})
       self.packages."${system}".pragmasevka
-      pkgs.noto-fonts-emoji
+      pkgs.noto-fonts-color-emoji
 
-      ubuntu_font_family
+      ubuntu-classic
       dejavu_fonts
       symbola
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       noto-fonts-cjk-sans
       cascadia-code
       atkinson-hyperlegible

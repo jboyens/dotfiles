@@ -7,9 +7,11 @@
   # inherit (cell.packages) pizauth isync-oauth2;
   inherit (pkgs.stdenv) system;
   inherit (self.packages."${system}") pizauth isync-oauth2;
+
+  fixed_mu = inputs.nixpkgs-unstable.legacyPackages.${system}.mu;
 in {
   home.packages = [
-    inputs.nixpkgs-unstable.legacyPackages.${system}.mu
+    fixed_mu
     pkgs.offlineimap
     pkgs.age
 
@@ -19,7 +21,7 @@ in {
       if [ -f /tmp/mu4e_lock ]; then
         ${pkgs.coreutils-full}/bin/touch /tmp/mu_reindex_now
       else
-        ${pkgs.mu}/bin/mu index --lazy-check
+        ${fixed_mu}/bin/mu index --lazy-check
       fi
     '')
 
@@ -38,7 +40,7 @@ in {
         };
 
         Service = {
-          Environment = "PATH=${isync-oauth2}/bin:${pkgs.mu}/bin:${pizauth}/bin:$PATH";
+          Environment = "PATH=${isync-oauth2}/bin:${fixed_mu}/bin:${pizauth}/bin:$PATH";
           ExecStart = "${pkgs.goimapnotify}/bin/goimapnotify -conf %h/.config/imapnotify/notify.yaml";
           Restart = "always";
           RestartSec = "30";

@@ -11,6 +11,7 @@
       fontSize = "12";
       # background = "${./wallpaper.png}";
     })
+    pkgs.obs-studio
   ];
 
   services = {
@@ -33,6 +34,19 @@
     # D-Bus thumbnailer
     tumbler.enable = true;
     #
+
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+
+    desktopManager = {
+      plasma6.enable = true;
+      cosmic = {
+        enable = true;
+        xwayland.enable = true;
+      };
+    };
 
     xserver = {
       enable = true;

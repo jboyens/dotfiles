@@ -4,7 +4,8 @@
   ezModules,
   config,
   ...
-}: let
+}:
+let
   kernel = pkgs.linuxPackages_latest;
   lib = pkgs.lib // builtins;
 
@@ -12,28 +13,28 @@
     hardware.enableRedistributableFirmware = true;
     boot.kernelPackages = kernel;
   };
-in {
-  imports =
-    [
-      # inputs.lix-module.nixosModules.default
-      inputs.home-manager.nixosModules.default
-      inputs.stylix.nixosModules.stylix
-      ezModules.android
-      ezModules.backup
-      ezModules.fonts
-      ezModules.graphical
-      ezModules.hardware
-      ezModules.pipewire
-      ezModules.printing
-      ezModules.styling
-    ]
-    ++ (with inputs.nixos-hardware.nixosModules; [
-      defaults
-      common-cpu-intel
-      common-pc-laptop
-      common-pc-ssd
-      common-gpu-nvidia
-    ]);
+in
+{
+  imports = [
+    # inputs.lix-module.nixosModules.default
+    inputs.home-manager.nixosModules.default
+    inputs.stylix.nixosModules.stylix
+    ezModules.android
+    ezModules.backup
+    ezModules.fonts
+    ezModules.graphical
+    ezModules.hardware
+    ezModules.pipewire
+    ezModules.printing
+    ezModules.styling
+  ]
+  ++ (with inputs.nixos-hardware.nixosModules; [
+    defaults
+    common-cpu-intel
+    common-pc-laptop
+    common-pc-ssd
+    common-gpu-nvidia
+  ]);
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
@@ -83,12 +84,12 @@ in {
         "rtsx_pci_sdmmc"
         "usbhid"
       ];
-      kernelModules = [];
+      kernelModules = [ ];
     };
 
-    blacklistedKernelModules = ["nouveau"];
-    extraModulePackages = [];
-    kernelModules = ["kvm-intel"];
+    blacklistedKernelModules = [ "nouveau" ];
+    extraModulePackages = [ ];
+    kernelModules = [ "kvm-intel" ];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -100,14 +101,14 @@ in {
       "nvidia_drm.fbdev=1"
     ];
 
-    kernelPatches = [];
+    kernelPatches = [ ];
   };
 
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/65c90037-d318-4276-afb4-85dcc2d06d62";
       fsType = "ext4";
-      options = ["noatime"];
+      options = [ "noatime" ];
     };
 
     "/boot" = {
@@ -127,7 +128,10 @@ in {
     }
   ];
 
-  environment.systemPackages = [kernel.perf kernel.cpupower];
+  environment.systemPackages = [
+    pkgs.perf
+    kernel.cpupower
+  ];
   environment.variables = {
     VDPAU_DRIVER = lib.mkOverride 990 "nvidia";
     LIBVA_DRIVER_NAME = "nvidia";
@@ -145,7 +149,7 @@ in {
       ];
     };
 
-    xserver.videoDrivers = ["nvidia"];
+    xserver.videoDrivers = [ "nvidia" ];
   };
 
   hardware = {
@@ -173,7 +177,7 @@ in {
     };
 
     openrazer.enable = false;
-    openrazer.users = ["jboyens"];
+    openrazer.users = [ "jboyens" ];
 
     graphics = {
       enable = true;

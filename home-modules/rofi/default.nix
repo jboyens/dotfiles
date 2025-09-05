@@ -24,7 +24,7 @@ in {
   };
 
   home.packages = [
-    (pkgs.rofi-wayland.override {
+    (pkgs.rofi.override {
       plugins = with pkgs; [
         rofi-calc
         rofi-emoji

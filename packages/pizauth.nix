@@ -6,17 +6,17 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "pizauth";
-  version = "1.0.7";
+  version = "1.0.9";
 
   src = fetchFromGitHub {
     owner = "ltratt";
     repo = "pizauth";
-    rev = "pizauth-1.0.7";
+    rev = "pizauth-1.0.9";
     fetchSubmodules = false;
-    sha256 = "sha256-lvG50Ej0ius4gHEsyMKOXLD20700mc4iWJxHK5DvYJc=";
+    sha256 = "sha256-RrmRdJOYvQ9/DaNXH8fQ3BCNdYba/6HcsT3EAV1qoNA=";
   };
 
-  cargoHash = "sha256-WyQIk74AKfsv0noafCGMRS6o+Lq6CeP99AFSdYq+QHg=";
+  cargoHash = "sha256-ZY1BcunsR4i8QomRrh9yKdH7CP84Wl7UGUZQ8LUCd68=";
 
   postInstall = ''
     install -Dm644 $src/pizauth.1 -t $out/share/man/man1

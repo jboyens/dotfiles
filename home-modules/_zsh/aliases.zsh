@@ -22,23 +22,24 @@ alias reboot='sudo reboot'
 
 # An rsync that respects gitignore
 rcp() {
-  # -a = -rlptgoD
-  #   -r = recursive
-  #   -l = copy symlinks as symlinks
-  #   -p = preserve permissions
-  #   -t = preserve mtimes
-  #   -g = preserve owning group
-  #   -o = preserve owner
-  # -z = use compression
-  # -P = show progress on transferred file
-  # -J = don't touch mtimes on symlinks (always errors)
-  rsync -azPJ \
-    --include=.git/ \
-    --include=.jj/ \
-    --filter=':- .gitignore' \
-    --filter=":- $XDG_CONFIG_HOME/git/ignore" \
-    "$@"
-}; compdef rcp=rsync
+    # -a = -rlptgoD
+    #   -r = recursive
+    #   -l = copy symlinks as symlinks
+    #   -p = preserve permissions
+    #   -t = preserve mtimes
+    #   -g = preserve owning group
+    #   -o = preserve owner
+    # -z = use compression
+    # -P = show progress on transferred file
+    # -J = don't touch mtimes on symlinks (always errors)
+    rsync -azPJ \
+        --include=.git/ \
+        --include=.jj/ \
+        --filter=':- .gitignore' \
+        --filter=":- $XDG_CONFIG_HOME/git/ignore" \
+        "$@"
+}
+compdef rcp=rsync
 alias rcpd='rcp --delete --delete-after'
 alias rcpu='rcp --chmod=go='
 alias rcpdu='rcpd --chmod=go='
@@ -50,36 +51,41 @@ alias jc='journalctl -xe'
 alias sc=systemctl
 alias ssc='sudo systemctl'
 
-if (( $+commands[eza] )); then
-  alias eza="eza --group-directories-first --git";
-  alias l="eza -blF";
-  alias ll="eza -abghilmu";
-  alias llm='ll --sort=modified'
-  alias la="LC_COLLATE=C eza -ablF";
-  alias tree='eza --tree'
+alias disp='sc --user restart way-displays.service'
+
+if command -v eza >/dev/null 2>&1; then
+    alias eza="eza --group-directories-first --git"
+    alias l="eza -blF"
+    alias ll="eza -abghilmu"
+    alias llm='ll --sort=modified'
+    alias la="LC_COLLATE=C eza -ablF"
+    alias tree='eza --tree'
 fi
 
-if (( $+commands[fzf] )); then
-  # fuzzy completion with 'z' when called without args
-  unalias z 2>/dev/null
-  function z {
-    [ $# -gt 0 ] && _z "$*" && return
-    cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-  }
+if command -v fzf >/dev/null 2>&1; then
+    # fuzzy completion with 'z' when called without args
+    unalias z 2>/dev/null
+    function z {
+        [ $# -gt 0 ] && _z "$*" && return
+        cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+    }
 fi
 
 autoload -U zmv
 
 function take {
-  mkdir "$1" && cd "$1";
-}; compdef take=mkdir
+    mkdir "$1" && cd "$1"
+}
+compdef take=mkdir
 
 function zman {
-  PAGER="less -g -I -s '+/^       "$1"'" man zshall;
+    PAGER="less -g -I -s '+/^       "$1"'" man zshall
 }
 
 # Create a reminder with human-readable durations, e.g. 15m, 1h, 40s, etc
 function r {
-  local time=$1; shift
-  sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding";
-}; compdef r=sched
+    local time=$1
+    shift
+    sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding"
+}
+compdef r=sched

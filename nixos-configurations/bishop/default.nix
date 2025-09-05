@@ -3,7 +3,8 @@
   pkgs,
   ezModules,
   ...
-}: let
+}:
+let
   kernel = pkgs.linuxPackages_latest;
   lib = pkgs.lib // builtins;
 
@@ -11,30 +12,30 @@
     hardware.enableRedistributableFirmware = true;
     boot.kernelPackages = kernel;
   };
-in {
-  imports =
-    [
-      # inputs.lix-module.nixosModules.default
-      inputs.home-manager.nixosModules.default
-      inputs.stylix.nixosModules.stylix
-      ezModules.android
-      ezModules.backup
-      ezModules.fonts
-      ezModules.graphical
-      ezModules.hardware
-      ezModules.pipewire
-      ezModules.printing
-      ezModules.steam
-      ezModules.styling
-    ]
-    ++ (with inputs.nixos-hardware.nixosModules; [
-      defaults
-      common-cpu-amd
-      common-cpu-amd-pstate
-      # common-cpu-amd-zenpower
-      common-pc-ssd
-      common-gpu-amd
-    ]);
+in
+{
+  imports = [
+    # inputs.lix-module.nixosModules.default
+    inputs.home-manager.nixosModules.default
+    inputs.stylix.nixosModules.stylix
+    ezModules.android
+    ezModules.backup
+    ezModules.fonts
+    ezModules.graphical
+    ezModules.hardware
+    ezModules.pipewire
+    ezModules.printing
+    ezModules.steam
+    ezModules.styling
+  ]
+  ++ (with inputs.nixos-hardware.nixosModules; [
+    defaults
+    common-cpu-amd
+    common-cpu-amd-pstate
+    # common-cpu-amd-zenpower
+    common-pc-ssd
+    common-gpu-amd
+  ]);
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
@@ -89,13 +90,13 @@ in {
         "usbhid"
         "sd_mod"
       ];
-      kernelModules = [];
+      kernelModules = [ ];
     };
 
-    blacklistedKernelModules = [];
+    blacklistedKernelModules = [ ];
     # extraModulePackages = with kernel; [ v4l2loopback ];
-    extraModulePackages = [];
-    kernelModules = ["kvm-amd"];
+    extraModulePackages = [ ];
+    kernelModules = [ "kvm-amd" ];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -142,7 +143,7 @@ in {
     "/" = {
       device = "/dev/nvme0n1p2";
       fsType = "ext4";
-      options = ["noatime"];
+      options = [ "noatime" ];
     };
 
     "/boot" = {
@@ -159,7 +160,7 @@ in {
   ];
 
   environment = {
-    systemPackages = [kernel.perf];
+    systemPackages = [ pkgs.perf ];
     variables = {
       LIBVA_DRIVER_NAME = "radeonsi";
       VDPAU_DRIVER = "radeonsi";
@@ -169,7 +170,10 @@ in {
   services = {
     thermald.enable = false;
 
-    nixseparatedebuginfod.enable = true;
+    # for undervolting
+    lact.enable = true;
+
+    nixseparatedebuginfod2.enable = true;
 
     # firmware updates
     fwupd = {
@@ -191,19 +195,20 @@ in {
     };
     cpu.amd.updateMicrocode = true;
 
-    # openrazer.enable = true;
-    # openrazer.users = ["jboyens"];
-
     amdgpu = {
-      amdvlk.enable = true;
+      overdrive.enable = true;
+      initrd.enable = true;
     };
+
+    openrazer.enable = true;
+    openrazer.users = [ "jboyens" ];
 
     graphics = {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
         mesa
-        vaapiVdpau
+        libva-vdpau-driver
       ];
     };
   };

@@ -1,4 +1,12 @@
-{lib, ...}: {
+{
+  lib,
+  self,
+  pkgs,
+  ...
+}: let
+  inherit (pkgs.stdenv.hostPlatform) system;
+  inherit (self.packages."${system}") bpftune;
+in {
   systemd.network.networks = let
     networkConfig = {
       DHCP = "yes";
@@ -41,7 +49,7 @@
   networking = {
     useDHCP = false;
     wireless = {
-      enable = false;
+      enable = lib.mkDefault false;
       iwd.enable = false;
       iwd.settings = {
         Rank = {
@@ -62,4 +70,5 @@
   services.davfs2.enable = true;
 
   services.bpftune.enable = true;
+  services.bpftune.package = bpftune;
 }

@@ -2,8 +2,10 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
-}: let
+}:
+let
   # myEmacsPkg = pkgs.emacs-pgtk;
   # myEmacsPkg = pkgs.emacs-unstable;
   myEmacsPkg = pkgs.emacs-unstable-pgtk;
@@ -14,10 +16,13 @@
     epkgs.vterm
     epkgs.parinfer-rust-mode
     epkgs.treesit-grammars.with-all-grammars
-    epkgs.mu4e
+    (epkgs.mu4e.override {
+      inherit (inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}) mu;
+    })
   ]);
-in {
-  home.sessionPath = ["${config.xdg.configHome}/emacs/bin"];
+in
+{
+  home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
 
   systemd.user.services.org-mode-sync = {
     Unit = {
@@ -35,7 +40,7 @@ in {
     };
 
     Install = {
-      WantedBy = ["default.target"];
+      WantedBy = [ "default.target" ];
     };
   };
 
@@ -56,7 +61,7 @@ in {
 
     ## Doom dependencies
     # git
-    (ripgrep.override {withPCRE2 = true;})
+    (ripgrep.override { withPCRE2 = true; })
     gnutls # for TLS connectivity
 
     ## Optional dependencies
@@ -70,12 +75,11 @@ in {
     ## Module dependencies
     # :checkers spell
     (aspellWithDicts (
-      ds:
-        with ds; [
-          en
-          en-computers
-          en-science
-        ]
+      ds: with ds; [
+        en
+        en-computers
+        en-science
+      ]
     ))
     # :checkers grammar
     # languagetool
@@ -96,8 +100,8 @@ in {
       desktopName = "org-protocol";
       exec = "${myEmacs}/bin/emacsclient -n %u";
       type = "Application";
-      categories = ["System"];
-      mimeTypes = ["x-scheme-handler/org-protocol"];
+      categories = [ "System" ];
+      mimeTypes = [ "x-scheme-handler/org-protocol" ];
     })
     # :lang nix
     nixfmt-rfc-style

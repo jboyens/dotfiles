@@ -3,8 +3,9 @@
   pkgs,
   lib,
   ...
-}: {
-  home.packages = with pkgs.gitAndTools; [
+}:
+{
+  home.packages = with pkgs; [
     git-annex
     gh
     git-open
@@ -115,41 +116,40 @@
     };
   };
 
-  systemd.user.timers = let
-    git-maintenance = {
-      Unit = {
-        Description = "Optimize Git repositories data";
-      };
+  systemd.user.timers =
+    let
+      git-maintenance = {
+        Unit = {
+          Description = "Optimize Git repositories data";
+        };
 
-      Timer = {
-        OnCalendar = "%i";
-        Persistent = "true";
-      };
+        Timer = {
+          OnCalendar = "%i";
+          Persistent = "true";
+        };
 
-      Install = {
-        WantedBy = ["timers.target"];
+        Install = {
+          WantedBy = [ "timers.target" ];
+        };
       };
+    in
+    {
+      "git-maintenance@hourly" = git-maintenance;
+      "git-maintenance@daily" = git-maintenance;
+      "git-maintenance@weekly" = git-maintenance;
     };
-  in {
-    "git-maintenance@hourly" = git-maintenance;
-    "git-maintenance@daily" = git-maintenance;
-    "git-maintenance@weekly" = git-maintenance;
+
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    options = {
+      display = "side-by-side";
+    };
   };
 
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
-
-    aliases = {
-      unadd = "reset HEAD";
-      ranked-authors = "!git authors | sort | uniq -c | sort -n";
-      emails = ''!git log --format="%aE" | sort -u'';
-      email-domains = ''!git log --format="%aE" | awk -F'@' '{print $2}' | sort -u'';
-      st = "status";
-
-      up = "push";
-      down = "pull";
-    };
+    package = pkgs.gitFull;
 
     attributes = [
       "*.c     diff=cpp"
@@ -180,10 +180,6 @@
     ];
 
     # diff-so-fancy.enable = true;
-    difftastic = {
-      enable = true;
-      display = "side-by-side";
-    };
 
     ignores = [
       "*~"
@@ -219,10 +215,23 @@
       signByDefault = true;
     };
 
-    userEmail = "jboyens@moment.dev";
-    userName = "JR Boyens";
+    settings = {
+      user = {
+        email = "jr@readme.io";
+        name = "JR Boyens";
+      };
 
-    extraConfig = {
+      alias = {
+        unadd = "reset HEAD";
+        ranked-authors = "!git authors | sort | uniq -c | sort -n";
+        emails = ''!git log --format="%aE" | sort -u'';
+        email-domains = ''!git log --format="%aE" | awk -F'@' '{print $2}' | sort -u'';
+        st = "status";
+
+        up = "push";
+        down = "pull";
+      };
+
       core = {
         excludesfile = "~/.gitignore";
         fsmonitor = true;
@@ -269,8 +278,10 @@
 
       maintenance = {
         repo = [
-          "/home/jboyens/Workspace/moment"
-          "/home/jboyens/Workspace/atlas"
+          "/home/jboyens/Workspace/gitto"
+          "/home/jboyens/Workspace/readme"
+          "/home/jboyens/Workspace/nixpkgs"
+          "/home/jboyens/Workspace/nodegit"
           "/home/jboyens/.config/dotfiles"
         ];
       };
