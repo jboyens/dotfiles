@@ -26,6 +26,7 @@
       mail
       niri
       # mako
+      obs
       pizauth
       rofi
       secrets
