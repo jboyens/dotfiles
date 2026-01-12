@@ -94,8 +94,8 @@ in
     };
 
     blacklistedKernelModules = [ ];
-    # extraModulePackages = with kernel; [ v4l2loopback ];
-    extraModulePackages = [ ];
+    extraModulePackages = with kernel; [ v4l2loopback ];
+    # extraModulePackages = [ ];
     kernelModules = [ "kvm-amd" ];
 
     kernelParams = [
@@ -133,6 +133,7 @@ in
       options iwlmvm power_scheme=1
       options iwlwifi 11n_disable=8
       options cfg80211 ieee80211_regdom=US
+      options v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
     '';
 
     # λ findmnt -no UUID -T /swapfile
