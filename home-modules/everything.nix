@@ -66,7 +66,7 @@
         categories = ["Development"];
       })
 
-      xfce.thunar
+      thunar
 
       # qgnomeplatform # QPlatformTheme for a better Qt application inclusion in GNOME
       # kdePackages.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
