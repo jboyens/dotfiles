@@ -236,7 +236,7 @@
       plugins = with pkgs.vimPlugins; [
         dracula-nvim
       ];
-      extraLuaConfig = ''
+      initLua = ''
         vim.cmd [[source ~/.config/nvim/init-custom.vim]]
       '';
     };
