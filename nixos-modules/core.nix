@@ -78,7 +78,7 @@
       wget
       whois
 
-      nixfmt-rfc-style
+      nixfmt
       nixpkgs-fmt
       alejandra
 
