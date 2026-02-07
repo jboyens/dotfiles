@@ -5,7 +5,7 @@
   ...
 }: let
   # inherit (cell.packages) pizauth isync-oauth2;
-  inherit (pkgs.stdenv) system;
+  inherit (pkgs.stdenv.hostPlatform) system;
   inherit (self.packages."${system}") pizauth isync-oauth2;
 
   fixed_mu = inputs.nixpkgs-unstable.legacyPackages.${system}.mu;

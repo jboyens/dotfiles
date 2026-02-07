@@ -2,12 +2,12 @@
   inputs,
   pkgs,
   ezModules,
-  config,
   ...
 }:
 let
+  inherit (pkgs) lib;
+
   kernel = pkgs.linuxPackages_latest;
-  lib = pkgs.lib // builtins;
 
   defaults = {
     hardware.enableRedistributableFirmware = true;
@@ -19,7 +19,6 @@ in
     # inputs.lix-module.nixosModules.default
     inputs.home-manager.nixosModules.default
     inputs.stylix.nixosModules.stylix
-    ezModules.android
     ezModules.backup
     ezModules.fonts
     ezModules.graphical

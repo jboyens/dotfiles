@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.wayland.windowManager.sway;
-in
-{
+in {
   home.packages = lib.mkIf cfg.enable [
     # autotiling
     # fuzzel
@@ -225,9 +223,9 @@ in
 
       assigns = {
         "1" = [
-          { app_id = "Slack"; }
-          { app_id = "signal"; }
-          { app_id = "discord"; }
+          {app_id = "Slack";}
+          {app_id = "signal";}
+          {app_id = "discord";}
         ];
       };
 

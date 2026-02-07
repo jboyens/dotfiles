@@ -3,39 +3,38 @@
   pkgs,
   ezModules,
   ...
-}:
-let
+}: let
+  inherit (pkgs) lib;
+
   kernel = pkgs.linuxPackages_latest;
-  lib = pkgs.lib // builtins;
 
   defaults = {
     hardware.enableRedistributableFirmware = true;
     boot.kernelPackages = kernel;
   };
-in
-{
-  imports = [
-    # inputs.lix-module.nixosModules.default
-    inputs.home-manager.nixosModules.default
-    inputs.stylix.nixosModules.stylix
-    ezModules.android
-    ezModules.backup
-    ezModules.fonts
-    ezModules.graphical
-    ezModules.hardware
-    ezModules.pipewire
-    ezModules.printing
-    ezModules.steam
-    ezModules.styling
-  ]
-  ++ (with inputs.nixos-hardware.nixosModules; [
-    defaults
-    common-cpu-amd
-    common-cpu-amd-pstate
-    # common-cpu-amd-zenpower
-    common-pc-ssd
-    common-gpu-amd
-  ]);
+in {
+  imports =
+    [
+      # inputs.lix-module.nixosModules.default
+      inputs.home-manager.nixosModules.default
+      inputs.stylix.nixosModules.stylix
+      ezModules.backup
+      ezModules.fonts
+      ezModules.graphical
+      ezModules.hardware
+      ezModules.pipewire
+      ezModules.printing
+      ezModules.steam
+      ezModules.styling
+    ]
+    ++ (with inputs.nixos-hardware.nixosModules; [
+      defaults
+      common-cpu-amd
+      common-cpu-amd-pstate
+      # common-cpu-amd-zenpower
+      common-pc-ssd
+      common-gpu-amd
+    ]);
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
@@ -50,17 +49,11 @@ in
   networking = {
     hostName = "bishop";
 
-    extraHosts = ''
-      192.168.86.1  router.home
-
-      # Hosts
-      192.168.86.100	irongiant
-      192.168.86.96	wall-e
-      192.168.86.34	mediaserver nas backup-host
-      192.168.49.2	dev dev.fooninja.org
-      192.168.1.240	argocd.fooninja.org
-      192.168.1.240	apps.fooninja.org
-    '';
+    hosts = {
+      "127.0.0.1" = [
+        "readme.local"
+      ];
+    };
   };
 
   # imports =
@@ -90,13 +83,13 @@ in
         "usbhid"
         "sd_mod"
       ];
-      kernelModules = [ ];
+      kernelModules = [];
     };
 
-    blacklistedKernelModules = [ ];
-    extraModulePackages = with kernel; [ v4l2loopback ];
+    blacklistedKernelModules = [];
+    extraModulePackages = with kernel; [v4l2loopback];
     # extraModulePackages = [ ];
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = ["kvm-amd"];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -144,7 +137,7 @@ in
     "/" = {
       device = "/dev/nvme0n1p2";
       fsType = "ext4";
-      options = [ "noatime" ];
+      options = ["noatime"];
     };
 
     "/boot" = {
@@ -161,7 +154,7 @@ in
   ];
 
   environment = {
-    systemPackages = [ pkgs.perf ];
+    systemPackages = [pkgs.perf];
     variables = {
       LIBVA_DRIVER_NAME = "radeonsi";
       VDPAU_DRIVER = "radeonsi";
@@ -202,7 +195,7 @@ in
     };
 
     openrazer.enable = true;
-    openrazer.users = [ "jboyens" ];
+    openrazer.users = ["jboyens"];
 
     graphics = {
       enable = true;

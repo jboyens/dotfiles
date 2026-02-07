@@ -46,6 +46,15 @@ in {
   # systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
   systemd.network.wait-online.enable = lib.mkForce false;
 
+  environment.etc = {
+    "NetworkManager/dnsmasq.d/readme.local-wildcard.conf" = {
+      text = ''
+        address=/.readme.local/127.0.0.1
+      '';
+      mode = "0444";
+    };
+  };
+
   networking = {
     useDHCP = false;
     wireless = {
@@ -58,7 +67,10 @@ in {
         };
       };
     };
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      dns = "dnsmasq";
+    };
     useNetworkd = false;
     domain = "fooninja.org";
 

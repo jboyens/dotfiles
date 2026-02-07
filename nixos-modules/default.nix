@@ -19,7 +19,6 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
-    # inputs.nixpkgs-wayland.overlay
     inputs.emacs-overlay.overlay
   ];
 

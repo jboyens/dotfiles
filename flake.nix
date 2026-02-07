@@ -14,24 +14,11 @@
     nixpkgs-stable.url = "nixpkgs/nixos-24.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-compat.url = "github:nix-community/flake-compat";
-    flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
 
-    lib-aggregate = {
-      url = "github:nix-community/lib-aggregate";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    # lix-module = {
-    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-utils.follows = "flake-utils";
-    # };
+    lib-aggregate.url = "github:nix-community/lib-aggregate";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -52,40 +39,14 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    nixpkgs-wayland = {
-      # url = "github:nix-community/nixpkgs-wayland/1ce086a5ec78554848ab094cc135eb6c26839642";
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        lib-aggregate.follows = "lib-aggregate";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
     base16.url = "github:SenchoPens/base16.nix";
     base16-schemes = {
       url = "github:tinted-theming/schemes";
       flake = false;
     };
 
-    catppuccin-base16 = {
-      url = "github:catppuccin/base16";
-      flake = false;
-    };
-
-    base16-rofi = {
-      url = "github:tinted-theming/base16-rofi";
-      flake = false;
-    };
-
-    catppuccin = {
-      url = "github:catppuccin/base16";
-      flake = false;
-    };
-
     devshell.url = "github:numtide/devshell";
 
-    mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
     ez-configs = {
       url = "github:ehllie/ez-configs";
       inputs = {
@@ -123,10 +84,11 @@
         inputs.ez-configs.flakeModule
       ];
 
+      debug = true;
+
       systems = ["x86_64-linux"];
 
       perSystem = {
-        config,
         system,
         lib,
         ...
@@ -169,6 +131,12 @@
               category = "NixOS";
               name = "boot";
               command = "${lib.getExe pkgs.nh} os boot";
+            }
+            {
+              help = "test new version";
+              category = "NixOS";
+              name = "test";
+              command = "${lib.getExe pkgs.nh} os test";
             }
             {
               help = "update flake";

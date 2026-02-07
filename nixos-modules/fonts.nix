@@ -47,6 +47,8 @@
       # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     ];
 
+    fontconfig.useEmbeddedBitmaps = true;
+
     fontconfig.defaultFonts = {
       serif = ["Iosevka Etoile"];
       sansSerif = ["Iosevka Aile"];

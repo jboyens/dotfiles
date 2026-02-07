@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   home.packages = with pkgs; [
     git-annex
     gh
@@ -116,28 +115,26 @@
     };
   };
 
-  systemd.user.timers =
-    let
-      git-maintenance = {
-        Unit = {
-          Description = "Optimize Git repositories data";
-        };
-
-        Timer = {
-          OnCalendar = "%i";
-          Persistent = "true";
-        };
-
-        Install = {
-          WantedBy = [ "timers.target" ];
-        };
+  systemd.user.timers = let
+    git-maintenance = {
+      Unit = {
+        Description = "Optimize Git repositories data";
       };
-    in
-    {
-      "git-maintenance@hourly" = git-maintenance;
-      "git-maintenance@daily" = git-maintenance;
-      "git-maintenance@weekly" = git-maintenance;
+
+      Timer = {
+        OnCalendar = "%i";
+        Persistent = "true";
+      };
+
+      Install = {
+        WantedBy = ["timers.target"];
+      };
     };
+  in {
+    "git-maintenance@hourly" = git-maintenance;
+    "git-maintenance@daily" = git-maintenance;
+    "git-maintenance@weekly" = git-maintenance;
+  };
 
   programs.difftastic = {
     enable = true;

@@ -1,8 +1,7 @@
 {
   inputs,
   cell,
-}:
-let
+}: let
   inherit (inputs.cells.common) pkgs;
 
   # nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
@@ -17,8 +16,7 @@ let
     hardware.enableRedistributableFirmware = true;
     boot.kernelPackages = kernel;
   };
-in
-{
+in {
   imports = with inputs.nixos-hardware.nixosModules; [
     defaults
     common-cpu-intel
@@ -28,7 +26,7 @@ in
     # common-gpu-nvidia
   ];
 
-  environment.systemPackages = [ pkgs.perf ];
+  environment.systemPackages = [pkgs.perf];
 
   boot = {
     initrd.availableKernelModules = [
@@ -41,14 +39,14 @@ in
       "cryptd"
       "thunderbolt"
     ];
-    initrd.kernelModules = [ "dm-snapshot" ];
+    initrd.kernelModules = ["dm-snapshot"];
 
     blacklistedKernelModules = [
       "iTCO_wdt"
       "nouveau"
     ];
-    extraModulePackages = with kernel; [ acpi_call ]; # v4l2loopback];
-    kernelModules = [ "kvm-intel" ]; # "v4l2loopback"];
+    extraModulePackages = with kernel; [acpi_call]; # v4l2loopback];
+    kernelModules = ["kvm-intel"]; # "v4l2loopback"];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -123,7 +121,7 @@ in
 
   # specialisation = {
   #   nvidia.configuration = {
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   # system.nixos.tags = ["nvidia"];
 
   environment.variables = {
@@ -165,7 +163,7 @@ in
     login.fprintAuth = true;
     swaylock.fprintAuth = true;
     polkit-1.fprintAuth = true;
-    hyprlock = { };
+    hyprlock = {};
   };
 
   services.logind.extraConfig = ''

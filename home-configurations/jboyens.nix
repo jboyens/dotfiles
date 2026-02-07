@@ -9,7 +9,7 @@
   imports = lib.attrValues {
     inherit
       (ezModules)
-      beancount
+      apps
       # devenv
       emacs
       everything
@@ -46,10 +46,6 @@
   home = {
     username = osConfig.users.users.jboyens.name;
     homeDirectory = osConfig.users.users.jboyens.home;
-
-    packages = [
-      pkgs.zathura
-    ];
 
     stateVersion = "24.11";
   };
