@@ -5,10 +5,10 @@
   osConfig,
   ezModules,
   ...
-}: {
+}:
+{
   imports = lib.attrValues {
-    inherit
-      (ezModules)
+    inherit (ezModules)
       apps
       # devenv
       emacs
@@ -22,26 +22,26 @@
       gpg
       gtk
       # hyprland
-      i3status-rust
+      # i3status-rust
       mail
-      niri
+      # niri
       # mako
       obs
       pizauth
-      rofi
+      # rofi
       secrets
       script-directory
       styling
-      sway
-      swaywm-keybindings
+      # sway
+      # swaywm-keybindings
       tmux
-      waybar
-      wayland
-      way-displays
+      # waybar
+      # wayland
+      # way-displays
       zsh
       ;
   };
-  _module.args = {inherit inputs;};
+  _module.args = { inherit inputs; };
 
   home = {
     username = osConfig.users.users.jboyens.name;
