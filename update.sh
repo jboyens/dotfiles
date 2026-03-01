@@ -16,4 +16,4 @@ nix-update -F \
 nix-update -F \
 	--build cyrus-sasl-xoauth2
 
-./update-moment.sh
+# ./update-moment.sh
