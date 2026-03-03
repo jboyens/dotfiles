@@ -1,0 +1,52 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+targetRules = ["generic-api-key"]
+description = "gpg signing key id is not secret"
+regexTarget = "match"
+regexes = [
+  '''785C9CAE60A7B23F''', # my key
+  '''FA1FADD9440B688CAA75A057B60957CA074D39A3''' # henrik's key
+]
+
+[[allowlists]]
+targetRules = ["generic-api-key"]
+description = "old openweathermap key that has been disabled"
+regexTarget = "match"
+regexes = [
+  '''3cdaeb.*'''
+]
+
+[[allowlists]]
+targetRules = ["generic-api-key"]
+description = "old pushover token that doesn't work anymore"
+regexTarget = "match"
+regexes = [
+  '''a6c5w7.*''',
+  '''u1f15w.*'''
+]
+
+[[allowlists]]
+targetRules = ["generic-api-key"]
+description = "old currency api key from henrik (hope he disabled it)"
+regexTarget = "match"
+regexes = [
+  '''92a7cc.*''',
+]
+
+[[allowlists]]
+targetRules = ["generic-api-key"]
+description = "ancient henrik key for prowl"
+regexTarget = "match"
+regexes = [
+  '''f610e0.*''',
+]
+
+[[allowlists]]
+targetRules = ["generic-api-key"]
+description = "ancient henrik key for atom feed"
+regexTarget = "match"
+regexes = [
+  '''510883__.*''',
+]
