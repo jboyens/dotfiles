@@ -2,7 +2,11 @@
   pkgs,
   self,
   ...
-}: {
+}:
+let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in
+{
   fonts = {
     fontDir.enable = true;
 
@@ -10,9 +14,9 @@
     enableDefaultPackages = true;
 
     packages = with pkgs; [
-      (pkgs.iosevka-bin.override {variant = "Etoile";})
+      (pkgs.iosevka-bin.override { variant = "Etoile"; })
       # (pkgs.iosevka-bin.override {variant = "etoile";})
-      (pkgs.iosevka-bin.override {variant = "Aile";})
+      (pkgs.iosevka-bin.override { variant = "Aile"; })
       # (pkgs.iosevka-bin.override {variant = "aile";})
       self.packages."${system}".pragmasevka
       pkgs.noto-fonts-color-emoji
@@ -33,7 +37,7 @@
       fira-code
       fira-mono
       iosevka-bin
-      (iosevka-bin.override {variant = "SGr-IosevkaTerm";})
+      (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
       # (iosevka-bin.override {variant = "sgr-iosevka-term";})
       iosevka-comfy.comfy
       iosevka-comfy.comfy-duo
@@ -50,10 +54,10 @@
     fontconfig.useEmbeddedBitmaps = true;
 
     fontconfig.defaultFonts = {
-      serif = ["Iosevka Etoile"];
-      sansSerif = ["Iosevka Aile"];
-      monospace = ["Pragmasevka"];
-      emoji = ["Noto Color Emoji"];
+      serif = [ "Iosevka Etoile" ];
+      sansSerif = [ "Iosevka Aile" ];
+      monospace = [ "Pragmasevka" ];
+      emoji = [ "Noto Color Emoji" ];
     };
   };
 }

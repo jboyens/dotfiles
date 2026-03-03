@@ -2,10 +2,12 @@
   pkgs,
   self,
   ...
-}: let
-  inherit (pkgs) system;
+}:
+let
+  inherit (pkgs.stdenv.hostPlatform) system;
   inherit (self.packages."${system}") pizauth;
-in {
+in
+{
   systemd.user = {
     services = {
       pizauth = {
@@ -24,7 +26,9 @@ in {
           RestartSec = "30";
         };
 
-        Install = {WantedBy = ["default.target"];};
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
       };
     };
   };

@@ -1,71 +1,51 @@
 {
   pkgs,
-  lib,
-  config,
   ...
-}: {
+}:
+{
   environment.systemPackages = [
-    (pkgs.catppuccin-sddm.override {
-      flavor = "mocha";
-      font = "Iosevka";
-      fontSize = "12";
-      # background = "${./wallpaper.png}";
-    })
     pkgs.obs-studio
+
+    pkgs.kdePackages.discover
+    pkgs.kdePackages.kcalc
+    pkgs.kdePackages.kcharselect
+    pkgs.kdePackages.kclock
+    pkgs.kdePackages.kcolorchooser
+    pkgs.kdePackages.kolourpaint
+    pkgs.kdePackages.ksystemlog
+    pkgs.kdePackages.sddm-kcm
+    pkgs.kdiff3
+    pkgs.kdePackages.kdesu
+
+    pkgs.kdePackages.isoimagewriter
+    pkgs.kdePackages.partitionmanager
+    pkgs.hardinfo2
+    pkgs.wayland-utils
+    pkgs.wl-clipboard
+    pkgs.vlc
+
+    pkgs.kdePackages.elisa
+    pkgs.kdePackages.kdepim-runtime
+    pkgs.kdePackages.kmahjongg
+    pkgs.kdePackages.kmines
+    pkgs.kdePackages.konversation
+    pkgs.kdePackages.kpat
+    pkgs.kdePackages.ksudoku
+    pkgs.kdePackages.ktorrent
   ];
+
+  environment.plasma6.excludePackages = [ ];
 
   services = {
     flatpak.enable = true;
 
-    hypridle.enable = lib.mkIf config.programs.hyprland.enable true;
-
-    # GNOME crypto services?
-    dbus.packages = [pkgs.gcr];
-
-    # Virtual filesystem support
-    gvfs.enable = true;
-
     # Printing
-    printing = {
-      enable = true;
-    };
+    printing.enable = true;
     system-config-printer.enable = true;
 
-    # D-Bus thumbnailer
-    tumbler.enable = true;
-    #
-
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
-
-    desktopManager = {
-      plasma6.enable = true;
-      cosmic = {
-        enable = true;
-        xwayland.enable = true;
-      };
-    };
-
-    xserver = {
-      enable = true;
-
-      # displayManager.startx.enable = true;
-      # displayManager.gdm.enable = true;
-      # desktopManager.gnome.enable = true;
-
-      windowManager.i3.enable = true;
-    };
-  };
-
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    displayManager.sddm.enable = true;
+    displayManager.sddm.wayland.enable = true;
+    desktopManager.plasma6.enable = true;
   };
 
   programs = {
@@ -75,18 +55,15 @@
 
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = ["jboyens"];
+      polkitPolicyOwners = [ "jboyens" ];
     };
 
-    hyprland.enable = false;
-    hyprlock.enable = false;
-
-    niri.enable = true;
+    niri.enable = false;
 
     # even though this is managed via home-manager, this sets up some pam stuff
     # that is important
     sway = {
-      enable = true;
+      enable = false;
 
       wrapperFeatures = {
         gtk = true;
@@ -113,7 +90,7 @@
     };
 
     thunar = {
-      enable = true;
+      enable = false;
       plugins = with pkgs; [
         thunar-archive-plugin
         thunar-volman

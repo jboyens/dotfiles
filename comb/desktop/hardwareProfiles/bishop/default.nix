@@ -1,7 +1,8 @@
 {
   inputs,
   cell,
-}: let
+}:
+let
   inherit (inputs.cells.common) pkgs;
 
   kernel = pkgs.linuxPackages_latest;
@@ -11,7 +12,8 @@
     hardware.enableRedistributableFirmware = true;
     boot.kernelPackages = kernel;
   };
-in {
+in
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     defaults
     common-cpu-amd
@@ -21,7 +23,7 @@ in {
     common-gpu-amd
   ];
 
-  environment.systemPackages = [kernel.perf];
+  environment.systemPackages = [ kernel.perf ];
 
   boot = {
     initrd.availableKernelModules = [
@@ -32,11 +34,11 @@ in {
       "usbhid"
       "sd_mod"
     ];
-    initrd.kernelModules = [];
+    initrd.kernelModules = [ ];
 
-    blacklistedKernelModules = [];
-    extraModulePackages = [];
-    kernelModules = ["kvm-amd"];
+    blacklistedKernelModules = [ ];
+    extraModulePackages = [ ];
+    kernelModules = [ "kvm-amd" ];
 
     kernelParams = [
       # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
@@ -45,8 +47,7 @@ in {
       #      raw performance over security.  The gains are minor.
       "mitigations=off"
     ];
-    extraModprobeConfig = ''
-    '';
+    extraModprobeConfig = "";
   };
   services = {
     thermald.enable = false;
@@ -76,7 +77,7 @@ in {
 
       extraPackages = with pkgs; [
         mesa_drivers
-        vaapiVdpau
+        libva-vdpau-driver
       ];
     };
   };
